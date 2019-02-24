@@ -1,0 +1,79 @@
+{
+    "generator-jhipster": {
+        "promptValues": {
+            "packageName": "com.ispp.thorneo",
+            "nativeLanguage": "es"
+        },
+        "jhipsterVersion": "5.8.1",
+        "applicationType": "monolith",
+        "baseName": "thorneo",
+        "packageName": "com.ispp.thorneo",
+        "packageFolder": "com/ispp/thorneo",
+        "serverPort": "8080",
+        "authenticationType": "jwt",
+        "cacheProvider": "ehcache",
+        "enableHibernateCache": true,
+        "websocket": false,
+        "databaseType": "sql",
+        "devDatabaseType": "mysql",
+        "prodDatabaseType": "mysql",
+        "searchEngine": "elasticsearch",
+        "messageBroker": false,
+        "serviceDiscoveryType": "eureka",
+        "buildTool": "maven",
+        "enableSwaggerCodegen": true,
+        "jwtSecretKey": "MTQ5ZDM0NTZiNDEwZWYyNTcyNWI4N2ZjMjA1YTk2NDM1YWZlY2FlNDlmN2E1MmY2YWQ4YzU1Mjc0ZDliZDk3MWM2Y2FiNTE2NzczMGE3NDFiOWRjNmJlOGIwNTI4Mjc2MzdlNTA5ZjVkYThlMzkxNTVjMDQ5ZmRlMTUxY2U1OGU=",
+        "clientFramework": "angularX",
+        "useSass": true,
+        "clientPackageManager": "npm",
+        "testFrameworks": ["gatling"],
+        "jhiPrefix": "jhi",
+        "entitySuffix": "",
+        "dtoSuffix": "DTO",
+        "otherModules": [
+            {
+                "name": "generator-jhipster-nav-element",
+                "version": "2.1.3"
+            },
+            {
+                "name": "generator-jhipster-primeng",
+                "version": "2.2.0"
+            },
+            {
+                "name": "generator-jhipster-swagger-cli",
+                "version": "3.0.1"
+            },
+            {
+                "name": "generator-jhipster-primeng-charts",
+                "version": "1.2.0"
+            },
+            {
+                "name": "generator-jhipster-leafletmap",
+                "version": "2.0.0"
+            },
+            {
+                "name": "generator-jhipster-audit-helper",
+                "version": "1.0.3"
+            },
+            {
+                "name": "generator-jhipster-translation",
+                "version": "1.0.4"
+            },
+            {
+                "name": "generator-jhipster-angular-material-integration",
+                "version": "1.0.11"
+            },
+            {
+                "name": "generator-jhipster-stripe-payment",
+                "version": "1.0.3"
+            },
+            {
+                "name": "generator-jhipster-aeropost",
+                "version": "1.9.0"
+            }
+        ],
+        "enableTranslation": true,
+        "nativeLanguage": "es",
+        "languages": ["es", "en"]
+    }
+}
