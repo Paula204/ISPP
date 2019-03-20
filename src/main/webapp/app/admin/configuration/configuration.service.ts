@@ -40,7 +40,7 @@ export class JhiConfigurationService {
             }
         }
         // by default, use the default ApplicationContext Id
-        return res['contexts']['thorneo']['beans'];
+        return res['contexts']['Thorneo']['beans'];
     }
 
     getEnv(): Observable<any> {

@@ -35,7 +35,7 @@ public class ThorneoApp {
     }
 
     /**
-     * Initializes thorneo.
+     * Initializes Thorneo.
      * <p>
      * Spring profiles can be configured with a program argument --spring.profiles.active=your-active-profile
      * <p>
