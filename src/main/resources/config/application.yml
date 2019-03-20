@@ -89,7 +89,7 @@ spring:
     autoconfigure:
         exclude: org.springframework.boot.autoconfigure.data.elasticsearch.ElasticsearchAutoConfiguration,org.springframework.boot.autoconfigure.data.elasticsearch.ElasticsearchDataAutoConfiguration
     application:
-        name: thorneo
+        name: Thorneo
     jpa:
         open-in-view: false
         properties:
@@ -138,11 +138,11 @@ jhipster:
         #allow-credentials: true
         #max-age: 1800
     mail:
-        from: thorneo@localhost
+        from: Thorneo@localhost
     swagger:
         default-include-pattern: /api/.*
-        title: thorneo API
-        description: thorneo API documentation
+        title: Thorneo API
+        description: Thorneo API documentation
         version: 0.0.1
         terms-of-service-url:
         contact-name:

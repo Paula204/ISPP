@@ -1,4 +1,4 @@
-# thorneo
+# Thorneo
 
 This application was generated using JHipster 5.8.1, you can find documentation and help at [https://www.jhipster.tech/documentation-archive/v5.8.1](https://www.jhipster.tech/documentation-archive/v5.8.1).
 
@@ -103,7 +103,7 @@ Refer to [Doing API-First development][] for more details.
 
 ## Building for production
 
-To optimize the thorneo application for production, run:
+To optimize the Thorneo application for production, run:
 
     ./mvnw -Pprod clean package
 
