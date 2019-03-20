@@ -44,7 +44,7 @@ spring:
             indent-output: true
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-        url: jdbc:mysql://localhost:3306/thorneo?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC
+        url: jdbc:mysql://localhost:3306/Thorneo?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC
         username: root
         password: admin
         hikari:
@@ -128,12 +128,12 @@ jhipster:
         authentication:
             jwt:
                 # This token must be encoded using Base64 and be at least 256 bits long (you can type `openssl rand -base64 64` on your command line to generate a 512 bits one)
-                base64-secret: MTQ5ZDM0NTZiNDEwZWYyNTcyNWI4N2ZjMjA1YTk2NDM1YWZlY2FlNDlmN2E1MmY2YWQ4YzU1Mjc0ZDliZDk3MWM2Y2FiNTE2NzczMGE3NDFiOWRjNmJlOGIwNTI4Mjc2MzdlNTA5ZjVkYThlMzkxNTVjMDQ5ZmRlMTUxY2U1OGU=
+                base64-secret: YTU5NTgzYjdkMWVlZDBhYTMxMGRmNjM1MDNiOWI4ZTg0NDg1MDY3NTE3NWE5OTczYWVkNDAyNjhhYjc0YWU0ZTJlZmU5MDVhMDFmMmRkZmNhOWVhNDAyZTZiMDhhNDJjNDRmMjMzMzk0NWU5NjBjOWQxMTQ2NzgyMWZhNmMxZWU=
                 # Token is valid 24 hours
                 token-validity-in-seconds: 86400
                 token-validity-in-seconds-for-remember-me: 2592000
     mail: # specific JHipster mail property, for standard properties see MailProperties
-        from: thorneo@localhost
+        from: Thorneo@localhost
         base-url: http://127.0.0.1:8080
     metrics:
         logs: # Reports metrics in the logs

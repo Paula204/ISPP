@@ -546,10 +546,10 @@
                         <changeLogFile>${project.basedir}/src/main/resources/config/liquibase/master.xml</changeLogFile>
                         <diffChangeLogFile>${project.basedir}/src/main/resources/config/liquibase/changelog/${maven.build.timestamp}_changelog.xml</diffChangeLogFile>
                         <driver>com.mysql.jdbc.Driver</driver>
-                        <url>jdbc:mysql://localhost:3306/thorneo</url>
-                        <defaultSchemaName>thorneo</defaultSchemaName>
+                        <url>jdbc:mysql://localhost:3306/Thorneo</url>
+                        <defaultSchemaName>Thorneo</defaultSchemaName>
                         <username>root</username>
-                        <password></password>
+                        <password>admin</password>
                         <referenceUrl>hibernate:spring:com.ispp.thorneo.domain?dialect=org.hibernate.dialect.MySQL5InnoDBDialect&amp;hibernate.physical_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy&amp;hibernate.implicit_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy</referenceUrl>
                         <verbose>true</verbose>
                         <logging>debug</logging>
