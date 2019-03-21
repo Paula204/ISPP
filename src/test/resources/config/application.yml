@@ -17,17 +17,17 @@ eureka:
     client:
         enabled: false
     instance:
-        appname: thorneo
-        instanceId: thorneo:${spring.application.instance-id:${random.value}}
+        appname: Thorneo
+        instanceId: Thorneo:${spring.application.instance-id:${random.value}}
 
 spring:
     application:
-        name: thorneo
+        name: Thorneo
     cache:
         type: simple
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-        url: jdbc:h2:mem:thorneo;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+        url: jdbc:h2:mem:Thorneo;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
         name:
         username:
         password:
@@ -98,7 +98,7 @@ jhipster:
         authentication:
             jwt:
                 # This token must be encoded using Base64 (you can type `echo 'secret-key'|base64` on your command line)
-                base64-secret: MTQ5ZDM0NTZiNDEwZWYyNTcyNWI4N2ZjMjA1YTk2NDM1YWZlY2FlNDlmN2E1MmY2YWQ4YzU1Mjc0ZDliZDk3MWM2Y2FiNTE2NzczMGE3NDFiOWRjNmJlOGIwNTI4Mjc2MzdlNTA5ZjVkYThlMzkxNTVjMDQ5ZmRlMTUxY2U1OGU=
+                base64-secret: YTU5NTgzYjdkMWVlZDBhYTMxMGRmNjM1MDNiOWI4ZTg0NDg1MDY3NTE3NWE5OTczYWVkNDAyNjhhYjc0YWU0ZTJlZmU5MDVhMDFmMmRkZmNhOWVhNDAyZTZiMDhhNDJjNDRmMjMzMzk0NWU5NjBjOWQxMTQ2NzgyMWZhNmMxZWU=
                 # Token is valid 24 hours
                 token-validity-in-seconds: 86400
     metrics:
