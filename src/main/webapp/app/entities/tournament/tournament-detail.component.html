@@ -1,0 +1,83 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="tournament">
+            <h2><span jhiTranslate="thorneoApp.tournament.detail.title">Tournament</span> {{tournament.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="thorneoApp.tournament.title">Title</span></dt>
+                <dd>
+                    <span>{{tournament.title}}</span>
+                </dd>
+                <dt><span jhiTranslate="thorneoApp.tournament.description">Description</span></dt>
+                <dd>
+                    <span>{{tournament.description}}</span>
+                </dd>
+                <dt><span jhiTranslate="thorneoApp.tournament.meetingDate">Meeting Date</span></dt>
+                <dd>
+                    <span>{{tournament.meetingDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="thorneoApp.tournament.meetingPoint">Meeting Point</span></dt>
+                <dd>
+                    <span>{{tournament.meetingPoint}}</span>
+                </dd>
+                <dt><span jhiTranslate="thorneoApp.tournament.city">City</span></dt>
+                <dd>
+                    <span>{{tournament.city}}</span>
+                </dd>
+                <dt><span jhiTranslate="thorneoApp.tournament.price">Price</span></dt>
+                <dd>
+                    <span>{{tournament.price}}</span>
+                </dd>
+                <dt><span jhiTranslate="thorneoApp.tournament.playerSize">Player Size</span></dt>
+                <dd>
+                    <span>{{tournament.playerSize}}</span>
+                </dd>
+                <dt><span jhiTranslate="thorneoApp.tournament.rewards">Rewards</span></dt>
+                <dd>
+                    <span>{{tournament.rewards}}</span>
+                </dd>
+                <dt><span jhiTranslate="thorneoApp.tournament.imageUrl">Image Url</span></dt>
+                <dd>
+                    <span>{{tournament.imageUrl}}</span>
+                </dd>
+                <dt><span jhiTranslate="thorneoApp.tournament.latitude">Latitude</span></dt>
+                <dd>
+                    <span>{{tournament.latitude}}</span>
+                </dd>
+                <dt><span jhiTranslate="thorneoApp.tournament.longitude">Longitude</span></dt>
+                <dd>
+                    <span>{{tournament.longitude}}</span>
+                </dd>
+                <dt><span jhiTranslate="thorneoApp.tournament.type">Type</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'thorneoApp.Type.' + tournament.type}}">{{tournament.type}}</span>
+                </dd>
+                <dt><span jhiTranslate="thorneoApp.tournament.game">Game</span></dt>
+                <dd>
+                    <div *ngIf="tournament.game">
+                        <a [routerLink]="['/game', tournament.game?.id, 'view']">{{tournament.game?.id}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="thorneoApp.tournament.manager">Manager</span></dt>
+                <dd>
+                    <div *ngIf="tournament.manager">
+                        <a [routerLink]="['/manager', tournament.manager?.id, 'view']">{{tournament.manager?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/tournament', tournament.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

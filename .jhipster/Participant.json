@@ -1,0 +1,59 @@
+{
+    "name": "Participant",
+    "fields": [
+        {
+            "fieldName": "disqualify",
+            "fieldType": "Boolean",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "rank",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "min"
+            ],
+            "fieldValidateRulesMin": 0
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "clasification",
+            "otherEntityName": "clasification",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "participant"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "free",
+            "otherEntityName": "free",
+            "otherEntityField": "id",
+            "otherEntityRelationshipName": "participant"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "premium",
+            "otherEntityName": "premium",
+            "otherEntityField": "id",
+            "otherEntityRelationshipName": "participant"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "sponsor",
+            "otherEntityName": "sponsor",
+            "otherEntityField": "id",
+            "otherEntityRelationshipName": "participant"
+        }
+    ],
+    "changelogDate": "20190321202836",
+    "entityTableName": "participant",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

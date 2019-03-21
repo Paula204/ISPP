@@ -1,0 +1,78 @@
+entity Premium{
+}
+
+entity Free{
+}
+
+entity Administrator{
+}
+
+entity Sponsor{
+}
+
+
+entity Tournament{
+	title String required,
+    description String required,
+    meetingDate Instant required,
+    meetingPoint String required,
+    city String required,
+    price Integer min(0),
+    playerSize Integer min(0), 
+    rewards String, 
+    imageUrl String required,
+    latitude Long,
+    longitude Long,
+    type Type
+}
+
+enum Type{
+	ELIMINATION, POINT
+}
+
+entity Game{
+	title String required
+}
+
+entity Participant{
+	disqualify Boolean required,
+    rank Integer min(0)
+}
+
+entity Clasification{
+	punctuation Integer min(0)
+}
+
+entity Sponsorship{
+	banner String required,
+    targetUrl String required
+}
+
+entity Promotion{
+	title String required,
+    qr String required
+}
+
+entity Manager{
+	
+}
+
+relationship OneToMany {
+	Free to Participant,
+    Premium to Participant,
+    Sponsor to Participant,
+    Free to Manager,
+    Premium to Manager,
+    Sponsor to Manager
+}
+
+relationship ManyToOne {
+	Tournament to Game,
+    Tournament to Manager
+    Sponsorship to Tournament,
+    Promotion to Sponsor
+}
+
+relationship OneToOne {
+	Clasification to Participant
+}

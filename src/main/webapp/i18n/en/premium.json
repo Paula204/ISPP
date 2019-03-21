@@ -1,0 +1,23 @@
+{
+    "thorneoApp": {
+        "premium": {
+            "home": {
+                "title": "Premiums",
+                "createLabel": "Create a new Premium",
+                "createOrEditLabel": "Create or edit a Premium",
+                "search": "Search for Premium"
+            },
+            "created": "A new Premium is created with identifier {{ param }}",
+            "updated": "A Premium is updated with identifier {{ param }}",
+            "deleted": "A Premium is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Premium {{ id }}?"
+            },
+            "detail": {
+                "title": "Premium"
+            },
+            "participant": "Participant",
+            "manager": "Manager"
+        }
+    }
+}

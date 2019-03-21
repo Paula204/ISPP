@@ -1,0 +1,23 @@
+{
+    "thorneoApp": {
+        "clasification": {
+            "home": {
+                "title": "Clasifications",
+                "createLabel": "Create a new Clasification",
+                "createOrEditLabel": "Create or edit a Clasification",
+                "search": "Search for Clasification"
+            },
+            "created": "A new Clasification is created with identifier {{ param }}",
+            "updated": "A Clasification is updated with identifier {{ param }}",
+            "deleted": "A Clasification is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Clasification {{ id }}?"
+            },
+            "detail": {
+                "title": "Clasification"
+            },
+            "punctuation": "Punctuation",
+            "participant": "Participant"
+        }
+    }
+}

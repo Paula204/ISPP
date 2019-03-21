@@ -1,0 +1,23 @@
+{
+    "thorneoApp": {
+        "free": {
+            "home": {
+                "title": "Frees",
+                "createLabel": "Crear nuevo Free",
+                "createOrEditLabel": "Crear o editar Free",
+                "search": "Search for Free"
+            },
+            "created": "Un nuevo Free ha sido creado con el identificador {{ param }}",
+            "updated": "Un Free ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Free ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Free {{ id }}?"
+            },
+            "detail": {
+                "title": "Free"
+            },
+            "participant": "Participant",
+            "manager": "Manager"
+        }
+    }
+}

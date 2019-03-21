@@ -1,0 +1,14 @@
+{
+    "name": "Administrator",
+    "fields": [],
+    "relationships": [],
+    "changelogDate": "20190321202832",
+    "entityTableName": "administrator",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

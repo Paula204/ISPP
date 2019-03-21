@@ -1,0 +1,29 @@
+{
+    "name": "Game",
+    "fields": [
+        {
+            "fieldName": "title",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "tournament",
+            "otherEntityName": "tournament",
+            "otherEntityRelationshipName": "game"
+        }
+    ],
+    "changelogDate": "20190321202835",
+    "entityTableName": "game",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}
