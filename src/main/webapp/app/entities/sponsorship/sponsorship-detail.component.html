@@ -1,0 +1,37 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="sponsorship">
+            <h2><span jhiTranslate="thorneoApp.sponsorship.detail.title">Sponsorship</span> {{sponsorship.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="thorneoApp.sponsorship.banner">Banner</span></dt>
+                <dd>
+                    <span>{{sponsorship.banner}}</span>
+                </dd>
+                <dt><span jhiTranslate="thorneoApp.sponsorship.targetUrl">Target Url</span></dt>
+                <dd>
+                    <span>{{sponsorship.targetUrl}}</span>
+                </dd>
+                <dt><span jhiTranslate="thorneoApp.sponsorship.tournament">Tournament</span></dt>
+                <dd>
+                    <div *ngIf="sponsorship.tournament">
+                        <a [routerLink]="['/tournament', sponsorship.tournament?.id, 'view']">{{sponsorship.tournament?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/sponsorship', sponsorship.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

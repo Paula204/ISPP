@@ -1,0 +1,24 @@
+{
+    "thorneoApp": {
+        "sponsorship": {
+            "home": {
+                "title": "Sponsorships",
+                "createLabel": "Create a new Sponsorship",
+                "createOrEditLabel": "Create or edit a Sponsorship",
+                "search": "Search for Sponsorship"
+            },
+            "created": "A new Sponsorship is created with identifier {{ param }}",
+            "updated": "A Sponsorship is updated with identifier {{ param }}",
+            "deleted": "A Sponsorship is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Sponsorship {{ id }}?"
+            },
+            "detail": {
+                "title": "Sponsorship"
+            },
+            "banner": "Banner",
+            "targetUrl": "Target Url",
+            "tournament": "Tournament"
+        }
+    }
+}

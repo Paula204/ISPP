@@ -1,0 +1,53 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-sponsorship-heading" jhiTranslate="thorneoApp.sponsorship.home.createOrEditLabel">Create or edit a Sponsorship</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!sponsorship.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="sponsorship.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="thorneoApp.sponsorship.banner" for="field_banner">Banner</label>
+                    <input type="text" class="form-control" name="banner" id="field_banner"
+                        [(ngModel)]="sponsorship.banner" required/>
+                    <div [hidden]="!(editForm.controls.banner?.dirty && editForm.controls.banner?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.banner?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="thorneoApp.sponsorship.targetUrl" for="field_targetUrl">Target Url</label>
+                    <input type="text" class="form-control" name="targetUrl" id="field_targetUrl"
+                        [(ngModel)]="sponsorship.targetUrl" required/>
+                    <div [hidden]="!(editForm.controls.targetUrl?.dirty && editForm.controls.targetUrl?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.targetUrl?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="thorneoApp.sponsorship.tournament" for="field_tournament">Tournament</label>
+                    <select class="form-control" id="field_tournament" name="tournament" [(ngModel)]="sponsorship.tournament" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="tournamentOption.id === sponsorship.tournament?.id ? sponsorship.tournament : tournamentOption" *ngFor="let tournamentOption of tournaments; trackBy: trackTournamentById">{{tournamentOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

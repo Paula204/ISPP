@@ -1,0 +1,21 @@
+{
+    "thorneoApp": {
+        "administrator": {
+            "home": {
+                "title": "Administrators",
+                "createLabel": "Crear nuevo Administrator",
+                "createOrEditLabel": "Crear o editar Administrator",
+                "search": "Search for Administrator"
+            },
+            "created": "Un nuevo Administrator ha sido creado con el identificador {{ param }}",
+            "updated": "Un Administrator ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Administrator ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Administrator {{ id }}?"
+            },
+            "detail": {
+                "title": "Administrator"
+            }
+        }
+    }
+}

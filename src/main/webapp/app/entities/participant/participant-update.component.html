@@ -1,0 +1,71 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-participant-heading" jhiTranslate="thorneoApp.participant.home.createOrEditLabel">Create or edit a Participant</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!participant.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="participant.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="thorneoApp.participant.disqualify" for="field_disqualify">Disqualify</label>
+                    <input type="checkbox" class="form-control" name="disqualify" id="field_disqualify"
+                        [(ngModel)]="participant.disqualify" />
+                    <div [hidden]="!(editForm.controls.disqualify?.dirty && editForm.controls.disqualify?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.disqualify?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="thorneoApp.participant.rank" for="field_rank">Rank</label>
+                    <input type="number" class="form-control" name="rank" id="field_rank"
+                        [(ngModel)]="participant.rank" min="0" jhiMin="0"/>
+                    <div [hidden]="!(editForm.controls.rank?.dirty && editForm.controls.rank?.invalid)">
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.rank?.errors?.min" jhiTranslate="entity.validation.min" [translateValues]="{ min: 0 }">
+                            This field should be at least 0.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.rank?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="thorneoApp.participant.free" for="field_free">Free</label>
+                    <select class="form-control" id="field_free" name="free" [(ngModel)]="participant.free" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="freeOption.id === participant.free?.id ? participant.free : freeOption" *ngFor="let freeOption of frees; trackBy: trackFreeById">{{freeOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="thorneoApp.participant.premium" for="field_premium">Premium</label>
+                    <select class="form-control" id="field_premium" name="premium" [(ngModel)]="participant.premium" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="premiumOption.id === participant.premium?.id ? participant.premium : premiumOption" *ngFor="let premiumOption of premiums; trackBy: trackPremiumById">{{premiumOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="thorneoApp.participant.sponsor" for="field_sponsor">Sponsor</label>
+                    <select class="form-control" id="field_sponsor" name="sponsor" [(ngModel)]="participant.sponsor" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="sponsorOption.id === participant.sponsor?.id ? participant.sponsor : sponsorOption" *ngFor="let sponsorOption of sponsors; trackBy: trackSponsorById">{{sponsorOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

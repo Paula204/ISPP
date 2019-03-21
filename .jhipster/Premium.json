@@ -1,0 +1,27 @@
+{
+    "name": "Premium",
+    "fields": [],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "participant",
+            "otherEntityName": "participant",
+            "otherEntityRelationshipName": "premium"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "manager",
+            "otherEntityName": "manager",
+            "otherEntityRelationshipName": "premium"
+        }
+    ],
+    "changelogDate": "20190321202830",
+    "entityTableName": "premium",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}
