@@ -33,7 +33,7 @@ export const premiumRoute: Routes = [
         path: '',
         component: PremiumComponent,
         data: {
-            authorities: ['ROLE_FREE'],
+            authorities: ['ROLE_USER'],
             pageTitle: 'thorneoApp.premium.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -45,7 +45,7 @@ export const premiumRoute: Routes = [
             premium: PremiumResolve
         },
         data: {
-            authorities: ['ROLE_FREE'],
+            authorities: ['ROLE_USER'],
             pageTitle: 'thorneoApp.premium.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -57,7 +57,7 @@ export const premiumRoute: Routes = [
             premium: PremiumResolve
         },
         data: {
-            authorities: ['ROLE_FREE'],
+            authorities: ['ROLE_USER'],
             pageTitle: 'thorneoApp.premium.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -69,7 +69,7 @@ export const premiumRoute: Routes = [
             premium: PremiumResolve
         },
         data: {
-            authorities: ['ROLE_FREE'],
+            authorities: ['ROLE_USER'],
             pageTitle: 'thorneoApp.premium.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -84,7 +84,7 @@ export const premiumPopupRoute: Routes = [
             premium: PremiumResolve
         },
         data: {
-            authorities: ['ROLE_FREE'],
+            authorities: ['ROLE_USER'],
             pageTitle: 'thorneoApp.premium.home.title'
         },
         canActivate: [UserRouteAccessService],

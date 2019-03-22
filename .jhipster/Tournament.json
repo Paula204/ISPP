@@ -79,23 +79,37 @@
     ],
     "relationships": [
         {
+            "relationshipType": "one-to-many",
+            "relationshipName": "participant",
+            "otherEntityName": "participation",
+            "otherEntityRelationshipName": "tournament"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "sponsor",
+            "otherEntityName": "sponsor",
+            "otherEntityField": "id",
+            "otherEntityRelationshipName": "tournament"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "premium",
+            "otherEntityName": "premium",
+            "otherEntityField": "id",
+            "otherEntityRelationshipName": "tournament"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "free",
+            "otherEntityName": "free",
+            "otherEntityField": "id",
+            "otherEntityRelationshipName": "tournament"
+        },
+        {
             "relationshipType": "many-to-one",
             "relationshipName": "game",
             "otherEntityName": "game",
             "otherEntityField": "id",
-            "otherEntityRelationshipName": "tournament"
-        },
-        {
-            "relationshipType": "many-to-one",
-            "relationshipName": "manager",
-            "otherEntityName": "manager",
-            "otherEntityField": "id",
-            "otherEntityRelationshipName": "tournament"
-        },
-        {
-            "relationshipType": "one-to-many",
-            "relationshipName": "sponsorship",
-            "otherEntityName": "sponsorship",
             "otherEntityRelationshipName": "tournament"
         }
     ],
@@ -103,7 +117,7 @@
     "entityTableName": "tournament",
     "dto": "no",
     "pagination": "no",
-    "service": "no",
+    "service": "serviceImpl",
     "jpaMetamodelFiltering": false,
     "fluentMethods": true,
     "clientRootFolder": "",

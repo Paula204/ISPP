@@ -30,12 +30,24 @@
             <thead>
             <tr>
             <th><span jhiTranslate="global.field.id">ID</span></th>
+            <th><span jhiTranslate="thorneoApp.sponsor.actor">Actor</span></th>
+            <th><span jhiTranslate="thorneoApp.sponsor.tournament">Tournament</span></th>
             <th></th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let sponsor of sponsors ;trackBy: trackId">
                 <td><a [routerLink]="['/sponsor', sponsor.id, 'view' ]">{{sponsor.id}}</a></td>
+                <td>
+                    <div *ngIf="sponsor.actor">
+                        <a [routerLink]="['../actor', sponsor.actor?.id, 'view' ]" >{{sponsor.actor?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <span *ngFor="let tournament of sponsor.tournaments; let last = last">
+                            <a class="form-control-static" [routerLink]="['../tournament', tournament?.id, 'view' ]">{{tournament.id}}</a>{{last ? '' : ', '}}
+                        </span>
+                </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

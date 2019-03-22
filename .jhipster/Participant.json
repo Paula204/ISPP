@@ -3,55 +3,22 @@
     "fields": [
         {
             "fieldName": "disqualify",
-            "fieldType": "Boolean",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
-            "fieldName": "rank",
-            "fieldType": "Integer",
-            "fieldValidateRules": [
-                "min"
-            ],
-            "fieldValidateRulesMin": 0
+            "fieldType": "Boolean"
         }
     ],
     "relationships": [
         {
-            "relationshipType": "one-to-one",
-            "relationshipName": "clasification",
-            "otherEntityName": "clasification",
-            "ownerSide": false,
-            "otherEntityRelationshipName": "participant"
-        },
-        {
+            "relationshipName": "tournament",
+            "otherEntityName": "tournament",
             "relationshipType": "many-to-one",
-            "relationshipName": "free",
-            "otherEntityName": "free",
-            "otherEntityField": "id",
-            "otherEntityRelationshipName": "participant"
-        },
-        {
-            "relationshipType": "many-to-one",
-            "relationshipName": "premium",
-            "otherEntityName": "premium",
-            "otherEntityField": "id",
-            "otherEntityRelationshipName": "participant"
-        },
-        {
-            "relationshipType": "many-to-one",
-            "relationshipName": "sponsor",
-            "otherEntityName": "sponsor",
-            "otherEntityField": "id",
-            "otherEntityRelationshipName": "participant"
+            "otherEntityField": "id"
         }
     ],
     "changelogDate": "20190321202836",
     "entityTableName": "participant",
     "dto": "no",
     "pagination": "no",
-    "service": "no",
+    "service": "serviceImpl",
     "jpaMetamodelFiltering": false,
     "fluentMethods": true,
     "clientRootFolder": "",

@@ -1,7 +1,6 @@
 package com.ispp.thorneo.web.rest;
 import com.ispp.thorneo.domain.Tournament;
-import com.ispp.thorneo.repository.TournamentRepository;
-import com.ispp.thorneo.repository.search.TournamentSearchRepository;
+import com.ispp.thorneo.service.TournamentService;
 import com.ispp.thorneo.web.rest.errors.BadRequestAlertException;
 import com.ispp.thorneo.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -16,7 +15,6 @@ import java.net.URISyntaxException;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
@@ -32,13 +30,10 @@ public class TournamentResource {
 
     private static final String ENTITY_NAME = "tournament";
 
-    private final TournamentRepository tournamentRepository;
+    private final TournamentService tournamentService;
 
-    private final TournamentSearchRepository tournamentSearchRepository;
-
-    public TournamentResource(TournamentRepository tournamentRepository, TournamentSearchRepository tournamentSearchRepository) {
-        this.tournamentRepository = tournamentRepository;
-        this.tournamentSearchRepository = tournamentSearchRepository;
+    public TournamentResource(TournamentService tournamentService) {
+        this.tournamentService = tournamentService;
     }
 
     /**
@@ -54,8 +49,7 @@ public class TournamentResource {
         if (tournament.getId() != null) {
             throw new BadRequestAlertException("A new tournament cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Tournament result = tournamentRepository.save(tournament);
-        tournamentSearchRepository.save(result);
+        Tournament result = tournamentService.save(tournament);
         return ResponseEntity.created(new URI("/api/tournaments/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -76,8 +70,7 @@ public class TournamentResource {
         if (tournament.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        Tournament result = tournamentRepository.save(tournament);
-        tournamentSearchRepository.save(result);
+        Tournament result = tournamentService.save(tournament);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, tournament.getId().toString()))
             .body(result);
@@ -91,7 +84,7 @@ public class TournamentResource {
     @GetMapping("/tournaments")
     public List<Tournament> getAllTournaments() {
         log.debug("REST request to get all Tournaments");
-        return tournamentRepository.findAll();
+        return tournamentService.findAll();
     }
 
     /**
@@ -103,7 +96,7 @@ public class TournamentResource {
     @GetMapping("/tournaments/{id}")
     public ResponseEntity<Tournament> getTournament(@PathVariable Long id) {
         log.debug("REST request to get Tournament : {}", id);
-        Optional<Tournament> tournament = tournamentRepository.findById(id);
+        Optional<Tournament> tournament = tournamentService.findOne(id);
         return ResponseUtil.wrapOrNotFound(tournament);
     }
 
@@ -116,8 +109,7 @@ public class TournamentResource {
     @DeleteMapping("/tournaments/{id}")
     public ResponseEntity<Void> deleteTournament(@PathVariable Long id) {
         log.debug("REST request to delete Tournament : {}", id);
-        tournamentRepository.deleteById(id);
-        tournamentSearchRepository.deleteById(id);
+        tournamentService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 
@@ -131,9 +123,7 @@ public class TournamentResource {
     @GetMapping("/_search/tournaments")
     public List<Tournament> searchTournaments(@RequestParam String query) {
         log.debug("REST request to search Tournaments for query {}", query);
-        return StreamSupport
-            .stream(tournamentSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .collect(Collectors.toList());
+        return tournamentService.search(query);
     }
 
 }

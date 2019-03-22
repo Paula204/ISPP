@@ -5,14 +5,18 @@ import com.ispp.thorneo.ThorneoApp;
 import com.ispp.thorneo.domain.Premium;
 import com.ispp.thorneo.repository.PremiumRepository;
 import com.ispp.thorneo.repository.search.PremiumSearchRepository;
+import com.ispp.thorneo.service.PremiumService;
 import com.ispp.thorneo.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -23,6 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -46,6 +51,15 @@ public class PremiumResourceIntTest {
 
     @Autowired
     private PremiumRepository premiumRepository;
+
+    @Mock
+    private PremiumRepository premiumRepositoryMock;
+
+    @Mock
+    private PremiumService premiumServiceMock;
+
+    @Autowired
+    private PremiumService premiumService;
 
     /**
      * This repository is mocked in the com.ispp.thorneo.repository.search test package.
@@ -77,7 +91,7 @@ public class PremiumResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final PremiumResource premiumResource = new PremiumResource(premiumRepository, mockPremiumSearchRepository);
+        final PremiumResource premiumResource = new PremiumResource(premiumService);
         this.restPremiumMockMvc = MockMvcBuilders.standaloneSetup(premiumResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -157,6 +171,39 @@ public class PremiumResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(premium.getId().intValue())));
     }
     
+    @SuppressWarnings({"unchecked"})
+    public void getAllPremiumsWithEagerRelationshipsIsEnabled() throws Exception {
+        PremiumResource premiumResource = new PremiumResource(premiumServiceMock);
+        when(premiumServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        MockMvc restPremiumMockMvc = MockMvcBuilders.standaloneSetup(premiumResource)
+            .setCustomArgumentResolvers(pageableArgumentResolver)
+            .setControllerAdvice(exceptionTranslator)
+            .setConversionService(createFormattingConversionService())
+            .setMessageConverters(jacksonMessageConverter).build();
+
+        restPremiumMockMvc.perform(get("/api/premiums?eagerload=true"))
+        .andExpect(status().isOk());
+
+        verify(premiumServiceMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
+    @SuppressWarnings({"unchecked"})
+    public void getAllPremiumsWithEagerRelationshipsIsNotEnabled() throws Exception {
+        PremiumResource premiumResource = new PremiumResource(premiumServiceMock);
+            when(premiumServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+            MockMvc restPremiumMockMvc = MockMvcBuilders.standaloneSetup(premiumResource)
+            .setCustomArgumentResolvers(pageableArgumentResolver)
+            .setControllerAdvice(exceptionTranslator)
+            .setConversionService(createFormattingConversionService())
+            .setMessageConverters(jacksonMessageConverter).build();
+
+        restPremiumMockMvc.perform(get("/api/premiums?eagerload=true"))
+        .andExpect(status().isOk());
+
+            verify(premiumServiceMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
     @Test
     @Transactional
     public void getPremium() throws Exception {
@@ -182,7 +229,9 @@ public class PremiumResourceIntTest {
     @Transactional
     public void updatePremium() throws Exception {
         // Initialize the database
-        premiumRepository.saveAndFlush(premium);
+        premiumService.save(premium);
+        // As the test used the service layer, reset the Elasticsearch mock repository
+        reset(mockPremiumSearchRepository);
 
         int databaseSizeBeforeUpdate = premiumRepository.findAll().size();
 
@@ -230,7 +279,7 @@ public class PremiumResourceIntTest {
     @Transactional
     public void deletePremium() throws Exception {
         // Initialize the database
-        premiumRepository.saveAndFlush(premium);
+        premiumService.save(premium);
 
         int databaseSizeBeforeDelete = premiumRepository.findAll().size();
 
@@ -251,7 +300,7 @@ public class PremiumResourceIntTest {
     @Transactional
     public void searchPremium() throws Exception {
         // Initialize the database
-        premiumRepository.saveAndFlush(premium);
+        premiumService.save(premium);
         when(mockPremiumSearchRepository.search(queryStringQuery("id:" + premium.getId())))
             .thenReturn(Collections.singletonList(premium));
         // Search the premium

@@ -42,8 +42,10 @@
             <th><span jhiTranslate="thorneoApp.tournament.latitude">Latitude</span></th>
             <th><span jhiTranslate="thorneoApp.tournament.longitude">Longitude</span></th>
             <th><span jhiTranslate="thorneoApp.tournament.type">Type</span></th>
+            <th><span jhiTranslate="thorneoApp.tournament.sponsor">Sponsor</span></th>
+            <th><span jhiTranslate="thorneoApp.tournament.premium">Premium</span></th>
+            <th><span jhiTranslate="thorneoApp.tournament.free">Free</span></th>
             <th><span jhiTranslate="thorneoApp.tournament.game">Game</span></th>
-            <th><span jhiTranslate="thorneoApp.tournament.manager">Manager</span></th>
             <th></th>
             </tr>
             </thead>
@@ -63,13 +65,23 @@
                 <td>{{tournament.longitude}}</td>
                 <td jhiTranslate="{{'thorneoApp.Type.' + tournament.type}}">{{tournament.type}}</td>
                 <td>
-                    <div *ngIf="tournament.game">
-                        <a [routerLink]="['../game', tournament.game?.id, 'view' ]" >{{tournament.game?.id}}</a>
+                    <div *ngIf="tournament.sponsor">
+                        <a [routerLink]="['../sponsor', tournament.sponsor?.id, 'view' ]" >{{tournament.sponsor?.id}}</a>
                     </div>
                 </td>
                 <td>
-                    <div *ngIf="tournament.manager">
-                        <a [routerLink]="['../manager', tournament.manager?.id, 'view' ]" >{{tournament.manager?.id}}</a>
+                    <div *ngIf="tournament.premium">
+                        <a [routerLink]="['../premium', tournament.premium?.id, 'view' ]" >{{tournament.premium?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="tournament.free">
+                        <a [routerLink]="['../free', tournament.free?.id, 'view' ]" >{{tournament.free?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="tournament.game">
+                        <a [routerLink]="['../game', tournament.game?.id, 'view' ]" >{{tournament.game?.id}}</a>
                     </div>
                 </td>
                 <td class="text-right">

@@ -20,6 +20,26 @@
                         </small>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="thorneoApp.game.description" for="field_description">Description</label>
+                    <input type="text" class="form-control" name="description" id="field_description"
+                        [(ngModel)]="game.description" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="thorneoApp.game.category" for="field_category">Category</label>
+                    <select class="form-control" name="category" [(ngModel)]="game.category" id="field_category" >
+                        <option value="CARD">{{'thorneoApp.GameType.CARD' | translate}}</option>
+                        <option value="MINIATURES">{{'thorneoApp.GameType.MINIATURES' | translate}}</option>
+                        <option value="BOARD">{{'thorneoApp.GameType.BOARD' | translate}}</option>
+                        <option value="DICE">{{'thorneoApp.GameType.DICE' | translate}}</option>
+                        <option value="ROL">{{'thorneoApp.GameType.ROL' | translate}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="thorneoApp.game.minAge" for="field_minAge">Min Age</label>
+                    <input type="number" class="form-control" name="minAge" id="field_minAge"
+                        [(ngModel)]="game.minAge" />
+                </div>
 
             </div>
             <div>

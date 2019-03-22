@@ -28,15 +28,20 @@ public class Sponsor implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(mappedBy = "sponsor")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Participant> participants = new HashSet<>();
-    @OneToMany(mappedBy = "sponsor")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Manager> managers = new HashSet<>();
+    @OneToOne
+    @JoinColumn(unique = true)
+    private Actor actor;
+
     @OneToMany(mappedBy = "sponsor")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Promotion> promotions = new HashSet<>();
+    @ManyToMany
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @JoinTable(name = "sponsor_tournament",
+               joinColumns = @JoinColumn(name = "sponsor_id", referencedColumnName = "id"),
+               inverseJoinColumns = @JoinColumn(name = "tournament_id", referencedColumnName = "id"))
+    private Set<Tournament> tournaments = new HashSet<>();
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -46,54 +51,17 @@ public class Sponsor implements Serializable {
         this.id = id;
     }
 
-    public Set<Participant> getParticipants() {
-        return participants;
+    public Actor getActor() {
+        return actor;
     }
 
-    public Sponsor participants(Set<Participant> participants) {
-        this.participants = participants;
+    public Sponsor actor(Actor actor) {
+        this.actor = actor;
         return this;
     }
 
-    public Sponsor addParticipant(Participant participant) {
-        this.participants.add(participant);
-        participant.setSponsor(this);
-        return this;
-    }
-
-    public Sponsor removeParticipant(Participant participant) {
-        this.participants.remove(participant);
-        participant.setSponsor(null);
-        return this;
-    }
-
-    public void setParticipants(Set<Participant> participants) {
-        this.participants = participants;
-    }
-
-    public Set<Manager> getManagers() {
-        return managers;
-    }
-
-    public Sponsor managers(Set<Manager> managers) {
-        this.managers = managers;
-        return this;
-    }
-
-    public Sponsor addManager(Manager manager) {
-        this.managers.add(manager);
-        manager.setSponsor(this);
-        return this;
-    }
-
-    public Sponsor removeManager(Manager manager) {
-        this.managers.remove(manager);
-        manager.setSponsor(null);
-        return this;
-    }
-
-    public void setManagers(Set<Manager> managers) {
-        this.managers = managers;
+    public void setActor(Actor actor) {
+        this.actor = actor;
     }
 
     public Set<Promotion> getPromotions() {
@@ -119,6 +87,31 @@ public class Sponsor implements Serializable {
 
     public void setPromotions(Set<Promotion> promotions) {
         this.promotions = promotions;
+    }
+
+    public Set<Tournament> getTournaments() {
+        return tournaments;
+    }
+
+    public Sponsor tournaments(Set<Tournament> tournaments) {
+        this.tournaments = tournaments;
+        return this;
+    }
+
+    public Sponsor addTournament(Tournament tournament) {
+        this.tournaments.add(tournament);
+        tournament.getSponsors().add(this);
+        return this;
+    }
+
+    public Sponsor removeTournament(Tournament tournament) {
+        this.tournaments.remove(tournament);
+        tournament.getSponsors().remove(this);
+        return this;
+    }
+
+    public void setTournaments(Set<Tournament> tournaments) {
+        this.tournaments = tournaments;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

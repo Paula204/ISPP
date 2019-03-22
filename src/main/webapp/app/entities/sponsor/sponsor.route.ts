@@ -33,7 +33,7 @@ export const sponsorRoute: Routes = [
         path: '',
         component: SponsorComponent,
         data: {
-            authorities: ['ROLE_FREE'],
+            authorities: ['ROLE_USER'],
             pageTitle: 'thorneoApp.sponsor.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -45,7 +45,7 @@ export const sponsorRoute: Routes = [
             sponsor: SponsorResolve
         },
         data: {
-            authorities: ['ROLE_FREE'],
+            authorities: ['ROLE_USER'],
             pageTitle: 'thorneoApp.sponsor.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -57,7 +57,7 @@ export const sponsorRoute: Routes = [
             sponsor: SponsorResolve
         },
         data: {
-            authorities: ['ROLE_FREE'],
+            authorities: ['ROLE_USER'],
             pageTitle: 'thorneoApp.sponsor.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -69,7 +69,7 @@ export const sponsorRoute: Routes = [
             sponsor: SponsorResolve
         },
         data: {
-            authorities: ['ROLE_FREE'],
+            authorities: ['ROLE_USER'],
             pageTitle: 'thorneoApp.sponsor.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -84,7 +84,7 @@ export const sponsorPopupRoute: Routes = [
             sponsor: SponsorResolve
         },
         data: {
-            authorities: ['ROLE_FREE'],
+            authorities: ['ROLE_USER'],
             pageTitle: 'thorneoApp.sponsor.home.title'
         },
         canActivate: [UserRouteAccessService],

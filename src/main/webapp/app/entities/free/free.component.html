@@ -30,12 +30,24 @@
             <thead>
             <tr>
             <th><span jhiTranslate="global.field.id">ID</span></th>
+            <th><span jhiTranslate="thorneoApp.free.actor">Actor</span></th>
+            <th><span jhiTranslate="thorneoApp.free.tournament">Tournament</span></th>
             <th></th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let free of frees ;trackBy: trackId">
                 <td><a [routerLink]="['/free', free.id, 'view' ]">{{free.id}}</a></td>
+                <td>
+                    <div *ngIf="free.actor">
+                        <a [routerLink]="['../actor', free.actor?.id, 'view' ]" >{{free.actor?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <span *ngFor="let tournament of free.tournaments; let last = last">
+                            <a class="form-control-static" [routerLink]="['../tournament', tournament?.id, 'view' ]">{{tournament.id}}</a>{{last ? '' : ', '}}
+                        </span>
+                </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

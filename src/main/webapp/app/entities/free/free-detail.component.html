@@ -5,6 +5,18 @@
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="thorneoApp.free.actor">Actor</span></dt>
+                <dd>
+                    <div *ngIf="free.actor">
+                        <a [routerLink]="['/actor', free.actor?.id, 'view']">{{free.actor?.id}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="thorneoApp.free.tournament">Tournament</span></dt>
+                <dd>
+                    <span *ngFor="let tournament of free.tournaments; let last = last">
+                        <a [routerLink]="['/tournament', tournament?.id, 'view' ]">{{tournament.id}}</a>{{last ? '' : ', '}}
+                    </span>
+                </dd>
             </dl>
 
             <button type="submit"

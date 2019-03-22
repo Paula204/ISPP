@@ -10,6 +10,19 @@
                         [(ngModel)]="sponsor.id" readonly />
                 </div>
 
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="thorneoApp.sponsor.actor" for="field_actor">Actor</label>
+                    <select class="form-control" id="field_actor" name="actor" [(ngModel)]="sponsor.actor">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="actorOption.id === sponsor.actor?.id ? sponsor.actor : actorOption" *ngFor="let actorOption of actors; trackBy: trackActorById">{{actorOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label jhiTranslate="thorneoApp.sponsor.tournament" for="field_tournament">Tournament</label>
+                    <select class="form-control" id="field_tournament" multiple name="tournament" [(ngModel)]="sponsor.tournaments">
+                        <option [ngValue]="getSelected(sponsor.tournaments, tournamentOption)" *ngFor="let tournamentOption of tournaments; trackBy: trackTournamentById">{{tournamentOption.id}}</option>
+                    </select>
+                </div>
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">

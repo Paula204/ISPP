@@ -3,15 +3,11 @@
     "fields": [],
     "relationships": [
         {
-            "relationshipType": "one-to-many",
-            "relationshipName": "participant",
-            "otherEntityName": "participant",
-            "otherEntityRelationshipName": "sponsor"
-        },
-        {
-            "relationshipType": "one-to-many",
-            "relationshipName": "manager",
-            "otherEntityName": "manager",
+            "relationshipType": "one-to-one",
+            "relationshipName": "actor",
+            "otherEntityName": "actor",
+            "otherEntityField": "id",
+            "ownerSide": true,
             "otherEntityRelationshipName": "sponsor"
         },
         {
@@ -19,13 +15,21 @@
             "relationshipName": "promotion",
             "otherEntityName": "promotion",
             "otherEntityRelationshipName": "sponsor"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "sponsor",
+            "relationshipName": "tournament",
+            "otherEntityName": "tournament",
+            "otherEntityField": "id",
+            "ownerSide": true
         }
     ],
     "changelogDate": "20190321202833",
     "entityTableName": "sponsor",
     "dto": "no",
     "pagination": "no",
-    "service": "no",
+    "service": "serviceImpl",
     "jpaMetamodelFiltering": false,
     "fluentMethods": true,
     "clientRootFolder": "",

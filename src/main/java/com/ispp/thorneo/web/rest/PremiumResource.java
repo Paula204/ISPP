@@ -1,7 +1,6 @@
 package com.ispp.thorneo.web.rest;
 import com.ispp.thorneo.domain.Premium;
-import com.ispp.thorneo.repository.PremiumRepository;
-import com.ispp.thorneo.repository.search.PremiumSearchRepository;
+import com.ispp.thorneo.service.PremiumService;
 import com.ispp.thorneo.web.rest.errors.BadRequestAlertException;
 import com.ispp.thorneo.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -15,7 +14,6 @@ import java.net.URISyntaxException;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
@@ -31,13 +29,10 @@ public class PremiumResource {
 
     private static final String ENTITY_NAME = "premium";
 
-    private final PremiumRepository premiumRepository;
+    private final PremiumService premiumService;
 
-    private final PremiumSearchRepository premiumSearchRepository;
-
-    public PremiumResource(PremiumRepository premiumRepository, PremiumSearchRepository premiumSearchRepository) {
-        this.premiumRepository = premiumRepository;
-        this.premiumSearchRepository = premiumSearchRepository;
+    public PremiumResource(PremiumService premiumService) {
+        this.premiumService = premiumService;
     }
 
     /**
@@ -53,8 +48,7 @@ public class PremiumResource {
         if (premium.getId() != null) {
             throw new BadRequestAlertException("A new premium cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Premium result = premiumRepository.save(premium);
-        premiumSearchRepository.save(result);
+        Premium result = premiumService.save(premium);
         return ResponseEntity.created(new URI("/api/premiums/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -75,8 +69,7 @@ public class PremiumResource {
         if (premium.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        Premium result = premiumRepository.save(premium);
-        premiumSearchRepository.save(result);
+        Premium result = premiumService.save(premium);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, premium.getId().toString()))
             .body(result);
@@ -85,12 +78,13 @@ public class PremiumResource {
     /**
      * GET  /premiums : get all the premiums.
      *
+     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many)
      * @return the ResponseEntity with status 200 (OK) and the list of premiums in body
      */
     @GetMapping("/premiums")
-    public List<Premium> getAllPremiums() {
+    public List<Premium> getAllPremiums(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
         log.debug("REST request to get all Premiums");
-        return premiumRepository.findAll();
+        return premiumService.findAll();
     }
 
     /**
@@ -102,7 +96,7 @@ public class PremiumResource {
     @GetMapping("/premiums/{id}")
     public ResponseEntity<Premium> getPremium(@PathVariable Long id) {
         log.debug("REST request to get Premium : {}", id);
-        Optional<Premium> premium = premiumRepository.findById(id);
+        Optional<Premium> premium = premiumService.findOne(id);
         return ResponseUtil.wrapOrNotFound(premium);
     }
 
@@ -115,8 +109,7 @@ public class PremiumResource {
     @DeleteMapping("/premiums/{id}")
     public ResponseEntity<Void> deletePremium(@PathVariable Long id) {
         log.debug("REST request to delete Premium : {}", id);
-        premiumRepository.deleteById(id);
-        premiumSearchRepository.deleteById(id);
+        premiumService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 
@@ -130,9 +123,7 @@ public class PremiumResource {
     @GetMapping("/_search/premiums")
     public List<Premium> searchPremiums(@RequestParam String query) {
         log.debug("REST request to search Premiums for query {}", query);
-        return StreamSupport
-            .stream(premiumSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .collect(Collectors.toList());
+        return premiumService.search(query);
     }
 
 }

@@ -16,9 +16,9 @@
             "detail": {
                 "title": "Sponsor"
             },
-            "participant": "Participant",
-            "manager": "Manager",
-            "promotion": "Promotion"
+            "actor": "Actor",
+            "promotion": "Promotion",
+            "tournament": "Tournament"
         }
     }
 }

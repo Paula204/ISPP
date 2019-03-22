@@ -33,7 +33,7 @@ export const freeRoute: Routes = [
         path: '',
         component: FreeComponent,
         data: {
-            authorities: ['ROLE_FREE'],
+            authorities: ['ROLE_USER'],
             pageTitle: 'thorneoApp.free.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -45,7 +45,7 @@ export const freeRoute: Routes = [
             free: FreeResolve
         },
         data: {
-            authorities: ['ROLE_FREE'],
+            authorities: ['ROLE_USER'],
             pageTitle: 'thorneoApp.free.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -57,7 +57,7 @@ export const freeRoute: Routes = [
             free: FreeResolve
         },
         data: {
-            authorities: ['ROLE_FREE'],
+            authorities: ['ROLE_USER'],
             pageTitle: 'thorneoApp.free.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -69,7 +69,7 @@ export const freeRoute: Routes = [
             free: FreeResolve
         },
         data: {
-            authorities: ['ROLE_FREE'],
+            authorities: ['ROLE_USER'],
             pageTitle: 'thorneoApp.free.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -84,7 +84,7 @@ export const freePopupRoute: Routes = [
             free: FreeResolve
         },
         data: {
-            authorities: ['ROLE_FREE'],
+            authorities: ['ROLE_USER'],
             pageTitle: 'thorneoApp.free.home.title'
         },
         canActivate: [UserRouteAccessService],

@@ -1,12 +1,21 @@
 {
     "name": "Administrator",
     "fields": [],
-    "relationships": [],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "actor",
+            "otherEntityName": "actor",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "administrator"
+        }
+    ],
     "changelogDate": "20190321202832",
     "entityTableName": "administrator",
     "dto": "no",
     "pagination": "no",
-    "service": "no",
+    "service": "serviceImpl",
     "jpaMetamodelFiltering": false,
     "fluentMethods": true,
     "clientRootFolder": "",

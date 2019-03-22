@@ -70,11 +70,19 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="game_id" type="bigint">
+            <column name="sponsor_id" type="bigint">
                 <constraints nullable="true" />
             </column>
 
-            <column name="manager_id" type="bigint">
+            <column name="premium_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="free_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="game_id" type="bigint">
                 <constraints nullable="true" />
             </column>
 
