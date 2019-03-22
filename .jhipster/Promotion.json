@@ -1,0 +1,37 @@
+{
+    "name": "Promotion",
+    "fields": [
+        {
+            "fieldName": "title",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "qr",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "sponsor",
+            "otherEntityName": "sponsor",
+            "otherEntityField": "id",
+            "otherEntityRelationshipName": "promotion"
+        }
+    ],
+    "changelogDate": "20190321202839",
+    "entityTableName": "promotion",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

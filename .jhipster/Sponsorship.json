@@ -1,0 +1,37 @@
+{
+    "name": "Sponsorship",
+    "fields": [
+        {
+            "fieldName": "banner",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "targetUrl",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "tournament",
+            "otherEntityName": "tournament",
+            "otherEntityField": "id",
+            "otherEntityRelationshipName": "sponsorship"
+        }
+    ],
+    "changelogDate": "20190321202838",
+    "entityTableName": "sponsorship",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}
