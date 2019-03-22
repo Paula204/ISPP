@@ -5,6 +5,7 @@ import com.ispp.thorneo.ThorneoApp;
 import com.ispp.thorneo.domain.Promotion;
 import com.ispp.thorneo.repository.PromotionRepository;
 import com.ispp.thorneo.repository.search.PromotionSearchRepository;
+import com.ispp.thorneo.service.PromotionService;
 import com.ispp.thorneo.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -53,6 +54,9 @@ public class PromotionResourceIntTest {
     @Autowired
     private PromotionRepository promotionRepository;
 
+    @Autowired
+    private PromotionService promotionService;
+
     /**
      * This repository is mocked in the com.ispp.thorneo.repository.search test package.
      *
@@ -83,7 +87,7 @@ public class PromotionResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final PromotionResource promotionResource = new PromotionResource(promotionRepository, mockPromotionSearchRepository);
+        final PromotionResource promotionResource = new PromotionResource(promotionService);
         this.restPromotionMockMvc = MockMvcBuilders.standaloneSetup(promotionResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -232,7 +236,9 @@ public class PromotionResourceIntTest {
     @Transactional
     public void updatePromotion() throws Exception {
         // Initialize the database
-        promotionRepository.saveAndFlush(promotion);
+        promotionService.save(promotion);
+        // As the test used the service layer, reset the Elasticsearch mock repository
+        reset(mockPromotionSearchRepository);
 
         int databaseSizeBeforeUpdate = promotionRepository.findAll().size();
 
@@ -285,7 +291,7 @@ public class PromotionResourceIntTest {
     @Transactional
     public void deletePromotion() throws Exception {
         // Initialize the database
-        promotionRepository.saveAndFlush(promotion);
+        promotionService.save(promotion);
 
         int databaseSizeBeforeDelete = promotionRepository.findAll().size();
 
@@ -306,7 +312,7 @@ public class PromotionResourceIntTest {
     @Transactional
     public void searchPromotion() throws Exception {
         // Initialize the database
-        promotionRepository.saveAndFlush(promotion);
+        promotionService.save(promotion);
         when(mockPromotionSearchRepository.search(queryStringQuery("id:" + promotion.getId())))
             .thenReturn(Collections.singletonList(promotion));
         // Search the promotion

@@ -5,6 +5,7 @@ import com.ispp.thorneo.ThorneoApp;
 import com.ispp.thorneo.domain.Sponsorship;
 import com.ispp.thorneo.repository.SponsorshipRepository;
 import com.ispp.thorneo.repository.search.SponsorshipSearchRepository;
+import com.ispp.thorneo.service.SponsorshipService;
 import com.ispp.thorneo.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -53,6 +54,9 @@ public class SponsorshipResourceIntTest {
     @Autowired
     private SponsorshipRepository sponsorshipRepository;
 
+    @Autowired
+    private SponsorshipService sponsorshipService;
+
     /**
      * This repository is mocked in the com.ispp.thorneo.repository.search test package.
      *
@@ -83,7 +87,7 @@ public class SponsorshipResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final SponsorshipResource sponsorshipResource = new SponsorshipResource(sponsorshipRepository, mockSponsorshipSearchRepository);
+        final SponsorshipResource sponsorshipResource = new SponsorshipResource(sponsorshipService);
         this.restSponsorshipMockMvc = MockMvcBuilders.standaloneSetup(sponsorshipResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -232,7 +236,9 @@ public class SponsorshipResourceIntTest {
     @Transactional
     public void updateSponsorship() throws Exception {
         // Initialize the database
-        sponsorshipRepository.saveAndFlush(sponsorship);
+        sponsorshipService.save(sponsorship);
+        // As the test used the service layer, reset the Elasticsearch mock repository
+        reset(mockSponsorshipSearchRepository);
 
         int databaseSizeBeforeUpdate = sponsorshipRepository.findAll().size();
 
@@ -285,7 +291,7 @@ public class SponsorshipResourceIntTest {
     @Transactional
     public void deleteSponsorship() throws Exception {
         // Initialize the database
-        sponsorshipRepository.saveAndFlush(sponsorship);
+        sponsorshipService.save(sponsorship);
 
         int databaseSizeBeforeDelete = sponsorshipRepository.findAll().size();
 
@@ -306,7 +312,7 @@ public class SponsorshipResourceIntTest {
     @Transactional
     public void searchSponsorship() throws Exception {
         // Initialize the database
-        sponsorshipRepository.saveAndFlush(sponsorship);
+        sponsorshipService.save(sponsorship);
         when(mockSponsorshipSearchRepository.search(queryStringQuery("id:" + sponsorship.getId())))
             .thenReturn(Collections.singletonList(sponsorship));
         // Search the sponsorship

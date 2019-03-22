@@ -16,8 +16,8 @@
             "detail": {
                 "title": "Premium"
             },
-            "participant": "Participant",
-            "manager": "Manager"
+            "actor": "Actor",
+            "tournament": "Tournament"
         }
     }
 }

@@ -5,14 +5,18 @@ import com.ispp.thorneo.ThorneoApp;
 import com.ispp.thorneo.domain.Free;
 import com.ispp.thorneo.repository.FreeRepository;
 import com.ispp.thorneo.repository.search.FreeSearchRepository;
+import com.ispp.thorneo.service.FreeService;
 import com.ispp.thorneo.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -23,6 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -46,6 +51,15 @@ public class FreeResourceIntTest {
 
     @Autowired
     private FreeRepository freeRepository;
+
+    @Mock
+    private FreeRepository freeRepositoryMock;
+
+    @Mock
+    private FreeService freeServiceMock;
+
+    @Autowired
+    private FreeService freeService;
 
     /**
      * This repository is mocked in the com.ispp.thorneo.repository.search test package.
@@ -77,7 +91,7 @@ public class FreeResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final FreeResource freeResource = new FreeResource(freeRepository, mockFreeSearchRepository);
+        final FreeResource freeResource = new FreeResource(freeService);
         this.restFreeMockMvc = MockMvcBuilders.standaloneSetup(freeResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -157,6 +171,39 @@ public class FreeResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(free.getId().intValue())));
     }
     
+    @SuppressWarnings({"unchecked"})
+    public void getAllFreesWithEagerRelationshipsIsEnabled() throws Exception {
+        FreeResource freeResource = new FreeResource(freeServiceMock);
+        when(freeServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        MockMvc restFreeMockMvc = MockMvcBuilders.standaloneSetup(freeResource)
+            .setCustomArgumentResolvers(pageableArgumentResolver)
+            .setControllerAdvice(exceptionTranslator)
+            .setConversionService(createFormattingConversionService())
+            .setMessageConverters(jacksonMessageConverter).build();
+
+        restFreeMockMvc.perform(get("/api/frees?eagerload=true"))
+        .andExpect(status().isOk());
+
+        verify(freeServiceMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
+    @SuppressWarnings({"unchecked"})
+    public void getAllFreesWithEagerRelationshipsIsNotEnabled() throws Exception {
+        FreeResource freeResource = new FreeResource(freeServiceMock);
+            when(freeServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+            MockMvc restFreeMockMvc = MockMvcBuilders.standaloneSetup(freeResource)
+            .setCustomArgumentResolvers(pageableArgumentResolver)
+            .setControllerAdvice(exceptionTranslator)
+            .setConversionService(createFormattingConversionService())
+            .setMessageConverters(jacksonMessageConverter).build();
+
+        restFreeMockMvc.perform(get("/api/frees?eagerload=true"))
+        .andExpect(status().isOk());
+
+            verify(freeServiceMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
     @Test
     @Transactional
     public void getFree() throws Exception {
@@ -182,7 +229,9 @@ public class FreeResourceIntTest {
     @Transactional
     public void updateFree() throws Exception {
         // Initialize the database
-        freeRepository.saveAndFlush(free);
+        freeService.save(free);
+        // As the test used the service layer, reset the Elasticsearch mock repository
+        reset(mockFreeSearchRepository);
 
         int databaseSizeBeforeUpdate = freeRepository.findAll().size();
 
@@ -230,7 +279,7 @@ public class FreeResourceIntTest {
     @Transactional
     public void deleteFree() throws Exception {
         // Initialize the database
-        freeRepository.saveAndFlush(free);
+        freeService.save(free);
 
         int databaseSizeBeforeDelete = freeRepository.findAll().size();
 
@@ -251,7 +300,7 @@ public class FreeResourceIntTest {
     @Transactional
     public void searchFree() throws Exception {
         // Initialize the database
-        freeRepository.saveAndFlush(free);
+        freeService.save(free);
         when(mockFreeSearchRepository.search(queryStringQuery("id:" + free.getId())))
             .thenReturn(Collections.singletonList(free));
         // Search the free

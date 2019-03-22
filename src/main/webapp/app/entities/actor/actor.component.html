@@ -1,0 +1,83 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="thorneoApp.actor.home.title">Actors</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-actor" [routerLink]="['/actor/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span class="hidden-sm-down"  jhiTranslate="thorneoApp.actor.home.createLabel">
+            Create new Actor
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'thorneoApp.actor.home.search' | translate }}">
+                    <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
+                        <fa-icon [icon]="'search'"></fa-icon>
+                    </button>
+                    <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                        <fa-icon [icon]="'trash-alt'"></fa-icon>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="actors">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span jhiTranslate="global.field.id">ID</span></th>
+            <th><span jhiTranslate="thorneoApp.actor.name">Name</span></th>
+            <th><span jhiTranslate="thorneoApp.actor.surname">Surname</span></th>
+            <th><span jhiTranslate="thorneoApp.actor.photo">Photo</span></th>
+            <th><span jhiTranslate="thorneoApp.actor.email">Email</span></th>
+            <th><span jhiTranslate="thorneoApp.actor.phone">Phone</span></th>
+            <th><span jhiTranslate="thorneoApp.actor.userAccount">User Account</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let actor of actors ;trackBy: trackId">
+                <td><a [routerLink]="['/actor', actor.id, 'view' ]">{{actor.id}}</a></td>
+                <td>{{actor.name}}</td>
+                <td>{{actor.surname}}</td>
+                <td>{{actor.photo}}</td>
+                <td>{{actor.email}}</td>
+                <td>{{actor.phone}}</td>
+                <td>
+                    <div *ngIf="actor.userAccount">
+                        <a [routerLink]="['../user-account', actor.userAccount?.id, 'view' ]" >{{actor.userAccount?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/actor', actor.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/actor', actor.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', 'actor', { outlets: { popup: actor.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

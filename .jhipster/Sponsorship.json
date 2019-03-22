@@ -19,6 +19,13 @@
     "relationships": [
         {
             "relationshipType": "many-to-one",
+            "relationshipName": "sponsor",
+            "otherEntityName": "sponsor",
+            "otherEntityField": "id",
+            "otherEntityRelationshipName": "sponsorship"
+        },
+        {
+            "relationshipType": "many-to-one",
             "relationshipName": "tournament",
             "otherEntityName": "tournament",
             "otherEntityField": "id",
@@ -29,7 +36,7 @@
     "entityTableName": "sponsorship",
     "dto": "no",
     "pagination": "no",
-    "service": "no",
+    "service": "serviceImpl",
     "jpaMetamodelFiltering": false,
     "fluentMethods": true,
     "clientRootFolder": "",

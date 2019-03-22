@@ -28,9 +28,11 @@
             "latitude": "Latitude",
             "longitude": "Longitude",
             "type": "Type",
-            "game": "Game",
-            "manager": "Manager",
-            "sponsorship": "Sponsorship"
+            "participant": "Participant",
+            "sponsor": "Sponsor",
+            "premium": "Premium",
+            "free": "Free",
+            "game": "Game"
         }
     }
 }

@@ -8,10 +8,14 @@ import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
 import { JhiAlertService } from 'ng-jhipster';
 import { ITournament } from 'app/shared/model/tournament.model';
 import { TournamentService } from './tournament.service';
+import { ISponsor } from 'app/shared/model/sponsor.model';
+import { SponsorService } from 'app/entities/sponsor';
+import { IPremium } from 'app/shared/model/premium.model';
+import { PremiumService } from 'app/entities/premium';
+import { IFree } from 'app/shared/model/free.model';
+import { FreeService } from 'app/entities/free';
 import { IGame } from 'app/shared/model/game.model';
 import { GameService } from 'app/entities/game';
-import { IManager } from 'app/shared/model/manager.model';
-import { ManagerService } from 'app/entities/manager';
 
 @Component({
     selector: 'jhi-tournament-update',
@@ -21,16 +25,22 @@ export class TournamentUpdateComponent implements OnInit {
     tournament: ITournament;
     isSaving: boolean;
 
-    games: IGame[];
+    sponsors: ISponsor[];
 
-    managers: IManager[];
+    premiums: IPremium[];
+
+    frees: IFree[];
+
+    games: IGame[];
     meetingDate: string;
 
     constructor(
         protected jhiAlertService: JhiAlertService,
         protected tournamentService: TournamentService,
+        protected sponsorService: SponsorService,
+        protected premiumService: PremiumService,
+        protected freeService: FreeService,
         protected gameService: GameService,
-        protected managerService: ManagerService,
         protected activatedRoute: ActivatedRoute
     ) {}
 
@@ -40,6 +50,27 @@ export class TournamentUpdateComponent implements OnInit {
             this.tournament = tournament;
             this.meetingDate = this.tournament.meetingDate != null ? this.tournament.meetingDate.format(DATE_TIME_FORMAT) : null;
         });
+        this.sponsorService
+            .query()
+            .pipe(
+                filter((mayBeOk: HttpResponse<ISponsor[]>) => mayBeOk.ok),
+                map((response: HttpResponse<ISponsor[]>) => response.body)
+            )
+            .subscribe((res: ISponsor[]) => (this.sponsors = res), (res: HttpErrorResponse) => this.onError(res.message));
+        this.premiumService
+            .query()
+            .pipe(
+                filter((mayBeOk: HttpResponse<IPremium[]>) => mayBeOk.ok),
+                map((response: HttpResponse<IPremium[]>) => response.body)
+            )
+            .subscribe((res: IPremium[]) => (this.premiums = res), (res: HttpErrorResponse) => this.onError(res.message));
+        this.freeService
+            .query()
+            .pipe(
+                filter((mayBeOk: HttpResponse<IFree[]>) => mayBeOk.ok),
+                map((response: HttpResponse<IFree[]>) => response.body)
+            )
+            .subscribe((res: IFree[]) => (this.frees = res), (res: HttpErrorResponse) => this.onError(res.message));
         this.gameService
             .query()
             .pipe(
@@ -47,13 +78,6 @@ export class TournamentUpdateComponent implements OnInit {
                 map((response: HttpResponse<IGame[]>) => response.body)
             )
             .subscribe((res: IGame[]) => (this.games = res), (res: HttpErrorResponse) => this.onError(res.message));
-        this.managerService
-            .query()
-            .pipe(
-                filter((mayBeOk: HttpResponse<IManager[]>) => mayBeOk.ok),
-                map((response: HttpResponse<IManager[]>) => response.body)
-            )
-            .subscribe((res: IManager[]) => (this.managers = res), (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     previousState() {
@@ -87,11 +111,19 @@ export class TournamentUpdateComponent implements OnInit {
         this.jhiAlertService.error(errorMessage, null, null);
     }
 
-    trackGameById(index: number, item: IGame) {
+    trackSponsorById(index: number, item: ISponsor) {
         return item.id;
     }
 
-    trackManagerById(index: number, item: IManager) {
+    trackPremiumById(index: number, item: IPremium) {
+        return item.id;
+    }
+
+    trackFreeById(index: number, item: IFree) {
+        return item.id;
+    }
+
+    trackGameById(index: number, item: IGame) {
         return item.id;
     }
 }

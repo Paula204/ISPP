@@ -135,17 +135,31 @@
                 </div>
 
                 <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="thorneoApp.tournament.sponsor" for="field_sponsor">Sponsor</label>
+                    <select class="form-control" id="field_sponsor" name="sponsor" [(ngModel)]="tournament.sponsor" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="sponsorOption.id === tournament.sponsor?.id ? tournament.sponsor : sponsorOption" *ngFor="let sponsorOption of sponsors; trackBy: trackSponsorById">{{sponsorOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="thorneoApp.tournament.premium" for="field_premium">Premium</label>
+                    <select class="form-control" id="field_premium" name="premium" [(ngModel)]="tournament.premium" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="premiumOption.id === tournament.premium?.id ? tournament.premium : premiumOption" *ngFor="let premiumOption of premiums; trackBy: trackPremiumById">{{premiumOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="thorneoApp.tournament.free" for="field_free">Free</label>
+                    <select class="form-control" id="field_free" name="free" [(ngModel)]="tournament.free" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="freeOption.id === tournament.free?.id ? tournament.free : freeOption" *ngFor="let freeOption of frees; trackBy: trackFreeById">{{freeOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
                     <label class="form-control-label" jhiTranslate="thorneoApp.tournament.game" for="field_game">Game</label>
                     <select class="form-control" id="field_game" name="game" [(ngModel)]="tournament.game" >
                         <option [ngValue]="null"></option>
                         <option [ngValue]="gameOption.id === tournament.game?.id ? tournament.game : gameOption" *ngFor="let gameOption of games; trackBy: trackGameById">{{gameOption.id}}</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="thorneoApp.tournament.manager" for="field_manager">Manager</label>
-                    <select class="form-control" id="field_manager" name="manager" [(ngModel)]="tournament.manager" >
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="managerOption.id === tournament.manager?.id ? tournament.manager : managerOption" *ngFor="let managerOption of managers; trackBy: trackManagerById">{{managerOption.id}}</option>
                     </select>
                 </div>
             </div>

@@ -5,14 +5,18 @@ import com.ispp.thorneo.ThorneoApp;
 import com.ispp.thorneo.domain.Sponsor;
 import com.ispp.thorneo.repository.SponsorRepository;
 import com.ispp.thorneo.repository.search.SponsorSearchRepository;
+import com.ispp.thorneo.service.SponsorService;
 import com.ispp.thorneo.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -23,6 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -46,6 +51,15 @@ public class SponsorResourceIntTest {
 
     @Autowired
     private SponsorRepository sponsorRepository;
+
+    @Mock
+    private SponsorRepository sponsorRepositoryMock;
+
+    @Mock
+    private SponsorService sponsorServiceMock;
+
+    @Autowired
+    private SponsorService sponsorService;
 
     /**
      * This repository is mocked in the com.ispp.thorneo.repository.search test package.
@@ -77,7 +91,7 @@ public class SponsorResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final SponsorResource sponsorResource = new SponsorResource(sponsorRepository, mockSponsorSearchRepository);
+        final SponsorResource sponsorResource = new SponsorResource(sponsorService);
         this.restSponsorMockMvc = MockMvcBuilders.standaloneSetup(sponsorResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -157,6 +171,39 @@ public class SponsorResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(sponsor.getId().intValue())));
     }
     
+    @SuppressWarnings({"unchecked"})
+    public void getAllSponsorsWithEagerRelationshipsIsEnabled() throws Exception {
+        SponsorResource sponsorResource = new SponsorResource(sponsorServiceMock);
+        when(sponsorServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        MockMvc restSponsorMockMvc = MockMvcBuilders.standaloneSetup(sponsorResource)
+            .setCustomArgumentResolvers(pageableArgumentResolver)
+            .setControllerAdvice(exceptionTranslator)
+            .setConversionService(createFormattingConversionService())
+            .setMessageConverters(jacksonMessageConverter).build();
+
+        restSponsorMockMvc.perform(get("/api/sponsors?eagerload=true"))
+        .andExpect(status().isOk());
+
+        verify(sponsorServiceMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
+    @SuppressWarnings({"unchecked"})
+    public void getAllSponsorsWithEagerRelationshipsIsNotEnabled() throws Exception {
+        SponsorResource sponsorResource = new SponsorResource(sponsorServiceMock);
+            when(sponsorServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+            MockMvc restSponsorMockMvc = MockMvcBuilders.standaloneSetup(sponsorResource)
+            .setCustomArgumentResolvers(pageableArgumentResolver)
+            .setControllerAdvice(exceptionTranslator)
+            .setConversionService(createFormattingConversionService())
+            .setMessageConverters(jacksonMessageConverter).build();
+
+        restSponsorMockMvc.perform(get("/api/sponsors?eagerload=true"))
+        .andExpect(status().isOk());
+
+            verify(sponsorServiceMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
     @Test
     @Transactional
     public void getSponsor() throws Exception {
@@ -182,7 +229,9 @@ public class SponsorResourceIntTest {
     @Transactional
     public void updateSponsor() throws Exception {
         // Initialize the database
-        sponsorRepository.saveAndFlush(sponsor);
+        sponsorService.save(sponsor);
+        // As the test used the service layer, reset the Elasticsearch mock repository
+        reset(mockSponsorSearchRepository);
 
         int databaseSizeBeforeUpdate = sponsorRepository.findAll().size();
 
@@ -230,7 +279,7 @@ public class SponsorResourceIntTest {
     @Transactional
     public void deleteSponsor() throws Exception {
         // Initialize the database
-        sponsorRepository.saveAndFlush(sponsor);
+        sponsorService.save(sponsor);
 
         int databaseSizeBeforeDelete = sponsorRepository.findAll().size();
 
@@ -251,7 +300,7 @@ public class SponsorResourceIntTest {
     @Transactional
     public void searchSponsor() throws Exception {
         // Initialize the database
-        sponsorRepository.saveAndFlush(sponsor);
+        sponsorService.save(sponsor);
         when(mockSponsorSearchRepository.search(queryStringQuery("id:" + sponsor.getId())))
             .thenReturn(Collections.singletonList(sponsor));
         // Search the sponsor

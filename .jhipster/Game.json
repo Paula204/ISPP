@@ -7,21 +7,27 @@
             "fieldValidateRules": [
                 "required"
             ]
-        }
-    ],
-    "relationships": [
+        },
         {
-            "relationshipType": "one-to-many",
-            "relationshipName": "tournament",
-            "otherEntityName": "tournament",
-            "otherEntityRelationshipName": "game"
+            "fieldName": "description",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "category",
+            "fieldType": "GameType",
+            "fieldValues": "CARD,MINIATURES,BOARD,DICE,ROL"
+        },
+        {
+            "fieldName": "minAge",
+            "fieldType": "Integer"
         }
     ],
+    "relationships": [],
     "changelogDate": "20190321202835",
     "entityTableName": "game",
     "dto": "no",
     "pagination": "no",
-    "service": "no",
+    "service": "serviceImpl",
     "jpaMetamodelFiltering": false,
     "fluentMethods": true,
     "clientRootFolder": "",

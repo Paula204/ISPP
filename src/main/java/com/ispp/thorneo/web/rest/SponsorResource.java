@@ -1,7 +1,6 @@
 package com.ispp.thorneo.web.rest;
 import com.ispp.thorneo.domain.Sponsor;
-import com.ispp.thorneo.repository.SponsorRepository;
-import com.ispp.thorneo.repository.search.SponsorSearchRepository;
+import com.ispp.thorneo.service.SponsorService;
 import com.ispp.thorneo.web.rest.errors.BadRequestAlertException;
 import com.ispp.thorneo.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -15,7 +14,6 @@ import java.net.URISyntaxException;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
@@ -31,13 +29,10 @@ public class SponsorResource {
 
     private static final String ENTITY_NAME = "sponsor";
 
-    private final SponsorRepository sponsorRepository;
+    private final SponsorService sponsorService;
 
-    private final SponsorSearchRepository sponsorSearchRepository;
-
-    public SponsorResource(SponsorRepository sponsorRepository, SponsorSearchRepository sponsorSearchRepository) {
-        this.sponsorRepository = sponsorRepository;
-        this.sponsorSearchRepository = sponsorSearchRepository;
+    public SponsorResource(SponsorService sponsorService) {
+        this.sponsorService = sponsorService;
     }
 
     /**
@@ -53,8 +48,7 @@ public class SponsorResource {
         if (sponsor.getId() != null) {
             throw new BadRequestAlertException("A new sponsor cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Sponsor result = sponsorRepository.save(sponsor);
-        sponsorSearchRepository.save(result);
+        Sponsor result = sponsorService.save(sponsor);
         return ResponseEntity.created(new URI("/api/sponsors/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -75,8 +69,7 @@ public class SponsorResource {
         if (sponsor.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        Sponsor result = sponsorRepository.save(sponsor);
-        sponsorSearchRepository.save(result);
+        Sponsor result = sponsorService.save(sponsor);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, sponsor.getId().toString()))
             .body(result);
@@ -85,12 +78,13 @@ public class SponsorResource {
     /**
      * GET  /sponsors : get all the sponsors.
      *
+     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many)
      * @return the ResponseEntity with status 200 (OK) and the list of sponsors in body
      */
     @GetMapping("/sponsors")
-    public List<Sponsor> getAllSponsors() {
+    public List<Sponsor> getAllSponsors(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
         log.debug("REST request to get all Sponsors");
-        return sponsorRepository.findAll();
+        return sponsorService.findAll();
     }
 
     /**
@@ -102,7 +96,7 @@ public class SponsorResource {
     @GetMapping("/sponsors/{id}")
     public ResponseEntity<Sponsor> getSponsor(@PathVariable Long id) {
         log.debug("REST request to get Sponsor : {}", id);
-        Optional<Sponsor> sponsor = sponsorRepository.findById(id);
+        Optional<Sponsor> sponsor = sponsorService.findOne(id);
         return ResponseUtil.wrapOrNotFound(sponsor);
     }
 
@@ -115,8 +109,7 @@ public class SponsorResource {
     @DeleteMapping("/sponsors/{id}")
     public ResponseEntity<Void> deleteSponsor(@PathVariable Long id) {
         log.debug("REST request to delete Sponsor : {}", id);
-        sponsorRepository.deleteById(id);
-        sponsorSearchRepository.deleteById(id);
+        sponsorService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 
@@ -130,9 +123,7 @@ public class SponsorResource {
     @GetMapping("/_search/sponsors")
     public List<Sponsor> searchSponsors(@RequestParam String query) {
         log.debug("REST request to search Sponsors for query {}", query);
-        return StreamSupport
-            .stream(sponsorSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .collect(Collectors.toList());
+        return sponsorService.search(query);
     }
 
 }

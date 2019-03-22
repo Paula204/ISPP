@@ -16,8 +16,8 @@
             "detail": {
                 "title": "Free"
             },
-            "participant": "Participant",
-            "manager": "Manager"
+            "actor": "Actor",
+            "tournament": "Tournament"
         }
     }
 }

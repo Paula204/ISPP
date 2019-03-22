@@ -30,6 +30,10 @@
                 <constraints nullable="false" />
             </column>
 
+            <column name="sponsor_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
             <column name="tournament_id" type="bigint">
                 <constraints nullable="true" />
             </column>

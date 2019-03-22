@@ -5,6 +5,7 @@ import com.ispp.thorneo.ThorneoApp;
 import com.ispp.thorneo.domain.Game;
 import com.ispp.thorneo.repository.GameRepository;
 import com.ispp.thorneo.repository.search.GameSearchRepository;
+import com.ispp.thorneo.service.GameService;
 import com.ispp.thorneo.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -35,6 +36,7 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import com.ispp.thorneo.domain.enumeration.GameType;
 /**
  * Test class for the GameResource REST controller.
  *
@@ -47,8 +49,20 @@ public class GameResourceIntTest {
     private static final String DEFAULT_TITLE = "AAAAAAAAAA";
     private static final String UPDATED_TITLE = "BBBBBBBBBB";
 
+    private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";
+    private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
+
+    private static final GameType DEFAULT_CATEGORY = GameType.CARD;
+    private static final GameType UPDATED_CATEGORY = GameType.MINIATURES;
+
+    private static final Integer DEFAULT_MIN_AGE = 1;
+    private static final Integer UPDATED_MIN_AGE = 2;
+
     @Autowired
     private GameRepository gameRepository;
+
+    @Autowired
+    private GameService gameService;
 
     /**
      * This repository is mocked in the com.ispp.thorneo.repository.search test package.
@@ -80,7 +94,7 @@ public class GameResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final GameResource gameResource = new GameResource(gameRepository, mockGameSearchRepository);
+        final GameResource gameResource = new GameResource(gameService);
         this.restGameMockMvc = MockMvcBuilders.standaloneSetup(gameResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -97,7 +111,10 @@ public class GameResourceIntTest {
      */
     public static Game createEntity(EntityManager em) {
         Game game = new Game()
-            .title(DEFAULT_TITLE);
+            .title(DEFAULT_TITLE)
+            .description(DEFAULT_DESCRIPTION)
+            .category(DEFAULT_CATEGORY)
+            .minAge(DEFAULT_MIN_AGE);
         return game;
     }
 
@@ -122,6 +139,9 @@ public class GameResourceIntTest {
         assertThat(gameList).hasSize(databaseSizeBeforeCreate + 1);
         Game testGame = gameList.get(gameList.size() - 1);
         assertThat(testGame.getTitle()).isEqualTo(DEFAULT_TITLE);
+        assertThat(testGame.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
+        assertThat(testGame.getCategory()).isEqualTo(DEFAULT_CATEGORY);
+        assertThat(testGame.getMinAge()).isEqualTo(DEFAULT_MIN_AGE);
 
         // Validate the Game in Elasticsearch
         verify(mockGameSearchRepository, times(1)).save(testGame);
@@ -178,7 +198,10 @@ public class GameResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(game.getId().intValue())))
-            .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE.toString())));
+            .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE.toString())))
+            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
+            .andExpect(jsonPath("$.[*].category").value(hasItem(DEFAULT_CATEGORY.toString())))
+            .andExpect(jsonPath("$.[*].minAge").value(hasItem(DEFAULT_MIN_AGE)));
     }
     
     @Test
@@ -192,7 +215,10 @@ public class GameResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(game.getId().intValue()))
-            .andExpect(jsonPath("$.title").value(DEFAULT_TITLE.toString()));
+            .andExpect(jsonPath("$.title").value(DEFAULT_TITLE.toString()))
+            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
+            .andExpect(jsonPath("$.category").value(DEFAULT_CATEGORY.toString()))
+            .andExpect(jsonPath("$.minAge").value(DEFAULT_MIN_AGE));
     }
 
     @Test
@@ -207,7 +233,9 @@ public class GameResourceIntTest {
     @Transactional
     public void updateGame() throws Exception {
         // Initialize the database
-        gameRepository.saveAndFlush(game);
+        gameService.save(game);
+        // As the test used the service layer, reset the Elasticsearch mock repository
+        reset(mockGameSearchRepository);
 
         int databaseSizeBeforeUpdate = gameRepository.findAll().size();
 
@@ -216,7 +244,10 @@ public class GameResourceIntTest {
         // Disconnect from session so that the updates on updatedGame are not directly saved in db
         em.detach(updatedGame);
         updatedGame
-            .title(UPDATED_TITLE);
+            .title(UPDATED_TITLE)
+            .description(UPDATED_DESCRIPTION)
+            .category(UPDATED_CATEGORY)
+            .minAge(UPDATED_MIN_AGE);
 
         restGameMockMvc.perform(put("/api/games")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -228,6 +259,9 @@ public class GameResourceIntTest {
         assertThat(gameList).hasSize(databaseSizeBeforeUpdate);
         Game testGame = gameList.get(gameList.size() - 1);
         assertThat(testGame.getTitle()).isEqualTo(UPDATED_TITLE);
+        assertThat(testGame.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
+        assertThat(testGame.getCategory()).isEqualTo(UPDATED_CATEGORY);
+        assertThat(testGame.getMinAge()).isEqualTo(UPDATED_MIN_AGE);
 
         // Validate the Game in Elasticsearch
         verify(mockGameSearchRepository, times(1)).save(testGame);
@@ -258,7 +292,7 @@ public class GameResourceIntTest {
     @Transactional
     public void deleteGame() throws Exception {
         // Initialize the database
-        gameRepository.saveAndFlush(game);
+        gameService.save(game);
 
         int databaseSizeBeforeDelete = gameRepository.findAll().size();
 
@@ -279,7 +313,7 @@ public class GameResourceIntTest {
     @Transactional
     public void searchGame() throws Exception {
         // Initialize the database
-        gameRepository.saveAndFlush(game);
+        gameService.save(game);
         when(mockGameSearchRepository.search(queryStringQuery("id:" + game.getId())))
             .thenReturn(Collections.singletonList(game));
         // Search the game
@@ -287,7 +321,10 @@ public class GameResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(game.getId().intValue())))
-            .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE)));
+            .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE)))
+            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)))
+            .andExpect(jsonPath("$.[*].category").value(hasItem(DEFAULT_CATEGORY.toString())))
+            .andExpect(jsonPath("$.[*].minAge").value(hasItem(DEFAULT_MIN_AGE)));
     }
 
     @Test

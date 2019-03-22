@@ -1,7 +1,6 @@
 package com.ispp.thorneo.web.rest;
 import com.ispp.thorneo.domain.Game;
-import com.ispp.thorneo.repository.GameRepository;
-import com.ispp.thorneo.repository.search.GameSearchRepository;
+import com.ispp.thorneo.service.GameService;
 import com.ispp.thorneo.web.rest.errors.BadRequestAlertException;
 import com.ispp.thorneo.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -16,7 +15,6 @@ import java.net.URISyntaxException;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
@@ -32,13 +30,10 @@ public class GameResource {
 
     private static final String ENTITY_NAME = "game";
 
-    private final GameRepository gameRepository;
+    private final GameService gameService;
 
-    private final GameSearchRepository gameSearchRepository;
-
-    public GameResource(GameRepository gameRepository, GameSearchRepository gameSearchRepository) {
-        this.gameRepository = gameRepository;
-        this.gameSearchRepository = gameSearchRepository;
+    public GameResource(GameService gameService) {
+        this.gameService = gameService;
     }
 
     /**
@@ -54,8 +49,7 @@ public class GameResource {
         if (game.getId() != null) {
             throw new BadRequestAlertException("A new game cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Game result = gameRepository.save(game);
-        gameSearchRepository.save(result);
+        Game result = gameService.save(game);
         return ResponseEntity.created(new URI("/api/games/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -76,8 +70,7 @@ public class GameResource {
         if (game.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        Game result = gameRepository.save(game);
-        gameSearchRepository.save(result);
+        Game result = gameService.save(game);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, game.getId().toString()))
             .body(result);
@@ -91,7 +84,7 @@ public class GameResource {
     @GetMapping("/games")
     public List<Game> getAllGames() {
         log.debug("REST request to get all Games");
-        return gameRepository.findAll();
+        return gameService.findAll();
     }
 
     /**
@@ -103,7 +96,7 @@ public class GameResource {
     @GetMapping("/games/{id}")
     public ResponseEntity<Game> getGame(@PathVariable Long id) {
         log.debug("REST request to get Game : {}", id);
-        Optional<Game> game = gameRepository.findById(id);
+        Optional<Game> game = gameService.findOne(id);
         return ResponseUtil.wrapOrNotFound(game);
     }
 
@@ -116,8 +109,7 @@ public class GameResource {
     @DeleteMapping("/games/{id}")
     public ResponseEntity<Void> deleteGame(@PathVariable Long id) {
         log.debug("REST request to delete Game : {}", id);
-        gameRepository.deleteById(id);
-        gameSearchRepository.deleteById(id);
+        gameService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 
@@ -131,9 +123,7 @@ public class GameResource {
     @GetMapping("/_search/games")
     public List<Game> searchGames(@RequestParam String query) {
         log.debug("REST request to search Games for query {}", query);
-        return StreamSupport
-            .stream(gameSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .collect(Collectors.toList());
+        return gameService.search(query);
     }
 
 }

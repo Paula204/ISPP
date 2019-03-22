@@ -13,6 +13,12 @@
                 <dd>
                     <span>{{sponsorship.targetUrl}}</span>
                 </dd>
+                <dt><span jhiTranslate="thorneoApp.sponsorship.sponsor">Sponsor</span></dt>
+                <dd>
+                    <div *ngIf="sponsorship.sponsor">
+                        <a [routerLink]="['/sponsor', sponsorship.sponsor?.id, 'view']">{{sponsorship.sponsor?.id}}</a>
+                    </div>
+                </dd>
                 <dt><span jhiTranslate="thorneoApp.sponsorship.tournament">Tournament</span></dt>
                 <dd>
                     <div *ngIf="sponsorship.tournament">

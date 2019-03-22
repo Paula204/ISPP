@@ -1,7 +1,6 @@
 package com.ispp.thorneo.domain;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -28,12 +27,17 @@ public class Premium implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(mappedBy = "premium")
+    @OneToOne
+    @JoinColumn(unique = true)
+    private Actor actor;
+
+    @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Participant> participants = new HashSet<>();
-    @OneToMany(mappedBy = "premium")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Manager> managers = new HashSet<>();
+    @JoinTable(name = "premium_tournament",
+               joinColumns = @JoinColumn(name = "premium_id", referencedColumnName = "id"),
+               inverseJoinColumns = @JoinColumn(name = "tournament_id", referencedColumnName = "id"))
+    private Set<Tournament> tournaments = new HashSet<>();
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -43,54 +47,42 @@ public class Premium implements Serializable {
         this.id = id;
     }
 
-    public Set<Participant> getParticipants() {
-        return participants;
+    public Actor getActor() {
+        return actor;
     }
 
-    public Premium participants(Set<Participant> participants) {
-        this.participants = participants;
+    public Premium actor(Actor actor) {
+        this.actor = actor;
         return this;
     }
 
-    public Premium addParticipant(Participant participant) {
-        this.participants.add(participant);
-        participant.setPremium(this);
+    public void setActor(Actor actor) {
+        this.actor = actor;
+    }
+
+    public Set<Tournament> getTournaments() {
+        return tournaments;
+    }
+
+    public Premium tournaments(Set<Tournament> tournaments) {
+        this.tournaments = tournaments;
         return this;
     }
 
-    public Premium removeParticipant(Participant participant) {
-        this.participants.remove(participant);
-        participant.setPremium(null);
+    public Premium addTournament(Tournament tournament) {
+        this.tournaments.add(tournament);
+        tournament.getPremiums().add(this);
         return this;
     }
 
-    public void setParticipants(Set<Participant> participants) {
-        this.participants = participants;
-    }
-
-    public Set<Manager> getManagers() {
-        return managers;
-    }
-
-    public Premium managers(Set<Manager> managers) {
-        this.managers = managers;
+    public Premium removeTournament(Tournament tournament) {
+        this.tournaments.remove(tournament);
+        tournament.getPremiums().remove(this);
         return this;
     }
 
-    public Premium addManager(Manager manager) {
-        this.managers.add(manager);
-        manager.setPremium(this);
-        return this;
-    }
-
-    public Premium removeManager(Manager manager) {
-        this.managers.remove(manager);
-        manager.setPremium(null);
-        return this;
-    }
-
-    public void setManagers(Set<Manager> managers) {
-        this.managers = managers;
+    public void setTournaments(Set<Tournament> tournaments) {
+        this.tournaments = tournaments;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

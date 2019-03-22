@@ -8,17 +8,29 @@
     -->
     <changeSet id="20190321202834-2" author="jhipster">
         
+        <addForeignKeyConstraint baseColumnNames="sponsor_id"
+                                 baseTableName="tournament"
+                                 constraintName="fk_tournament_sponsor_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="sponsor"/>
+
+        <addForeignKeyConstraint baseColumnNames="premium_id"
+                                 baseTableName="tournament"
+                                 constraintName="fk_tournament_premium_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="premium"/>
+
+        <addForeignKeyConstraint baseColumnNames="free_id"
+                                 baseTableName="tournament"
+                                 constraintName="fk_tournament_free_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="free"/>
+
         <addForeignKeyConstraint baseColumnNames="game_id"
                                  baseTableName="tournament"
                                  constraintName="fk_tournament_game_id"
                                  referencedColumnNames="id"
                                  referencedTableName="game"/>
-
-        <addForeignKeyConstraint baseColumnNames="manager_id"
-                                 baseTableName="tournament"
-                                 constraintName="fk_tournament_manager_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="manager"/>
 
     </changeSet>
 </databaseChangeLog>

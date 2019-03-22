@@ -1,7 +1,6 @@
 package com.ispp.thorneo.web.rest;
 import com.ispp.thorneo.domain.Free;
-import com.ispp.thorneo.repository.FreeRepository;
-import com.ispp.thorneo.repository.search.FreeSearchRepository;
+import com.ispp.thorneo.service.FreeService;
 import com.ispp.thorneo.web.rest.errors.BadRequestAlertException;
 import com.ispp.thorneo.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -15,7 +14,6 @@ import java.net.URISyntaxException;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
@@ -31,13 +29,10 @@ public class FreeResource {
 
     private static final String ENTITY_NAME = "free";
 
-    private final FreeRepository freeRepository;
+    private final FreeService freeService;
 
-    private final FreeSearchRepository freeSearchRepository;
-
-    public FreeResource(FreeRepository freeRepository, FreeSearchRepository freeSearchRepository) {
-        this.freeRepository = freeRepository;
-        this.freeSearchRepository = freeSearchRepository;
+    public FreeResource(FreeService freeService) {
+        this.freeService = freeService;
     }
 
     /**
@@ -53,8 +48,7 @@ public class FreeResource {
         if (free.getId() != null) {
             throw new BadRequestAlertException("A new free cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Free result = freeRepository.save(free);
-        freeSearchRepository.save(result);
+        Free result = freeService.save(free);
         return ResponseEntity.created(new URI("/api/frees/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -75,8 +69,7 @@ public class FreeResource {
         if (free.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        Free result = freeRepository.save(free);
-        freeSearchRepository.save(result);
+        Free result = freeService.save(free);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, free.getId().toString()))
             .body(result);
@@ -85,12 +78,13 @@ public class FreeResource {
     /**
      * GET  /frees : get all the frees.
      *
+     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many)
      * @return the ResponseEntity with status 200 (OK) and the list of frees in body
      */
     @GetMapping("/frees")
-    public List<Free> getAllFrees() {
+    public List<Free> getAllFrees(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
         log.debug("REST request to get all Frees");
-        return freeRepository.findAll();
+        return freeService.findAll();
     }
 
     /**
@@ -102,7 +96,7 @@ public class FreeResource {
     @GetMapping("/frees/{id}")
     public ResponseEntity<Free> getFree(@PathVariable Long id) {
         log.debug("REST request to get Free : {}", id);
-        Optional<Free> free = freeRepository.findById(id);
+        Optional<Free> free = freeService.findOne(id);
         return ResponseUtil.wrapOrNotFound(free);
     }
 
@@ -115,8 +109,7 @@ public class FreeResource {
     @DeleteMapping("/frees/{id}")
     public ResponseEntity<Void> deleteFree(@PathVariable Long id) {
         log.debug("REST request to delete Free : {}", id);
-        freeRepository.deleteById(id);
-        freeSearchRepository.deleteById(id);
+        freeService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 
@@ -130,9 +123,7 @@ public class FreeResource {
     @GetMapping("/_search/frees")
     public List<Free> searchFrees(@RequestParam String query) {
         log.debug("REST request to search Frees for query {}", query);
-        return StreamSupport
-            .stream(freeSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .collect(Collectors.toList());
+        return freeService.search(query);
     }
 
 }

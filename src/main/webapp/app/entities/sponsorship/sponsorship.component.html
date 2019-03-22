@@ -32,6 +32,7 @@
             <th><span jhiTranslate="global.field.id">ID</span></th>
             <th><span jhiTranslate="thorneoApp.sponsorship.banner">Banner</span></th>
             <th><span jhiTranslate="thorneoApp.sponsorship.targetUrl">Target Url</span></th>
+            <th><span jhiTranslate="thorneoApp.sponsorship.sponsor">Sponsor</span></th>
             <th><span jhiTranslate="thorneoApp.sponsorship.tournament">Tournament</span></th>
             <th></th>
             </tr>
@@ -41,6 +42,11 @@
                 <td><a [routerLink]="['/sponsorship', sponsorship.id, 'view' ]">{{sponsorship.id}}</a></td>
                 <td>{{sponsorship.banner}}</td>
                 <td>{{sponsorship.targetUrl}}</td>
+                <td>
+                    <div *ngIf="sponsorship.sponsor">
+                        <a [routerLink]="['../sponsor', sponsorship.sponsor?.id, 'view' ]" >{{sponsorship.sponsor?.id}}</a>
+                    </div>
+                </td>
                 <td>
                     <div *ngIf="sponsorship.tournament">
                         <a [routerLink]="['../tournament', sponsorship.tournament?.id, 'view' ]" >{{sponsorship.tournament?.id}}</a>

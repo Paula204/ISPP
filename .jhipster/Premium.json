@@ -3,23 +3,27 @@
     "fields": [],
     "relationships": [
         {
-            "relationshipType": "one-to-many",
-            "relationshipName": "participant",
-            "otherEntityName": "participant",
+            "relationshipType": "one-to-one",
+            "relationshipName": "actor",
+            "otherEntityName": "actor",
+            "otherEntityField": "id",
+            "ownerSide": true,
             "otherEntityRelationshipName": "premium"
         },
         {
-            "relationshipType": "one-to-many",
-            "relationshipName": "manager",
-            "otherEntityName": "manager",
-            "otherEntityRelationshipName": "premium"
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "premium",
+            "relationshipName": "tournament",
+            "otherEntityName": "tournament",
+            "otherEntityField": "id",
+            "ownerSide": true
         }
     ],
     "changelogDate": "20190321202830",
     "entityTableName": "premium",
     "dto": "no",
     "pagination": "no",
-    "service": "no",
+    "service": "serviceImpl",
     "jpaMetamodelFiltering": false,
     "fluentMethods": true,
     "clientRootFolder": "",

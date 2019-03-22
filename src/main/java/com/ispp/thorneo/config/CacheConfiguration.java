@@ -62,6 +62,21 @@ public class CacheConfiguration {
             cm.createCache(com.ispp.thorneo.domain.Promotion.class.getName(), jcacheConfiguration);
             cm.createCache(com.ispp.thorneo.domain.Manager.class.getName(), jcacheConfiguration);
             cm.createCache(com.ispp.thorneo.domain.Manager.class.getName() + ".tournaments", jcacheConfiguration);
+            cm.createCache(com.ispp.thorneo.domain.UserAccount.class.getName(), jcacheConfiguration);
+            cm.createCache(com.ispp.thorneo.domain.Actor.class.getName(), jcacheConfiguration);
+            cm.createCache(com.ispp.thorneo.domain.Premium.class.getName() + ".", jcacheConfiguration);
+            cm.createCache(com.ispp.thorneo.domain.Premium.class.getName() + ".tournaments", jcacheConfiguration);
+            cm.createCache(com.ispp.thorneo.domain.Free.class.getName() + ".", jcacheConfiguration);
+            cm.createCache(com.ispp.thorneo.domain.Free.class.getName() + ".tournaments", jcacheConfiguration);
+            cm.createCache(com.ispp.thorneo.domain.Sponsor.class.getName() + ".", jcacheConfiguration);
+            cm.createCache(com.ispp.thorneo.domain.Sponsor.class.getName() + ".sponsorships", jcacheConfiguration);
+            cm.createCache(com.ispp.thorneo.domain.Sponsor.class.getName() + ".tournaments", jcacheConfiguration);
+            cm.createCache(com.ispp.thorneo.domain.Tournament.class.getName() + ".participants", jcacheConfiguration);
+            cm.createCache(com.ispp.thorneo.domain.Tournament.class.getName() + ".premiums", jcacheConfiguration);
+            cm.createCache(com.ispp.thorneo.domain.Tournament.class.getName() + ".frees", jcacheConfiguration);
+            cm.createCache(com.ispp.thorneo.domain.Tournament.class.getName() + ".sponsors", jcacheConfiguration);
+            cm.createCache(com.ispp.thorneo.domain.Actor.class.getName() + ".participations", jcacheConfiguration);
+            cm.createCache(com.ispp.thorneo.domain.Participation.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }
