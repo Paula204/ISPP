@@ -1,0 +1,33 @@
+{
+    "name": "Sponsor",
+    "fields": [],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "participant",
+            "otherEntityName": "participant",
+            "otherEntityRelationshipName": "sponsor"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "manager",
+            "otherEntityName": "manager",
+            "otherEntityRelationshipName": "sponsor"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "promotion",
+            "otherEntityName": "promotion",
+            "otherEntityRelationshipName": "sponsor"
+        }
+    ],
+    "changelogDate": "20190321202833",
+    "entityTableName": "sponsor",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

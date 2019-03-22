@@ -1,0 +1,27 @@
+{
+    "thorneoApp": {
+        "participant": {
+            "home": {
+                "title": "Participants",
+                "createLabel": "Create a new Participant",
+                "createOrEditLabel": "Create or edit a Participant",
+                "search": "Search for Participant"
+            },
+            "created": "A new Participant is created with identifier {{ param }}",
+            "updated": "A Participant is updated with identifier {{ param }}",
+            "deleted": "A Participant is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Participant {{ id }}?"
+            },
+            "detail": {
+                "title": "Participant"
+            },
+            "disqualify": "Disqualify",
+            "rank": "Rank",
+            "clasification": "Clasification",
+            "free": "Free",
+            "premium": "Premium",
+            "sponsor": "Sponsor"
+        }
+    }
+}

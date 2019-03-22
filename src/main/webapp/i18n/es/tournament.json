@@ -1,0 +1,36 @@
+{
+    "thorneoApp": {
+        "tournament": {
+            "home": {
+                "title": "Tournaments",
+                "createLabel": "Crear nuevo Tournament",
+                "createOrEditLabel": "Crear o editar Tournament",
+                "search": "Search for Tournament"
+            },
+            "created": "Un nuevo Tournament ha sido creado con el identificador {{ param }}",
+            "updated": "Un Tournament ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Tournament ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Tournament {{ id }}?"
+            },
+            "detail": {
+                "title": "Tournament"
+            },
+            "title": "Title",
+            "description": "Description",
+            "meetingDate": "Meeting Date",
+            "meetingPoint": "Meeting Point",
+            "city": "City",
+            "price": "Price",
+            "playerSize": "Player Size",
+            "rewards": "Rewards",
+            "imageUrl": "Image Url",
+            "latitude": "Latitude",
+            "longitude": "Longitude",
+            "type": "Type",
+            "game": "Game",
+            "manager": "Manager",
+            "sponsorship": "Sponsorship"
+        }
+    }
+}

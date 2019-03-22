@@ -1,0 +1,25 @@
+{
+    "thorneoApp": {
+        "manager": {
+            "home": {
+                "title": "Managers",
+                "createLabel": "Create a new Manager",
+                "createOrEditLabel": "Create or edit a Manager",
+                "search": "Search for Manager"
+            },
+            "created": "A new Manager is created with identifier {{ param }}",
+            "updated": "A Manager is updated with identifier {{ param }}",
+            "deleted": "A Manager is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Manager {{ id }}?"
+            },
+            "detail": {
+                "title": "Manager"
+            },
+            "free": "Free",
+            "premium": "Premium",
+            "sponsor": "Sponsor",
+            "tournament": "Tournament"
+        }
+    }
+}
