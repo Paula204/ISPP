@@ -1,0 +1,25 @@
+{
+    "thorneoApp": {
+        "userAccount": {
+            "home": {
+                "title": "User Accounts",
+                "createLabel": "Crear nuevo User Account",
+                "createOrEditLabel": "Crear o editar User Account",
+                "search": "Search for User Account"
+            },
+            "created": "Un nuevo User Account ha sido creado con el identificador {{ param }}",
+            "updated": "Un User Account ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un User Account ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar User Account {{ id }}?"
+            },
+            "detail": {
+                "title": "User Account"
+            },
+            "userName": "User Name",
+            "password": "Password",
+            "banned": "Banned",
+            "authority": "Authority"
+        }
+    }
+}

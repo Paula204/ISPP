@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity Sponsor.
+    -->
+    <changeSet id="20190321202833-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="actor_id"
+                                 baseTableName="sponsor"
+                                 constraintName="fk_sponsor_actor_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="actor"/>
+
+        <addForeignKeyConstraint baseColumnNames="sponsor_id"
+                                 baseTableName="sponsor_tournament"
+                                 constraintName="fk_sponsor_tournament_sponsor_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="sponsor"/>
+        <addForeignKeyConstraint baseColumnNames="tournament_id"
+                                 baseTableName="sponsor_tournament"
+                                 constraintName="fk_sponsor_tournament_tournament_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="tournament"/>
+        
+    </changeSet>
+</databaseChangeLog>

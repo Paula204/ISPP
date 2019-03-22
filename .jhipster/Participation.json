@@ -1,0 +1,36 @@
+{
+    "name": "Participation",
+    "fields": [
+        {
+            "fieldName": "disqualify",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "punctuation",
+            "fieldType": "Integer"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipName": "actor",
+            "otherEntityName": "actor",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipName": "tournament",
+            "otherEntityName": "tournament",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20190322182515",
+    "entityTableName": "participation",
+    "dto": "no",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

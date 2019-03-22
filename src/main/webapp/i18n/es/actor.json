@@ -1,0 +1,28 @@
+{
+    "thorneoApp": {
+        "actor": {
+            "home": {
+                "title": "Actors",
+                "createLabel": "Crear nuevo Actor",
+                "createOrEditLabel": "Crear o editar Actor",
+                "search": "Search for Actor"
+            },
+            "created": "Un nuevo Actor ha sido creado con el identificador {{ param }}",
+            "updated": "Un Actor ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Actor ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Actor {{ id }}?"
+            },
+            "detail": {
+                "title": "Actor"
+            },
+            "name": "Name",
+            "surname": "Surname",
+            "photo": "Photo",
+            "email": "Email",
+            "phone": "Phone",
+            "userAccount": "User Account",
+            "participation": "Participation"
+        }
+    }
+}

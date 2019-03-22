@@ -1,0 +1,59 @@
+{
+    "name": "Actor",
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "surname",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "photo",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "email",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "phone",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "userAccount",
+            "otherEntityName": "userAccount",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "actor"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "participation",
+            "otherEntityName": "participation",
+            "otherEntityRelationshipName": "actor"
+        }
+    ],
+    "changelogDate": "20190322171434",
+    "entityTableName": "actor",
+    "dto": "no",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

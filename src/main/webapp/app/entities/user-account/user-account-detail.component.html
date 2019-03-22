@@ -1,0 +1,41 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="userAccount">
+            <h2><span jhiTranslate="thorneoApp.userAccount.detail.title">User Account</span> {{userAccount.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="thorneoApp.userAccount.userName">User Name</span></dt>
+                <dd>
+                    <span>{{userAccount.userName}}</span>
+                </dd>
+                <dt><span jhiTranslate="thorneoApp.userAccount.password">Password</span></dt>
+                <dd>
+                    <span>{{userAccount.password}}</span>
+                </dd>
+                <dt><span jhiTranslate="thorneoApp.userAccount.banned">Banned</span></dt>
+                <dd>
+                    <span>{{userAccount.banned}}</span>
+                </dd>
+                <dt><span jhiTranslate="thorneoApp.userAccount.authority">Authority</span></dt>
+                <dd>
+                    <div *ngIf="userAccount.authority">
+                        <a [routerLink]="['/authority', userAccount.authority?.id, 'view']">{{userAccount.authority?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/user-account', userAccount.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

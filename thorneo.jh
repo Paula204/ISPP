@@ -1,0 +1,119 @@
+entity UserAccount{
+	userName String required,
+    password String required,
+    banned Boolean
+}
+
+entity Authority{
+	free String,
+    premium String,
+    sponsor String,
+}
+
+entity Actor{
+	name String required,
+    surname String required,
+    photo String,
+    email String required, 
+    phone String    
+}
+
+entity Premium{
+}
+
+entity Free{
+}
+
+entity Administrator{
+}
+
+entity Sponsor{
+}
+
+
+entity Tournament{
+	title String required,
+    description String required,
+    meetingDate Instant required,
+    meetingPoint String required,
+    city String required,
+    price Integer min(0),
+    playerSize Integer min(0), 
+    rewards String, 
+    imageUrl String required,
+    latitude Long,
+    longitude Long,
+    type Type
+}
+
+enum Type{
+	ELIMINATION, POINT
+}
+
+enum GameType{
+	CARD, MINIATURES, 
+    BOARD, DICE, ROL
+}
+
+entity Game{
+	title String required,
+    description String,
+    category GameType,
+    minAge Integer
+}
+
+entity Participation{
+	disqualify Boolean, 
+    punctuation Integer
+}
+
+entity Sponsorship{
+	banner String required,
+    targetUrl String required
+}
+
+entity Promotion{
+	title String required,
+    qr String required
+}
+
+
+
+
+relationship ManyToMany {
+	Premium{tournament} to Tournament,
+    Free{tournament} to Tournament,
+    Sponsor{tournament} to Tournament
+}
+
+relationship OneToMany {
+	Tournament{participant} to Participation,
+    Sponsor{promotion} to Promotion,
+    Actor{participation} to Participation
+    
+}
+
+relationship ManyToOne {
+	Sponsorship{sponsor} to Sponsor,
+    Sponsorship{tournament} to Tournament,
+    Tournament{sponsor} to Sponsor,
+    Tournament{premium} to Premium,
+    Tournament{free} to Free, 
+    Tournament{game} to Game
+}
+
+relationship OneToOne {
+	Actor{userAccount} to UserAccount,
+    UserAccount{authority} to Authority,
+    Sponsor{actor} to Actor,
+    Premium{actor} to Actor,
+    Free{actor} to Actor,
+    Administrator{actor} to Actor
+}
+
+
+// Set service options to all except few
+service all with serviceImpl except UserAccount, Authority
+
+// Set an angular suffix
+// angularSuffix * with mySuffix

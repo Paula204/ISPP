@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity UserAccount.
+    -->
+    <changeSet id="20190322171432-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="authority_id"
+                                 baseTableName="user_account"
+                                 constraintName="fk_user_account_authority_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="authority"/>
+
+    </changeSet>
+</databaseChangeLog>
