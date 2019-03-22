@@ -1,6 +1,5 @@
 package com.ispp.thorneo.repository.search;
 
-import com.ispp.thorneo.domain.Participant;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 
 /**
