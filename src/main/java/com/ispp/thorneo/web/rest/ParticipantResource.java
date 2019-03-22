@@ -1,6 +1,4 @@
 package com.ispp.thorneo.web.rest;
-import com.ispp.thorneo.domain.Participant;
-import com.ispp.thorneo.repository.ParticipantRepository;
 import com.ispp.thorneo.repository.search.ParticipantSearchRepository;
 import com.ispp.thorneo.web.rest.errors.BadRequestAlertException;
 import com.ispp.thorneo.web.rest.util.HeaderUtil;

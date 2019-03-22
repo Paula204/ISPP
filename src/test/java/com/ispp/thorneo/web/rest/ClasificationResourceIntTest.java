@@ -2,8 +2,6 @@ package com.ispp.thorneo.web.rest;
 
 import com.ispp.thorneo.ThorneoApp;
 
-import com.ispp.thorneo.domain.Clasification;
-import com.ispp.thorneo.repository.ClasificationRepository;
 import com.ispp.thorneo.repository.search.ClasificationSearchRepository;
 import com.ispp.thorneo.web.rest.errors.ExceptionTranslator;
 
