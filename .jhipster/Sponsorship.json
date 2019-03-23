@@ -19,8 +19,8 @@
     "relationships": [
         {
             "relationshipType": "many-to-one",
-            "relationshipName": "sponsor",
-            "otherEntityName": "sponsor",
+            "relationshipName": "user",
+            "otherEntityName": "user",
             "otherEntityField": "id",
             "otherEntityRelationshipName": "sponsorship"
         },
@@ -32,10 +32,10 @@
             "otherEntityRelationshipName": "sponsorship"
         }
     ],
-    "changelogDate": "20190321202838",
+    "changelogDate": "20190322214123",
     "entityTableName": "sponsorship",
     "dto": "no",
-    "pagination": "no",
+    "pagination": "infinite-scroll",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": false,
     "fluentMethods": true,

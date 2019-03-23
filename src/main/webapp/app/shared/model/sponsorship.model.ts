@@ -1,11 +1,11 @@
-import { ISponsor } from 'app/shared/model/sponsor.model';
+import { IUser } from 'app/core/user/user.model';
 import { ITournament } from 'app/shared/model/tournament.model';
 
 export interface ISponsorship {
     id?: number;
     banner?: string;
     targetUrl?: string;
-    sponsor?: ISponsor;
+    user?: IUser;
     tournament?: ITournament;
 }
 
@@ -14,7 +14,7 @@ export class Sponsorship implements ISponsorship {
         public id?: number,
         public banner?: string,
         public targetUrl?: string,
-        public sponsor?: ISponsor,
+        public user?: IUser,
         public tournament?: ITournament
     ) {}
 }

@@ -53,23 +53,9 @@
                 <dd>
                     <span jhiTranslate="{{'thorneoApp.Type.' + tournament.type}}">{{tournament.type}}</span>
                 </dd>
-                <dt><span jhiTranslate="thorneoApp.tournament.sponsor">Sponsor</span></dt>
+                <dt><span jhiTranslate="thorneoApp.tournament.user">User</span></dt>
                 <dd>
-                    <div *ngIf="tournament.sponsor">
-                        <a [routerLink]="['/sponsor', tournament.sponsor?.id, 'view']">{{tournament.sponsor?.id}}</a>
-                    </div>
-                </dd>
-                <dt><span jhiTranslate="thorneoApp.tournament.premium">Premium</span></dt>
-                <dd>
-                    <div *ngIf="tournament.premium">
-                        <a [routerLink]="['/premium', tournament.premium?.id, 'view']">{{tournament.premium?.id}}</a>
-                    </div>
-                </dd>
-                <dt><span jhiTranslate="thorneoApp.tournament.free">Free</span></dt>
-                <dd>
-                    <div *ngIf="tournament.free">
-                        <a [routerLink]="['/free', tournament.free?.id, 'view']">{{tournament.free?.id}}</a>
-                    </div>
+                    {{tournament.user?.id}}
                 </dd>
                 <dt><span jhiTranslate="thorneoApp.tournament.game">Game</span></dt>
                 <dd>
@@ -89,6 +75,12 @@
                     [routerLink]="['/tournament', tournament.id, 'edit']"
                     class="btn btn-primary">
                 <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+
+            <button type="submit"
+                    (click)="signOn()"
+                    class="btn btn-submit">
+                <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.signOn">Sign On</span>
             </button>
         </div>
     </div>

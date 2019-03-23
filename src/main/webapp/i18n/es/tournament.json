@@ -28,10 +28,8 @@
             "latitude": "Latitude",
             "longitude": "Longitude",
             "type": "Type",
-            "participant": "Participant",
-            "sponsor": "Sponsor",
-            "premium": "Premium",
-            "free": "Free",
+            "participation": "Participation",
+            "user": "User",
             "game": "Game"
         }
     }

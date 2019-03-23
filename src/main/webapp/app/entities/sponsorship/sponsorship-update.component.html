@@ -33,10 +33,10 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="thorneoApp.sponsorship.sponsor" for="field_sponsor">Sponsor</label>
-                    <select class="form-control" id="field_sponsor" name="sponsor" [(ngModel)]="sponsorship.sponsor" >
+                    <label class="form-control-label" jhiTranslate="thorneoApp.sponsorship.user" for="field_user">User</label>
+                    <select class="form-control" id="field_user" name="user" [(ngModel)]="sponsorship.user" >
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="sponsorOption.id === sponsorship.sponsor?.id ? sponsorship.sponsor : sponsorOption" *ngFor="let sponsorOption of sponsors; trackBy: trackSponsorById">{{sponsorOption.id}}</option>
+                        <option [ngValue]="userOption.id === sponsorship.user?.id ? sponsorship.user : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.id}}</option>
                     </select>
                 </div>
                 <div class="form-group">

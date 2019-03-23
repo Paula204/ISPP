@@ -18,8 +18,8 @@
             },
             "disqualify": "Disqualify",
             "punctuation": "Punctuation",
-            "actor": "Actor",
-            "tournament": "Tournament"
+            "tournament": "Tournament",
+            "user": "User"
         }
     }
 }

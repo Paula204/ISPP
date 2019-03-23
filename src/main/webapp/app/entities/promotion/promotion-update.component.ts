@@ -6,8 +6,7 @@ import { filter, map } from 'rxjs/operators';
 import { JhiAlertService } from 'ng-jhipster';
 import { IPromotion } from 'app/shared/model/promotion.model';
 import { PromotionService } from './promotion.service';
-import { ISponsor } from 'app/shared/model/sponsor.model';
-import { SponsorService } from 'app/entities/sponsor';
+import { IUser, UserService } from 'app/core';
 
 @Component({
     selector: 'jhi-promotion-update',
@@ -17,12 +16,12 @@ export class PromotionUpdateComponent implements OnInit {
     promotion: IPromotion;
     isSaving: boolean;
 
-    sponsors: ISponsor[];
+    users: IUser[];
 
     constructor(
         protected jhiAlertService: JhiAlertService,
         protected promotionService: PromotionService,
-        protected sponsorService: SponsorService,
+        protected userService: UserService,
         protected activatedRoute: ActivatedRoute
     ) {}
 
@@ -31,13 +30,13 @@ export class PromotionUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ promotion }) => {
             this.promotion = promotion;
         });
-        this.sponsorService
+        this.userService
             .query()
             .pipe(
-                filter((mayBeOk: HttpResponse<ISponsor[]>) => mayBeOk.ok),
-                map((response: HttpResponse<ISponsor[]>) => response.body)
+                filter((mayBeOk: HttpResponse<IUser[]>) => mayBeOk.ok),
+                map((response: HttpResponse<IUser[]>) => response.body)
             )
-            .subscribe((res: ISponsor[]) => (this.sponsors = res), (res: HttpErrorResponse) => this.onError(res.message));
+            .subscribe((res: IUser[]) => (this.users = res), (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     previousState() {
@@ -70,7 +69,7 @@ export class PromotionUpdateComponent implements OnInit {
         this.jhiAlertService.error(errorMessage, null, null);
     }
 
-    trackSponsorById(index: number, item: ISponsor) {
+    trackUserById(index: number, item: IUser) {
         return item.id;
     }
 }

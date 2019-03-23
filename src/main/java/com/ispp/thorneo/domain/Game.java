@@ -11,7 +11,7 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import java.io.Serializable;
 import java.util.Objects;
 
-import com.ispp.thorneo.domain.enumeration.GameType;
+import com.ispp.thorneo.domain.enumeration.Category;
 
 /**
  * A Game.
@@ -37,7 +37,7 @@ public class Game implements Serializable {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "category")
-    private GameType category;
+    private Category category;
 
     @Column(name = "min_age")
     private Integer minAge;
@@ -77,16 +77,16 @@ public class Game implements Serializable {
         this.description = description;
     }
 
-    public GameType getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public Game category(GameType category) {
+    public Game category(Category category) {
         this.category = category;
         return this;
     }
 
-    public void setCategory(GameType category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 

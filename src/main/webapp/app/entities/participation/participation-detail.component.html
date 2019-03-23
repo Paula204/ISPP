@@ -13,17 +13,15 @@
                 <dd>
                     <span>{{participation.punctuation}}</span>
                 </dd>
-                <dt><span jhiTranslate="thorneoApp.participation.actor">Actor</span></dt>
-                <dd>
-                    <div *ngIf="participation.actor">
-                        <a [routerLink]="['/actor', participation.actor?.id, 'view']">{{participation.actor?.id}}</a>
-                    </div>
-                </dd>
                 <dt><span jhiTranslate="thorneoApp.participation.tournament">Tournament</span></dt>
                 <dd>
                     <div *ngIf="participation.tournament">
                         <a [routerLink]="['/tournament', participation.tournament?.id, 'view']">{{participation.tournament?.id}}</a>
                     </div>
+                </dd>
+                <dt><span jhiTranslate="thorneoApp.participation.user">User</span></dt>
+                <dd>
+                    {{participation.user?.id}}
                 </dd>
             </dl>
 

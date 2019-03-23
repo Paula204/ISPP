@@ -3,6 +3,7 @@ package com.ispp.thorneo.web.rest;
 import com.ispp.thorneo.ThorneoApp;
 
 import com.ispp.thorneo.domain.Tournament;
+import com.ispp.thorneo.domain.Participation;
 import com.ispp.thorneo.repository.TournamentRepository;
 import com.ispp.thorneo.repository.search.TournamentSearchRepository;
 import com.ispp.thorneo.service.TournamentService;
@@ -14,6 +15,8 @@ import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -149,6 +152,11 @@ public class TournamentResourceIntTest {
             .latitude(DEFAULT_LATITUDE)
             .longitude(DEFAULT_LONGITUDE)
             .type(DEFAULT_TYPE);
+        // Add required entity
+        Participation participation = ParticipationResourceIntTest.createEntity(em);
+        em.persist(participation);
+        em.flush();
+        tournament.getParticipations().add(participation);
         return tournament;
     }
 
@@ -478,8 +486,8 @@ public class TournamentResourceIntTest {
     public void searchTournament() throws Exception {
         // Initialize the database
         tournamentService.save(tournament);
-        when(mockTournamentSearchRepository.search(queryStringQuery("id:" + tournament.getId())))
-            .thenReturn(Collections.singletonList(tournament));
+        when(mockTournamentSearchRepository.search(queryStringQuery("id:" + tournament.getId()), PageRequest.of(0, 20)))
+            .thenReturn(new PageImpl<>(Collections.singletonList(tournament), PageRequest.of(0, 1), 1));
         // Search the tournament
         restTournamentMockMvc.perform(get("/api/_search/tournaments?query=id:" + tournament.getId()))
             .andExpect(status().isOk())

@@ -36,7 +36,7 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import com.ispp.thorneo.domain.enumeration.GameType;
+import com.ispp.thorneo.domain.enumeration.Category;
 /**
  * Test class for the GameResource REST controller.
  *
@@ -52,8 +52,8 @@ public class GameResourceIntTest {
     private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";
     private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
 
-    private static final GameType DEFAULT_CATEGORY = GameType.CARD;
-    private static final GameType UPDATED_CATEGORY = GameType.MINIATURES;
+    private static final Category DEFAULT_CATEGORY = Category.CARD;
+    private static final Category UPDATED_CATEGORY = Category.MINIATURES;
 
     private static final Integer DEFAULT_MIN_AGE = 1;
     private static final Integer UPDATED_MIN_AGE = 2;

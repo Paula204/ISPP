@@ -74,25 +74,20 @@ public class Tournament implements Serializable {
     @Column(name = "longitude")
     private Long longitude;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "jhi_type")
     private Type type;
 
+    @NotNull
     @OneToMany(mappedBy = "tournament")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Participation> participants = new HashSet<>();
+    private Set<Participation> participations = new HashSet<>();
     @ManyToOne
     @JsonIgnoreProperties("tournaments")
-    private Sponsor sponsor;
+    private User user;
 
-    @ManyToOne
-    @JsonIgnoreProperties("tournaments")
-    private Premium premium;
-
-    @ManyToOne
-    @JsonIgnoreProperties("tournaments")
-    private Free free;
-
+    @NotNull
     @ManyToOne
     @JsonIgnoreProperties("tournaments")
     private Game game;
@@ -262,68 +257,42 @@ public class Tournament implements Serializable {
         this.type = type;
     }
 
-    public Set<Participation> getParticipants() {
-        return participants;
+    public Set<Participation> getParticipations() {
+        return participations;
     }
 
-    public Tournament participants(Set<Participation> participations) {
-        this.participants = participations;
+    public Tournament participations(Set<Participation> participations) {
+        this.participations = participations;
         return this;
     }
 
-    public Tournament addParticipant(Participation participation) {
-        this.participants.add(participation);
+    public Tournament addParticipation(Participation participation) {
+        this.participations.add(participation);
         participation.setTournament(this);
         return this;
     }
 
-    public Tournament removeParticipant(Participation participation) {
-        this.participants.remove(participation);
+    public Tournament removeParticipation(Participation participation) {
+        this.participations.remove(participation);
         participation.setTournament(null);
         return this;
     }
 
-    public void setParticipants(Set<Participation> participations) {
-        this.participants = participations;
+    public void setParticipations(Set<Participation> participations) {
+        this.participations = participations;
     }
 
-    public Sponsor getSponsor() {
-        return sponsor;
+    public User getUser() {
+        return user;
     }
 
-    public Tournament sponsor(Sponsor sponsor) {
-        this.sponsor = sponsor;
+    public Tournament user(User user) {
+        this.user = user;
         return this;
     }
 
-    public void setSponsor(Sponsor sponsor) {
-        this.sponsor = sponsor;
-    }
-
-    public Premium getPremium() {
-        return premium;
-    }
-
-    public Tournament premium(Premium premium) {
-        this.premium = premium;
-        return this;
-    }
-
-    public void setPremium(Premium premium) {
-        this.premium = premium;
-    }
-
-    public Free getFree() {
-        return free;
-    }
-
-    public Tournament free(Free free) {
-        this.free = free;
-        return this;
-    }
-
-    public void setFree(Free free) {
-        this.free = free;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Game getGame() {

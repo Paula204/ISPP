@@ -8,12 +8,7 @@ import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
 import { JhiAlertService } from 'ng-jhipster';
 import { ITournament } from 'app/shared/model/tournament.model';
 import { TournamentService } from './tournament.service';
-import { ISponsor } from 'app/shared/model/sponsor.model';
-import { SponsorService } from 'app/entities/sponsor';
-import { IPremium } from 'app/shared/model/premium.model';
-import { PremiumService } from 'app/entities/premium';
-import { IFree } from 'app/shared/model/free.model';
-import { FreeService } from 'app/entities/free';
+import { IUser, UserService } from 'app/core';
 import { IGame } from 'app/shared/model/game.model';
 import { GameService } from 'app/entities/game';
 
@@ -25,11 +20,7 @@ export class TournamentUpdateComponent implements OnInit {
     tournament: ITournament;
     isSaving: boolean;
 
-    sponsors: ISponsor[];
-
-    premiums: IPremium[];
-
-    frees: IFree[];
+    users: IUser[];
 
     games: IGame[];
     meetingDate: string;
@@ -37,9 +28,7 @@ export class TournamentUpdateComponent implements OnInit {
     constructor(
         protected jhiAlertService: JhiAlertService,
         protected tournamentService: TournamentService,
-        protected sponsorService: SponsorService,
-        protected premiumService: PremiumService,
-        protected freeService: FreeService,
+        protected userService: UserService,
         protected gameService: GameService,
         protected activatedRoute: ActivatedRoute
     ) {}
@@ -50,27 +39,13 @@ export class TournamentUpdateComponent implements OnInit {
             this.tournament = tournament;
             this.meetingDate = this.tournament.meetingDate != null ? this.tournament.meetingDate.format(DATE_TIME_FORMAT) : null;
         });
-        this.sponsorService
+        this.userService
             .query()
             .pipe(
-                filter((mayBeOk: HttpResponse<ISponsor[]>) => mayBeOk.ok),
-                map((response: HttpResponse<ISponsor[]>) => response.body)
+                filter((mayBeOk: HttpResponse<IUser[]>) => mayBeOk.ok),
+                map((response: HttpResponse<IUser[]>) => response.body)
             )
-            .subscribe((res: ISponsor[]) => (this.sponsors = res), (res: HttpErrorResponse) => this.onError(res.message));
-        this.premiumService
-            .query()
-            .pipe(
-                filter((mayBeOk: HttpResponse<IPremium[]>) => mayBeOk.ok),
-                map((response: HttpResponse<IPremium[]>) => response.body)
-            )
-            .subscribe((res: IPremium[]) => (this.premiums = res), (res: HttpErrorResponse) => this.onError(res.message));
-        this.freeService
-            .query()
-            .pipe(
-                filter((mayBeOk: HttpResponse<IFree[]>) => mayBeOk.ok),
-                map((response: HttpResponse<IFree[]>) => response.body)
-            )
-            .subscribe((res: IFree[]) => (this.frees = res), (res: HttpErrorResponse) => this.onError(res.message));
+            .subscribe((res: IUser[]) => (this.users = res), (res: HttpErrorResponse) => this.onError(res.message));
         this.gameService
             .query()
             .pipe(
@@ -111,15 +86,7 @@ export class TournamentUpdateComponent implements OnInit {
         this.jhiAlertService.error(errorMessage, null, null);
     }
 
-    trackSponsorById(index: number, item: ISponsor) {
-        return item.id;
-    }
-
-    trackPremiumById(index: number, item: IPremium) {
-        return item.id;
-    }
-
-    trackFreeById(index: number, item: IFree) {
+    trackUserById(index: number, item: IUser) {
         return item.id;
     }
 

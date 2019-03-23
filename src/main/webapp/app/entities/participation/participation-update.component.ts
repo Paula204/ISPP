@@ -6,10 +6,9 @@ import { filter, map } from 'rxjs/operators';
 import { JhiAlertService } from 'ng-jhipster';
 import { IParticipation } from 'app/shared/model/participation.model';
 import { ParticipationService } from './participation.service';
-import { IActor } from 'app/shared/model/actor.model';
-import { ActorService } from 'app/entities/actor';
 import { ITournament } from 'app/shared/model/tournament.model';
 import { TournamentService } from 'app/entities/tournament';
+import { IUser, UserService } from 'app/core';
 
 @Component({
     selector: 'jhi-participation-update',
@@ -19,15 +18,15 @@ export class ParticipationUpdateComponent implements OnInit {
     participation: IParticipation;
     isSaving: boolean;
 
-    actors: IActor[];
-
     tournaments: ITournament[];
+
+    users: IUser[];
 
     constructor(
         protected jhiAlertService: JhiAlertService,
         protected participationService: ParticipationService,
-        protected actorService: ActorService,
         protected tournamentService: TournamentService,
+        protected userService: UserService,
         protected activatedRoute: ActivatedRoute
     ) {}
 
@@ -36,13 +35,6 @@ export class ParticipationUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ participation }) => {
             this.participation = participation;
         });
-        this.actorService
-            .query()
-            .pipe(
-                filter((mayBeOk: HttpResponse<IActor[]>) => mayBeOk.ok),
-                map((response: HttpResponse<IActor[]>) => response.body)
-            )
-            .subscribe((res: IActor[]) => (this.actors = res), (res: HttpErrorResponse) => this.onError(res.message));
         this.tournamentService
             .query()
             .pipe(
@@ -50,6 +42,13 @@ export class ParticipationUpdateComponent implements OnInit {
                 map((response: HttpResponse<ITournament[]>) => response.body)
             )
             .subscribe((res: ITournament[]) => (this.tournaments = res), (res: HttpErrorResponse) => this.onError(res.message));
+        this.userService
+            .query()
+            .pipe(
+                filter((mayBeOk: HttpResponse<IUser[]>) => mayBeOk.ok),
+                map((response: HttpResponse<IUser[]>) => response.body)
+            )
+            .subscribe((res: IUser[]) => (this.users = res), (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     previousState() {
@@ -82,11 +81,11 @@ export class ParticipationUpdateComponent implements OnInit {
         this.jhiAlertService.error(errorMessage, null, null);
     }
 
-    trackActorById(index: number, item: IActor) {
+    trackTournamentById(index: number, item: ITournament) {
         return item.id;
     }
 
-    trackTournamentById(index: number, item: ITournament) {
+    trackUserById(index: number, item: IUser) {
         return item.id;
     }
 }

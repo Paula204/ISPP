@@ -3,6 +3,7 @@ package com.ispp.thorneo.web.rest;
 import com.ispp.thorneo.ThorneoApp;
 
 import com.ispp.thorneo.domain.Participation;
+import com.ispp.thorneo.domain.User;
 import com.ispp.thorneo.repository.ParticipationRepository;
 import com.ispp.thorneo.repository.search.ParticipationSearchRepository;
 import com.ispp.thorneo.service.ParticipationService;
@@ -106,6 +107,11 @@ public class ParticipationResourceIntTest {
         Participation participation = new Participation()
             .disqualify(DEFAULT_DISQUALIFY)
             .punctuation(DEFAULT_PUNCTUATION);
+        // Add required entity
+        User user = UserResourceIntTest.createEntity(em);
+        em.persist(user);
+        em.flush();
+        participation.setUser(user);
         return participation;
     }
 

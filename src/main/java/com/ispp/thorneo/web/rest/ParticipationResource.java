@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -43,7 +44,7 @@ public class ParticipationResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/participations")
-    public ResponseEntity<Participation> createParticipation(@RequestBody Participation participation) throws URISyntaxException {
+    public ResponseEntity<Participation> createParticipation(@Valid @RequestBody Participation participation) throws URISyntaxException {
         log.debug("REST request to save Participation : {}", participation);
         if (participation.getId() != null) {
             throw new BadRequestAlertException("A new participation cannot already have an ID", ENTITY_NAME, "idexists");
@@ -64,7 +65,7 @@ public class ParticipationResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/participations")
-    public ResponseEntity<Participation> updateParticipation(@RequestBody Participation participation) throws URISyntaxException {
+    public ResponseEntity<Participation> updateParticipation(@Valid @RequestBody Participation participation) throws URISyntaxException {
         log.debug("REST request to update Participation : {}", participation);
         if (participation.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");

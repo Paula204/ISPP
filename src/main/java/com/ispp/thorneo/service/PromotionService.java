@@ -2,7 +2,9 @@ package com.ispp.thorneo.service;
 
 import com.ispp.thorneo.domain.Promotion;
 
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import java.util.Optional;
 
 /**
@@ -21,9 +23,10 @@ public interface PromotionService {
     /**
      * Get all the promotions.
      *
+     * @param pageable the pagination information
      * @return the list of entities
      */
-    List<Promotion> findAll();
+    Page<Promotion> findAll(Pageable pageable);
 
 
     /**
@@ -46,7 +49,8 @@ public interface PromotionService {
      *
      * @param query the query of the search
      * 
+     * @param pageable the pagination information
      * @return the list of entities
      */
-    List<Promotion> search(String query);
+    Page<Promotion> search(String query, Pageable pageable);
 }

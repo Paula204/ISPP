@@ -32,8 +32,8 @@
             <th><span jhiTranslate="global.field.id">ID</span></th>
             <th><span jhiTranslate="thorneoApp.participation.disqualify">Disqualify</span></th>
             <th><span jhiTranslate="thorneoApp.participation.punctuation">Punctuation</span></th>
-            <th><span jhiTranslate="thorneoApp.participation.actor">Actor</span></th>
             <th><span jhiTranslate="thorneoApp.participation.tournament">Tournament</span></th>
+            <th><span jhiTranslate="thorneoApp.participation.user">User</span></th>
             <th></th>
             </tr>
             </thead>
@@ -43,14 +43,12 @@
                 <td>{{participation.disqualify}}</td>
                 <td>{{participation.punctuation}}</td>
                 <td>
-                    <div *ngIf="participation.actor">
-                        <a [routerLink]="['../actor', participation.actor?.id, 'view' ]" >{{participation.actor?.id}}</a>
-                    </div>
-                </td>
-                <td>
                     <div *ngIf="participation.tournament">
                         <a [routerLink]="['../tournament', participation.tournament?.id, 'view' ]" >{{participation.tournament?.id}}</a>
                     </div>
+                </td>
+                <td>
+                    {{participation.user?.id}}
                 </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">

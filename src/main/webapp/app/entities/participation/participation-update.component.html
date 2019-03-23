@@ -21,18 +21,24 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="thorneoApp.participation.actor" for="field_actor">Actor</label>
-                    <select class="form-control" id="field_actor" name="actor" [(ngModel)]="participation.actor" >
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="actorOption.id === participation.actor?.id ? participation.actor : actorOption" *ngFor="let actorOption of actors; trackBy: trackActorById">{{actorOption.id}}</option>
-                    </select>
-                </div>
-                <div class="form-group">
                     <label class="form-control-label" jhiTranslate="thorneoApp.participation.tournament" for="field_tournament">Tournament</label>
                     <select class="form-control" id="field_tournament" name="tournament" [(ngModel)]="participation.tournament" >
                         <option [ngValue]="null"></option>
                         <option [ngValue]="tournamentOption.id === participation.tournament?.id ? participation.tournament : tournamentOption" *ngFor="let tournamentOption of tournaments; trackBy: trackTournamentById">{{tournamentOption.id}}</option>
                     </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="thorneoApp.participation.user" for="field_user">User</label>
+                    <select class="form-control" id="field_user" name="user" [(ngModel)]="participation.user"  required>
+                        <option *ngIf="!editForm.value.user" [ngValue]="null" selected></option>
+                        <option [ngValue]="userOption.id === participation.user?.id ? participation.user : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.id}}</option>
+                    </select>
+                </div>
+                <div [hidden]="!(editForm.controls.user?.dirty && editForm.controls.user?.invalid)">
+                    <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.user?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
                 </div>
             </div>
             <div>

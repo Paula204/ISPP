@@ -14,7 +14,7 @@
         },
         {
             "fieldName": "category",
-            "fieldType": "GameType",
+            "fieldType": "Category",
             "fieldValues": "CARD,MINIATURES,BOARD,DICE,ROL"
         },
         {
@@ -23,7 +23,7 @@
         }
     ],
     "relationships": [],
-    "changelogDate": "20190321202835",
+    "changelogDate": "20190322214121",
     "entityTableName": "game",
     "dto": "no",
     "pagination": "no",

@@ -1,4 +1,4 @@
-export const enum GameType {
+export const enum Category {
     CARD = 'CARD',
     MINIATURES = 'MINIATURES',
     BOARD = 'BOARD',
@@ -10,7 +10,7 @@ export interface IGame {
     id?: number;
     title?: string;
     description?: string;
-    category?: GameType;
+    category?: Category;
     minAge?: number;
 }
 
@@ -19,7 +19,7 @@ export class Game implements IGame {
         public id?: number,
         public title?: string,
         public description?: string,
-        public category?: GameType,
+        public category?: Category,
         public minAge?: number
     ) {}
 }

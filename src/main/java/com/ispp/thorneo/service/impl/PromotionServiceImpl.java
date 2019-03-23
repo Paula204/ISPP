@@ -7,13 +7,12 @@ import com.ispp.thorneo.repository.search.PromotionSearchRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
@@ -52,13 +51,14 @@ public class PromotionServiceImpl implements PromotionService {
     /**
      * Get all the promotions.
      *
+     * @param pageable the pagination information
      * @return the list of entities
      */
     @Override
     @Transactional(readOnly = true)
-    public List<Promotion> findAll() {
+    public Page<Promotion> findAll(Pageable pageable) {
         log.debug("Request to get all Promotions");
-        return promotionRepository.findAll();
+        return promotionRepository.findAll(pageable);
     }
 
 
@@ -90,14 +90,12 @@ public class PromotionServiceImpl implements PromotionService {
      * Search for the promotion corresponding to the query.
      *
      * @param query the query of the search
+     * @param pageable the pagination information
      * @return the list of entities
      */
     @Override
     @Transactional(readOnly = true)
-    public List<Promotion> search(String query) {
-        log.debug("Request to search Promotions for query {}", query);
-        return StreamSupport
-            .stream(promotionSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .collect(Collectors.toList());
-    }
+    public Page<Promotion> search(String query, Pageable pageable) {
+        log.debug("Request to search for a page of Promotions for query {}", query);
+        return promotionSearchRepository.search(queryStringQuery(query), pageable);    }
 }

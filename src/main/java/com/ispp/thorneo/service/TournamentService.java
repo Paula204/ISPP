@@ -2,7 +2,9 @@ package com.ispp.thorneo.service;
 
 import com.ispp.thorneo.domain.Tournament;
 
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import java.util.Optional;
 
 /**
@@ -21,9 +23,10 @@ public interface TournamentService {
     /**
      * Get all the tournaments.
      *
+     * @param pageable the pagination information
      * @return the list of entities
      */
-    List<Tournament> findAll();
+    Page<Tournament> findAll(Pageable pageable);
 
 
     /**
@@ -46,7 +49,18 @@ public interface TournamentService {
      *
      * @param query the query of the search
      * 
+     * @param pageable the pagination information
      * @return the list of entities
      */
-    List<Tournament> search(String query);
+    Page<Tournament> search(String query, Pageable pageable);
+
+    /**
+     * Assign current user as creator of the tournament and check if player's size is null
+     */
+     Tournament saveTournament(Tournament tournament); 
+
+     /**
+      * Add current user to the tournament
+      */
+      Tournament signOn(Tournament tournament);
 }
