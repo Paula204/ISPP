@@ -17,7 +17,9 @@
                 "title": "Game"
             },
             "title": "Title",
-            "tournament": "Tournament"
+            "description": "Description",
+            "category": "Category",
+            "minAge": "Min Age"
         }
     }
 }

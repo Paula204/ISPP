@@ -53,16 +53,14 @@
                 <dd>
                     <span jhiTranslate="{{'thorneoApp.Type.' + tournament.type}}">{{tournament.type}}</span>
                 </dd>
+                <dt><span jhiTranslate="thorneoApp.tournament.user">User</span></dt>
+                <dd>
+                    {{tournament.user?.id}}
+                </dd>
                 <dt><span jhiTranslate="thorneoApp.tournament.game">Game</span></dt>
                 <dd>
                     <div *ngIf="tournament.game">
                         <a [routerLink]="['/game', tournament.game?.id, 'view']">{{tournament.game?.id}}</a>
-                    </div>
-                </dd>
-                <dt><span jhiTranslate="thorneoApp.tournament.manager">Manager</span></dt>
-                <dd>
-                    <div *ngIf="tournament.manager">
-                        <a [routerLink]="['/manager', tournament.manager?.id, 'view']">{{tournament.manager?.id}}</a>
                     </div>
                 </dd>
             </dl>
@@ -78,6 +76,12 @@
                     class="btn btn-primary">
                 <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
             </button>
+
+            {% comment %} <button type="submit"
+                    (click)="signOn()"
+                    class="btn btn-submit">
+                <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.signOn">Sign On</span>
+            </button> {% endcomment %}
         </div>
     </div>
 </div>

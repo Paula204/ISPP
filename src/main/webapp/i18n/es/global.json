@@ -8,17 +8,11 @@
             "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
             "entities": {
                 "main": "Entidades",
-                "premium": "Premium",
-                "free": "Free",
-                "administrator": "Administrator",
-                "sponsor": "Sponsor",
                 "tournament": "Tournament",
                 "game": "Game",
-                "participant": "Participant",
-                "clasification": "Clasification",
+                "participation": "Participation",
                 "sponsorship": "Sponsorship",
                 "promotion": "Promotion",
-                "manager": "Manager",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {
@@ -111,7 +105,8 @@
             "edit": "Editar",
             "open": "Open",
             "save": "Guardar",
-            "view": "Vista"
+            "view": "Vista",
+            "signOn": "Registrar"
         },
         "detail": {
             "field": "Campo",

@@ -18,6 +18,7 @@
             },
             "banner": "Banner",
             "targetUrl": "Target Url",
+            "user": "User",
             "tournament": "Tournament"
         }
     }

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
+import { JhiPaginationUtil, JhiResolvePagingParams } from 'ng-jhipster';
 import { UserRouteAccessService } from 'app/core';
 import { Observable, of } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
@@ -32,8 +33,12 @@ export const tournamentRoute: Routes = [
     {
         path: '',
         component: TournamentComponent,
+        resolve: {
+            pagingParams: JhiResolvePagingParams
+        },
         data: {
-            authorities: ['ROLE_FREE'],
+            authorities: ['ROLE_USER'],
+            defaultSort: 'id,asc',
             pageTitle: 'thorneoApp.tournament.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -45,7 +50,7 @@ export const tournamentRoute: Routes = [
             tournament: TournamentResolve
         },
         data: {
-            authorities: ['ROLE_FREE'],
+            authorities: ['ROLE_USER'],
             pageTitle: 'thorneoApp.tournament.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -57,7 +62,7 @@ export const tournamentRoute: Routes = [
             tournament: TournamentResolve
         },
         data: {
-            authorities: ['ROLE_FREE'],
+            authorities: ['ROLE_USER'],
             pageTitle: 'thorneoApp.tournament.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -69,7 +74,7 @@ export const tournamentRoute: Routes = [
             tournament: TournamentResolve
         },
         data: {
-            authorities: ['ROLE_FREE'],
+            authorities: ['ROLE_USER'],
             pageTitle: 'thorneoApp.tournament.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -84,7 +89,7 @@ export const tournamentPopupRoute: Routes = [
             tournament: TournamentResolve
         },
         data: {
-            authorities: ['ROLE_FREE'],
+            authorities: ['ROLE_USER'],
             pageTitle: 'thorneoApp.tournament.home.title'
         },
         canActivate: [UserRouteAccessService],

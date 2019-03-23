@@ -5,23 +5,15 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 
     <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190321202830_added_entity_Premium.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190321202831_added_entity_Free.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190321202832_added_entity_Administrator.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190321202833_added_entity_Sponsor.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190321202834_added_entity_Tournament.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190321202835_added_entity_Game.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190321202836_added_entity_Participant.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190321202837_added_entity_Clasification.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190321202838_added_entity_Sponsorship.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190321202839_added_entity_Promotion.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190321202840_added_entity_Manager.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190322214120_added_entity_Tournament.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190322214121_added_entity_Game.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190322214122_added_entity_Participation.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190322214123_added_entity_Sponsorship.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190322214124_added_entity_Promotion.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
-    <include file="config/liquibase/changelog/20190321202834_added_entity_constraints_Tournament.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190321202836_added_entity_constraints_Participant.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190321202837_added_entity_constraints_Clasification.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190321202838_added_entity_constraints_Sponsorship.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190321202839_added_entity_constraints_Promotion.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190321202840_added_entity_constraints_Manager.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190322214120_added_entity_constraints_Tournament.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190322214122_added_entity_constraints_Participation.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190322214123_added_entity_constraints_Sponsorship.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190322214124_added_entity_constraints_Promotion.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>

@@ -1,7 +1,6 @@
 package com.ispp.thorneo.domain;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -10,9 +9,9 @@ import javax.validation.constraints.*;
 
 import org.springframework.data.elasticsearch.annotations.Document;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
+
+import com.ispp.thorneo.domain.enumeration.Category;
 
 /**
  * A Game.
@@ -33,9 +32,16 @@ public class Game implements Serializable {
     @Column(name = "title", nullable = false)
     private String title;
 
-    @OneToMany(mappedBy = "game")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Tournament> tournaments = new HashSet<>();
+    @Column(name = "description")
+    private String description;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "category")
+    private Category category;
+
+    @Column(name = "min_age")
+    private Integer minAge;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -58,29 +64,43 @@ public class Game implements Serializable {
         this.title = title;
     }
 
-    public Set<Tournament> getTournaments() {
-        return tournaments;
+    public String getDescription() {
+        return description;
     }
 
-    public Game tournaments(Set<Tournament> tournaments) {
-        this.tournaments = tournaments;
+    public Game description(String description) {
+        this.description = description;
         return this;
     }
 
-    public Game addTournament(Tournament tournament) {
-        this.tournaments.add(tournament);
-        tournament.setGame(this);
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public Game category(Category category) {
+        this.category = category;
         return this;
     }
 
-    public Game removeTournament(Tournament tournament) {
-        this.tournaments.remove(tournament);
-        tournament.setGame(null);
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public Integer getMinAge() {
+        return minAge;
+    }
+
+    public Game minAge(Integer minAge) {
+        this.minAge = minAge;
         return this;
     }
 
-    public void setTournaments(Set<Tournament> tournaments) {
-        this.tournaments = tournaments;
+    public void setMinAge(Integer minAge) {
+        this.minAge = minAge;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
@@ -109,6 +129,9 @@ public class Game implements Serializable {
         return "Game{" +
             "id=" + getId() +
             ", title='" + getTitle() + "'" +
+            ", description='" + getDescription() + "'" +
+            ", category='" + getCategory() + "'" +
+            ", minAge=" + getMinAge() +
             "}";
     }
 }

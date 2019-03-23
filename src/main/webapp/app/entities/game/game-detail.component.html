@@ -9,6 +9,18 @@
                 <dd>
                     <span>{{game.title}}</span>
                 </dd>
+                <dt><span jhiTranslate="thorneoApp.game.description">Description</span></dt>
+                <dd>
+                    <span>{{game.description}}</span>
+                </dd>
+                <dt><span jhiTranslate="thorneoApp.game.category">Category</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'thorneoApp.Category.' + game.category}}">{{game.category}}</span>
+                </dd>
+                <dt><span jhiTranslate="thorneoApp.game.minAge">Min Age</span></dt>
+                <dd>
+                    <span>{{game.minAge}}</span>
+                </dd>
             </dl>
 
             <button type="submit"

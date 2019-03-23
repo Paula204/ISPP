@@ -1,7 +1,7 @@
 import { Moment } from 'moment';
+import { IParticipation } from 'app/shared/model/participation.model';
+import { IUser } from 'app/core/user/user.model';
 import { IGame } from 'app/shared/model/game.model';
-import { IManager } from 'app/shared/model/manager.model';
-import { ISponsorship } from 'app/shared/model/sponsorship.model';
 
 export const enum Type {
     ELIMINATION = 'ELIMINATION',
@@ -22,9 +22,9 @@ export interface ITournament {
     latitude?: number;
     longitude?: number;
     type?: Type;
+    participations?: IParticipation[];
+    user?: IUser;
     game?: IGame;
-    manager?: IManager;
-    sponsorships?: ISponsorship[];
 }
 
 export class Tournament implements ITournament {
@@ -42,8 +42,8 @@ export class Tournament implements ITournament {
         public latitude?: number,
         public longitude?: number,
         public type?: Type,
-        public game?: IGame,
-        public manager?: IManager,
-        public sponsorships?: ISponsorship[]
+        public participations?: IParticipation[],
+        public user?: IUser,
+        public game?: IGame
     ) {}
 }

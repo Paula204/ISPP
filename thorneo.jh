@@ -1,0 +1,78 @@
+entity Tournament{
+	title String required,
+    description String required,
+    meetingDate Instant required,
+    meetingPoint String required,
+    city String required,
+    price Integer min(0),
+    playerSize Integer min(0), 
+    rewards String, 
+    imageUrl String required,
+    latitude Long,
+    longitude Long,
+    type Type
+}
+
+enum Type{
+	ELIMINATION, POINT
+}
+
+entity Game{
+	title String required,
+    description String,
+    category Category,
+    minAge Integer
+}
+
+enum Category{
+	CARD,
+    MINIATURES,
+    BOARD,
+    DICE,
+    ROL
+}
+
+entity Participation{
+	disqualify Boolean,
+    punctuation Integer
+}
+
+entity Sponsorship{
+	banner String required,
+    targetUrl String required
+}
+
+entity Promotion{
+	title String required,
+    qr String required
+}
+
+
+
+relationship OneToMany {
+	Tournament{participation required} to Participation
+    
+}
+
+relationship ManyToOne {
+	Sponsorship{user} to User,
+    Sponsorship{tournament} to Tournament,
+    Tournament{user} to User, 
+    Tournament{game} to Game,
+    Promotion{user required} to User,
+    Participation{user required} to User
+}
+
+
+// Set pagination options
+paginate Sponsorship, Promotion with infinite-scroll
+paginate Tournament with pagination
+
+// Use Data Transfert Objects (DTO)
+// dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl except User, Authority
+
+// Set an angular suffix
+// angularSuffix * with mySuffix

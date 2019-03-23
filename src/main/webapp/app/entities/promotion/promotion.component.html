@@ -28,23 +28,21 @@
     <div class="table-responsive" *ngIf="promotions">
         <table class="table table-striped">
             <thead>
-            <tr>
-            <th><span jhiTranslate="global.field.id">ID</span></th>
-            <th><span jhiTranslate="thorneoApp.promotion.title">Title</span></th>
-            <th><span jhiTranslate="thorneoApp.promotion.qr">Qr</span></th>
-            <th><span jhiTranslate="thorneoApp.promotion.sponsor">Sponsor</span></th>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="title"><span jhiTranslate="thorneoApp.promotion.title">Title</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="qr"><span jhiTranslate="thorneoApp.promotion.qr">Qr</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="user.id"><span jhiTranslate="thorneoApp.promotion.user">User</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
-            <tbody>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
             <tr *ngFor="let promotion of promotions ;trackBy: trackId">
                 <td><a [routerLink]="['/promotion', promotion.id, 'view' ]">{{promotion.id}}</a></td>
                 <td>{{promotion.title}}</td>
                 <td>{{promotion.qr}}</td>
                 <td>
-                    <div *ngIf="promotion.sponsor">
-                        <a [routerLink]="['../sponsor', promotion.sponsor?.id, 'view' ]" >{{promotion.sponsor?.id}}</a>
-                    </div>
+                    {{promotion.user?.id}}
                 </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">

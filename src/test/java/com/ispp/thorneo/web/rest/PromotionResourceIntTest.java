@@ -3,8 +3,10 @@ package com.ispp.thorneo.web.rest;
 import com.ispp.thorneo.ThorneoApp;
 
 import com.ispp.thorneo.domain.Promotion;
+import com.ispp.thorneo.domain.User;
 import com.ispp.thorneo.repository.PromotionRepository;
 import com.ispp.thorneo.repository.search.PromotionSearchRepository;
+import com.ispp.thorneo.service.PromotionService;
 import com.ispp.thorneo.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -13,6 +15,8 @@ import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -53,6 +57,9 @@ public class PromotionResourceIntTest {
     @Autowired
     private PromotionRepository promotionRepository;
 
+    @Autowired
+    private PromotionService promotionService;
+
     /**
      * This repository is mocked in the com.ispp.thorneo.repository.search test package.
      *
@@ -83,7 +90,7 @@ public class PromotionResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final PromotionResource promotionResource = new PromotionResource(promotionRepository, mockPromotionSearchRepository);
+        final PromotionResource promotionResource = new PromotionResource(promotionService);
         this.restPromotionMockMvc = MockMvcBuilders.standaloneSetup(promotionResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -102,6 +109,11 @@ public class PromotionResourceIntTest {
         Promotion promotion = new Promotion()
             .title(DEFAULT_TITLE)
             .qr(DEFAULT_QR);
+        // Add required entity
+        User user = UserResourceIntTest.createEntity(em);
+        em.persist(user);
+        em.flush();
+        promotion.setUser(user);
         return promotion;
     }
 
@@ -232,7 +244,9 @@ public class PromotionResourceIntTest {
     @Transactional
     public void updatePromotion() throws Exception {
         // Initialize the database
-        promotionRepository.saveAndFlush(promotion);
+        promotionService.save(promotion);
+        // As the test used the service layer, reset the Elasticsearch mock repository
+        reset(mockPromotionSearchRepository);
 
         int databaseSizeBeforeUpdate = promotionRepository.findAll().size();
 
@@ -285,7 +299,7 @@ public class PromotionResourceIntTest {
     @Transactional
     public void deletePromotion() throws Exception {
         // Initialize the database
-        promotionRepository.saveAndFlush(promotion);
+        promotionService.save(promotion);
 
         int databaseSizeBeforeDelete = promotionRepository.findAll().size();
 
@@ -306,9 +320,9 @@ public class PromotionResourceIntTest {
     @Transactional
     public void searchPromotion() throws Exception {
         // Initialize the database
-        promotionRepository.saveAndFlush(promotion);
-        when(mockPromotionSearchRepository.search(queryStringQuery("id:" + promotion.getId())))
-            .thenReturn(Collections.singletonList(promotion));
+        promotionService.save(promotion);
+        when(mockPromotionSearchRepository.search(queryStringQuery("id:" + promotion.getId()), PageRequest.of(0, 20)))
+            .thenReturn(new PageImpl<>(Collections.singletonList(promotion), PageRequest.of(0, 1), 1));
         // Search the promotion
         restPromotionMockMvc.perform(get("/api/_search/promotions?query=id:" + promotion.getId()))
             .andExpect(status().isOk())

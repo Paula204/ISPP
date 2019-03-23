@@ -37,6 +37,10 @@ public class Sponsorship implements Serializable {
 
     @ManyToOne
     @JsonIgnoreProperties("sponsorships")
+    private User user;
+
+    @ManyToOne
+    @JsonIgnoreProperties("sponsorships")
     private Tournament tournament;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
@@ -72,6 +76,19 @@ public class Sponsorship implements Serializable {
 
     public void setTargetUrl(String targetUrl) {
         this.targetUrl = targetUrl;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public Sponsorship user(User user) {
+        this.user = user;
+        return this;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Tournament getTournament() {

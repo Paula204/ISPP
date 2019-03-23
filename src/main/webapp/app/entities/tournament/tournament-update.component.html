@@ -134,18 +134,24 @@
                     </select>
                 </div>
 
+                <div [hidden]="!(editForm.controls.participation?.dirty && editForm.controls.participation?.invalid)">
+                    <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.participation?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="thorneoApp.tournament.user" for="field_user">User</label>
+                    <select class="form-control" id="field_user" name="user" [(ngModel)]="tournament.user" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="userOption.id === tournament.user?.id ? tournament.user : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.id}}</option>
+                    </select>
+                </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="thorneoApp.tournament.game" for="field_game">Game</label>
                     <select class="form-control" id="field_game" name="game" [(ngModel)]="tournament.game" >
                         <option [ngValue]="null"></option>
                         <option [ngValue]="gameOption.id === tournament.game?.id ? tournament.game : gameOption" *ngFor="let gameOption of games; trackBy: trackGameById">{{gameOption.id}}</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="thorneoApp.tournament.manager" for="field_manager">Manager</label>
-                    <select class="form-control" id="field_manager" name="manager" [(ngModel)]="tournament.manager" >
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="managerOption.id === tournament.manager?.id ? tournament.manager : managerOption" *ngFor="let managerOption of managers; trackBy: trackManagerById">{{managerOption.id}}</option>
                     </select>
                 </div>
             </div>

@@ -1,0 +1,25 @@
+{
+    "thorneoApp": {
+        "participation": {
+            "home": {
+                "title": "Participations",
+                "createLabel": "Create a new Participation",
+                "createOrEditLabel": "Create or edit a Participation",
+                "search": "Search for Participation"
+            },
+            "created": "A new Participation is created with identifier {{ param }}",
+            "updated": "A Participation is updated with identifier {{ param }}",
+            "deleted": "A Participation is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Participation {{ id }}?"
+            },
+            "detail": {
+                "title": "Participation"
+            },
+            "disqualify": "Disqualify",
+            "punctuation": "Punctuation",
+            "tournament": "Tournament",
+            "user": "User"
+        }
+    }
+}
