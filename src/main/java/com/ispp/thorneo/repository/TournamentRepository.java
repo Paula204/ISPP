@@ -16,7 +16,7 @@ public interface TournamentRepository extends JpaRepository<Tournament, Long> {
     @Query("select tournament from Tournament tournament where tournament.user.login = ?#{principal.username}")
     List<Tournament> findByUserIsCurrentUser();
 
-    @Query("select tournament from Tournament tournament join tournament.participations p where p.user.id = ?#{principal.username}")
+    @Query("select tournament.id from Tournament tournament join tournament.participations p where p.user.login = ?#{principal.username}")
     Long findCurrentUserParticipation();
 
 }

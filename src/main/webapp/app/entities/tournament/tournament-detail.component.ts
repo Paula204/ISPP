@@ -15,9 +15,11 @@ export class TournamentDetailComponent implements OnInit {
     tournament: ITournament;
     isSaving: boolean;
 
-    constructor( protected jhiAlertService: JhiAlertService,
+    constructor(
+        protected jhiAlertService: JhiAlertService,
         protected activatedRoute: ActivatedRoute,
-        protected tournamentService: TournamentService) {}
+        protected tournamentService: TournamentService
+    ) {}
 
     ngOnInit() {
         this.activatedRoute.data.subscribe(({ tournament }) => {
@@ -31,7 +33,12 @@ export class TournamentDetailComponent implements OnInit {
 
     signOn() {
         this.isSaving = true;
-        this.subscribeToSaveResponse(this.tournamentService.update(this.tournament));
+
+        if (this.tournament.participations === null) {
+            this.tournament.participations = [];
+        }
+
+        this.subscribeToSaveResponse(this.tournamentService.signOn(this.tournament));
     }
 
     protected subscribeToSaveResponse(result: Observable<HttpResponse<ITournament>>) {

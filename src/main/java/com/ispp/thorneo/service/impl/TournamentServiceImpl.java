@@ -58,6 +58,7 @@ public class TournamentServiceImpl implements TournamentService {
     @Override
     public Tournament save(Tournament tournament) {
         log.debug("Request to save Tournament : {}", tournament);
+        log.debug("PARTICIPANTS: {}", tournament.getParticipations ());
         Tournament result = tournamentRepository.save(tournament);
         tournamentSearchRepository.save(result);
         return result;
@@ -143,11 +144,14 @@ public class TournamentServiceImpl implements TournamentService {
         participation.setDisqualify(false);
         participation.setPunctuation(0);
         participation.setUser(user);
+        participationService.save(participation);
 
         Long userId = this.tournamentRepository.findCurrentUserParticipation();
-        Assert.isTrue(userId != null, "User is sign on this tournament");
+        log.debug("User id participation : {}", userId);
+        Assert.isTrue(userId == null, "User is sign on this tournament");
 
         tournament.addParticipation(participation);
+        log.debug("PARTICIPATION: {}", tournament.getParticipations());
         result = save(tournament);
         
         return result;

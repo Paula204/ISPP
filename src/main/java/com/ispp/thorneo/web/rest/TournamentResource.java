@@ -1,4 +1,6 @@
 package com.ispp.thorneo.web.rest;
+
+import com.ispp.thorneo.domain.Participation;
 import com.ispp.thorneo.domain.Tournament;
 import com.ispp.thorneo.service.TournamentService;
 import com.ispp.thorneo.web.rest.errors.BadRequestAlertException;
@@ -17,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.StreamSupport;
@@ -54,6 +56,7 @@ public class TournamentResource {
         if (tournament.getId() != null) {
             throw new BadRequestAlertException("A new tournament cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        tournament.setParticipations(new HashSet<Participation>());
         Tournament result = tournamentService.saveTournament(tournament);
         return ResponseEntity.created(new URI("/api/tournaments/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
