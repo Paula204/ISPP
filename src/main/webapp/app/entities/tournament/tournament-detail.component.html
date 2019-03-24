@@ -1,14 +1,10 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <div *ngIf="tournament">
-            <h2><span jhiTranslate="thorneoApp.tournament.detail.title">Tournament</span> {{tournament.id}}</h2>
+            <h2>{{tournament.title}}</h2>
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
-                <dt><span jhiTranslate="thorneoApp.tournament.title">Title</span></dt>
-                <dd>
-                    <span>{{tournament.title}}</span>
-                </dd>
                 <dt><span jhiTranslate="thorneoApp.tournament.description">Description</span></dt>
                 <dd>
                     <span>{{tournament.description}}</span>
@@ -65,9 +61,9 @@
                 </dd>
                 <dt><span jhiTranslate="thorneoApp.tournament.participation">Participants</span></dt>
                 <dd>
-                        <div *ngFor="let participation of tournament.participations">
-                            {{participation.user.login}}
-                        </div>
+                    <ul>
+                        <li *ngFor="let participation of tournament.participations">{{participation.user.login}}</li>
+                    </ul>
                 </dd>
             </dl>
 
