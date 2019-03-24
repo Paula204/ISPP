@@ -9,6 +9,7 @@
             "500": "Error interno del servidor."
         },
         "concurrencyFailure": "Otro usuario ha modificado esta data al mismo tiempo que tú. Tus cambios fueron rechazados.",
-        "validation": "Error de validación en el servidor."
+        "validation": "Error de validación en el servidor.",
+        "URL": "La dirección URL que has introducido no es válida"
     }
 }

@@ -82,9 +82,10 @@ public class Tournament implements Serializable {
     private Type type;
 
     @NotNull
-    @OneToMany(mappedBy = "tournament")
+    @OneToMany(mappedBy = "tournament", fetch = FetchType.EAGER, orphanRemoval = true)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Participation> participations = new HashSet<>();
+
     @ManyToOne
     @JsonIgnoreProperties("tournaments")
     private User user;

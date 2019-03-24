@@ -1,10 +1,12 @@
 package com.ispp.thorneo.service;
 
+import com.ispp.thorneo.TournamentForm;
 import com.ispp.thorneo.domain.Tournament;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -62,5 +64,5 @@ public interface TournamentService {
     /**
       * Add current user to the tournament
       */
-      Tournament signOn(Tournament tournament);
+    Tournament signOn(Tournament tournament);
 }
