@@ -15,5 +15,4 @@ public interface ParticipationRepository extends JpaRepository<Participation, Lo
 
     @Query("select participation from Participation participation where participation.user.login = ?#{principal.username}")
     List<Participation> findByUserIsCurrentUser();
-
 }

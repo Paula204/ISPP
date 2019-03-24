@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import java.util.HashSet;
 import java.util.Optional;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
@@ -58,7 +59,6 @@ public class TournamentServiceImpl implements TournamentService {
     @Override
     public Tournament save(Tournament tournament) {
         log.debug("Request to save Tournament : {}", tournament);
-        log.debug("PARTICIPANTS: {}", tournament.getParticipations ());
         Tournament result = tournamentRepository.save(tournament);
         tournamentSearchRepository.save(result);
         return result;
@@ -88,7 +88,10 @@ public class TournamentServiceImpl implements TournamentService {
     @Transactional(readOnly = true)
     public Optional<Tournament> findOne(Long id) {
         log.debug("Request to get Tournament : {}", id);
-        return tournamentRepository.findById(id);
+
+        Optional<Tournament> result = tournamentRepository.findById(id);
+
+        return result;
     }
 
     /**
@@ -144,14 +147,14 @@ public class TournamentServiceImpl implements TournamentService {
         participation.setDisqualify(false);
         participation.setPunctuation(0);
         participation.setUser(user);
-        participationService.save(participation);
+        Participation participationResult = participationService.save(participation);
 
-        Long userId = this.tournamentRepository.findCurrentUserParticipation();
+        Long userId = this.tournamentRepository.findCurrentUserParticipation(tournament.getId());
         log.debug("User id participation : {}", userId);
         Assert.isTrue(userId == null, "User is sign on this tournament");
 
-        tournament.addParticipation(participation);
-        log.debug("PARTICIPATION: {}", tournament.getParticipations());
+        tournament.getParticipations().add(participationResult);
+//        tournament.addParticipation(participationResult);
         result = save(tournament);
         
         return result;

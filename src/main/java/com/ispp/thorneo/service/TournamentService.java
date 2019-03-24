@@ -57,9 +57,9 @@ public interface TournamentService {
     /**
      * Assign current user as creator of the tournament and check if player's size is null
      */
-     Tournament saveTournament(Tournament tournament); 
+     Tournament saveTournament(Tournament tournament);
 
-     /**
+    /**
       * Add current user to the tournament
       */
       Tournament signOn(Tournament tournament);

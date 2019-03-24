@@ -2,23 +2,23 @@
     "thorneoApp": {
         "promotion": {
             "home": {
-                "title": "Promotions",
-                "createLabel": "Crear nuevo Promotion",
-                "createOrEditLabel": "Crear o editar Promotion",
+                "title": "Promoción",
+                "createLabel": "Crear nueva promoción",
+                "createOrEditLabel": "Crear o editar promoción",
                 "search": "Search for Promotion"
             },
-            "created": "Un nuevo Promotion ha sido creado con el identificador {{ param }}",
-            "updated": "Un Promotion ha sido actualizado con el identificador {{ param }}",
-            "deleted": "Un Promotion ha sido eliminado con el identificador {{ param }}",
+            "created": "Una nueva promoción ha sido creado con el identificador {{ param }}",
+            "updated": "Un promoción ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un promoción ha sido eliminado con el identificador {{ param }}",
             "delete": {
-                "question": "¿Seguro que quiere eliminar Promotion {{ id }}?"
+                "question": "¿Seguro que quiere eliminar promoción {{ title }}?"
             },
             "detail": {
-                "title": "Promotion"
+                "title": "Promoción"
             },
-            "title": "Title",
-            "qr": "Qr",
-            "user": "User"
+            "title": "Título",
+            "qr": "QR",
+            "user": "Creador"
         }
     }
 }

@@ -54,7 +54,7 @@ public class PromotionResource {
         if (promotion.getId() != null) {
             throw new BadRequestAlertException("A new promotion cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Promotion result = promotionService.save(promotion);
+        Promotion result = promotionService.savePromotion(promotion);
         return ResponseEntity.created(new URI("/api/promotions/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);

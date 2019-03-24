@@ -53,4 +53,9 @@ public interface PromotionService {
      * @return the list of entities
      */
     Page<Promotion> search(String query, Pageable pageable);
+
+    /**
+     * Set user and seve promotion
+     */
+    Promotion savePromotion(Promotion promotion);
 }

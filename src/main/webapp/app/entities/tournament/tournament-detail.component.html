@@ -63,6 +63,12 @@
                         <a [routerLink]="['/game', tournament.game?.id, 'view']">{{tournament.game?.id}}</a>
                     </div>
                 </dd>
+                <dt><span jhiTranslate="thorneoApp.tournament.participation">Participants</span></dt>
+                <dd>
+                        <div *ngFor="let participation of tournament.participations">
+                            {{participation.user.login}}
+                        </div>
+                </dd>
             </dl>
 
             <button type="submit"

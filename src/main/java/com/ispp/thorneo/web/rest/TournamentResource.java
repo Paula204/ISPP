@@ -120,6 +120,7 @@ public class TournamentResource {
     public ResponseEntity<Tournament> getTournament(@PathVariable Long id) {
         log.debug("REST request to get Tournament : {}", id);
         Optional<Tournament> tournament = tournamentService.findOne(id);
+
         return ResponseUtil.wrapOrNotFound(tournament);
     }
 
