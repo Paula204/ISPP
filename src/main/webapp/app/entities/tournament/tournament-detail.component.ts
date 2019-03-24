@@ -15,9 +15,7 @@ export class TournamentDetailComponent implements OnInit {
     tournament: ITournament;
     isSaving: boolean;
 
-    constructor( protected jhiAlertService: JhiAlertService,
-        protected activatedRoute: ActivatedRoute,
-        protected tournamentService: TournamentService) {}
+    constructor(protected activatedRoute: ActivatedRoute) {}
 
     ngOnInit() {
         this.activatedRoute.data.subscribe(({ tournament }) => {
@@ -27,32 +25,5 @@ export class TournamentDetailComponent implements OnInit {
 
     previousState() {
         window.history.back();
-    }
-
-    signOn() {
-        this.isSaving = true;
-
-        if (this.tournament.participations === null) {
-            this.tournament.participations = []
-        }
-
-        this.subscribeToSaveResponse(this.tournamentService.signOn(this.tournament));
-    }
-
-    protected subscribeToSaveResponse(result: Observable<HttpResponse<ITournament>>) {
-        result.subscribe((res: HttpResponse<ITournament>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
-    }
-
-    protected onSaveSuccess() {
-        this.isSaving = false;
-        this.previousState();
-    }
-
-    protected onSaveError() {
-        this.isSaving = false;
-    }
-
-    protected onError(errorMessage: string) {
-        this.jhiAlertService.error(errorMessage, null, null);
     }
 }

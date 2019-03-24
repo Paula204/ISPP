@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared';
-import { IPromotion } from 'app/shared/model/promotion.model';
+import { Ipromocion } from 'app/shared/model/promotion.model';
 
 type EntityResponseType = HttpResponse<IPromotion>;
 type EntityArrayResponseType = HttpResponse<IPromotion[]>;

@@ -63,6 +63,12 @@
                         <a [routerLink]="['/game', tournament.game?.id, 'view']">{{tournament.game?.id}}</a>
                     </div>
                 </dd>
+                <dt><span jhiTranslate="thorneoApp.tournament.participation">Participants</span></dt>
+                <dd>
+                        <div *ngFor="let participation of tournament.participations">
+                            {{participation.user.login}}
+                        </div>
+                </dd>
             </dl>
 
             <button type="submit"
@@ -75,12 +81,6 @@
                     [routerLink]="['/tournament', tournament.id, 'edit']"
                     class="btn btn-primary">
                 <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
-            </button>
-
-            <button type="submit"
-                    (click)="signOn()"
-                    class="btn btn-submit">
-                <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.signOn">Sign On</span>
             </button>
         </div>
     </div>

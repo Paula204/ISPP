@@ -1,9 +1,12 @@
 package com.ispp.thorneo.service.impl;
 
+import com.ispp.thorneo.domain.User;
 import com.ispp.thorneo.service.PromotionService;
 import com.ispp.thorneo.domain.Promotion;
 import com.ispp.thorneo.repository.PromotionRepository;
 import com.ispp.thorneo.repository.search.PromotionSearchRepository;
+import com.ispp.thorneo.service.UserService;
+import io.jsonwebtoken.lang.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,9 +32,12 @@ public class PromotionServiceImpl implements PromotionService {
 
     private final PromotionSearchRepository promotionSearchRepository;
 
-    public PromotionServiceImpl(PromotionRepository promotionRepository, PromotionSearchRepository promotionSearchRepository) {
+    private final UserService userService;
+
+    public PromotionServiceImpl(PromotionRepository promotionRepository, PromotionSearchRepository promotionSearchRepository, UserService userService) {
         this.promotionRepository = promotionRepository;
         this.promotionSearchRepository = promotionSearchRepository;
+        this.userService = userService;
     }
 
     /**
@@ -98,4 +104,20 @@ public class PromotionServiceImpl implements PromotionService {
     public Page<Promotion> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of Promotions for query {}", query);
         return promotionSearchRepository.search(queryStringQuery(query), pageable);    }
+
+    @Override
+    public Promotion savePromotion(Promotion promotion) {
+        Promotion result;
+
+        Assert.notNull(promotion, "Promotion is null");
+
+        User user = userService.getUserWithAuthorities().get();
+        Assert.notNull(user, "User is null");
+
+        promotion.setUser(user);
+
+        result = save(promotion);
+
+        return result;
+    }
 }

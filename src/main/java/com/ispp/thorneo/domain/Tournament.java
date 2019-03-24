@@ -9,6 +9,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
+import org.hibernate.validator.constraints.URL;
 import org.springframework.data.elasticsearch.annotations.Document;
 import java.io.Serializable;
 import java.time.Instant;
@@ -65,6 +66,7 @@ public class Tournament implements Serializable {
     private String rewards;
 
     @NotNull
+    @URL
     @Column(name = "image_url", nullable = false)
     private String imageUrl;
 
