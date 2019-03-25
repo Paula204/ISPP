@@ -176,8 +176,8 @@ public class TournamentServiceImpl implements TournamentService {
         Assert.isTrue(userId == null, "User is sign on this tournament");
         Assert.isTrue(userId != tournament.getUser().getId(), "The manager cannot subscribe ");
 
-//        tournament.getParticipations().add(participationResult);
-        tournament.addParticipation(participationResult);
+        tournament.getParticipations().add(participationResult);
+//        tournament.addParticipation(participationResult);
         result = save(tournament);
 
         return result;

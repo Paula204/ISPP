@@ -38,26 +38,7 @@ export class TournamentDetailComponent implements OnInit {
             this.tournament.participations = [];
         }
 
-        let result: ITournament;
-        result = new Tournament();
-        result.id = this.tournament.id;
-        result.title = this.tournament.title;
-        result.description = this.tournament.description;
-        result.meetingDate = this.tournament.meetingDate;
-        result.meetingPoint = this.tournament.meetingPoint;
-        result.city = this.tournament.city;
-        result.price = this.tournament.price;
-        result.playerSize = this.tournament.playerSize;
-        result.rewards = this.tournament.rewards;
-        result.imageUrl = this.tournament.imageUrl;
-        result.latitude = this.tournament.latitude;
-        result.longitude = this.tournament.longitude;
-        result.type = this.tournament.type;
-        result.participations = this.tournament.participations;
-        result.user = this.tournament.user;
-        result.game = this.tournament.game;
-
-        this.subscribeToSaveResponse(this.tournamentService.signOn(result));
+        this.subscribeToSaveResponse(this.tournamentService.signOn(this.tournament));
     }
 
     protected subscribeToSaveResponse(result: Observable<HttpResponse<ITournament>>) {

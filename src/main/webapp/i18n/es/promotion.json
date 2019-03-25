@@ -16,9 +16,9 @@
             "detail": {
                 "title": "Promoción"
             },
-            "title": "Título",
-            "qr": "QR",
-            "user": "Creador"
+            "title": "Title",
+            "qr": "Qr",
+            "sponsor": "Sponsor"
         }
     }
 }
