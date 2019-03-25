@@ -6,7 +6,7 @@ import { filter, map } from 'rxjs/operators';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 
 import { ITournament } from 'app/shared/model/tournament.model';
-import { AccountService } from 'app/core';
+import { Account, AccountService } from 'app/core';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { TournamentService } from './tournament.service';
@@ -16,7 +16,7 @@ import { TournamentService } from './tournament.service';
     templateUrl: './tournament.component.html'
 })
 export class TournamentComponent implements OnInit, OnDestroy {
-    currentAccount: any;
+    currentAccount: Account;
     tournaments: ITournament[];
     error: any;
     success: any;
