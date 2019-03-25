@@ -33,7 +33,7 @@ export const promotionRoute: Routes = [
         path: '',
         component: PromotionComponent,
         data: {
-            authorities: ['ROLE_FREE'],
+            authorities: ['ROLE_USER'],
             pageTitle: 'thorneoApp.promotion.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -45,7 +45,7 @@ export const promotionRoute: Routes = [
             promotion: PromotionResolve
         },
         data: {
-            authorities: ['ROLE_FREE'],
+            authorities: ['ROLE_USER'],
             pageTitle: 'thorneoApp.promotion.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -57,7 +57,7 @@ export const promotionRoute: Routes = [
             promotion: PromotionResolve
         },
         data: {
-            authorities: ['ROLE_FREE'],
+            authorities: ['ROLE_USER'],
             pageTitle: 'thorneoApp.promotion.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -69,7 +69,7 @@ export const promotionRoute: Routes = [
             promotion: PromotionResolve
         },
         data: {
-            authorities: ['ROLE_FREE'],
+            authorities: ['ROLE_USER'],
             pageTitle: 'thorneoApp.promotion.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -84,7 +84,7 @@ export const promotionPopupRoute: Routes = [
             promotion: PromotionResolve
         },
         data: {
-            authorities: ['ROLE_FREE'],
+            authorities: ['ROLE_USER'],
             pageTitle: 'thorneoApp.promotion.home.title'
         },
         canActivate: [UserRouteAccessService],

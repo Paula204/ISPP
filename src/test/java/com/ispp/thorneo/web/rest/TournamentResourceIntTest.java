@@ -3,8 +3,10 @@ package com.ispp.thorneo.web.rest;
 import com.ispp.thorneo.ThorneoApp;
 
 import com.ispp.thorneo.domain.Tournament;
+import com.ispp.thorneo.domain.Participation;
 import com.ispp.thorneo.repository.TournamentRepository;
 import com.ispp.thorneo.repository.search.TournamentSearchRepository;
+import com.ispp.thorneo.service.TournamentService;
 import com.ispp.thorneo.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -13,6 +15,8 @@ import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -86,6 +90,9 @@ public class TournamentResourceIntTest {
     @Autowired
     private TournamentRepository tournamentRepository;
 
+    @Autowired
+    private TournamentService tournamentService;
+
     /**
      * This repository is mocked in the com.ispp.thorneo.repository.search test package.
      *
@@ -116,7 +123,7 @@ public class TournamentResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final TournamentResource tournamentResource = new TournamentResource(tournamentRepository, mockTournamentSearchRepository);
+        final TournamentResource tournamentResource = new TournamentResource(tournamentService);
         this.restTournamentMockMvc = MockMvcBuilders.standaloneSetup(tournamentResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -145,6 +152,11 @@ public class TournamentResourceIntTest {
             .latitude(DEFAULT_LATITUDE)
             .longitude(DEFAULT_LONGITUDE)
             .type(DEFAULT_TYPE);
+        // Add required entity
+        Participation participation = ParticipationResourceIntTest.createEntity(em);
+        em.persist(participation);
+        em.flush();
+        tournament.getParticipations().add(participation);
         return tournament;
     }
 
@@ -377,7 +389,9 @@ public class TournamentResourceIntTest {
     @Transactional
     public void updateTournament() throws Exception {
         // Initialize the database
-        tournamentRepository.saveAndFlush(tournament);
+        tournamentService.save(tournament);
+        // As the test used the service layer, reset the Elasticsearch mock repository
+        reset(mockTournamentSearchRepository);
 
         int databaseSizeBeforeUpdate = tournamentRepository.findAll().size();
 
@@ -450,7 +464,7 @@ public class TournamentResourceIntTest {
     @Transactional
     public void deleteTournament() throws Exception {
         // Initialize the database
-        tournamentRepository.saveAndFlush(tournament);
+        tournamentService.save(tournament);
 
         int databaseSizeBeforeDelete = tournamentRepository.findAll().size();
 
@@ -471,9 +485,9 @@ public class TournamentResourceIntTest {
     @Transactional
     public void searchTournament() throws Exception {
         // Initialize the database
-        tournamentRepository.saveAndFlush(tournament);
-        when(mockTournamentSearchRepository.search(queryStringQuery("id:" + tournament.getId())))
-            .thenReturn(Collections.singletonList(tournament));
+        tournamentService.save(tournament);
+        when(mockTournamentSearchRepository.search(queryStringQuery("id:" + tournament.getId()), PageRequest.of(0, 20)))
+            .thenReturn(new PageImpl<>(Collections.singletonList(tournament), PageRequest.of(0, 1), 1));
         // Search the tournament
         restTournamentMockMvc.perform(get("/api/_search/tournaments?query=id:" + tournament.getId()))
             .andExpect(status().isOk())

@@ -8,10 +8,9 @@ import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
 import { JhiAlertService } from 'ng-jhipster';
 import { ITournament } from 'app/shared/model/tournament.model';
 import { TournamentService } from './tournament.service';
+import { IUser, UserService } from 'app/core';
 import { IGame } from 'app/shared/model/game.model';
 import { GameService } from 'app/entities/game';
-import { IManager } from 'app/shared/model/manager.model';
-import { ManagerService } from 'app/entities/manager';
 
 @Component({
     selector: 'jhi-tournament-update',
@@ -21,16 +20,16 @@ export class TournamentUpdateComponent implements OnInit {
     tournament: ITournament;
     isSaving: boolean;
 
-    games: IGame[];
+    users: IUser[];
 
-    managers: IManager[];
+    games: IGame[];
     meetingDate: string;
 
     constructor(
         protected jhiAlertService: JhiAlertService,
         protected tournamentService: TournamentService,
+        protected userService: UserService,
         protected gameService: GameService,
-        protected managerService: ManagerService,
         protected activatedRoute: ActivatedRoute
     ) {}
 
@@ -40,6 +39,13 @@ export class TournamentUpdateComponent implements OnInit {
             this.tournament = tournament;
             this.meetingDate = this.tournament.meetingDate != null ? this.tournament.meetingDate.format(DATE_TIME_FORMAT) : null;
         });
+        this.userService
+            .query()
+            .pipe(
+                filter((mayBeOk: HttpResponse<IUser[]>) => mayBeOk.ok),
+                map((response: HttpResponse<IUser[]>) => response.body)
+            )
+            .subscribe((res: IUser[]) => (this.users = res), (res: HttpErrorResponse) => this.onError(res.message));
         this.gameService
             .query()
             .pipe(
@@ -47,13 +53,6 @@ export class TournamentUpdateComponent implements OnInit {
                 map((response: HttpResponse<IGame[]>) => response.body)
             )
             .subscribe((res: IGame[]) => (this.games = res), (res: HttpErrorResponse) => this.onError(res.message));
-        this.managerService
-            .query()
-            .pipe(
-                filter((mayBeOk: HttpResponse<IManager[]>) => mayBeOk.ok),
-                map((response: HttpResponse<IManager[]>) => response.body)
-            )
-            .subscribe((res: IManager[]) => (this.managers = res), (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     previousState() {
@@ -87,11 +86,11 @@ export class TournamentUpdateComponent implements OnInit {
         this.jhiAlertService.error(errorMessage, null, null);
     }
 
-    trackGameById(index: number, item: IGame) {
+    trackUserById(index: number, item: IUser) {
         return item.id;
     }
 
-    trackManagerById(index: number, item: IManager) {
+    trackGameById(index: number, item: IGame) {
         return item.id;
     }
 }

@@ -74,21 +74,24 @@ public class Tournament implements Serializable {
     @Column(name = "longitude")
     private Long longitude;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "jhi_type")
     private Type type;
 
+    @NotNull
+    @OneToMany(mappedBy = "tournament")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Participation> participations = new HashSet<>();
+    @ManyToOne
+    @JsonIgnoreProperties("tournaments")
+    private User user;
+
+    @NotNull
     @ManyToOne
     @JsonIgnoreProperties("tournaments")
     private Game game;
 
-    @ManyToOne
-    @JsonIgnoreProperties("tournaments")
-    private Manager manager;
-
-    @OneToMany(mappedBy = "tournament")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Sponsorship> sponsorships = new HashSet<>();
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -254,6 +257,44 @@ public class Tournament implements Serializable {
         this.type = type;
     }
 
+    public Set<Participation> getParticipations() {
+        return participations;
+    }
+
+    public Tournament participations(Set<Participation> participations) {
+        this.participations = participations;
+        return this;
+    }
+
+    public Tournament addParticipation(Participation participation) {
+        this.participations.add(participation);
+        participation.setTournament(this);
+        return this;
+    }
+
+    public Tournament removeParticipation(Participation participation) {
+        this.participations.remove(participation);
+        participation.setTournament(null);
+        return this;
+    }
+
+    public void setParticipations(Set<Participation> participations) {
+        this.participations = participations;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public Tournament user(User user) {
+        this.user = user;
+        return this;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public Game getGame() {
         return game;
     }
@@ -265,44 +306,6 @@ public class Tournament implements Serializable {
 
     public void setGame(Game game) {
         this.game = game;
-    }
-
-    public Manager getManager() {
-        return manager;
-    }
-
-    public Tournament manager(Manager manager) {
-        this.manager = manager;
-        return this;
-    }
-
-    public void setManager(Manager manager) {
-        this.manager = manager;
-    }
-
-    public Set<Sponsorship> getSponsorships() {
-        return sponsorships;
-    }
-
-    public Tournament sponsorships(Set<Sponsorship> sponsorships) {
-        this.sponsorships = sponsorships;
-        return this;
-    }
-
-    public Tournament addSponsorship(Sponsorship sponsorship) {
-        this.sponsorships.add(sponsorship);
-        sponsorship.setTournament(this);
-        return this;
-    }
-
-    public Tournament removeSponsorship(Sponsorship sponsorship) {
-        this.sponsorships.remove(sponsorship);
-        sponsorship.setTournament(null);
-        return this;
-    }
-
-    public void setSponsorships(Set<Sponsorship> sponsorships) {
-        this.sponsorships = sponsorships;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

@@ -73,6 +73,9 @@ class GameGatlingTest extends Simulation {
             .body(StringBody("""{
                 "id":null
                 , "title":"SAMPLE_TEXT"
+                , "description":"SAMPLE_TEXT"
+                , "category":"CARD"
+                , "minAge":"0"
                 }""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_game_url"))).exitHereIfFailed

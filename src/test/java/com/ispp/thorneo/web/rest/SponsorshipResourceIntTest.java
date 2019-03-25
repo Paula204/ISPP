@@ -5,6 +5,7 @@ import com.ispp.thorneo.ThorneoApp;
 import com.ispp.thorneo.domain.Sponsorship;
 import com.ispp.thorneo.repository.SponsorshipRepository;
 import com.ispp.thorneo.repository.search.SponsorshipSearchRepository;
+import com.ispp.thorneo.service.SponsorshipService;
 import com.ispp.thorneo.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -13,6 +14,8 @@ import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -53,6 +56,9 @@ public class SponsorshipResourceIntTest {
     @Autowired
     private SponsorshipRepository sponsorshipRepository;
 
+    @Autowired
+    private SponsorshipService sponsorshipService;
+
     /**
      * This repository is mocked in the com.ispp.thorneo.repository.search test package.
      *
@@ -83,7 +89,7 @@ public class SponsorshipResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final SponsorshipResource sponsorshipResource = new SponsorshipResource(sponsorshipRepository, mockSponsorshipSearchRepository);
+        final SponsorshipResource sponsorshipResource = new SponsorshipResource(sponsorshipService);
         this.restSponsorshipMockMvc = MockMvcBuilders.standaloneSetup(sponsorshipResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -232,7 +238,9 @@ public class SponsorshipResourceIntTest {
     @Transactional
     public void updateSponsorship() throws Exception {
         // Initialize the database
-        sponsorshipRepository.saveAndFlush(sponsorship);
+        sponsorshipService.save(sponsorship);
+        // As the test used the service layer, reset the Elasticsearch mock repository
+        reset(mockSponsorshipSearchRepository);
 
         int databaseSizeBeforeUpdate = sponsorshipRepository.findAll().size();
 
@@ -285,7 +293,7 @@ public class SponsorshipResourceIntTest {
     @Transactional
     public void deleteSponsorship() throws Exception {
         // Initialize the database
-        sponsorshipRepository.saveAndFlush(sponsorship);
+        sponsorshipService.save(sponsorship);
 
         int databaseSizeBeforeDelete = sponsorshipRepository.findAll().size();
 
@@ -306,9 +314,9 @@ public class SponsorshipResourceIntTest {
     @Transactional
     public void searchSponsorship() throws Exception {
         // Initialize the database
-        sponsorshipRepository.saveAndFlush(sponsorship);
-        when(mockSponsorshipSearchRepository.search(queryStringQuery("id:" + sponsorship.getId())))
-            .thenReturn(Collections.singletonList(sponsorship));
+        sponsorshipService.save(sponsorship);
+        when(mockSponsorshipSearchRepository.search(queryStringQuery("id:" + sponsorship.getId()), PageRequest.of(0, 20)))
+            .thenReturn(new PageImpl<>(Collections.singletonList(sponsorship), PageRequest.of(0, 1), 1));
         // Search the sponsorship
         restSponsorshipMockMvc.perform(get("/api/_search/sponsorships?query=id:" + sponsorship.getId()))
             .andExpect(status().isOk())

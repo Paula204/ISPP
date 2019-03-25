@@ -33,6 +33,13 @@ export class TournamentService {
             .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
     }
 
+    signOn(tournament: ITournament): Observable<EntityResponseType> {
+        const copy = this.convertDateFromClient(tournament);
+        return this.http
+            .put<ITournament>(this.resourceUrl + '/signOn', copy, { observe: 'response' })
+            .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+    }
+
     find(id: number): Observable<EntityResponseType> {
         return this.http
             .get<ITournament>(`${this.resourceUrl}/${id}`, { observe: 'response' })

@@ -1,12 +1,16 @@
 package com.ispp.thorneo.web.rest;
 import com.ispp.thorneo.domain.Sponsorship;
-import com.ispp.thorneo.repository.SponsorshipRepository;
-import com.ispp.thorneo.repository.search.SponsorshipSearchRepository;
+import com.ispp.thorneo.service.SponsorshipService;
 import com.ispp.thorneo.web.rest.errors.BadRequestAlertException;
 import com.ispp.thorneo.web.rest.util.HeaderUtil;
+import com.ispp.thorneo.web.rest.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +20,6 @@ import java.net.URISyntaxException;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
@@ -32,13 +35,10 @@ public class SponsorshipResource {
 
     private static final String ENTITY_NAME = "sponsorship";
 
-    private final SponsorshipRepository sponsorshipRepository;
+    private final SponsorshipService sponsorshipService;
 
-    private final SponsorshipSearchRepository sponsorshipSearchRepository;
-
-    public SponsorshipResource(SponsorshipRepository sponsorshipRepository, SponsorshipSearchRepository sponsorshipSearchRepository) {
-        this.sponsorshipRepository = sponsorshipRepository;
-        this.sponsorshipSearchRepository = sponsorshipSearchRepository;
+    public SponsorshipResource(SponsorshipService sponsorshipService) {
+        this.sponsorshipService = sponsorshipService;
     }
 
     /**
@@ -54,8 +54,7 @@ public class SponsorshipResource {
         if (sponsorship.getId() != null) {
             throw new BadRequestAlertException("A new sponsorship cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Sponsorship result = sponsorshipRepository.save(sponsorship);
-        sponsorshipSearchRepository.save(result);
+        Sponsorship result = sponsorshipService.save(sponsorship);
         return ResponseEntity.created(new URI("/api/sponsorships/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -76,8 +75,7 @@ public class SponsorshipResource {
         if (sponsorship.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        Sponsorship result = sponsorshipRepository.save(sponsorship);
-        sponsorshipSearchRepository.save(result);
+        Sponsorship result = sponsorshipService.save(sponsorship);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, sponsorship.getId().toString()))
             .body(result);
@@ -86,12 +84,15 @@ public class SponsorshipResource {
     /**
      * GET  /sponsorships : get all the sponsorships.
      *
+     * @param pageable the pagination information
      * @return the ResponseEntity with status 200 (OK) and the list of sponsorships in body
      */
     @GetMapping("/sponsorships")
-    public List<Sponsorship> getAllSponsorships() {
-        log.debug("REST request to get all Sponsorships");
-        return sponsorshipRepository.findAll();
+    public ResponseEntity<List<Sponsorship>> getAllSponsorships(Pageable pageable) {
+        log.debug("REST request to get a page of Sponsorships");
+        Page<Sponsorship> page = sponsorshipService.findAll(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/sponsorships");
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
     /**
@@ -103,7 +104,7 @@ public class SponsorshipResource {
     @GetMapping("/sponsorships/{id}")
     public ResponseEntity<Sponsorship> getSponsorship(@PathVariable Long id) {
         log.debug("REST request to get Sponsorship : {}", id);
-        Optional<Sponsorship> sponsorship = sponsorshipRepository.findById(id);
+        Optional<Sponsorship> sponsorship = sponsorshipService.findOne(id);
         return ResponseUtil.wrapOrNotFound(sponsorship);
     }
 
@@ -116,8 +117,7 @@ public class SponsorshipResource {
     @DeleteMapping("/sponsorships/{id}")
     public ResponseEntity<Void> deleteSponsorship(@PathVariable Long id) {
         log.debug("REST request to delete Sponsorship : {}", id);
-        sponsorshipRepository.deleteById(id);
-        sponsorshipSearchRepository.deleteById(id);
+        sponsorshipService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 
@@ -126,14 +126,15 @@ public class SponsorshipResource {
      * to the query.
      *
      * @param query the query of the sponsorship search
+     * @param pageable the pagination information
      * @return the result of the search
      */
     @GetMapping("/_search/sponsorships")
-    public List<Sponsorship> searchSponsorships(@RequestParam String query) {
-        log.debug("REST request to search Sponsorships for query {}", query);
-        return StreamSupport
-            .stream(sponsorshipSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .collect(Collectors.toList());
+    public ResponseEntity<List<Sponsorship>> searchSponsorships(@RequestParam String query, Pageable pageable) {
+        log.debug("REST request to search for a page of Sponsorships for query {}", query);
+        Page<Sponsorship> page = sponsorshipService.search(query, pageable);
+        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/sponsorships");
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
 }

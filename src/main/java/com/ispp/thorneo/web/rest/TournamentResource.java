@@ -1,22 +1,27 @@
 package com.ispp.thorneo.web.rest;
+
+import com.ispp.thorneo.domain.Participation;
 import com.ispp.thorneo.domain.Tournament;
-import com.ispp.thorneo.repository.TournamentRepository;
-import com.ispp.thorneo.repository.search.TournamentSearchRepository;
+import com.ispp.thorneo.service.TournamentService;
 import com.ispp.thorneo.web.rest.errors.BadRequestAlertException;
 import com.ispp.thorneo.web.rest.util.HeaderUtil;
+import com.ispp.thorneo.web.rest.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
@@ -32,13 +37,10 @@ public class TournamentResource {
 
     private static final String ENTITY_NAME = "tournament";
 
-    private final TournamentRepository tournamentRepository;
+    private final TournamentService tournamentService;
 
-    private final TournamentSearchRepository tournamentSearchRepository;
-
-    public TournamentResource(TournamentRepository tournamentRepository, TournamentSearchRepository tournamentSearchRepository) {
-        this.tournamentRepository = tournamentRepository;
-        this.tournamentSearchRepository = tournamentSearchRepository;
+    public TournamentResource(TournamentService tournamentService) {
+        this.tournamentService = tournamentService;
     }
 
     /**
@@ -54,8 +56,8 @@ public class TournamentResource {
         if (tournament.getId() != null) {
             throw new BadRequestAlertException("A new tournament cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Tournament result = tournamentRepository.save(tournament);
-        tournamentSearchRepository.save(result);
+        tournament.setParticipations(new HashSet<Participation>());
+        Tournament result = tournamentService.saveTournament(tournament);
         return ResponseEntity.created(new URI("/api/tournaments/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -76,8 +78,19 @@ public class TournamentResource {
         if (tournament.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        Tournament result = tournamentRepository.save(tournament);
-        tournamentSearchRepository.save(result);
+        Tournament result = tournamentService.save(tournament);
+        return ResponseEntity.ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, tournament.getId().toString()))
+            .body(result);
+    }
+
+    @PutMapping("/tournaments/signOn")
+    public ResponseEntity<Tournament> signOnTournament(@Valid @RequestBody Tournament tournament) throws URISyntaxException {
+        log.debug("REST request to sign on Tournament: {}", tournament);
+        if (tournament.getId() == null) {
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+        }
+        Tournament result = tournamentService.signOn(tournament);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, tournament.getId().toString()))
             .body(result);
@@ -86,12 +99,15 @@ public class TournamentResource {
     /**
      * GET  /tournaments : get all the tournaments.
      *
+     * @param pageable the pagination information
      * @return the ResponseEntity with status 200 (OK) and the list of tournaments in body
      */
     @GetMapping("/tournaments")
-    public List<Tournament> getAllTournaments() {
-        log.debug("REST request to get all Tournaments");
-        return tournamentRepository.findAll();
+    public ResponseEntity<List<Tournament>> getAllTournaments(Pageable pageable) {
+        log.debug("REST request to get a page of Tournaments");
+        Page<Tournament> page = tournamentService.findAll(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/tournaments");
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
     /**
@@ -103,7 +119,7 @@ public class TournamentResource {
     @GetMapping("/tournaments/{id}")
     public ResponseEntity<Tournament> getTournament(@PathVariable Long id) {
         log.debug("REST request to get Tournament : {}", id);
-        Optional<Tournament> tournament = tournamentRepository.findById(id);
+        Optional<Tournament> tournament = tournamentService.findOne(id);
         return ResponseUtil.wrapOrNotFound(tournament);
     }
 
@@ -116,8 +132,7 @@ public class TournamentResource {
     @DeleteMapping("/tournaments/{id}")
     public ResponseEntity<Void> deleteTournament(@PathVariable Long id) {
         log.debug("REST request to delete Tournament : {}", id);
-        tournamentRepository.deleteById(id);
-        tournamentSearchRepository.deleteById(id);
+        tournamentService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 
@@ -126,14 +141,15 @@ public class TournamentResource {
      * to the query.
      *
      * @param query the query of the tournament search
+     * @param pageable the pagination information
      * @return the result of the search
      */
     @GetMapping("/_search/tournaments")
-    public List<Tournament> searchTournaments(@RequestParam String query) {
-        log.debug("REST request to search Tournaments for query {}", query);
-        return StreamSupport
-            .stream(tournamentSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .collect(Collectors.toList());
+    public ResponseEntity<List<Tournament>> searchTournaments(@RequestParam String query, Pageable pageable) {
+        log.debug("REST request to search for a page of Tournaments for query {}", query);
+        Page<Tournament> page = tournamentService.search(query, pageable);
+        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/tournaments");
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
 }

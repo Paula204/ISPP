@@ -5,7 +5,7 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { of } from 'rxjs';
 import { take, map } from 'rxjs/operators';
 import { GameService } from 'app/entities/game/game.service';
-import { IGame, Game } from 'app/shared/model/game.model';
+import { IGame, Game, Category } from 'app/shared/model/game.model';
 
 describe('Service Tests', () => {
     describe('Game Service', () => {
@@ -21,7 +21,7 @@ describe('Service Tests', () => {
             service = injector.get(GameService);
             httpMock = injector.get(HttpTestingController);
 
-            elemDefault = new Game(0, 'AAAAAAA');
+            elemDefault = new Game(0, 'AAAAAAA', 'AAAAAAA', Category.CARD, 0);
         });
 
         describe('Service methods', async () => {
@@ -55,7 +55,10 @@ describe('Service Tests', () => {
             it('should update a Game', async () => {
                 const returnedFromService = Object.assign(
                     {
-                        title: 'BBBBBB'
+                        title: 'BBBBBB',
+                        description: 'BBBBBB',
+                        category: 'BBBBBB',
+                        minAge: 1
                     },
                     elemDefault
                 );
@@ -72,7 +75,10 @@ describe('Service Tests', () => {
             it('should return a list of Game', async () => {
                 const returnedFromService = Object.assign(
                     {
-                        title: 'BBBBBB'
+                        title: 'BBBBBB',
+                        description: 'BBBBBB',
+                        category: 'BBBBBB',
+                        minAge: 1
                     },
                     elemDefault
                 );

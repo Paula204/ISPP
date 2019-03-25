@@ -28,19 +28,23 @@
     <div class="table-responsive" *ngIf="sponsorships">
         <table class="table table-striped">
             <thead>
-            <tr>
-            <th><span jhiTranslate="global.field.id">ID</span></th>
-            <th><span jhiTranslate="thorneoApp.sponsorship.banner">Banner</span></th>
-            <th><span jhiTranslate="thorneoApp.sponsorship.targetUrl">Target Url</span></th>
-            <th><span jhiTranslate="thorneoApp.sponsorship.tournament">Tournament</span></th>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="banner"><span jhiTranslate="thorneoApp.sponsorship.banner">Banner</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="targetUrl"><span jhiTranslate="thorneoApp.sponsorship.targetUrl">Target Url</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="user.id"><span jhiTranslate="thorneoApp.sponsorship.user">User</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="tournament.id"><span jhiTranslate="thorneoApp.sponsorship.tournament">Tournament</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
-            <tbody>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
             <tr *ngFor="let sponsorship of sponsorships ;trackBy: trackId">
                 <td><a [routerLink]="['/sponsorship', sponsorship.id, 'view' ]">{{sponsorship.id}}</a></td>
                 <td>{{sponsorship.banner}}</td>
                 <td>{{sponsorship.targetUrl}}</td>
+                <td>
+                    {{sponsorship.user?.id}}
+                </td>
                 <td>
                     <div *ngIf="sponsorship.tournament">
                         <a [routerLink]="['../tournament', sponsorship.tournament?.id, 'view' ]" >{{sponsorship.tournament?.id}}</a>

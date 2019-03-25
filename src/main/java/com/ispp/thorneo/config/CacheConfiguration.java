@@ -41,27 +41,12 @@ public class CacheConfiguration {
             cm.createCache(com.ispp.thorneo.domain.User.class.getName(), jcacheConfiguration);
             cm.createCache(com.ispp.thorneo.domain.Authority.class.getName(), jcacheConfiguration);
             cm.createCache(com.ispp.thorneo.domain.User.class.getName() + ".authorities", jcacheConfiguration);
-            cm.createCache(com.ispp.thorneo.domain.Premium.class.getName(), jcacheConfiguration);
-            cm.createCache(com.ispp.thorneo.domain.Premium.class.getName() + ".participants", jcacheConfiguration);
-            cm.createCache(com.ispp.thorneo.domain.Premium.class.getName() + ".managers", jcacheConfiguration);
-            cm.createCache(com.ispp.thorneo.domain.Free.class.getName(), jcacheConfiguration);
-            cm.createCache(com.ispp.thorneo.domain.Free.class.getName() + ".participants", jcacheConfiguration);
-            cm.createCache(com.ispp.thorneo.domain.Free.class.getName() + ".managers", jcacheConfiguration);
-            cm.createCache(com.ispp.thorneo.domain.Administrator.class.getName(), jcacheConfiguration);
-            cm.createCache(com.ispp.thorneo.domain.Sponsor.class.getName(), jcacheConfiguration);
-            cm.createCache(com.ispp.thorneo.domain.Sponsor.class.getName() + ".participants", jcacheConfiguration);
-            cm.createCache(com.ispp.thorneo.domain.Sponsor.class.getName() + ".managers", jcacheConfiguration);
-            cm.createCache(com.ispp.thorneo.domain.Sponsor.class.getName() + ".promotions", jcacheConfiguration);
             cm.createCache(com.ispp.thorneo.domain.Tournament.class.getName(), jcacheConfiguration);
-            cm.createCache(com.ispp.thorneo.domain.Tournament.class.getName() + ".sponsorships", jcacheConfiguration);
+            cm.createCache(com.ispp.thorneo.domain.Tournament.class.getName() + ".participations", jcacheConfiguration);
             cm.createCache(com.ispp.thorneo.domain.Game.class.getName(), jcacheConfiguration);
-            cm.createCache(com.ispp.thorneo.domain.Game.class.getName() + ".tournaments", jcacheConfiguration);
-            cm.createCache(com.ispp.thorneo.domain.Participant.class.getName(), jcacheConfiguration);
-            cm.createCache(com.ispp.thorneo.domain.Clasification.class.getName(), jcacheConfiguration);
+            cm.createCache(com.ispp.thorneo.domain.Participation.class.getName(), jcacheConfiguration);
             cm.createCache(com.ispp.thorneo.domain.Sponsorship.class.getName(), jcacheConfiguration);
             cm.createCache(com.ispp.thorneo.domain.Promotion.class.getName(), jcacheConfiguration);
-            cm.createCache(com.ispp.thorneo.domain.Manager.class.getName(), jcacheConfiguration);
-            cm.createCache(com.ispp.thorneo.domain.Manager.class.getName() + ".tournaments", jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

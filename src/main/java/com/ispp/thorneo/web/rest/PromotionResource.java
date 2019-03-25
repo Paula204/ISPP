@@ -1,12 +1,16 @@
 package com.ispp.thorneo.web.rest;
 import com.ispp.thorneo.domain.Promotion;
-import com.ispp.thorneo.repository.PromotionRepository;
-import com.ispp.thorneo.repository.search.PromotionSearchRepository;
+import com.ispp.thorneo.service.PromotionService;
 import com.ispp.thorneo.web.rest.errors.BadRequestAlertException;
 import com.ispp.thorneo.web.rest.util.HeaderUtil;
+import com.ispp.thorneo.web.rest.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +20,6 @@ import java.net.URISyntaxException;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
@@ -32,13 +35,10 @@ public class PromotionResource {
 
     private static final String ENTITY_NAME = "promotion";
 
-    private final PromotionRepository promotionRepository;
+    private final PromotionService promotionService;
 
-    private final PromotionSearchRepository promotionSearchRepository;
-
-    public PromotionResource(PromotionRepository promotionRepository, PromotionSearchRepository promotionSearchRepository) {
-        this.promotionRepository = promotionRepository;
-        this.promotionSearchRepository = promotionSearchRepository;
+    public PromotionResource(PromotionService promotionService) {
+        this.promotionService = promotionService;
     }
 
     /**
@@ -54,8 +54,7 @@ public class PromotionResource {
         if (promotion.getId() != null) {
             throw new BadRequestAlertException("A new promotion cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Promotion result = promotionRepository.save(promotion);
-        promotionSearchRepository.save(result);
+        Promotion result = promotionService.save(promotion);
         return ResponseEntity.created(new URI("/api/promotions/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -76,8 +75,7 @@ public class PromotionResource {
         if (promotion.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        Promotion result = promotionRepository.save(promotion);
-        promotionSearchRepository.save(result);
+        Promotion result = promotionService.save(promotion);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, promotion.getId().toString()))
             .body(result);
@@ -86,12 +84,15 @@ public class PromotionResource {
     /**
      * GET  /promotions : get all the promotions.
      *
+     * @param pageable the pagination information
      * @return the ResponseEntity with status 200 (OK) and the list of promotions in body
      */
     @GetMapping("/promotions")
-    public List<Promotion> getAllPromotions() {
-        log.debug("REST request to get all Promotions");
-        return promotionRepository.findAll();
+    public ResponseEntity<List<Promotion>> getAllPromotions(Pageable pageable) {
+        log.debug("REST request to get a page of Promotions");
+        Page<Promotion> page = promotionService.findAll(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/promotions");
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
     /**
@@ -103,7 +104,7 @@ public class PromotionResource {
     @GetMapping("/promotions/{id}")
     public ResponseEntity<Promotion> getPromotion(@PathVariable Long id) {
         log.debug("REST request to get Promotion : {}", id);
-        Optional<Promotion> promotion = promotionRepository.findById(id);
+        Optional<Promotion> promotion = promotionService.findOne(id);
         return ResponseUtil.wrapOrNotFound(promotion);
     }
 
@@ -116,8 +117,7 @@ public class PromotionResource {
     @DeleteMapping("/promotions/{id}")
     public ResponseEntity<Void> deletePromotion(@PathVariable Long id) {
         log.debug("REST request to delete Promotion : {}", id);
-        promotionRepository.deleteById(id);
-        promotionSearchRepository.deleteById(id);
+        promotionService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 
@@ -126,14 +126,15 @@ public class PromotionResource {
      * to the query.
      *
      * @param query the query of the promotion search
+     * @param pageable the pagination information
      * @return the result of the search
      */
     @GetMapping("/_search/promotions")
-    public List<Promotion> searchPromotions(@RequestParam String query) {
-        log.debug("REST request to search Promotions for query {}", query);
-        return StreamSupport
-            .stream(promotionSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .collect(Collectors.toList());
+    public ResponseEntity<List<Promotion>> searchPromotions(@RequestParam String query, Pageable pageable) {
+        log.debug("REST request to search for a page of Promotions for query {}", query);
+        Page<Promotion> page = promotionService.search(query, pageable);
+        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/promotions");
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
 }
