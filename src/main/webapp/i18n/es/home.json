@@ -1,7 +1,7 @@
 {
     "home": {
-        "title": "¡Bienvenido, Java Hipster!",
-        "subtitle": "Esta es su página de inicio",
+        "title": "¡Bienvenido a Thorneo!",
+        "subtitle": "Tus competiciones, como quieras, con quien quieras.",
         "logged": {
             "message": "Está conectado como \"{{username}}\"."
         },
@@ -14,6 +14,8 @@
             "follow": "contacto @java_hipster en Twitter"
         },
         "like": "Si te gusta JHipster, danos una estrella en",
-        "github": "GitHub"
+        "github": "GitHub",
+        "instagram:": "Instagram",
+        "twitter": "Twitter"
     }
 }

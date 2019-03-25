@@ -3,11 +3,73 @@ Main page styles
 ========================================================================== */
 
 .hipster {
-    display: inline-block;
-    width: 347px;
-    height: 497px;
-    background: url('../../content/images/jhipster_family_member_1.svg') no-repeat center top;
+    display: inline-flex;
+    width: 500px;
+    height: 500px;
+    background: url('../../content/images/logo-big.png') no-repeat center;
     background-size: contain;
+    background-position: center center;
+}
+
+.logo-1 {
+    display: inline-flex;
+    width: 250px;
+    height: 250px;
+    background: url('../../content/images/empire.png') no-repeat center;
+    background-size: contain;
+    background-position: center center;
+}
+
+.logo-2 {
+    display: inline-flex;
+    width: 250px;
+    height: 250px;
+    background: url('../../content/images/empire.png') no-repeat center;
+    background-size: contain;
+    background-position: center center;
+}
+
+.logo-3 {
+    display: inline-flex;
+    width: 250px;
+    height: 250px;
+    background: url('../../content/images/empire.png') no-repeat center;
+    background-size: contain;
+    background-position: center center;
+}
+
+.logo-4 {
+    display: inline-flex;
+    width: 250px;
+    height: 250px;
+    background: url('../../content/images/empire.png') no-repeat center;
+    background-size: contain;
+    background-position: center center;
+}
+
+.logo-5 {
+    display: inline-flex;
+    width: 250px;
+    height: 250px;
+    background: url('../../content/images/empire.png') no-repeat center;
+    background-size: contain;
+    background-position: center center;
+}
+
+.logo-6 {
+    display: inline-flex;
+    width: 250px;
+    height: 250px;
+    background: url('../../content/images/empire.png') no-repeat center;
+    background-size: contain;
+    background-position: center center;
+}
+
+.seccion-1 {
+    padding: 15px;
+    background-color: #9bcbf6;
+    background-size: contain;
+    background-position: center center;
 }
 
 /* wait autoprefixer update to allow simple generation of high pixel density media query */
@@ -17,7 +79,65 @@ Main page styles
     only screen and (min-resolution: 192dpi),
     only screen and (min-resolution: 2dppx) {
     .hipster {
-        background: url('../../content/images/jhipster_family_member_1.svg') no-repeat center top;
+        background: url('../../content/images/logo-big.png') no-repeat center top;
         background-size: contain;
+    }
+}
+
+.flex-container {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+
+    -webkit-flex-flow: row wrap;
+    justify-content: space-around;
+}
+.flex-item {
+    background: #ffffff;
+    padding: 5px;
+    width: 100%;
+    height: auto;
+    text-align: center;
+}
+
+.row {
+    display: inline-flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+}
+
+.column {
+    flex: 50%;
+    padding: 10px;
+}
+
+.column p {
+    text-align: center;
+    vertical-align: middle;
+}
+
+@media (max-width: 500px) {
+    .h1-indice {
+        /* On small screens, we are no longer using row direction but column */
+        flex-wrap: wrap;
+        font-size: 90%;
+    }
+    .p-indice {
+        /* On small screens, we are no longer using row direction but column */
+        flex-wrap: wrap;
+        font-size: 90%;
+    }
+
+    .alert {
+        /* On small screens, we are no longer using row direction but column */
+        flex-wrap: wrap;
+        font-size: 90%;
     }
 }
