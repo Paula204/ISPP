@@ -64,6 +64,7 @@
                     <ul>
                         <li *ngFor="let participation of tournament.participations">{{participation.user.login}}</li>
                     </ul>
+                    <qrcode qrdata="http://localhost:9000/#/tournament/24/view" size="256" level="M"></qrcode>
                 </dd>
             </dl>
 

@@ -16,7 +16,7 @@ import { TournamentService } from './tournament.service';
     templateUrl: './tournament.component.html'
 })
 export class TournamentComponent implements OnInit, OnDestroy {
-    currentAccount: any;
+    currentAccount: Account;
     tournaments: ITournament[];
     error: any;
     success: any;

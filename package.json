@@ -21,6 +21,7 @@
         "@ng-bootstrap/ng-bootstrap": "4.0.1",
         "@ngx-translate/core": "11.0.1",
         "@ngx-translate/http-loader": "4.0.0",
+        "angularx-qrcode": "^1.5.3",
         "bootstrap": "4.2.1",
         "core-js": "2.6.3",
         "moment": "2.24.0",
