@@ -4,8 +4,8 @@ Main page styles
 
 .hipster {
     display: inline-flex;
-    width: 500px;
-    height: 500px;
+    width: 400px;
+    height: 400px;
     background: url('../../content/images/logo-big.png') no-repeat center;
     background-size: contain;
     background-position: center center;
@@ -70,6 +70,7 @@ Main page styles
     background-color: #9bcbf6;
     background-size: contain;
     background-position: center center;
+    margin-top: 50px;
 }
 
 /* wait autoprefixer update to allow simple generation of high pixel density media query */
@@ -121,6 +122,10 @@ Main page styles
 .column p {
     text-align: center;
     vertical-align: middle;
+}
+
+.h1-indice {
+    margin-top: 150px;
 }
 
 @media (max-width: 500px) {
