@@ -24,7 +24,7 @@ Main page styles
     display: inline-flex;
     width: 250px;
     height: 250px;
-    background: url('../../content/images/empire.png') no-repeat center;
+    background: url('../../content/images/kh.png') no-repeat center;
     background-size: contain;
     background-position: center center;
 }
@@ -33,7 +33,7 @@ Main page styles
     display: inline-flex;
     width: 250px;
     height: 250px;
-    background: url('../../content/images/empire.png') no-repeat center;
+    background: url('../../content/images/zas.png') no-repeat center;
     background-size: contain;
     background-position: center center;
 }
@@ -42,7 +42,7 @@ Main page styles
     display: inline-flex;
     width: 250px;
     height: 250px;
-    background: url('../../content/images/empire.png') no-repeat center;
+    background: url('../../content/images/jugamos1.png') no-repeat center;
     background-size: contain;
     background-position: center center;
 }
@@ -51,16 +51,7 @@ Main page styles
     display: inline-flex;
     width: 250px;
     height: 250px;
-    background: url('../../content/images/empire.png') no-repeat center;
-    background-size: contain;
-    background-position: center center;
-}
-
-.logo-6 {
-    display: inline-flex;
-    width: 250px;
-    height: 250px;
-    background: url('../../content/images/empire.png') no-repeat center;
+    background: url('../../content/images/gw.png') no-repeat center;
     background-size: contain;
     background-position: center center;
 }
@@ -145,4 +136,26 @@ Main page styles
         flex-wrap: wrap;
         font-size: 90%;
     }
+}
+
+.container {
+    position: relative;
+    width: 50%;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    transition: 0.5s ease;
+    background-color: #008cba;
+}
+
+.container:hover .overlay {
+    opacity: 1;
 }
