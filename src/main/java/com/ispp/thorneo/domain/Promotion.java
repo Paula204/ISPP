@@ -37,7 +37,7 @@ public class Promotion implements Serializable {
     @Column(name = "qr", nullable = false)
     private String qr;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @NotNull
     @JsonIgnoreProperties("promotions")
     private User user;

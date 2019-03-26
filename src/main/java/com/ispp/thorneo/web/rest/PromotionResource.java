@@ -75,7 +75,7 @@ public class PromotionResource {
         if (promotion.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        Promotion result = promotionService.save(promotion);
+        Promotion result = promotionService.savePromotion(promotion);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, promotion.getId().toString()))
             .body(result);

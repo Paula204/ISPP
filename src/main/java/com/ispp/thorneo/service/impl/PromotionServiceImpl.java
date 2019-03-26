@@ -6,6 +6,7 @@ import com.ispp.thorneo.domain.Promotion;
 import com.ispp.thorneo.repository.PromotionRepository;
 import com.ispp.thorneo.repository.search.PromotionSearchRepository;
 import com.ispp.thorneo.service.UserService;
+import com.ispp.thorneo.web.rest.errors.BadRequestAlertException;
 import io.jsonwebtoken.lang.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -88,6 +89,15 @@ public class PromotionServiceImpl implements PromotionService {
      */
     @Override
     public void delete(Long id) {
+        User user = userService.getUserWithAuthorities().get();
+        Assert.notNull(user, "User is null");
+
+        Promotion promotion = promotionRepository.getOne(id);
+
+        if (promotion.getUser().getId() != user.getId()) {
+            throw new BadRequestAlertException("invalid user", "promotion", "notCreator");
+        }
+
         log.debug("Request to delete Promotion : {}", id);        promotionRepository.deleteById(id);
         promotionSearchRepository.deleteById(id);
     }
@@ -113,6 +123,10 @@ public class PromotionServiceImpl implements PromotionService {
 
         User user = userService.getUserWithAuthorities().get();
         Assert.notNull(user, "User is null");
+
+        if (promotion.getUser() != null && promotion.getUser().getId() != user.getId()) {
+            throw new BadRequestAlertException("invalid user", "promotion", "notCreator");
+        }
 
         promotion.setUser(user);
 

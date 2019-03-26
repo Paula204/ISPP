@@ -36,7 +36,9 @@ export class PromotionUpdateComponent implements OnInit {
 
     save() {
         this.isSaving = true;
-        this.promotion.user = new User();
+        if (this.promotion.user == null) {
+            this.promotion.user = new User();
+        }
         if (this.promotion.id !== undefined) {
             this.subscribeToSaveResponse(this.promotionService.update(this.promotion));
         } else {
