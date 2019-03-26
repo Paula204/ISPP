@@ -1,7 +1,6 @@
 /* ==========================================================================
 Main page styles
 ========================================================================== */
-
 .hipster {
     display: inline-flex;
     width: 400px;
@@ -58,7 +57,7 @@ Main page styles
     display: inline-flex;
     width: 250px;
     height: 250px;
-    background: url('../../content/images/gw.png') no-repeat center;
+    background: url('../../content/images/gwsevilla.png') no-repeat center;
     background-size: contain;
     background-position: center center;
 }
@@ -69,29 +68,6 @@ Main page styles
     background-size: contain;
     background-position: center center;
     margin-top: 50px;
-}
-
-.seccion-1 span {
-    margin-left: 5%;
-    margin-right: 5%;
-}
-
-.row {
-    display: inline-flex;
-    justify-content: center;
-    text-align: center;
-    align-items: center;
-    margin: 0 auto;
-}
-
-.column {
-    flex: 50%;
-    padding: 10px;
-}
-
-.column p {
-    text-align: center;
-    vertical-align: middle;
 }
 
 .h1-indice {
@@ -124,6 +100,15 @@ Main page styles
         /* On small screens, we are no longer using row direction but column */
         flex-wrap: wrap;
         font-size: 80%;
+    }
+
+    .logo-1,
+    .logo-2,
+    .logo-3,
+    .logo-4,
+    .logo-5 {
+        margin: 0cm;
+        padding: 0cm;
     }
 }
 
