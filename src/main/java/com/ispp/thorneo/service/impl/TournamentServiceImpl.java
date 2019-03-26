@@ -1,5 +1,6 @@
 package com.ispp.thorneo.service.impl;
 
+import com.ispp.thorneo.security.AuthoritiesConstants;
 import com.ispp.thorneo.TournamentForm;
 import com.ispp.thorneo.service.ParticipationService;
 import com.ispp.thorneo.service.TournamentService;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import java.util.*;
 import javax.swing.text.html.Option;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -116,6 +118,16 @@ public class TournamentServiceImpl implements TournamentService {
     @Override
     public void delete(Long id) {
         log.debug("Request to delete Tournament : {}", id);
+        Tournament t = this.tournamentRepository.findById(id).get();
+        User user = this.userService.getUserWithAuthorities().get();
+        Assert.notNull(user,"No user logged");
+        Assert.isTrue(t.getUser().equals(user),
+            "You dont't have permissions to delete this tournament");
+        if (!t.getParticipations().isEmpty()){
+            for (Participation p : new HashSet<Participation>(t.getParticipations())){
+                this.participationService.delete(p.getId());
+            }
+        }
         tournamentRepository.deleteById(id);
         tournamentSearchRepository.deleteById(id);
     }
@@ -141,9 +153,11 @@ public class TournamentServiceImpl implements TournamentService {
         
         User user = userService.getUserWithAuthorities().get();
         Assert.notNull(user, "User is null");
-
-        tournament.setUser(user);
-
+        if (tournament.getId() == null){
+            tournament.setUser(user);
+        } else{
+            Assert.isTrue(tournament.getUser().equals(user), "You don't have permissions to edit this tournament");
+        }
         result = save(tournament);
 
         return result;
@@ -181,5 +195,11 @@ public class TournamentServiceImpl implements TournamentService {
         result = save(tournament);
 
         return result;
+    }
+
+    @Transactional(readOnly = true)
+    public List<Tournament> findMyTournaments() {
+        log.debug("Request to get my Tournaments");
+        return tournamentRepository.findByUserIsCurrentUser();
     }
 }
