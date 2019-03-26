@@ -1,8 +1,7 @@
 {
     "global": {
         "title": "Thorneo",
-        "browsehappy":
-            "Está usando un navegador <strong>no actualizado</strong>. Por favor, <a href=\"http://browsehappy.com/?locale=en\">actualice su navegador</a> para mejorar su experiencia.",
+        "browsehappy": "Está usando un navegador <strong>no actualizado</strong>. Por favor, <a href=\"http://browsehappy.com/?locale=en\">actualice su navegador</a> para mejorar su experiencia.",
         "menu": {
             "home": "Inicio",
             "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
@@ -56,8 +55,7 @@
                 "authenticated": {
                     "prefix": "Si desea ",
                     "link": "iniciar una sesión",
-                    "suffix":
-                        ", puede intentar con las cuentas predeterminadas:<br/>- Administrator (usuario=\"admin\" y contraseña=\"admin\") <br/>- Usuario (usuario=\"user\" y contraseña=\"user\")."
+                    "suffix": ", puede intentar con las cuentas predeterminadas:<br/>- Administrator (usuario=\"admin\" y contraseña=\"admin\") <br/>- Usuario (usuario=\"user\" y contraseña=\"user\")."
                 },
                 "register": {
                     "noaccount": "¿No tienes una cuenta todavía?",
@@ -137,7 +135,9 @@
         "userexists": "Login name already used!",
         "emailexists": "Email is already in use!",
         "idexists": "A new {{entityName}} cannot already have an ID",
-        "idnull": "Invalid ID"
+        "idnull": "ID inválido",
+        "idsame": "Estás registrado en este torneo",
+        "idManager": "Eres el creador de este torneo"
     },
     "footer": "pie de página"
 }

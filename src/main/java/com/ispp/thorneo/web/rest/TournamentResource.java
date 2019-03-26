@@ -1,5 +1,6 @@
 package com.ispp.thorneo.web.rest;
 
+import com.ispp.thorneo.TournamentForm;
 import com.ispp.thorneo.domain.Participation;
 import com.ispp.thorneo.domain.Tournament;
 import com.ispp.thorneo.service.TournamentService;
@@ -7,6 +8,7 @@ import com.ispp.thorneo.web.rest.errors.BadRequestAlertException;
 import com.ispp.thorneo.web.rest.util.HeaderUtil;
 import com.ispp.thorneo.web.rest.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
+import io.micrometer.core.annotation.Timed;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -19,9 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.StreamSupport;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
@@ -120,6 +120,7 @@ public class TournamentResource {
     public ResponseEntity<Tournament> getTournament(@PathVariable Long id) {
         log.debug("REST request to get Tournament : {}", id);
         Optional<Tournament> tournament = tournamentService.findOne(id);
+
         return ResponseUtil.wrapOrNotFound(tournament);
     }
 
