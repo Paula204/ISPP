@@ -51,12 +51,12 @@
                 </dd>
                 <dt><span jhiTranslate="thorneoApp.tournament.user">User</span></dt>
                 <dd>
-                    {{tournament.user?.id}}
+                    {{tournament.user?.login}}
                 </dd>
                 <dt><span jhiTranslate="thorneoApp.tournament.game">Game</span></dt>
                 <dd>
                     <div *ngIf="tournament.game">
-                        <a [routerLink]="['/game', tournament.game?.id, 'view']">{{tournament.game?.id}}</a>
+                        <a [routerLink]="['/game', tournament.game?.id, 'view']">{{tournament.game?.title}}</a>
                     </div>
                 </dd>
                 <dt><span jhiTranslate="thorneoApp.tournament.participation">Participants</span></dt>
