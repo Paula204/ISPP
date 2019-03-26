@@ -49,4 +49,6 @@ public interface GameService {
      * @return the list of entities
      */
     List<Game> search(String query);
+
+    Game updateGame(Game game);
 }

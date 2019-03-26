@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { ITournament } from 'app/shared/model/tournament.model';
+import { ITournament, ITournamentForm, Tournament } from 'app/shared/model/tournament.model';
 import { TournamentService } from '.';
 import { Observable } from 'rxjs';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
@@ -13,13 +13,17 @@ import { Account, AccountService } from 'app/core';
     templateUrl: './tournament-detail.component.html'
 })
 export class TournamentDetailComponent implements OnInit {
+
+    tournament: ITournamentForm;
+
     currentAccount: Account;
-    tournament: ITournament;
+    
     isSaving: boolean;
 
     constructor(
         protected jhiAlertService: JhiAlertService,
         protected activatedRoute: ActivatedRoute,
+
         protected accountService: AccountService,
         protected tournamentService: TournamentService
     ) {}

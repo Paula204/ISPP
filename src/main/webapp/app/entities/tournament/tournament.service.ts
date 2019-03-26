@@ -7,10 +7,11 @@ import { map } from 'rxjs/operators';
 
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared';
-import { ITournament } from 'app/shared/model/tournament.model';
+import { ITournament, ITournamentForm } from 'app/shared/model/tournament.model';
 
 type EntityResponseType = HttpResponse<ITournament>;
 type EntityArrayResponseType = HttpResponse<ITournament[]>;
+type EntityArrayResponseTypeExtra = HttpResponse<ITournamentForm>;
 
 @Injectable({ providedIn: 'root' })
 export class TournamentService {
@@ -40,10 +41,10 @@ export class TournamentService {
             .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
     }
 
-    find(id: number): Observable<EntityResponseType> {
+    find(id: number): Observable<EntityArrayResponseTypeExtra> {
         return this.http
-            .get<ITournament>(`${this.resourceUrl}/${id}`, { observe: 'response' })
-            .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+            .get<ITournamentForm>(`${this.resourceUrl}/${id}`, { observe: 'response' })
+            .pipe(map((res: EntityArrayResponseTypeExtra) => this.convertDateFromServer(res)));
     }
 
     query(req?: any): Observable<EntityArrayResponseType> {

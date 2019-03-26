@@ -54,7 +54,7 @@ public class PromotionResource {
         if (promotion.getId() != null) {
             throw new BadRequestAlertException("A new promotion cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Promotion result = promotionService.save(promotion);
+        Promotion result = promotionService.savePromotion(promotion);
         return ResponseEntity.created(new URI("/api/promotions/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -75,7 +75,7 @@ public class PromotionResource {
         if (promotion.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        Promotion result = promotionService.save(promotion);
+        Promotion result = promotionService.savePromotion(promotion);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, promotion.getId().toString()))
             .body(result);

@@ -9,6 +9,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
+import org.hibernate.validator.constraints.URL;
 import org.springframework.data.elasticsearch.annotations.Document;
 import java.io.Serializable;
 import java.time.Instant;
@@ -65,6 +66,7 @@ public class Tournament implements Serializable {
     private String rewards;
 
     @NotNull
+    @URL
     @Column(name = "image_url", nullable = false)
     private String imageUrl;
 
@@ -80,9 +82,10 @@ public class Tournament implements Serializable {
     private Type type;
 
     @NotNull
-    @OneToMany(mappedBy = "tournament")
+    @OneToMany(mappedBy = "tournament", fetch = FetchType.EAGER, orphanRemoval = true)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Participation> participations = new HashSet<>();
+
     @ManyToOne
     @JsonIgnoreProperties("tournaments")
     private User user;
