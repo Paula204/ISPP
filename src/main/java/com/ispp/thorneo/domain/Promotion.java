@@ -34,6 +34,7 @@ public class Promotion implements Serializable {
 
     @NotNull
     @URL
+    @Max(250)
     @Column(name = "qr", nullable = false)
     private String qr;
 
