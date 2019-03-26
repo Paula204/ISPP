@@ -1,6 +1,7 @@
 package com.ispp.thorneo.service.impl;
 
 import com.ispp.thorneo.security.AuthoritiesConstants;
+import com.ispp.thorneo.TournamentForm;
 import com.ispp.thorneo.service.ParticipationService;
 import com.ispp.thorneo.service.TournamentService;
 import com.ispp.thorneo.service.UserService;
@@ -8,10 +9,9 @@ import com.ispp.thorneo.domain.Participation;
 import com.ispp.thorneo.domain.Tournament;
 import com.ispp.thorneo.domain.User;
 import com.ispp.thorneo.repository.TournamentRepository;
-import com.ispp.thorneo.repository.UserRepository;
 import com.ispp.thorneo.repository.search.TournamentSearchRepository;
-import com.ispp.thorneo.security.SecurityUtils;
 
+import com.ispp.thorneo.web.rest.errors.BadRequestAlertException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,6 +22,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.util.*;
+import javax.swing.text.html.Option;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.Optional;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
@@ -59,7 +64,6 @@ public class TournamentServiceImpl implements TournamentService {
     @Override
     public Tournament save(Tournament tournament) {
         log.debug("Request to save Tournament : {}", tournament);
-        log.debug("PARTICIPANTS: {}", tournament.getParticipations ());
         Tournament result = tournamentRepository.save(tournament);
         tournamentSearchRepository.save(result);
         return result;
@@ -89,6 +93,20 @@ public class TournamentServiceImpl implements TournamentService {
     @Transactional(readOnly = true)
     public Optional<Tournament> findOne(Long id) {
         log.debug("Request to get Tournament : {}", id);
+
+        Optional<Tournament> aux = tournamentRepository.findById(id);
+
+//        Object resultQuery = tournamentRepository.getAllParticipantsByTournament(id);
+//
+//        Object[] result = (Object[]) resultQuery;
+//        Tournament tournament = (Tournament) result[0];
+//        Long participationNumber = (Long) result[1];
+//
+//        TournamentForm tournamentForm = new TournamentForm(aux.get(), 0L);
+//        Optional<TournamentForm> result = Optional.of(tournamentForm);
+
+//        Optional<Tournament> result = tournamentRepository.findById(id);
+
         return tournamentRepository.findById(id);
     }
 
@@ -150,7 +168,7 @@ public class TournamentServiceImpl implements TournamentService {
         Tournament result;
 
         Assert.notNull(tournament, "Tournament is null");
-        
+
         User user = userService.getUserWithAuthorities().get();
         Assert.notNull(user, "User is null");
 
@@ -158,16 +176,24 @@ public class TournamentServiceImpl implements TournamentService {
         participation.setDisqualify(false);
         participation.setPunctuation(0);
         participation.setUser(user);
-        participationService.save(participation);
+        Participation participationResult = participationService.save(participation);
 
-        Long userId = this.tournamentRepository.findCurrentUserParticipation();
+        Long userId = this.tournamentRepository.findCurrentUserParticipation(tournament.getId());
         log.debug("User id participation : {}", userId);
-        Assert.isTrue(userId == null, "User is sign on this tournament");
 
-        tournament.addParticipation(participation);
-        log.debug("PARTICIPATION: {}", tournament.getParticipations());
+        if (userId != null) {
+            throw new BadRequestAlertException("Invalid user", "tournament", "idsame");
+        }
+        if (user.getId() == tournament.getUser().getId()) {
+            throw new BadRequestAlertException("Invalid user", "tournament", "idManager");
+        }
+        Assert.isTrue(userId == null, "User is sign on this tournament");
+        Assert.isTrue(userId != tournament.getUser().getId(), "The manager cannot subscribe ");
+
+        tournament.getParticipations().add(participationResult);
+//        tournament.addParticipation(participationResult);
         result = save(tournament);
-        
+
         return result;
     }
 

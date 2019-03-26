@@ -1,11 +1,13 @@
 package com.ispp.thorneo.service;
 
+import com.ispp.thorneo.TournamentForm;
 import com.ispp.thorneo.domain.Tournament;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -58,13 +60,12 @@ public interface TournamentService {
     /**
      * Assign current user as creator of the tournament and check if player's size is null
      */
-     Tournament saveTournament(Tournament tournament); 
+     Tournament saveTournament(Tournament tournament);
 
-     /**
+    /**
       * Add current user to the tournament
       */
-      Tournament signOn(Tournament tournament);
-
-
-      List<Tournament> findMyTournaments();
+    Tournament signOn(Tournament tournament);
+  
+    List<Tournament> findMyTournaments();
 }

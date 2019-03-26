@@ -10,6 +10,7 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import org.hibernate.validator.constraints.Length;
+
 import org.hibernate.validator.constraints.URL;
 import org.springframework.data.elasticsearch.annotations.Document;
 import java.io.Serializable;
@@ -85,9 +86,10 @@ public class Tournament implements Serializable {
     private Type type;
 
     @NotNull
-    @OneToMany(mappedBy = "tournament")
+    @OneToMany(mappedBy = "tournament", fetch = FetchType.EAGER, orphanRemoval = true)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Participation> participations = new HashSet<>();
+
     @ManyToOne
     @JsonIgnoreProperties("tournaments")
     private User user;

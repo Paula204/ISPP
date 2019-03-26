@@ -1,7 +1,7 @@
 <div>
     <h2 id="page-heading">
         <span jhiTranslate="thorneoApp.promotion.home.title">Promotions</span>
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-promotion" [routerLink]="['/promotion/new']">
+        <button *jhiHasAnyAuthority="'ROLE_ADMIN', 'ROLE_SPONSOR'"  id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-promotion" [routerLink]="['/promotion/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
             <span class="hidden-sm-down"  jhiTranslate="thorneoApp.promotion.home.createLabel">
             Create new Promotion
@@ -29,21 +29,21 @@
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
-            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+        <!--<th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
             <th jhiSortBy="title"><span jhiTranslate="thorneoApp.promotion.title">Title</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="qr"><span jhiTranslate="thorneoApp.promotion.qr">Qr</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="user.id"><span jhiTranslate="thorneoApp.promotion.user">User</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th></th>
-            </tr>
-            </thead>
-            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
-            <tr *ngFor="let promotion of promotions ;trackBy: trackId">
-                <td><a [routerLink]="['/promotion', promotion.id, 'view' ]">{{promotion.id}}</a></td>
+                <!--<th jhiSortBy="user.id"><span jhiTranslate="thorneoApp.promotion.user">User</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
+                <th></th>
+                </tr>
+                </thead>
+                <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+                <tr *ngFor="let promotion of promotions ;trackBy: trackId">
+                    <!--<td><a [routerLink]="['/promotion', promotion.id, 'view' ]">{{promotion.id}}</a></td>-->
                 <td>{{promotion.title}}</td>
                 <td>{{promotion.qr}}</td>
-                <td>
+                <!--<td>
                     {{promotion.user?.id}}
-                </td>
+                </td>-->
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"
@@ -52,13 +52,14 @@
                             <fa-icon [icon]="'eye'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                         </button>
-                        <button type="submit"
+                        <td *jhiHasAnyAuthority="'ROLE_SPONSOR'" >
+                        <button *ngIf="promotion.user.id==currentAccount.id" type="submit"
                                 [routerLink]="['/promotion', promotion.id, 'edit']"
                                 class="btn btn-primary btn-sm">
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                         </button>
-                        <button type="submit"
+                        <button *ngIf="promotion.user.id==currentAccount.id"type="submit"
                                 [routerLink]="['/', 'promotion', { outlets: { popup: promotion.id + '/delete'} }]"
                                 replaceUrl="true"
                                 queryParamsHandling="merge"
@@ -66,6 +67,22 @@
                             <fa-icon [icon]="'times'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
                         </button>
+                        </td>
+                        <button *jhiHasAnyAuthority="'ROLE_ADMIN'"  type="submit"
+                                [routerLink]="['/promotion', promotion.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="submit"
+                                [routerLink]="['/', 'promotion', { outlets: { popup: promotion.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+
                     </div>
                 </td>
             </tr>

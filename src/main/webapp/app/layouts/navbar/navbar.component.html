@@ -1,4 +1,4 @@
-<nav class="navbar bg-thorneo navbar-dark navbar-expand-md">
+<nav class="navbar navbar-dark navbar-expand-md">
     <a class="navbar-brand logo" routerLink="/" (click)="collapseNavbar()">
         <span class="logo-img"></span>
         <!--<span jhiTranslate="global.title" class="navbar-title">Thorneo</span> -->
@@ -44,7 +44,7 @@
                             <span jhiTranslate="global.menu.entities.participation">Participation</span>
                         </a>
                     </li>
-                    <li>
+                    <li *jhiHasAnyAuthority="'ROLE_ADMIN'">
                         <a class="dropdown-item" routerLink="sponsorship" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                             <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
                             <span jhiTranslate="global.menu.entities.sponsorship">Sponsorship</span>
