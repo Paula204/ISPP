@@ -137,7 +137,8 @@
         "idexists": "A new {{entityName}} cannot already have an ID",
         "idnull": "Invalid ID",
         "URL": "El enlace proporcionado no es válido",
-        "Length": "El enlace proporcionado es demasiado largo"
+        "Length": "El enlace proporcionado es demasiado largo",
+        "Future": "La fecha especificada está en pasado"
     },
     "footer": "pie de página"
 }

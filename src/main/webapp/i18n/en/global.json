@@ -138,7 +138,8 @@
         "idexists": "A new {{ entityName }} cannot already have an ID",
         "idnull": "Invalid ID",
         "URL": "The provided URL is not valid",
-        "Length": "The provided URL is too long"
+        "Length": "The provided URL is too long",
+        "Future": "The date you provide is past"
     },
     "footer": "This is your footer"
 }
