@@ -6,24 +6,34 @@ import { TournamentService } from '.';
 import { Observable } from 'rxjs';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { JhiAlertService } from 'ng-jhipster';
+import { Account, AccountService } from 'app/core';
 
 @Component({
     selector: 'jhi-tournament-detail',
     templateUrl: './tournament-detail.component.html'
 })
 export class TournamentDetailComponent implements OnInit {
+
     tournament: ITournamentForm;
+
+    currentAccount: Account;
+    
     isSaving: boolean;
 
     constructor(
         protected jhiAlertService: JhiAlertService,
         protected activatedRoute: ActivatedRoute,
+
+        protected accountService: AccountService,
         protected tournamentService: TournamentService
     ) {}
 
     ngOnInit() {
         this.activatedRoute.data.subscribe(({ tournament }) => {
             this.tournament = tournament;
+        });
+        this.accountService.identity().then(account => {
+            this.currentAccount = account;
         });
     }
 

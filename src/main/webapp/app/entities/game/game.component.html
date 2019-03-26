@@ -1,7 +1,7 @@
 <div>
     <h2 id="page-heading">
         <span jhiTranslate="thorneoApp.game.home.title">Games</span>
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-game" [routerLink]="['/game/new']">
+        <button *jhiHasAnyAuthority="'ROLE_ADMIN'" id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-game" [routerLink]="['/game/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
             <span class="hidden-sm-down"  jhiTranslate="thorneoApp.game.home.createLabel">
             Create new Game
@@ -29,9 +29,9 @@
         <table class="table table-striped">
             <thead>
             <tr>
-            <th><span jhiTranslate="global.field.id">ID</span></th>
+           <!-- <th><span jhiTranslate="global.field.id">ID</span></th>-->
             <th><span jhiTranslate="thorneoApp.game.title">Title</span></th>
-            <th><span jhiTranslate="thorneoApp.game.description">Description</span></th>
+            <!--<th><span jhiTranslate="thorneoApp.game.description">Description</span></th>-->
             <th><span jhiTranslate="thorneoApp.game.category">Category</span></th>
             <th><span jhiTranslate="thorneoApp.game.minAge">Min Age</span></th>
             <th></th>
@@ -39,9 +39,9 @@
             </thead>
             <tbody>
             <tr *ngFor="let game of games ;trackBy: trackId">
-                <td><a [routerLink]="['/game', game.id, 'view' ]">{{game.id}}</a></td>
+                <!--<td><a [routerLink]="['/game', game.id, 'view' ]">{{game.id}}</a></td>-->
                 <td>{{game.title}}</td>
-                <td>{{game.description}}</td>
+                <!--<td>{{game.description}}</td>-->
                 <td jhiTranslate="{{'thorneoApp.Category.' + game.category}}">{{game.category}}</td>
                 <td>{{game.minAge}}</td>
                 <td class="text-right">
@@ -52,13 +52,14 @@
                             <fa-icon [icon]="'eye'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                         </button>
-                        <button type="submit"
+                        <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="submit"
                                 [routerLink]="['/game', game.id, 'edit']"
                                 class="btn btn-primary btn-sm">
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                         </button>
-                        <button type="submit"
+
+                        <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="submit"
                                 [routerLink]="['/', 'game', { outlets: { popup: game.id + '/delete'} }]"
                                 replaceUrl="true"
                                 queryParamsHandling="merge"

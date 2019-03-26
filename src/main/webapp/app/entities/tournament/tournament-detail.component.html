@@ -5,6 +5,14 @@
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
+
+                <dd>
+                    <span><img class="img-fluid" width="100" height="100" src="{{tournament.imageUrl}}"/></span>
+                </dd>
+                <dt><span jhiTranslate="thorneoApp.tournament.title">Title</span></dt>
+                <dd>
+                    <span>{{tournament.title}}</span>
+                </dd>
                 <dt><span jhiTranslate="thorneoApp.tournament.description">Description</span></dt>
                 <dd>
                     <span>{{tournament.description}}</span>
@@ -32,10 +40,6 @@
                 <dt><span jhiTranslate="thorneoApp.tournament.rewards">Rewards</span></dt>
                 <dd>
                     <span>{{tournament.rewards}}</span>
-                </dd>
-                <dt><span jhiTranslate="thorneoApp.tournament.imageUrl">Image Url</span></dt>
-                <dd>
-                    <span>{{tournament.imageUrl}}</span>
                 </dd>
                 <dt><span jhiTranslate="thorneoApp.tournament.latitude">Latitude</span></dt>
                 <dd>
@@ -74,7 +78,7 @@
                 <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
             </button>
 
-            <button type="button"
+            <button *ngIf="tournament.user.id==currentAccount.id" type="button"
                     [routerLink]="['/tournament', tournament.id, 'edit']"
                     class="btn btn-primary">
                 <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
