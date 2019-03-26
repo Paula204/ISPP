@@ -65,4 +65,13 @@ public interface TournamentService {
       * Add current user to the tournament
       */
     Tournament signOn(Tournament tournament);
+
+    /**
+     *  Get user winner
+     */
+    String getWinner(Long id);
+
+    Tournament closeTournament(Tournament tournament);
+
+    Optional<TournamentForm> getTournament(Long id);
 }

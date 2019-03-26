@@ -1,6 +1,7 @@
 package com.ispp.thorneo.service.impl;
 
 import com.ispp.thorneo.TournamentForm;
+import com.ispp.thorneo.domain.Authority;
 import com.ispp.thorneo.service.ParticipationService;
 import com.ispp.thorneo.service.TournamentService;
 import com.ispp.thorneo.service.UserService;
@@ -44,6 +45,8 @@ public class TournamentServiceImpl implements TournamentService {
     private final UserService userService;
 
     private final ParticipationService participationService;
+
+    private static final Integer winnerPunctuation = 10000;
 
     public TournamentServiceImpl(TournamentRepository tournamentRepository, TournamentSearchRepository tournamentSearchRepository,
         UserService userService, ParticipationService participationService) {
@@ -142,6 +145,15 @@ public class TournamentServiceImpl implements TournamentService {
         User user = userService.getUserWithAuthorities().get();
         Assert.notNull(user, "User is null");
 
+        User manager = tournament.getUser();
+
+        Authority admin = new Authority();
+        admin.setName("ROLE_ADMIN");
+
+        if (manager != null && user.getId() != manager.getId() && !user.getAuthorities().contains(admin) ) {
+            throw new BadRequestAlertException("Invalid user", "tournament", "idManager");
+        }
+
         tournament.setUser(user);
 
         result = save(tournament);
@@ -173,12 +185,67 @@ public class TournamentServiceImpl implements TournamentService {
         if (user.getId() == tournament.getUser().getId()) {
             throw new BadRequestAlertException("Invalid user", "tournament", "idManager");
         }
-        Assert.isTrue(userId == null, "User is sign on this tournament");
-        Assert.isTrue(userId != tournament.getUser().getId(), "The manager cannot subscribe ");
 
-        tournament.getParticipations().add(participationResult);
-//        tournament.addParticipation(participationResult);
+        if (getWinner(tournament.getId()) != null) {
+            throw new BadRequestAlertException("Close tournament", "tournament", "closeTournament");
+        }
+        tournament.addParticipation(participationResult);
         result = save(tournament);
+
+        return result;
+    }
+
+    @Override
+    public String getWinner(Long id) {
+        Assert.notNull(id, "id is null");
+
+        Participation p = tournamentRepository.getParticipationWithMaxPunctuation(id);
+
+        if (p == null || p.getPunctuation() < winnerPunctuation || p.isDisqualify()) {
+            return null;
+        }
+        String result = p.getUser().getLogin();
+
+        return result;
+    }
+
+    @Override
+    public Tournament closeTournament(Tournament tournament) {
+        Assert.notNull(tournament, "tournament is null");
+
+        Tournament result;
+
+        Participation p = tournamentRepository.getParticipationWithMaxPunctuation(tournament.getId());
+
+        if (p == null) {
+            throw new BadRequestAlertException("Null participants", "tournament", "noParticipants");
+        }
+        if (p.getPunctuation() >= winnerPunctuation) {
+            throw new BadRequestAlertException("Close tournament", "tournament", "closeTournament");
+        }
+        tournament.removeParticipation(p);
+        Integer punctuation = p.getPunctuation() + winnerPunctuation;
+        p.setPunctuation(punctuation);
+        tournament.addParticipation(p);
+
+        result = saveTournament(tournament);
+
+        return result;
+    }
+
+    @Override
+    public Optional<TournamentForm> getTournament(Long id) {
+        Assert.notNull(id, "id is null");
+
+        Optional<TournamentForm> result;
+
+        Tournament tournament = findOne(id).get();
+
+        String winner = getWinner(id);
+
+        TournamentForm tournamentForm = new TournamentForm(tournament, winner);
+
+        result = Optional.of(tournamentForm);
 
         return result;
     }
