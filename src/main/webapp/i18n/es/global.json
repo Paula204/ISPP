@@ -136,7 +136,8 @@
         "emailexists": "Email is already in use!",
         "idexists": "A new {{entityName}} cannot already have an ID",
         "idnull": "Invalid ID",
-        "URL": "El enlace proporcionado no es válido"
+        "URL": "El enlace proporcionado no es válido",
+        "Length": "El enlace proporcionado es demasiado largo"
     },
     "footer": "pie de página"
 }

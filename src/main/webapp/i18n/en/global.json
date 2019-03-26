@@ -137,7 +137,8 @@
         "emailexists": "Email is already in use!",
         "idexists": "A new {{ entityName }} cannot already have an ID",
         "idnull": "Invalid ID",
-        "URL": "The provided URL is not valid"
+        "URL": "The provided URL is not valid",
+        "Length": "The provided URL is too long"
     },
     "footer": "This is your footer"
 }
