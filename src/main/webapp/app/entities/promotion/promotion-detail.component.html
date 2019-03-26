@@ -24,12 +24,20 @@
                     class="btn btn-info">
                 <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
             </button>
-
-            <button type="button"
+            <td *jhiHasAnyAuthority="'ROLE_SPONSOR'" >
+            <button *ngIf="promotion.user.id==currentAccount.id" type="button"
                     [routerLink]="['/promotion', promotion.id, 'edit']"
                     class="btn btn-primary">
                 <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
             </button>
+            </td>
+            <td *jhiHasAnyAuthority="'ROLE_ADMIN'" >
+                <button type="button"
+                        [routerLink]="['/promotion', promotion.id, 'edit']"
+                        class="btn btn-primary">
+                    <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+                </button>
+            </td>
         </div>
     </div>
 </div>

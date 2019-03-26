@@ -6,22 +6,30 @@ import { TournamentService } from '.';
 import { Observable } from 'rxjs';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { JhiAlertService } from 'ng-jhipster';
+import { Account, AccountService } from 'app/core';
 
 @Component({
     selector: 'jhi-tournament-detail',
     templateUrl: './tournament-detail.component.html'
 })
 export class TournamentDetailComponent implements OnInit {
+    currentAccount: Account;
     tournament: ITournament;
     isSaving: boolean;
 
-    constructor( protected jhiAlertService: JhiAlertService,
+    constructor(
+        protected jhiAlertService: JhiAlertService,
         protected activatedRoute: ActivatedRoute,
-        protected tournamentService: TournamentService) {}
+        protected accountService: AccountService,
+        protected tournamentService: TournamentService
+    ) {}
 
     ngOnInit() {
         this.activatedRoute.data.subscribe(({ tournament }) => {
             this.tournament = tournament;
+        });
+        this.accountService.identity().then(account => {
+            this.currentAccount = account;
         });
     }
 
@@ -33,7 +41,7 @@ export class TournamentDetailComponent implements OnInit {
         this.isSaving = true;
 
         if (this.tournament.participations === null) {
-            this.tournament.participations = []
+            this.tournament.participations = [];
         }
 
         this.subscribeToSaveResponse(this.tournamentService.signOn(this.tournament));

@@ -151,3 +151,21 @@ Main page styles
 .alerta {
     background-color: white !important;
 }
+
+.row {
+    display: inline-flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.column {
+    flex: 50%;
+    padding: 10px;
+}
+
+.column p {
+    text-align: center;
+    vertical-align: middle;
+}
