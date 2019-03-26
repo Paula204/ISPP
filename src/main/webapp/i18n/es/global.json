@@ -104,7 +104,8 @@
             "open": "Open",
             "save": "Guardar",
             "view": "Vista",
-            "signOn": "Registrar"
+            "signOn": "Registrar",
+            "close": "Close"
         },
         "detail": {
             "field": "Campo",
@@ -135,6 +136,10 @@
         "userexists": "Login name already used!",
         "emailexists": "Email is already in use!",
         "idexists": "A new {{entityName}} cannot already have an ID",
+        "idnull": "Invalid ID",
+        "URL": "El enlace proporcionado no es válido",
+        "Length": "El enlace proporcionado es demasiado largo",
+        "Future": "La fecha especificada está en pasado",
         "idnull": "ID inválido",
         "idsame": "Estás registrado en este torneo",
         "idManager": "Eres el creador de este torneo"

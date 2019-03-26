@@ -70,6 +70,10 @@
                     </ul>
                     <qrcode qrdata="http://localhost:9000/#/tournament/24/view" size="256" level="M"></qrcode>
                 </dd>
+                <dt *ngIf="tournament.winner != null"><span jhiTranslate="thorneoApp.tournament.winner">Winner</span></dt>
+                <dd *ngIf="tournament.winner != null">
+                    {{tournament.winner}}
+                </dd>
             </dl>
 
             <button type="submit"

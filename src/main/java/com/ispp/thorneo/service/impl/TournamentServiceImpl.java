@@ -24,6 +24,7 @@ import org.springframework.util.Assert;
 import javax.swing.text.html.Option;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -248,5 +249,11 @@ public class TournamentServiceImpl implements TournamentService {
         result = Optional.of(tournamentForm);
 
         return result;
+    }
+
+    @Transactional(readOnly = true)
+    public List<Tournament> findMyTournaments() {
+        log.debug("Request to get my Tournaments");
+        return tournamentRepository.findByUserIsCurrentUser();
     }
 }

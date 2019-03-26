@@ -6,6 +6,7 @@ import com.ispp.thorneo.domain.Tournament;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -74,4 +75,6 @@ public interface TournamentService {
     Tournament closeTournament(Tournament tournament);
 
     Optional<TournamentForm> getTournament(Long id);
+
+    List<Tournament> findMyTournaments();
 }

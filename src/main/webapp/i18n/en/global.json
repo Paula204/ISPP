@@ -104,7 +104,8 @@
             "open": "Open",
             "save": "Save",
             "view": "View",
-            "signOn": "Sign On"
+            "signOn": "Sign On",
+            "close": "Close"
         },
         "detail": {
             "field": "Field",
@@ -137,6 +138,9 @@
         "emailexists": "Email is already in use!",
         "idexists": "A new {{ entityName }} cannot already have an ID",
         "idnull": "Invalid ID",
+        "URL": "The provided URL is not valid",
+        "Length": "The provided URL is too long",
+        "Future": "The date you provide is past",
         "idsame": "You're registered on this tournament",
         "idManager": "You're the manager of this tournament"
     },
