@@ -21,10 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.SortedSet;
+import java.util.*;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
@@ -172,5 +169,11 @@ public class TournamentServiceImpl implements TournamentService {
         result = save(tournament);
         
         return result;
+    }
+
+    @Transactional(readOnly = true)
+    public List<Tournament> findMyTournaments() {
+        log.debug("Request to get my Tournaments");
+        return tournamentRepository.findByUserIsCurrentUser();
     }
 }

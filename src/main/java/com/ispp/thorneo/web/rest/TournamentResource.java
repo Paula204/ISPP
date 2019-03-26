@@ -10,6 +10,7 @@ import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -149,6 +150,14 @@ public class TournamentResource {
         log.debug("REST request to search for a page of Tournaments for query {}", query);
         Page<Tournament> page = tournamentService.search(query, pageable);
         HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/tournaments");
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    @GetMapping("/tournaments/mine")
+    public ResponseEntity<List<Tournament>> getMyTournaments() {
+        log.debug("REST request to get a page of my Tournaments");
+        Page<Tournament> page = new PageImpl<>(tournamentService.findMyTournaments());
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/tournaments/mine");
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
