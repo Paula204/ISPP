@@ -28,7 +28,7 @@
             "latitude": "Latitude",
             "longitude": "Longitude",
             "type": "Type",
-            "participation": "Participation",
+            "participation": "Participants",
             "user": "User",
             "game": "Game"
         }

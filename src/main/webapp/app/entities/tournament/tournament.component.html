@@ -73,7 +73,7 @@
 
                 <td>
                     <div *ngIf="tournament.game">
-                        <a [routerLink]="['../game', tournament.game?.id, 'view' ]" >{{tournament.game?.id}}</a>
+                        <a [routerLink]="['../game', tournament.game?.id, 'view' ]" >{{tournament.game?.title}}</a>
                     </div>
                 </td>
                 <td class="text-right">
@@ -86,14 +86,14 @@
                         </button>
 
 
-                        <button *ngIf="tournament.user.id==currentAccount.id" type="submit"
+                        <button *ngIf="tournament.user.id==currentAccount.id || currentAccount.authorities.includes('ROLE_ADMIN')" type="submit"
                                 [routerLink]="['/tournament', tournament.id, 'edit']"
                                 class="btn btn-primary btn-sm">
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                         </button>
 
-                        <button  *ngIf="tournament.user.id==currentAccount.id" type="submit"
+                        <button  *ngIf="tournament.user.id==currentAccount.id || currentAccount.authorities.includes('ROLE_ADMIN')" type="submit"
                                 [routerLink]="['/', 'tournament', { outlets: { popup: tournament.id + '/delete'} }]"
                                 replaceUrl="true"
                                 queryParamsHandling="merge"

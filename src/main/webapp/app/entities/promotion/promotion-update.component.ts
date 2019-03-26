@@ -6,7 +6,7 @@ import { filter, map } from 'rxjs/operators';
 import { JhiAlertService } from 'ng-jhipster';
 import { IPromotion } from 'app/shared/model/promotion.model';
 import { PromotionService } from './promotion.service';
-import { IUser, UserService } from 'app/core';
+import { IUser, User, UserService } from 'app/core';
 
 @Component({
     selector: 'jhi-promotion-update',
@@ -15,8 +15,6 @@ import { IUser, UserService } from 'app/core';
 export class PromotionUpdateComponent implements OnInit {
     promotion: IPromotion;
     isSaving: boolean;
-
-    users: IUser[];
 
     constructor(
         protected jhiAlertService: JhiAlertService,
@@ -30,13 +28,6 @@ export class PromotionUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ promotion }) => {
             this.promotion = promotion;
         });
-        this.userService
-            .query()
-            .pipe(
-                filter((mayBeOk: HttpResponse<IUser[]>) => mayBeOk.ok),
-                map((response: HttpResponse<IUser[]>) => response.body)
-            )
-            .subscribe((res: IUser[]) => (this.users = res), (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     previousState() {
@@ -45,6 +36,9 @@ export class PromotionUpdateComponent implements OnInit {
 
     save() {
         this.isSaving = true;
+        if (this.promotion.user == null) {
+            this.promotion.user = new User();
+        }
         if (this.promotion.id !== undefined) {
             this.subscribeToSaveResponse(this.promotionService.update(this.promotion));
         } else {

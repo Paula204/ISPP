@@ -8,6 +8,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
+import org.hibernate.validator.constraints.URL;
 import org.springframework.data.elasticsearch.annotations.Document;
 import java.io.Serializable;
 import java.util.Objects;
@@ -32,10 +33,12 @@ public class Promotion implements Serializable {
     private String title;
 
     @NotNull
+    @URL
+    @Max(250)
     @Column(name = "qr", nullable = false)
     private String qr;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @NotNull
     @JsonIgnoreProperties("promotions")
     private User user;

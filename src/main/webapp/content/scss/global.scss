@@ -163,6 +163,10 @@ Custom alerts for notification
     }
 }
 
+.greenazul {
+    background-color: lightseagreen !important;
+}
+
 @media screen and (min-width: 480px) {
     .alerts .toast {
         width: 50%;
@@ -257,6 +261,9 @@ ui bootstrap tweaks
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
+
+/* jhipster-needle-scss-add-global JHipster will add new css style */
 
 //ANIMATIONS
 

@@ -22,8 +22,8 @@
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="thorneoApp.tournament.description" for="field_description">Description</label>
-                    <input type="text" class="form-control" name="description" id="field_description"
-                        [(ngModel)]="tournament.description" required/>
+                    <textarea type="text" class="form-control" name="description" id="field_description"
+                        [(ngModel)]="tournament.description" required></textarea>
                     <div [hidden]="!(editForm.controls.description?.dirty && editForm.controls.description?.invalid)">
                         <small class="form-text text-danger"
                         [hidden]="!editForm.controls.description?.errors?.required" jhiTranslate="entity.validation.required">
@@ -128,7 +128,7 @@
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="thorneoApp.tournament.type" for="field_type">Type</label>
-                    <select class="form-control" name="type" [(ngModel)]="tournament.type" id="field_type" >
+                    <select class="form-control" name="type" [(ngModel)]="tournament.type" id="field_type" required>
                         <option value="ELIMINATION">{{'thorneoApp.Type.ELIMINATION' | translate}}</option>
                         <option value="POINT">{{'thorneoApp.Type.POINT' | translate}}</option>
                     </select>
@@ -141,17 +141,10 @@
                     </small>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="thorneoApp.tournament.user" for="field_user">User</label>
-                    <select class="form-control" id="field_user" name="user" [(ngModel)]="tournament.user" >
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="userOption.id === tournament.user?.id ? tournament.user : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.id}}</option>
-                    </select>
-                </div>
-                <div class="form-group">
                     <label class="form-control-label" jhiTranslate="thorneoApp.tournament.game" for="field_game">Game</label>
-                    <select class="form-control" id="field_game" name="game" [(ngModel)]="tournament.game" >
+                    <select class="form-control" id="field_game" name="game" [(ngModel)]="tournament.game" required>
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="gameOption.id === tournament.game?.id ? tournament.game : gameOption" *ngFor="let gameOption of games; trackBy: trackGameById">{{gameOption.id}}</option>
+                        <option [ngValue]="gameOption.id === tournament.game?.id ? tournament.game : gameOption" *ngFor="let gameOption of games; trackBy: trackGameById">{{gameOption.title}}</option>
                     </select>
                 </div>
             </div>

@@ -13,7 +13,7 @@
                     <p class="p-indice tracking-in-expand-fwd-2" jhiTranslate="home.subtitle">Your competitions, the way you want it, with the people you want it.</p>
             
                     <div [ngSwitch]="isAuthenticated()">
-                        <div class="alert alert-warning shadow-drop-2-center tracking-in-expand-fwd-3" *ngSwitchCase="false">
+                        <div class="alert alert-warning tracking-in-expand-fwd-3" *ngSwitchCase="false">
                             <span jhiTranslate="global.messages.info.register.noaccount">You don't have an account yet?</span>&nbsp;
                             <div class="pulsate-bck">
                                 <a class="alert-link " routerLink="register" jhiTranslate="global.messages.info.register.link">

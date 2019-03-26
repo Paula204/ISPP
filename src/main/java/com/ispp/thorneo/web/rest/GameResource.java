@@ -70,7 +70,7 @@ public class GameResource {
         if (game.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        Game result = gameService.save(game);
+        Game result = gameService.updateGame(game);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, game.getId().toString()))
             .body(result);
