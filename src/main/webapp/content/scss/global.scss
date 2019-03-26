@@ -117,6 +117,18 @@ Custom alerts for notification
     border-radius: 20px;
 }
 
+.alert-form {
+    border-radius: 15px;
+}
+
+.center {
+    text-align: center;
+}
+.img-user {
+    width: 65%;
+    height: 60%;
+    margin: 0 auto;
+}
 .alerts {
     .alert {
         text-overflow: ellipsis;
@@ -244,26 +256,6 @@ ui bootstrap tweaks
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-}
-
-/* jhipster-needle-scss-add-global JHipster will add new css style */
-
-.row {
-    display: inline-flex;
-    justify-content: center;
-    text-align: center;
-    align-items: center;
-    margin: 0 auto;
-}
-
-.column {
-    flex: 50%;
-    padding: 10px;
-}
-
-.column p {
-    text-align: center;
-    vertical-align: middle;
 }
 
 //ANIMATIONS
