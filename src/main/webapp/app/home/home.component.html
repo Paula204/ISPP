@@ -1,64 +1,66 @@
 <div class="row align-center col-md-12">
-        <div class="col-md-4"></div>
-        <div class="col-md-4 bounce-in-fwd ">
-                    <img src="../../content/images/logo-big.png"/>    
-        </div>
-        <div class="col-md-4"></div>
-</div>
 
+    <div class="row align-center col-md-12">
+            <div class="col-md-3"></div>
+            <div class="col-md-6 bounce-in-fwd thorneo">
+                <img src="../../content/images/logo-big.png" class="wobble-hor-bottom img-fluid"/>    
+            </div>
+            <div class="col-md-3"></div>
+    </div>
 
-<div class="row align-center col-md-12">
-        <div class="col-md-2"></div>
-        <div class="col-md-8 align-center">
-                <h1 class="h1-indice" jhiTranslate="home.title">Welcome, Java Hipster!</h1>
-                <p class="p-indice" jhiTranslate="home.subtitle">This is your homepage</p>
-        
-                <div [ngSwitch]="isAuthenticated()">
-                    <div class="alert alert-warning " *ngSwitchCase="false">
-                        <span jhiTranslate="global.messages.info.register.noaccount">You don't have an account yet?</span>&nbsp;
-                        <div class="pulsate-bck">
+    <div class="row align-center col-md-12">
+            <div class="col-md-4"></div>
+            <div class="col-md-4 align-center">
+                    <h1 class="h1-indice tracking-in-expand-fwd-1" jhiTranslate="home.title">Welcome to thorneo!</h1>
+                    <p class="p-indice tracking-in-expand-fwd-2" jhiTranslate="home.subtitle">Your competitions, the way you want it, with the people you want it.</p>
+            
+                    <div [ngSwitch]="isAuthenticated()">
+                        <div class="alert alert-warning tracking-in-expand-fwd-3" *ngSwitchCase="false">
+                            <span jhiTranslate="global.messages.info.register.noaccount">You don't have an account yet?</span>&nbsp;
+                            <div class="pulsate-bck">
                                 <a class="alert-link " routerLink="register" jhiTranslate="global.messages.info.register.link">
                                     Register a new account
                                 </a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        <div class="col-md-2"></div>
-</div>
-
-<div class="row align-center col-md-12">
-    <h1 class="h1-indice" jhiTranslate="home.sponsors">Our top sponsors</h1>
-</div>
-
-<div class="row align-center col-md-12">
-    <div class="col-md-3 align-center"></div>
-    <div class="col-md-6 align-center seccion-1 shadow p-3 mb-5 rounded" >
-        <span class="logo-1 img-fluid rounded container">
-            <div class="overlay">        
-            <p class="text">Empire Games</p>
-            </div>
-        </span>
-        <span class="logo-2 img-fluid rounded container">
-            <div class="overlay">        
-                <p class="text">Kame House</p>
-            </div>
-        </span>
-        <span class="logo-3 img-fluid rounded container">
-            <div class="overlay">        
-                <p class="text">Zacatrus</p>
-            </div>
-        </span>
-        <span class="logo-4 img-fluid rounded container">
-            <div class="overlay">        
-                <p class="text">¿Jugamos una?</p>
-            </div>
-        </span>
-        <span class="logo-5 img-fluid rounded container">
-            <div class="overlay">        
-                <p class="text">Games Workshop</p>
-            </div>
-        </span>
+            <div class="col-md-4"></div>
     </div>
-    <div class="col-md-3 align-center"></div>
+
+    <div class="row align-center col-md-12">
+        <h1 class="h1-indice" jhiTranslate="home.sponsors">Our top sponsors</h1>
+    </div>
+
+    <div class="row align-center col-md-12">
+        <div class="col-md-3 align-center"></div>
+        <div class="col-md-6 align-center shadow p-3 mb-5 rounded  seccion-1 border border-primary" >
+            <span class="logo-1 img-fluid rounded container ">
+                <div class="overlay">        
+                <p class="text">Empire Games</p>
+                </div>
+            </span>
+            <span class="logo-2 img-fluid rounded container">
+                <div class="overlay">        
+                    <p class="text">Kame House</p>
+                </div>
+            </span>
+            <span class="logo-3 img-fluid rounded container">
+                <div class="overlay">        
+                    <p class="text">Zacatrus</p>
+                </div>
+            </span>
+            <span class="logo-4 img-fluid rounded container">
+                <div class="overlay">        
+                    <p class="text">¿Jugamos una?</p>
+                </div>
+            </span>
+            <span class="logo-5 img-fluid rounded container">
+                <div class="overlay">        
+                    <p class="text">Games Workshop</p>
+                </div>
+            </span>
+        </div>
+        <div class="col-md-3 align-center"></div>
+    </div>
 </div>
