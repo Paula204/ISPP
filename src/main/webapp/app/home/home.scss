@@ -71,7 +71,7 @@ Main page styles
 }
 
 .h1-indice {
-    margin-top: 120px;
+    margin-top: 30px;
     font-weight: bold;
     line-height: 1.5em;
     color: #222;
@@ -81,6 +81,10 @@ Main page styles
 .p-indice {
     line-height: 1.5em;
     color: #6e6e6e;
+}
+
+.h1-sponsors {
+    margin-top: 140px;
 }
 
 @media (max-width: 500px) {
@@ -153,7 +157,6 @@ Main page styles
 }
 
 /* jhipster-needle-scss-add-global JHipster will add new css style */
-
 
 .row {
     display: inline-flex;

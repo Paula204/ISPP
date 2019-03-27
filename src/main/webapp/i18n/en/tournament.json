@@ -30,7 +30,8 @@
             "type": "Type",
             "participation": "Participants",
             "user": "User",
-            "game": "Game"
+            "game": "Game",
+            "winner": "Winner"
         }
     }
 }
