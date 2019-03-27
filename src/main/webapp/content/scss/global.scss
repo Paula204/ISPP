@@ -133,6 +133,18 @@ Custom alerts for notification
     border-radius: 20px;
 }
 
+.alert-form {
+    border-radius: 15px;
+}
+
+.center {
+    text-align: center;
+}
+.img-user {
+    width: 65%;
+    height: 60%;
+    margin: 0 auto;
+}
 .alerts {
     .alert {
         text-overflow: ellipsis;
@@ -265,6 +277,7 @@ ui bootstrap tweaks
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
 
 /* jhipster-needle-scss-add-global JHipster will add new css style */
 

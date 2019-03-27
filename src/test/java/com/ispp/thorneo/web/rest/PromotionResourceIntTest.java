@@ -51,8 +51,8 @@ public class PromotionResourceIntTest {
     private static final String DEFAULT_TITLE = "AAAAAAAAAA";
     private static final String UPDATED_TITLE = "BBBBBBBBBB";
 
-    private static final String DEFAULT_QR = "AAAAAAAAAA";
-    private static final String UPDATED_QR = "BBBBBBBBBB";
+    private static final String DEFAULT_QR = "http://www.google.com";
+    private static final String UPDATED_QR = "http://www.google.com";
 
     @Autowired
     private PromotionRepository promotionRepository;

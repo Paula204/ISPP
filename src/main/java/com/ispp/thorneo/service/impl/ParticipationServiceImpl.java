@@ -1,5 +1,6 @@
 package com.ispp.thorneo.service.impl;
 
+import com.ispp.thorneo.domain.Tournament;
 import com.ispp.thorneo.service.ParticipationService;
 import com.ispp.thorneo.domain.Participation;
 import com.ispp.thorneo.repository.ParticipationRepository;
@@ -82,7 +83,9 @@ public class ParticipationServiceImpl implements ParticipationService {
      */
     @Override
     public void delete(Long id) {
-        log.debug("Request to delete Participation : {}", id);        participationRepository.deleteById(id);
+        log.debug("Request to delete Participation : {}", id);
+
+        participationRepository.deleteById(id);
         participationSearchRepository.deleteById(id);
     }
 
