@@ -97,18 +97,6 @@ public class TournamentResource {
             .body(result);
     }
 
-    @PutMapping("/tournaments/close")
-    public ResponseEntity<Tournament> closeTournament(@Valid @RequestBody Tournament tournament) throws URISyntaxException {
-        log.debug("REST request to close Tournament: {}", tournament);
-        if (tournament.getId() == null) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
-        }
-        Tournament result = tournamentService.closeTournament(tournament);
-        return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, tournament.getId().toString()))
-            .body(result);
-    }
-
     /**
      * GET  /tournaments : get all the tournaments.
      *
@@ -130,9 +118,9 @@ public class TournamentResource {
      * @return the ResponseEntity with status 200 (OK) and with body the tournament, or with status 404 (Not Found)
      */
     @GetMapping("/tournaments/{id}")
-    public ResponseEntity<TournamentForm> getTournament(@PathVariable Long id) {
+    public ResponseEntity<Tournament> getTournament(@PathVariable Long id) {
         log.debug("REST request to get Tournament : {}", id);
-        Optional<TournamentForm> tournament = tournamentService.getTournament(id);
+        Optional<Tournament> tournament = tournamentService.findOne(id);
 
         return ResponseUtil.wrapOrNotFound(tournament);
     }

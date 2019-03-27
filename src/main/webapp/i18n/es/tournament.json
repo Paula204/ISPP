@@ -30,8 +30,7 @@
             "type": "Tipo de torneo",
             "participation": "Participantes",
             "user": "Administrador",
-            "game": "Juego",
-            "winner": "Ganador"
+            "game": "Juego"
         }
     }
 }
