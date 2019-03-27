@@ -1,7 +1,7 @@
 package com.ispp.thorneo.service.impl;
 
+import com.ispp.thorneo.security.AuthoritiesConstants;
 import com.ispp.thorneo.TournamentForm;
-import com.ispp.thorneo.domain.Authority;
 import com.ispp.thorneo.service.ParticipationService;
 import com.ispp.thorneo.service.TournamentService;
 import com.ispp.thorneo.service.UserService;
@@ -21,10 +21,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import java.util.*;
 import javax.swing.text.html.Option;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -46,8 +46,6 @@ public class TournamentServiceImpl implements TournamentService {
     private final UserService userService;
 
     private final ParticipationService participationService;
-
-    private static final Integer winnerPunctuation = 10000;
 
     public TournamentServiceImpl(TournamentRepository tournamentRepository, TournamentSearchRepository tournamentSearchRepository,
         UserService userService, ParticipationService participationService) {
@@ -120,6 +118,16 @@ public class TournamentServiceImpl implements TournamentService {
     @Override
     public void delete(Long id) {
         log.debug("Request to delete Tournament : {}", id);
+        Tournament t = this.tournamentRepository.findById(id).get();
+        User user = this.userService.getUserWithAuthorities().get();
+        Assert.notNull(user,"No user logged");
+        Assert.isTrue(t.getUser().equals(user),
+            "You dont't have permissions to delete this tournament");
+        if (!t.getParticipations().isEmpty()){
+            for (Participation p : new HashSet<Participation>(t.getParticipations())){
+                this.participationService.delete(p.getId());
+            }
+        }
         tournamentRepository.deleteById(id);
         tournamentSearchRepository.deleteById(id);
     }
@@ -145,18 +153,11 @@ public class TournamentServiceImpl implements TournamentService {
         
         User user = userService.getUserWithAuthorities().get();
         Assert.notNull(user, "User is null");
-
-        User manager = tournament.getUser();
-
-        Authority admin = new Authority();
-        admin.setName("ROLE_ADMIN");
-
-        if (manager != null && user.getId() != manager.getId() && !user.getAuthorities().contains(admin) ) {
-            throw new BadRequestAlertException("Invalid user", "tournament", "idManager");
+        if (tournament.getId() == null){
+            tournament.setUser(user);
+        } else{
+            Assert.isTrue(tournament.getUser().equals(user), "You don't have permissions to edit this tournament");
         }
-
-        tournament.setUser(user);
-
         result = save(tournament);
 
         return result;
@@ -186,67 +187,12 @@ public class TournamentServiceImpl implements TournamentService {
         if (user.getId() == tournament.getUser().getId()) {
             throw new BadRequestAlertException("Invalid user", "tournament", "idManager");
         }
+        Assert.isTrue(userId == null, "User is sign on this tournament");
+        Assert.isTrue(userId != tournament.getUser().getId(), "The manager cannot subscribe ");
 
-        if (getWinner(tournament.getId()) != null) {
-            throw new BadRequestAlertException("Close tournament", "tournament", "closeTournament");
-        }
-        tournament.addParticipation(participationResult);
+        tournament.getParticipations().add(participationResult);
+//        tournament.addParticipation(participationResult);
         result = save(tournament);
-
-        return result;
-    }
-
-    @Override
-    public String getWinner(Long id) {
-        Assert.notNull(id, "id is null");
-
-        Participation p = tournamentRepository.getParticipationWithMaxPunctuation(id);
-
-        if (p == null || p.getPunctuation() < winnerPunctuation || p.isDisqualify()) {
-            return null;
-        }
-        String result = p.getUser().getLogin();
-
-        return result;
-    }
-
-    @Override
-    public Tournament closeTournament(Tournament tournament) {
-        Assert.notNull(tournament, "tournament is null");
-
-        Tournament result;
-
-        Participation p = tournamentRepository.getParticipationWithMaxPunctuation(tournament.getId());
-
-        if (p == null) {
-            throw new BadRequestAlertException("Null participants", "tournament", "noParticipants");
-        }
-        if (p.getPunctuation() >= winnerPunctuation) {
-            throw new BadRequestAlertException("Close tournament", "tournament", "closeTournament");
-        }
-        tournament.removeParticipation(p);
-        Integer punctuation = p.getPunctuation() + winnerPunctuation;
-        p.setPunctuation(punctuation);
-        tournament.addParticipation(p);
-
-        result = saveTournament(tournament);
-
-        return result;
-    }
-
-    @Override
-    public Optional<TournamentForm> getTournament(Long id) {
-        Assert.notNull(id, "id is null");
-
-        Optional<TournamentForm> result;
-
-        Tournament tournament = findOne(id).get();
-
-        String winner = getWinner(id);
-
-        TournamentForm tournamentForm = new TournamentForm(tournament, winner);
-
-        result = Optional.of(tournamentForm);
 
         return result;
     }
