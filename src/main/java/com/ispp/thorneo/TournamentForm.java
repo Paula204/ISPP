@@ -27,9 +27,9 @@ public class TournamentForm {
     private Set<Participation> participations = new HashSet<>();
     private User user;
     private Game game;
-    private String winner;
+    private Long participationNumber;
 
-    public TournamentForm(Tournament tournament, String winner) {
+    public TournamentForm(Tournament tournament, Long participationNumber) {
         this.id = tournament.getId();
         this.title = tournament.getTitle();
         this.description = tournament.getDescription();
@@ -46,7 +46,7 @@ public class TournamentForm {
         this.participations = tournament.getParticipations();
         this.user = tournament.getUser();
         this.game = tournament.getGame();
-        this.winner = winner;
+        this.participationNumber = participationNumber;
     }
 
     public Long getId() {
@@ -177,11 +177,11 @@ public class TournamentForm {
         this.game = game;
     }
 
-    public String getWinner() {
-        return winner;
+    public Long getParticipationNumber() {
+        return participationNumber;
     }
 
-    public void setWinner(String winner) {
-        this.winner = winner;
+    public void setParticipationNumber(Long participationNumber) {
+        this.participationNumber = participationNumber;
     }
 }
