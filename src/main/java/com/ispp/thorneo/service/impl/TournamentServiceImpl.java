@@ -118,16 +118,6 @@ public class TournamentServiceImpl implements TournamentService {
     @Override
     public void delete(Long id) {
         log.debug("Request to delete Tournament : {}", id);
-        Tournament t = this.tournamentRepository.findById(id).get();
-        User user = this.userService.getUserWithAuthorities().get();
-        Assert.notNull(user,"No user logged");
-        Assert.isTrue(t.getUser().equals(user),
-            "You dont't have permissions to delete this tournament");
-        if (!t.getParticipations().isEmpty()){
-            for (Participation p : new HashSet<Participation>(t.getParticipations())){
-                this.participationService.delete(p.getId());
-            }
-        }
         tournamentRepository.deleteById(id);
         tournamentSearchRepository.deleteById(id);
     }
