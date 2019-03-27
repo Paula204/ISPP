@@ -88,13 +88,13 @@
                 <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
             </button>
 
-            <button *ngIf="tournament.winner == null" type="submit"
+            <button *ngIf="tournament.winner == null && tournament.user.id != currentAccount.id" type="submit"
                     (click)="signOn()"
                     class="btn btn-primary green-background">
                 <fa-icon [icon]="'arrow-right'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.signOn"> Sign On</span>
             </button>
 
-            <button *ngIf="tournament.winner == null" type="submit"
+            <button *ngIf="tournament.winner == null && tournament.user.id == currentAccount.id && tournament.meetingDate.isBefore(currentDate)" type="submit"
                     (click)="close()"
                     class="btn btn-primary red">
                 <span jhiTranslate="entity.action.close">Close tournament</span>
