@@ -104,7 +104,8 @@
             "open": "Open",
             "save": "Guardar",
             "view": "Vista",
-            "signOn": "Registrar"
+            "signOn": "Registrar",
+            "close": "Cerrar"
         },
         "detail": {
             "field": "Campo",

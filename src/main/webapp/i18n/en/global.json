@@ -104,7 +104,8 @@
             "open": "Open",
             "save": "Save",
             "view": "View",
-            "signOn": "Sign On"
+            "signOn": "Sign On",
+            "close": "Close"
         },
         "detail": {
             "field": "Field",
