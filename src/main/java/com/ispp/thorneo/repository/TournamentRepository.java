@@ -1,6 +1,5 @@
 package com.ispp.thorneo.repository;
 
-import com.ispp.thorneo.domain.Participation;
 import com.ispp.thorneo.domain.Tournament;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -27,9 +26,4 @@ public interface TournamentRepository extends JpaRepository<Tournament, Long> {
     @Query("select tournament, count(p) from Tournament tournament join tournament.participations p where tournament.id = ?1")
     Object getAllParticipantsByTournament(Long tournamentId);
 
-    @Query("select p.user.login from Tournament t join t.participations p where p.punctuation = ?1 and p.disqualify = false and t.id = ?2")
-    String getWinner(Integer punctuation, Long id);
-
-    @Query("select p from Tournament t join t.participations p where p.punctuation = (select max(p.punctuation) from Participation participation where p.id = participation.id) and p.disqualify = false and t.id = ?1")
-    Participation getParticipationWithMaxPunctuation(Long id);
 }

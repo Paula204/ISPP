@@ -104,8 +104,7 @@
             "open": "Open",
             "save": "Save",
             "view": "View",
-            "signOn": "Sign On",
-            "close": "Close"
+            "signOn": "Sign On"
         },
         "detail": {
             "field": "Field",
@@ -140,7 +139,7 @@
         "idnull": "Invalid ID",
         "URL": "The provided URL is not valid",
         "Length": "The provided URL is too long",
-        "Future": "The date you provide is past",
+        "Future": "The date you provide is past"
         "idsame": "You're registered on this tournament",
         "idManager": "You're the manager of this tournament"
     },

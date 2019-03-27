@@ -8,6 +8,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.URL;
 import org.springframework.data.elasticsearch.annotations.Document;
 import java.io.Serializable;
@@ -34,7 +35,7 @@ public class Promotion implements Serializable {
 
     @NotNull
     @URL
-    @Max(250)
+    @Length(max = 255)
     @Column(name = "qr", nullable = false)
     private String qr;
 
