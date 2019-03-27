@@ -44,7 +44,7 @@ export interface ITournamentForm {
     participations?: IParticipation[];
     user?: IUser;
     game?: IGame;
-    participationNumber?: number;
+    winner?: string;
 }
 
 export class Tournament implements ITournament {
@@ -86,6 +86,6 @@ export class TournamentForm implements ITournamentForm {
         public participations?: IParticipation[],
         public user?: IUser,
         public game?: IGame,
-        public participationNumber?: number
+        public winner?: string
     ) {}
 }
