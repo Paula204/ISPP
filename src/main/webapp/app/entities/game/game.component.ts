@@ -6,7 +6,7 @@ import { filter, map } from 'rxjs/operators';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 
 import { IGame } from 'app/shared/model/game.model';
-import { AccountService } from 'app/core';
+import { Account, AccountService } from 'app/core';
 import { GameService } from './game.service';
 
 @Component({
@@ -15,7 +15,7 @@ import { GameService } from './game.service';
 })
 export class GameComponent implements OnInit, OnDestroy {
     games: IGame[];
-    currentAccount: any;
+    currentAccount: Account;
     eventSubscriber: Subscription;
     currentSearch: string;
 

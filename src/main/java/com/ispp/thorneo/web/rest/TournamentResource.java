@@ -1,5 +1,6 @@
 package com.ispp.thorneo.web.rest;
 
+import com.ispp.thorneo.TournamentForm;
 import com.ispp.thorneo.domain.Participation;
 import com.ispp.thorneo.domain.Tournament;
 import com.ispp.thorneo.service.TournamentService;
@@ -7,9 +8,11 @@ import com.ispp.thorneo.web.rest.errors.BadRequestAlertException;
 import com.ispp.thorneo.web.rest.util.HeaderUtil;
 import com.ispp.thorneo.web.rest.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
+import io.micrometer.core.annotation.Timed;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -19,9 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.StreamSupport;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
@@ -120,6 +121,7 @@ public class TournamentResource {
     public ResponseEntity<Tournament> getTournament(@PathVariable Long id) {
         log.debug("REST request to get Tournament : {}", id);
         Optional<Tournament> tournament = tournamentService.findOne(id);
+
         return ResponseUtil.wrapOrNotFound(tournament);
     }
 
@@ -149,6 +151,14 @@ public class TournamentResource {
         log.debug("REST request to search for a page of Tournaments for query {}", query);
         Page<Tournament> page = tournamentService.search(query, pageable);
         HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/tournaments");
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    @GetMapping("/tournaments/mine")
+    public ResponseEntity<List<Tournament>> getMyTournaments() {
+        log.debug("REST request to get a page of my Tournaments");
+        Page<Tournament> page = new PageImpl<>(tournamentService.findMyTournaments());
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/tournaments/mine");
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 

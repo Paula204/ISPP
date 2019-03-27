@@ -20,15 +20,12 @@ export class TournamentUpdateComponent implements OnInit {
     tournament: ITournament;
     isSaving: boolean;
 
-    users: IUser[];
-
     games: IGame[];
     meetingDate: string;
 
     constructor(
         protected jhiAlertService: JhiAlertService,
         protected tournamentService: TournamentService,
-        protected userService: UserService,
         protected gameService: GameService,
         protected activatedRoute: ActivatedRoute
     ) {}
@@ -39,13 +36,6 @@ export class TournamentUpdateComponent implements OnInit {
             this.tournament = tournament;
             this.meetingDate = this.tournament.meetingDate != null ? this.tournament.meetingDate.format(DATE_TIME_FORMAT) : null;
         });
-        this.userService
-            .query()
-            .pipe(
-                filter((mayBeOk: HttpResponse<IUser[]>) => mayBeOk.ok),
-                map((response: HttpResponse<IUser[]>) => response.body)
-            )
-            .subscribe((res: IUser[]) => (this.users = res), (res: HttpErrorResponse) => this.onError(res.message));
         this.gameService
             .query()
             .pipe(

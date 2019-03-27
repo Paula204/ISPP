@@ -34,7 +34,7 @@ public class Participation implements Serializable {
     @Column(name = "punctuation")
     private Integer punctuation;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JsonIgnoreProperties("participations")
     private Tournament tournament;
 

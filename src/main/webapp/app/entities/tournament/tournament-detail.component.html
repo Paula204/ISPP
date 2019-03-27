@@ -1,10 +1,14 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <div *ngIf="tournament">
-            <h2><span jhiTranslate="thorneoApp.tournament.detail.title">Tournament</span> {{tournament.id}}</h2>
+            <h2>{{tournament.title}}</h2>
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
+
+                <dd>
+                    <span><img class="img-fluid" width="100" height="100" src="{{tournament.imageUrl}}"/></span>
+                </dd>
                 <dt><span jhiTranslate="thorneoApp.tournament.title">Title</span></dt>
                 <dd>
                     <span>{{tournament.title}}</span>
@@ -37,10 +41,6 @@
                 <dd>
                     <span>{{tournament.rewards}}</span>
                 </dd>
-                <dt><span jhiTranslate="thorneoApp.tournament.imageUrl">Image Url</span></dt>
-                <dd>
-                    <span>{{tournament.imageUrl}}</span>
-                </dd>
                 <dt><span jhiTranslate="thorneoApp.tournament.latitude">Latitude</span></dt>
                 <dd>
                     <span>{{tournament.latitude}}</span>
@@ -55,13 +55,20 @@
                 </dd>
                 <dt><span jhiTranslate="thorneoApp.tournament.user">User</span></dt>
                 <dd>
-                    {{tournament.user?.id}}
+                    {{tournament.user?.login}}
                 </dd>
                 <dt><span jhiTranslate="thorneoApp.tournament.game">Game</span></dt>
                 <dd>
                     <div *ngIf="tournament.game">
-                        <a [routerLink]="['/game', tournament.game?.id, 'view']">{{tournament.game?.id}}</a>
+                        <a [routerLink]="['/game', tournament.game?.id, 'view']">{{tournament.game?.title}}</a>
                     </div>
+                </dd>
+                <dt><span jhiTranslate="thorneoApp.tournament.participation">Participants</span></dt>
+                <dd>
+                    <ul>
+                        <li *ngFor="let participation of tournament.participations">{{participation.user.login}}</li>
+                    </ul>
+                    <qrcode qrdata="http://localhost:9000/#/tournament/24/view" size="256" level="M"></qrcode>
                 </dd>
             </dl>
 
@@ -71,7 +78,7 @@
                 <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
             </button>
 
-            <button type="button"
+            <button *ngIf="tournament.user.id==currentAccount.id" type="button"
                     [routerLink]="['/tournament', tournament.id, 'edit']"
                     class="btn btn-primary">
                 <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
@@ -79,8 +86,8 @@
 
             <button type="submit"
                     (click)="signOn()"
-                    class="btn btn-submit">
-                <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.signOn">Sign On</span>
+                    class="btn btn-primary green-background">
+                <fa-icon [icon]="'arrow-right'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.signOn"> Sign On</span>
             </button>
         </div>
     </div>
