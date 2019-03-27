@@ -138,7 +138,7 @@
         "idnull": "Invalid ID",
         "URL": "El enlace proporcionado no es válido",
         "Length": "El enlace proporcionado es demasiado largo",
-        "Future": "La fecha especificada está en pasado"
+        "Future": "La fecha especificada está en pasado",
         "idnull": "ID inválido",
         "idsame": "Estás registrado en este torneo",
         "idManager": "Eres el creador de este torneo"

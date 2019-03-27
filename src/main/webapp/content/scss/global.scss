@@ -93,13 +93,17 @@ Generic styles
     font-family: 'Merriweather Sans', sans-serif;
     color: #eee;
     background-color: #5facf2;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
 }
 
 .footer img {
-    width: 100px;
-    height: 100px;
-    padding: 2%;
-    margin: 2%;
+    width: 50px;
+    height: 50px;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 .footer a {
@@ -116,7 +120,7 @@ Generic styles
 
 .footer-column {
     flex: 50%;
-    padding: 10px;
+    padding: 5px;
     text-align: center;
     vertical-align: middle;
 }
@@ -277,7 +281,6 @@ ui bootstrap tweaks
     text-overflow: ellipsis;
     white-space: nowrap;
 }
-
 
 /* jhipster-needle-scss-add-global JHipster will add new css style */
 
