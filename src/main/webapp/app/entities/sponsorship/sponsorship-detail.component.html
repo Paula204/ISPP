@@ -1,28 +1,28 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <div *ngIf="sponsorship">
-            <h2><span jhiTranslate="thorneoApp.sponsorship.detail.title">Sponsorship</span> {{sponsorship.id}}</h2>
+            <h2 class="text-center" ><h2 class=" d-inline" jhiTranslate="thorneoApp.sponsorship.detail.title"></h2><h2 class="d-inline"> {{sponsorship.id}}</h2></h2>
             <hr>
             <jhi-alert-error></jhi-alert-error>
-            <dl class="row-md jh-entity-details">
-                <dt><span jhiTranslate="thorneoApp.sponsorship.banner">Banner</span></dt>
-                <dd>
-                    <span>{{sponsorship.banner}}</span>
-                </dd>
-                <dt><span jhiTranslate="thorneoApp.sponsorship.targetUrl">Target Url</span></dt>
-                <dd>
-                    <span>{{sponsorship.targetUrl}}</span>
-                </dd>
-                <dt><span jhiTranslate="thorneoApp.sponsorship.user">User</span></dt>
-                <dd>
-                    {{sponsorship.user?.id}}
-                </dd>
-                <dt><span jhiTranslate="thorneoApp.sponsorship.tournament">Tournament</span></dt>
-                <dd>
-                    <div *ngIf="sponsorship.tournament">
-                        <a [routerLink]="['/tournament', sponsorship.tournament?.id, 'view']">{{sponsorship.tournament?.id}}</a>
+            <dl class="row-md jh-entity-details paper">
+                <div class="lines">
+                    <div class="texto" >
+                    <p class="bold" jhiTranslate="thorneoApp.sponsorship.banner">Banner</p><p>: <a href="{{sponsorship.banner}}">{{sponsorship.banner}}"</a></p>
+                    </br>             
+                    <p class="bold" jhiTranslate="thorneoApp.sponsorship.targetUrl">Target Url</p><p>: <a href="{{sponsorship.targetUrl}}">{{sponsorship.targetUrl}}</a></p>
+                    </br>
+                    <p class="bold" jhiTranslate="thorneoApp.sponsorship.user">User</p><p>: {{sponsorship.user?.firstName}} {{sponsorship.user?.lastName}}</p>
+                    </br>
+                    <p class="bold" jhiTranslate="thorneoApp.sponsorship.tournament">Tournament</p>
+                        <span *ngIf="sponsorship.tournament">: 
+                            <p><a [routerLink]="['/tournament', sponsorship.tournament?.id, 'view']">{{sponsorship.tournament?.title}}</a></p>
+                        </span>
+                    </br>
                     </div>
-                </dd>
+                </div>
+                <div class="holes hole-top"></div>
+                <div class="holes hole-middle"></div>
+                <div class="holes hole-bottom"></div>
             </dl>
 
             <button type="submit"
