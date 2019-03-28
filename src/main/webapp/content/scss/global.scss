@@ -128,6 +128,22 @@ Generic styles
     vertical-align: middle;
 }
 
+@media screen and (max-width: 768px) {
+    .footer-row {
+        flex-wrap: nowrap;
+    }
+
+    .footer-column img {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .footer {
+        position: relative;
+    }
+}
 .hand,
 [jhisortby] {
     cursor: pointer;

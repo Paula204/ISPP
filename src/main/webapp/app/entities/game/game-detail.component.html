@@ -5,17 +5,19 @@
         <hr>
         <jhi-alert-error></jhi-alert-error>
         <dl class="row-md jh-entity-details paper">
-        <div class="lines">
-        <div class="texto" >
-            <p>{{game.description}}</p>
-        </br>
-        </br>
-            <p class="bold" jhiTranslate="thorneoApp.game.category"></p><p>: </p>
-            <p jhiTranslate="thorneoApp.Category.{{game.category}}">Game category</p>
-            </br>
-            <p class="bold" jhiTranslate="thorneoApp.game.minAge">Min Age</p><p>: {{game.minAge}}</p>
-        </div>
-        </div>
+            <div class="lines">
+                <div class="texto" >
+                    <p class="bold" jhiTranslate="thorneoApp.game.description"></p><p>: {{game.description}}</p>
+                </br>
+                    <p class="bold" jhiTranslate="thorneoApp.game.category"></p><p>: </p>
+                    <p jhiTranslate="thorneoApp.Category.{{game.category}}">Game category</p>
+                    </br>
+                    <p class="bold" jhiTranslate="thorneoApp.game.minAge">Min Age</p><p>: {{game.minAge}}</p>
+                </div>
+            </div>
+            <div class="holes hole-top"></div>
+            <div class="holes hole-middle"></div>
+            <div class="holes hole-bottom"></div>
         </dl>
     </div>
     <button type="submit" (click)="previousState()" class="btn btn-info">
