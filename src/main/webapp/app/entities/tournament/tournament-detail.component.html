@@ -34,7 +34,24 @@
                         </br>
                         <p class="bold" jhiTranslate="thorneoApp.tournament.participation">Participants</p>
                         <ul>
-                            <li *ngFor="let participation of tournament.participations">{{participation.user.login}}</li>
+                            <li *ngFor="let participation of tournament.participations">
+                                {{participation.user.login}}
+                                <button *ngIf="currentAccount.id == tournament.user.id && tournament.type == 'ELIMINATION'" type="submit"
+                                        (click)="disqualify(participation.id)"
+                                        class="btn border-0">
+                                    <span>Disqualify</span>
+                                </button>
+                                <button *ngIf="currentAccount.id == tournament.user.id && tournament.type == 'POINT'" type="submit"
+                                        (click)="win(participation.id)"
+                                        class="btn border-0">
+                                    <span>Win</span>
+                                </button>
+                                <button *ngIf="currentAccount.id == tournament.user.id && tournament.type == 'POINT'" type="submit"
+                                        (click)="tie(participation.id)"
+                                        class="btn border-0">
+                                    <span>Tie</span>
+                                </button>
+                            </li>
                         </ul>
                         <!--
                         <qrcode qrdata="http://localhost:9000/#/tournament/24/view" size="256" level="M"></qrcode>

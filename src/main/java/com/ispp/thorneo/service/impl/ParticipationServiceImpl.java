@@ -149,6 +149,55 @@ public class ParticipationServiceImpl implements ParticipationService {
         return result;
     }
 
+    @Override
+    public Participation disqualify(Long id) {
+        Participation result;
+        Participation participation = checkManager(id);
+        participation.setDisqualify(true);
+        result = save(participation);
+
+        return result;
+    }
+
+    @Override
+    public Participation win(Long id) {
+        Participation result;
+        Participation participation = checkManager(id);
+        Integer punctuation = participation.getPunctuation() + 3;
+        participation.setPunctuation(punctuation);
+
+        result = save(participation);
+
+        return result;
+    }
+
+    @Override
+    public Participation tie(Long id) {
+        Participation result;
+        Participation participation = checkManager(id);
+        Integer punctuation = participation.getPunctuation() + 1;
+        participation.setPunctuation(punctuation);
+
+        result = save(participation);
+
+        return result;
+    }
+
+    private Participation checkManager(Long id) {
+        Assert.notNull(id, "Invalid id");
+
+        Participation participation = participationRepository.getOne(id);
+        Assert.notNull(participation);
+
+        User user = userService.getUserWithAuthorities().get();
+        Assert.notNull(user);
+
+        if (participation.getTournament().getUser().getId() != user.getId()) {
+            throw new BadRequestAlertException("invalid user", "participation", "notCreator");
+        }
+        return participation;
+    }
+
     private boolean checkIfAdmin(User user) {
 
         Authority admin = new Authority();
