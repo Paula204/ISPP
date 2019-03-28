@@ -8,8 +8,9 @@
             "entities": {
                 "main": "Entities",
                 "tournament": "Tournament",
+                "tournamentmy": "My Tournaments",
                 "game": "Game",
-                "participation": "Participation",
+                "participation": "My Participations",
                 "sponsorship": "Sponsorship",
                 "promotion": "Promotion",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"

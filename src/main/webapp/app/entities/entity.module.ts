@@ -9,6 +9,10 @@ import { RouterModule } from '@angular/router';
                 loadChildren: './tournament/tournament.module#ThorneoTournamentModule'
             },
             {
+                path: 'my-tournament',
+                loadChildren: './tournament/tournament.module#ThorneoTournamentModule'
+            },
+            {
                 path: 'game',
                 loadChildren: './game/game.module#ThorneoGameModule'
             },

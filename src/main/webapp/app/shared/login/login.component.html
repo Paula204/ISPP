@@ -14,12 +14,12 @@
             <form class="form" role="form" (ngSubmit)="login()">
                 <div class="form-group">
                     <label class="username-label" for="username" jhiTranslate="global.form.username">Login</label>
-                    <input type="text" class="form-control" name="username" id="username" placeholder="{{'global.form.username.placeholder' | translate}}"
+                    <input type="text" class="form-control alert-form" name="username" id="username" placeholder="{{'global.form.username.placeholder' | translate}}"
                     [(ngModel)]="username">
                 </div>
                 <div class="form-group">
                     <label for="password" jhiTranslate="login.form.password">Password</label>
-                    <input type="password" class="form-control" name="password" id="password" placeholder="{{'login.form.password.placeholder' | translate}}"
+                    <input type="password" class="form-control alert-form" name="password" id="password" placeholder="{{'login.form.password.placeholder' | translate}}"
                            [(ngModel)]="password">
                 </div>
                 <div class="form-check">
@@ -28,13 +28,14 @@
                         <span jhiTranslate="login.form.rememberme">Remember me</span>
                     </label>
                 </div>
+                <p></p>
                 <button type="submit" class="btn btn-primary" jhiTranslate="login.form.button">Sign in</button>
             </form>
             <p></p>
-            <div class="alert alert-warning">
+            <div class="alert alert-warning cambiar-login">
                 <a class="alert-link" (click)="requestResetPassword()" jhiTranslate="login.password.forgot">Did you forget your password?</a>
             </div>
-            <div class="alert alert-warning">
+            <div class="alert alert-warning cambiar-login">
                 <span jhiTranslate="global.messages.info.register.noaccount">You don't have an account yet?</span>
                 <a class="alert-link" (click)="register()" jhiTranslate="global.messages.info.register.link">Register a new account</a>
             </div>

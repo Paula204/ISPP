@@ -1,19 +1,19 @@
 <div>
     <h2 id="page-heading">
         <span jhiTranslate="thorneoApp.participation.home.title">Participations</span>
-        <button *jhiHasAnyAuthority="'ROLE_ADMIN'" id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-participation" [routerLink]="['/participation/new']">
+        <!--<button *jhiHasAnyAuthority="'ROLE_ADMIN'" id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-participation" [routerLink]="['/participation/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
             <span class="hidden-sm-down"  jhiTranslate="thorneoApp.participation.home.createLabel">
             Create new Participation
             </span>
-        </button>
+        </button>-->
     </h2>
     <jhi-alert></jhi-alert>
     <div class="row">
         <div class="col-sm-12">
             <form name="searchForm" class="form-inline">
                 <div class="input-group w-100 mt-3">
-                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'thorneoApp.participation.home.search' | translate }}">
+                    <input type="text" class="form-control alert-form" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'thorneoApp.participation.home.search' | translate }}">
                     <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
                         <fa-icon [icon]="'search'"></fa-icon>
                     </button>
@@ -44,24 +44,24 @@
                 <!-- <td>{{participation.disqualify}}</td>-->
                 <!---->
                 <td>
-                    <div *ngIf="participation.tournament">
-                        <a [routerLink]="['../tournament', participation.tournament?.id, 'view' ]" >{{participation.tournament?.id}}</a>
+                    <div *ngIf="participation.tournament" >
+                        <a [routerLink]="['../tournament', participation.tournament?.id, 'view' ]" *ngIf="participation.user.id==currentAccount.id">{{participation.tournament?.title}}</a>
                     </div>
                 </td>
                     <!--<td>
                         {{participation.user?.id}}
                     </td>-->
 
-                    <td>{{participation.punctuation}}</td>
+                    <td *ngIf="participation.user.id==currentAccount.id">{{participation.punctuation}}</td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
-                            <button type="submit"
+                            <button *ngIf="participation.user.id==currentAccount.id" type="submit"
                                     [routerLink]="['/participation', participation.id, 'view' ]"
                                     class="btn btn-info btn-sm">
                                 <fa-icon [icon]="'eye'"></fa-icon>
                                 <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                             </button>
-                            <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="submit"
+                            <!--<button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="submit"
                                     [routerLink]="['/participation', participation.id, 'edit']"
                                     class="btn btn-primary btn-sm">
                                 <fa-icon [icon]="'pencil-alt'"></fa-icon>
@@ -74,7 +74,7 @@
                                     class="btn btn-danger btn-sm">
                                 <fa-icon [icon]="'times'"></fa-icon>
                                 <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
-                            </button>
+                            </button>-->
                         </div>
                     </td>
                 </tr>
