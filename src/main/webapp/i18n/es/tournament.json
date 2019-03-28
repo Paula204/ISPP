@@ -2,6 +2,7 @@
     "thorneoApp": {
         "tournament": {
             "home": {
+                "title2": "Mis Torneos",
                 "title": "Torneo",
                 "createLabel": "Crear nuevo Torneo",
                 "createOrEditLabel": "Crear o editar un torneo",
