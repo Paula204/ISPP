@@ -45,7 +45,6 @@ public class Tournament implements Serializable {
     private String description;
 
     @NotNull
-    @Future
     @Column(name = "meeting_date", nullable = false)
     private Instant meetingDate;
 

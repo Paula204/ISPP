@@ -23,6 +23,7 @@ import org.springframework.util.Assert;
 
 import javax.swing.text.html.Option;
 import java.lang.reflect.Array;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -154,6 +155,9 @@ public class TournamentServiceImpl implements TournamentService {
         if (manager != null && user.getId() != manager.getId() && !user.getAuthorities().contains(admin) ) {
             throw new BadRequestAlertException("Invalid user", "tournament", "idManager");
         }
+        if (tournament.getMeetingDate().isBefore(Instant.now())) {
+            throw new BadRequestAlertException("Invalid date", "tournament", "Future");
+        }
 
         tournament.setUser(user);
 
@@ -222,7 +226,15 @@ public class TournamentServiceImpl implements TournamentService {
 
         Tournament result;
 
+        User user = userService.getUserWithAuthorities().get();
+        Assert.notNull(user, "User is null");
+
         Participation p = tournamentRepository.getParticipationWithMaxPunctuation(tournament.getId());
+
+        User manager = tournament.getUser();
+
+        Authority admin = new Authority();
+        admin.setName("ROLE_ADMIN");
 
         if (p == null) {
             throw new BadRequestAlertException("Null participants", "tournament", "noParticipants");
@@ -230,12 +242,15 @@ public class TournamentServiceImpl implements TournamentService {
         if (p.getPunctuation() >= winnerPunctuation) {
             throw new BadRequestAlertException("Close tournament", "tournament", "closeTournament");
         }
+        if (manager != null && user.getId() != manager.getId() && !user.getAuthorities().contains(admin) ) {
+            throw new BadRequestAlertException("Invalid user", "tournament", "idManager");
+        }
         tournament.removeParticipation(p);
         Integer punctuation = p.getPunctuation() + winnerPunctuation;
         p.setPunctuation(punctuation);
         tournament.addParticipation(p);
 
-        result = saveTournament(tournament);
+        result = save(tournament);
 
         return result;
     }
