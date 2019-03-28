@@ -68,4 +68,10 @@ public interface TournamentService {
     Tournament signOn(Tournament tournament);
   
     List<Tournament> findMyTournaments();
+
+    String getWinner(Long id);
+
+    Tournament closeTournament(Tournament tournament);
+
+    Optional<TournamentForm> getTournament(Long id);
 }

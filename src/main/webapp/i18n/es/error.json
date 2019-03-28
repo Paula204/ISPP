@@ -11,6 +11,8 @@
         "concurrencyFailure": "Otro usuario ha modificado esta data al mismo tiempo que tú. Tus cambios fueron rechazados.",
         "validation": "Error de validación en el servidor.",
         "URL": "La dirección URL que has introducido no es válida",
-        "notCreator": "No puedes realizar dicha acción"
+        "notCreator": "No puedes realizar dicha acción",
+        "noParticipants": "No puedes cerrar este torneo porque no tiene participantes",
+        "closeTournament": "Torneo cerrado"
     }
 }

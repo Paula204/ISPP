@@ -13,17 +13,16 @@ import { Account, AccountService } from 'app/core';
     templateUrl: './tournament-detail.component.html'
 })
 export class TournamentDetailComponent implements OnInit {
-
     tournament: ITournamentForm;
 
     currentAccount: Account;
-    
+    currentDate: Date;
+
     isSaving: boolean;
 
     constructor(
         protected jhiAlertService: JhiAlertService,
         protected activatedRoute: ActivatedRoute,
-
         protected accountService: AccountService,
         protected tournamentService: TournamentService
     ) {}
@@ -35,6 +34,7 @@ export class TournamentDetailComponent implements OnInit {
         this.accountService.identity().then(account => {
             this.currentAccount = account;
         });
+        this.currentDate = new Date();
     }
 
     previousState() {
@@ -49,6 +49,12 @@ export class TournamentDetailComponent implements OnInit {
         }
 
         this.subscribeToSaveResponse(this.tournamentService.signOn(this.tournament));
+    }
+
+    close() {
+        this.isSaving = true;
+
+        this.subscribeToSaveResponse(this.tournamentService.close(this.tournament));
     }
 
     protected subscribeToSaveResponse(result: Observable<HttpResponse<ITournament>>) {
