@@ -9,7 +9,7 @@
         </button>-->
     </h2>
     <jhi-alert></jhi-alert>
-    <div class="row">
+   <!-- <div class="row">
         <div class="col-sm-12">
             <form name="searchForm" class="form-inline">
                 <div class="input-group w-100 mt-3">
@@ -23,7 +23,7 @@
                 </div>
             </form>
         </div>
-    </div>
+    </div>-->
     <br/>
     <div class="table-responsive" *ngIf="participations">
         <table class="table table-striped">
@@ -45,7 +45,7 @@
                 <!---->
                 <td>
                     <div *ngIf="participation.tournament" >
-                        <a [routerLink]="['../tournament', participation.tournament?.id, 'view' ]" *ngIf="participation.user.id==currentAccount.id">{{participation.tournament?.id}}</a>
+                        <a [routerLink]="['../tournament', participation.tournament?.id, 'view' ]" *ngIf="participation.user.id==currentAccount.id">{{participation.tournament?.title}}</a>
                     </div>
                 </td>
                     <!--<td>
