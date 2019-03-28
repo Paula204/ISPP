@@ -5,7 +5,7 @@
                 "title": "Sponsorships",
                 "createLabel": "Crear nuevo Sponsorship",
                 "createOrEditLabel": "Crear o editar Sponsorship",
-                "search": "Search for Sponsorship"
+                "search": "Buscar patrocinio"
             },
             "created": "Un nuevo Sponsorship ha sido creado con el identificador {{ param }}",
             "updated": "Un Sponsorship ha sido actualizado con el identificador {{ param }}",
@@ -19,7 +19,7 @@
             "banner": "Banner",
             "targetUrl": "Target Url",
             "user": "User",
-            "tournament": "Tournament"
+            "tournament": "Torneo"
         }
     }
 }

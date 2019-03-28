@@ -2,23 +2,23 @@
     "thorneoApp": {
         "participation": {
             "home": {
-                "title": "Participations",
-                "createLabel": "Crear nuevo Participation",
+                "title": "Participaciones",
+                "createLabel": "Crear nueva Participation",
                 "createOrEditLabel": "Crear o editar Participation",
-                "search": "Search for Participation"
+                "search": "Buscar una participación"
             },
-            "created": "Un nuevo Participation ha sido creado con el identificador {{ param }}",
-            "updated": "Un Participation ha sido actualizado con el identificador {{ param }}",
-            "deleted": "Un Participation ha sido eliminado con el identificador {{ param }}",
+            "created": "Una nueva Participación ha sido creado con el identificador {{ param }}",
+            "updated": "Una Participación ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Una Participatión ha sido eliminado con el identificador {{ param }}",
             "delete": {
                 "question": "¿Seguro que quiere eliminar Participation {{ id }}?"
             },
             "detail": {
-                "title": "Participation"
+                "title": "Participación"
             },
-            "disqualify": "Disqualify",
-            "punctuation": "Punctuation",
-            "tournament": "Tournament",
+            "disqualify": "Descalificado",
+            "punctuation": "Puntuación",
+            "tournament": "Torneo",
             "user": "User"
         }
     }
