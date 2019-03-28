@@ -137,13 +137,13 @@ public class ParticipationServiceImpl implements ParticipationService {
         Authority userAuth = new Authority();
         userAuth.setName("ROLE_USER");
 
-        if ((participation != null && participation.getUser().getId() != user.getId()) || checkIfAdmin(user)) {
+        if (participation == null || (participation.getUser().getId() != user.getId() && !checkIfAdmin(user))) {
             throw new BadRequestAlertException("invalid user", "participation", "notCreator");
         }
 
         Participation newParticipation = participationRepository.getOne(participation.getId());
         newParticipation.setPunctuation(participation.getPunctuation());
-
+        newParticipation.setDisqualify(participation.isDisqualify());
         result = save(newParticipation);
 
         return result;
