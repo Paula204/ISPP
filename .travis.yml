@@ -34,9 +34,7 @@ script:
   - chmod +x mvnw
   - ./mvnw clean test
   - ./mvnw com.github.eirslett:frontend-maven-plugin:npm -Dfrontend.npm.arguments='run test' -Dmaven.repo.local=$MAVEN_USER_HOME
-  - ./mvnw verify -Pprod -DskipTests
-ignore:
-    - src/com/ispp/thorneo/web/rest/AccountResourceIntTest.java
+
 notifications:
   webhooks:
     on_success: change  # options: [always|never|change] default: always
