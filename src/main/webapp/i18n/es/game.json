@@ -11,14 +11,14 @@
             "updated": "Un juego ha sido actualizado con el identificador {{ param }}",
             "deleted": "Un juego ha sido eliminado con el identificador {{ param }}",
             "delete": {
-                "question": "¿Seguro que quiere eliminar el juego {{ id }}?"
+                "question": "¿Seguro que quiere eliminar juego {{ id }}?"
             },
             "detail": {
                 "title": "Juego"
             },
-            "title": "Title",
+            "title": "Titulo",
             "description": "Descripción",
-            "category": "Categoría",
+            "category": "Categoria",
             "minAge": "Edad mínima"
         }
     }

@@ -33,6 +33,12 @@
                         </a>
                     </li>
                     <li>
+                        <a class="dropdown-item" routerLink="tournament/my" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.tournamentmy">My Tournaments</span>
+                        </a>
+                    </li>
+                    <li>
                         <a class="dropdown-item" routerLink="game" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                             <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
                             <span jhiTranslate="global.menu.entities.game">Game</span>

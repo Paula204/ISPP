@@ -1,6 +1,6 @@
 <div>
         <h2 id="page-heading">
-            <span jhiTranslate="thorneoApp.tournament.home.title">Tournaments</span>
+            <span jhiTranslate="thorneoApp.tournament.home.title2">My Tournaments</span>
             <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-tournament" [routerLink]="['/tournament/new']">
                 <fa-icon [icon]="'plus'"></fa-icon>
                 <span class="hidden-sm-down"  jhiTranslate="thorneoApp.tournament.home.createLabel">
@@ -26,8 +26,8 @@
             </div>
         </div>
         <br/>
-        <div class="table-responsive" *ngIf="tournaments">
-            <table class="table table-striped">
+        <div class="table-responsive" *ngIf="tournaments" >
+            <table class="table table-striped" >
                 <thead>
                 <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
                 <!--<th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
@@ -43,7 +43,7 @@
                     <th jhiSortBy="type"><span jhiTranslate="thorneoApp.tournament.type">Type</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                     <th jhiSortBy="user.id"><span jhiTranslate="thorneoApp.tournament.user">User</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 -->
-                <th jhiSortBy="title"><span jhiTranslate="thorneoApp.tournament.title">Title</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="title" ><span jhiTranslate="thorneoApp.tournament.title">Title</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th jhiSortBy="city"><span jhiTranslate="thorneoApp.tournament.city">City</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th jhiSortBy="game.id"><span jhiTranslate="thorneoApp.tournament.game">Game</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th></th>
@@ -67,16 +67,16 @@
                     </td>
                     -->
     
-                    <td>{{tournament.title}}</td>
+                    <td *ngIf="tournament.user.id==currentAccount.id">{{tournament.title}}</td>
     
-                    <td>{{tournament.city}}</td>
+                    <td *ngIf="tournament.user.id==currentAccount.id">{{tournament.city}}</td>
     
-                    <td>
+                    <td *ngIf="tournament.user.id==currentAccount.id">
                         <div *ngIf="tournament.game">
                             <a [routerLink]="['../game', tournament.game?.id, 'view' ]" >{{tournament.game?.title}}</a>
                         </div>
                     </td>
-                    <td class="text-right">
+                    <td class="text-right" *ngIf="tournament.user.id==currentAccount.id">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"
                                     [routerLink]="['/tournament', tournament.id, 'view' ]"

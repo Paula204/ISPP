@@ -49,4 +49,8 @@ public interface ParticipationService {
      * @return the list of entities
      */
     List<Participation> search(String query);
+
+    void deleteParticipation(Long id);
+
+    Participation updateParticipation(Participation participation);
 }

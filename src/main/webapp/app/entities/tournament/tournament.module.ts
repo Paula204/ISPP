@@ -7,6 +7,7 @@ import { QRCodeModule } from 'angularx-qrcode';
 import { ThorneoSharedModule } from 'app/shared';
 import {
     TournamentComponent,
+    TournamentMyComponent,
     TournamentDetailComponent,
     TournamentUpdateComponent,
     TournamentDeletePopupComponent,
@@ -21,12 +22,19 @@ const ENTITY_STATES = [...tournamentRoute, ...tournamentPopupRoute];
     imports: [ThorneoSharedModule, RouterModule.forChild(ENTITY_STATES), QRCodeModule],
     declarations: [
         TournamentComponent,
+        TournamentMyComponent,
         TournamentDetailComponent,
         TournamentUpdateComponent,
         TournamentDeleteDialogComponent,
         TournamentDeletePopupComponent
     ],
-    entryComponents: [TournamentComponent, TournamentUpdateComponent, TournamentDeleteDialogComponent, TournamentDeletePopupComponent],
+    entryComponents: [
+        TournamentComponent,
+        TournamentMyComponent,
+        TournamentUpdateComponent,
+        TournamentDeleteDialogComponent,
+        TournamentDeletePopupComponent
+    ],
     providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

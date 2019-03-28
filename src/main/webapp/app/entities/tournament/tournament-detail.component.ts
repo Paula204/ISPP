@@ -16,6 +16,7 @@ export class TournamentDetailComponent implements OnInit {
     tournament: ITournamentForm;
 
     currentAccount: Account;
+    currentDate: Date;
 
     isSaving: boolean;
 
@@ -33,6 +34,7 @@ export class TournamentDetailComponent implements OnInit {
         this.accountService.identity().then(account => {
             this.currentAccount = account;
         });
+        this.currentDate = new Date();
     }
 
     previousState() {

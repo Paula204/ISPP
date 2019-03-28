@@ -16,8 +16,8 @@
             "detail": {
                 "title": "Participation"
             },
-            "disqualify": "Disqualify",
-            "punctuation": "Score",
+            "disqualify": "Disqualified",
+            "punctuation": "Punctuation",
             "tournament": "Tournament",
             "user": "User"
         }

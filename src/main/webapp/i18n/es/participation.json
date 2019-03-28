@@ -3,23 +3,25 @@
         "participation": {
             "home": {
                 "title": "Participaciones",
-                "createLabel": "Crear nueva Participation",
-                "createOrEditLabel": "Crear o editar Participation",
-                "search": "Buscar una participación"
+                "createLabel": "Crear nueva participación",
+                "createOrEditLabel": "Crear o editar participación",
+                "search": "Buscar participación"
             },
-            "created": "Una nueva Participación ha sido creado con el identificador {{ param }}",
-            "updated": "Una Participación ha sido actualizado con el identificador {{ param }}",
-            "deleted": "Una Participatión ha sido eliminado con el identificador {{ param }}",
+            "created": "Una nueva participación ha sido creada con el identificador {{ param }}",
+            "updated": "Una nueva participación ha sido actualizado con el identificador {{ param }}",
+            "deleted": "La participación con el identificador {{ param }} ha sido eliminada",
             "delete": {
-                "question": "¿Seguro que quiere eliminar Participation {{ id }}?"
+                "question": "¿Seguro que quiere eliminar la participación {{ id }}?"
             },
             "detail": {
                 "title": "Participación"
             },
             "disqualify": "Descalificado",
+            "false": "No",
+            "true": "Yes",
             "punctuation": "Puntuación",
             "tournament": "Torneo",
-            "user": "User"
+            "user": "Usuario"
         }
     }
 }
