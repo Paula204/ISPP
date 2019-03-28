@@ -19,7 +19,7 @@
             "title": "Title",
             "description": "Description",
             "category": "Category",
-            "minAge": "Min Age"
+            "minAge": "Minimal Age"
         }
     }
 }

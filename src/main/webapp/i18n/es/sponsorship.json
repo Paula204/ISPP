@@ -2,24 +2,25 @@
     "thorneoApp": {
         "sponsorship": {
             "home": {
-                "title": "Sponsorships",
-                "createLabel": "Crear nuevo Sponsorship",
-                "createOrEditLabel": "Crear o editar Sponsorship",
-                "search": "Search for Sponsorship"
+                "title": "Patrocinios",
+                "createLabel": "Crear nuevo patrocinio",
+                "createOrEditLabel": "Crear o editar patrocinio",
+                "search": "Buscar patrocinio"
             },
-            "created": "Un nuevo Sponsorship ha sido creado con el identificador {{ param }}",
-            "updated": "Un Sponsorship ha sido actualizado con el identificador {{ param }}",
-            "deleted": "Un Sponsorship ha sido eliminado con el identificador {{ param }}",
+            "created": "Un nuevo patrocinio ha sido creado con el identificador {{ param }}",
+            "updated": "Un patrocinio ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un patrocinio con el identificador {{ param }} ha sido eliminado",
             "delete": {
-                "question": "¿Seguro que quiere eliminar Sponsorship {{ id }}?"
+                "question": "¿Seguro que quiere eliminar el patrocinio {{ id }}?"
             },
             "detail": {
-                "title": "Sponsorship"
+                "title": "Patrocinio"
             },
+            "id": "Id",
             "banner": "Banner",
-            "targetUrl": "Target Url",
-            "user": "User",
-            "tournament": "Tournament"
+            "targetUrl": "Url",
+            "user": "Usuario",
+            "tournament": "Torneo"
         }
     }
 }
