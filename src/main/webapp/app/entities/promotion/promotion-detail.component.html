@@ -5,18 +5,18 @@
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
-                <dt><span jhiTranslate="thorneoApp.promotion.title">Title</span></dt>
-                <dd>
-                    <span>{{promotion.title}}</span>
-                </dd>
-                <dt><span jhiTranslate="thorneoApp.promotion.qr">Qr</span></dt>
-                <dd>
-                    <span>{{promotion.qr}}</span>
-                </dd>
-                <dt><span jhiTranslate="thorneoApp.promotion.user">User</span></dt>
-                <dd>
+                <p jhiTranslate="thorneoApp.promotion.title">Title</p>
+                
+                    <p>{{promotion.title}}</p>
+                
+                <p jhiTranslate="thorneoApp.promotion.qr">Qr</p>
+                
+                    <p>{{promotion.qr}}</p>
+                
+                <p jhiTranslate="thorneoApp.promotion.user">User</p>
+                
                     {{promotion.user?.id}}
-                </dd>
+                
             </dl>
 
             <button type="submit"

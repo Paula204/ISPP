@@ -70,7 +70,7 @@ public class ParticipationResource {
         if (participation.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        Participation result = participationService.save(participation);
+        Participation result = participationService.updateParticipation(participation);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, participation.getId().toString()))
             .body(result);
@@ -109,7 +109,7 @@ public class ParticipationResource {
     @DeleteMapping("/participations/{id}")
     public ResponseEntity<Void> deleteParticipation(@PathVariable Long id) {
         log.debug("REST request to delete Participation : {}", id);
-        participationService.delete(id);
+        participationService.deleteParticipation(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 

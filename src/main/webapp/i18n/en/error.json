@@ -13,6 +13,8 @@
         "URL": "The URL link you used is not supported.",
         "notCreator": "You can't do this action",
         "noParticipants": "You cannot close this tournament cause doesn't have any participants",
-        "closeTournament": "Closed tournament"
+        "closeTournament": "Closed tournament",
+        "Future": "Date must be future.",
+        "Length": "Max length 250 characters."
     }
 }
