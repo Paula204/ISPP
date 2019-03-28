@@ -87,23 +87,23 @@ Main page styles
     margin-top: 140px;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 870px) {
     .h1-indice {
         /* On small screens, we are no longer using row direction but column */
         flex-wrap: wrap;
-        font-size: 90%;
+        font-size: 100%;
         margin-top: 60px;
     }
     .p-indice {
         /* On small screens, we are no longer using row direction but column */
         flex-wrap: wrap;
-        font-size: 80%;
+        font-size: 85%;
     }
 
     .alert {
         /* On small screens, we are no longer using row direction but column */
         flex-wrap: wrap;
-        font-size: 80%;
+        font-size: 85%;
     }
 
     .logo-1,
