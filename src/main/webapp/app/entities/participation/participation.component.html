@@ -45,7 +45,7 @@
                 <!---->
                 <td>
                     <div *ngIf="participation.tournament" >
-                        <a [routerLink]="['../tournament', participation.tournament?.id, 'view' ]" *ngIf="participation.user.id==currentAccount.id">{{participation.tournament?.id}}</a>
+                        <a [routerLink]="['../tournament', participation.tournament?.id, 'view' ]" *ngIf="participation.user.id==currentAccount.id">{{participation.tournament?.title}}</a>
                     </div>
                 </td>
                     <!--<td>
