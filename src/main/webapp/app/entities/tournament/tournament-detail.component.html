@@ -71,19 +71,19 @@
                 <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
             </button>
 
-            <button *ngIf="tournament.user.id==currentAccount.id && tournament.winner == null" type="button"
+            <button *ngIf="tournament.user.id==currentAccount.id && tournament.winner == null && tournament.meetingDate.toDate().getTime() > currentDate.getTime()" type="button"
                     [routerLink]="['/tournament', tournament.id, 'edit']"
                     class="btn btn-primary">
                 <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
             </button>
 
-            <button *ngIf="tournament.winner == null && tournament.user.id != currentAccount.id" type="submit"
+            <button *ngIf="tournament.winner == null && tournament.user.id != currentAccount.id && tournament.meetingDate.toDate().getTime() > currentDate.getTime()" type="submit"
                     (click)="signOn()"
                     class="btn btn-primary green-background">
                 <fa-icon [icon]="'arrow-right'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.signOn"> Sign On</span>
             </button>
 
-            <button *ngIf="tournament.winner == null && tournament.user.id == currentAccount.id && tournament.meetingDate.isBefore(currentDate)" type="submit"
+            <button *ngIf="tournament.winner == null && tournament.user.id == currentAccount.id && tournament.meetingDate.toDate().getTime() > currentDate.getTime()" type="submit"
                     (click)="close()"
                     class="btn btn-primary red">
                 <span jhiTranslate="entity.action.close">Close tournament</span>
