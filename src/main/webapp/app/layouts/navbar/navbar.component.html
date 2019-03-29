@@ -4,8 +4,8 @@
         <!--<span jhiTranslate="global.title" class="navbar-title">Thorneo</span> -->
         <!--<span class="navbar-version">{{version}}</span>-->
     </a>
-    <a class="navbar-toggler d-lg-none" href="javascript:void(0);" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleNavbar()">
-        <fa-icon icon="bars"></fa-icon>
+    <a class="navbar-toggler-icon" href="javascript:void(0);" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleNavbar()">
+        <!--<fa-icon icon="bars"></fa-icon>-->
     </a>
     <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed" [ngSwitch]="isAuthenticated()">
         <ul class="navbar-nav ml-auto">
@@ -50,18 +50,18 @@
                             <span jhiTranslate="global.menu.entities.participation">Participation</span>
                         </a>
                     </li>
-                    <li *jhiHasAnyAuthority="'ROLE_ADMIN'">
+                   <!-- <li *jhiHasAnyAuthority="'ROLE_ADMIN'">
                         <a class="dropdown-item" routerLink="sponsorship" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                             <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
                             <span jhiTranslate="global.menu.entities.sponsorship">Sponsorship</span>
                         </a>
                     </li>
-                    <li>
+                    <li >
                         <a class="dropdown-item" routerLink="promotion" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                             <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
                             <span jhiTranslate="global.menu.entities.promotion">Promotion</span>
                         </a>
-                    </li>
+                    </li>-->
                     <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
                 </ul>
             </li>

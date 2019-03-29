@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { ITournament, ITournamentForm, Tournament } from 'app/shared/model/tournament.model';
 import { TournamentService } from '.';
+import { ParticipationService } from 'app/entities/participation';
 import { Observable } from 'rxjs';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { JhiAlertService } from 'ng-jhipster';
@@ -24,7 +25,8 @@ export class TournamentDetailComponent implements OnInit {
         protected jhiAlertService: JhiAlertService,
         protected activatedRoute: ActivatedRoute,
         protected accountService: AccountService,
-        protected tournamentService: TournamentService
+        protected tournamentService: TournamentService,
+        protected participationService: ParticipationService
     ) {}
 
     ngOnInit() {
@@ -55,6 +57,24 @@ export class TournamentDetailComponent implements OnInit {
         this.isSaving = true;
 
         this.subscribeToSaveResponse(this.tournamentService.close(this.tournament));
+    }
+
+    disqualify(id: number) {
+        this.isSaving = true;
+
+        this.subscribeToSaveResponse(this.participationService.disqualify(id));
+    }
+
+    win(id: number) {
+        this.isSaving = true;
+
+        this.subscribeToSaveResponse(this.participationService.win(id));
+    }
+
+    tie(id: number) {
+        this.isSaving = true;
+
+        this.subscribeToSaveResponse(this.participationService.tie(id));
     }
 
     protected subscribeToSaveResponse(result: Observable<HttpResponse<ITournament>>) {
