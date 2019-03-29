@@ -16,10 +16,10 @@
             "detail": {
                 "title": "Participation"
             },
-            "disqualify": "Disqualify",
+            "disqualify": "Disqualified",
             "punctuation": "Punctuation",
-            "actor": "Actor",
-            "tournament": "Tournament"
+            "tournament": "Tournament",
+            "user": "User"
         }
     }
 }

@@ -7,13 +7,12 @@ import com.ispp.thorneo.repository.search.SponsorshipSearchRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
@@ -52,13 +51,14 @@ public class SponsorshipServiceImpl implements SponsorshipService {
     /**
      * Get all the sponsorships.
      *
+     * @param pageable the pagination information
      * @return the list of entities
      */
     @Override
     @Transactional(readOnly = true)
-    public List<Sponsorship> findAll() {
+    public Page<Sponsorship> findAll(Pageable pageable) {
         log.debug("Request to get all Sponsorships");
-        return sponsorshipRepository.findAll();
+        return sponsorshipRepository.findAll(pageable);
     }
 
 
@@ -90,14 +90,12 @@ public class SponsorshipServiceImpl implements SponsorshipService {
      * Search for the sponsorship corresponding to the query.
      *
      * @param query the query of the search
+     * @param pageable the pagination information
      * @return the list of entities
      */
     @Override
     @Transactional(readOnly = true)
-    public List<Sponsorship> search(String query) {
-        log.debug("Request to search Sponsorships for query {}", query);
-        return StreamSupport
-            .stream(sponsorshipSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .collect(Collectors.toList());
-    }
+    public Page<Sponsorship> search(String query, Pageable pageable) {
+        log.debug("Request to search for a page of Sponsorships for query {}", query);
+        return sponsorshipSearchRepository.search(queryStringQuery(query), pageable);    }
 }

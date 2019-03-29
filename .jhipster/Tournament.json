@@ -80,28 +80,15 @@
     "relationships": [
         {
             "relationshipType": "one-to-many",
-            "relationshipName": "participant",
+            "relationshipValidateRules": "required",
+            "relationshipName": "participation",
             "otherEntityName": "participation",
             "otherEntityRelationshipName": "tournament"
         },
         {
             "relationshipType": "many-to-one",
-            "relationshipName": "sponsor",
-            "otherEntityName": "sponsor",
-            "otherEntityField": "id",
-            "otherEntityRelationshipName": "tournament"
-        },
-        {
-            "relationshipType": "many-to-one",
-            "relationshipName": "premium",
-            "otherEntityName": "premium",
-            "otherEntityField": "id",
-            "otherEntityRelationshipName": "tournament"
-        },
-        {
-            "relationshipType": "many-to-one",
-            "relationshipName": "free",
-            "otherEntityName": "free",
+            "relationshipName": "user",
+            "otherEntityName": "user",
             "otherEntityField": "id",
             "otherEntityRelationshipName": "tournament"
         },
@@ -113,10 +100,10 @@
             "otherEntityRelationshipName": "tournament"
         }
     ],
-    "changelogDate": "20190321202834",
+    "changelogDate": "20190322214120",
     "entityTableName": "tournament",
     "dto": "no",
-    "pagination": "no",
+    "pagination": "pagination",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": false,
     "fluentMethods": true,

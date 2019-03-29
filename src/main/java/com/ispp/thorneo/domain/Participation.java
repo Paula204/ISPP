@@ -6,6 +6,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 import org.springframework.data.elasticsearch.annotations.Document;
 import java.io.Serializable;
@@ -29,16 +30,18 @@ public class Participation implements Serializable {
     @Column(name = "disqualify")
     private Boolean disqualify;
 
+    @Min(0)
     @Column(name = "punctuation")
     private Integer punctuation;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JsonIgnoreProperties("participations")
-    private Actor actor;
-
-    @ManyToOne
-    @JsonIgnoreProperties("participants")
     private Tournament tournament;
+
+    @ManyToOne(optional = false)
+    @NotNull
+    @JsonIgnoreProperties("participations")
+    private User user;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -75,19 +78,6 @@ public class Participation implements Serializable {
         this.punctuation = punctuation;
     }
 
-    public Actor getActor() {
-        return actor;
-    }
-
-    public Participation actor(Actor actor) {
-        this.actor = actor;
-        return this;
-    }
-
-    public void setActor(Actor actor) {
-        this.actor = actor;
-    }
-
     public Tournament getTournament() {
         return tournament;
     }
@@ -99,6 +89,19 @@ public class Participation implements Serializable {
 
     public void setTournament(Tournament tournament) {
         this.tournament = tournament;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public Participation user(User user) {
+        this.user = user;
+        return this;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

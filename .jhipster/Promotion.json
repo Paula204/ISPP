@@ -18,16 +18,18 @@
     ],
     "relationships": [
         {
-            "relationshipName": "sponsor",
-            "otherEntityName": "sponsor",
             "relationshipType": "many-to-one",
-            "otherEntityField": "id"
+            "relationshipValidateRules": "required",
+            "relationshipName": "user",
+            "otherEntityName": "user",
+            "otherEntityField": "id",
+            "otherEntityRelationshipName": "promotion"
         }
     ],
-    "changelogDate": "20190321202839",
+    "changelogDate": "20190322214124",
     "entityTableName": "promotion",
     "dto": "no",
-    "pagination": "no",
+    "pagination": "infinite-scroll",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": false,
     "fluentMethods": true,

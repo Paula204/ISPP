@@ -37,7 +37,7 @@ public class Sponsorship implements Serializable {
 
     @ManyToOne
     @JsonIgnoreProperties("sponsorships")
-    private Sponsor sponsor;
+    private User user;
 
     @ManyToOne
     @JsonIgnoreProperties("sponsorships")
@@ -78,17 +78,17 @@ public class Sponsorship implements Serializable {
         this.targetUrl = targetUrl;
     }
 
-    public Sponsor getSponsor() {
-        return sponsor;
+    public User getUser() {
+        return user;
     }
 
-    public Sponsorship sponsor(Sponsor sponsor) {
-        this.sponsor = sponsor;
+    public Sponsorship user(User user) {
+        this.user = user;
         return this;
     }
 
-    public void setSponsor(Sponsor sponsor) {
-        this.sponsor = sponsor;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Tournament getTournament() {

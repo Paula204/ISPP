@@ -1,12 +1,12 @@
-import { IActor } from 'app/shared/model/actor.model';
 import { ITournament } from 'app/shared/model/tournament.model';
+import { IUser } from 'app/core/user/user.model';
 
 export interface IParticipation {
     id?: number;
     disqualify?: boolean;
     punctuation?: number;
-    actor?: IActor;
     tournament?: ITournament;
+    user?: IUser;
 }
 
 export class Participation implements IParticipation {
@@ -14,8 +14,8 @@ export class Participation implements IParticipation {
         public id?: number,
         public disqualify?: boolean,
         public punctuation?: number,
-        public actor?: IActor,
-        public tournament?: ITournament
+        public tournament?: ITournament,
+        public user?: IUser
     ) {
         this.disqualify = this.disqualify || false;
     }

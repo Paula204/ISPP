@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -43,7 +44,7 @@ public class ParticipationResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/participations")
-    public ResponseEntity<Participation> createParticipation(@RequestBody Participation participation) throws URISyntaxException {
+    public ResponseEntity<Participation> createParticipation(@Valid @RequestBody Participation participation) throws URISyntaxException {
         log.debug("REST request to save Participation : {}", participation);
         if (participation.getId() != null) {
             throw new BadRequestAlertException("A new participation cannot already have an ID", ENTITY_NAME, "idexists");
@@ -64,12 +65,12 @@ public class ParticipationResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/participations")
-    public ResponseEntity<Participation> updateParticipation(@RequestBody Participation participation) throws URISyntaxException {
+    public ResponseEntity<Participation> updateParticipation(@Valid @RequestBody Participation participation) throws URISyntaxException {
         log.debug("REST request to update Participation : {}", participation);
         if (participation.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        Participation result = participationService.save(participation);
+        Participation result = participationService.updateParticipation(participation);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, participation.getId().toString()))
             .body(result);
@@ -108,7 +109,7 @@ public class ParticipationResource {
     @DeleteMapping("/participations/{id}")
     public ResponseEntity<Void> deleteParticipation(@PathVariable Long id) {
         log.debug("REST request to delete Participation : {}", id);
-        participationService.delete(id);
+        participationService.deleteParticipation(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 
@@ -123,6 +124,42 @@ public class ParticipationResource {
     public List<Participation> searchParticipations(@RequestParam String query) {
         log.debug("REST request to search Participations for query {}", query);
         return participationService.search(query);
+    }
+
+    @PutMapping("/participations/disqualify")
+    public ResponseEntity<Participation> disqualify(@Valid @RequestBody Long participationId) throws URISyntaxException {
+        log.debug("REST request to update Participation : {}", participationId);
+        if (participationId == null) {
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+        }
+        Participation result = participationService.disqualify(participationId);
+        return ResponseEntity.ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, participationId.toString()))
+            .body(result);
+    }
+
+    @PutMapping("/participations/win")
+    public ResponseEntity<Participation> win(@Valid @RequestBody Long participationId) throws URISyntaxException {
+        log.debug("REST request to update Participation : {}", participationId);
+        if (participationId == null) {
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+        }
+        Participation result = participationService.win(participationId);
+        return ResponseEntity.ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, participationId.toString()))
+            .body(result);
+    }
+
+    @PutMapping("/participations/tie")
+    public ResponseEntity<Participation> tie(@Valid @RequestBody Long participationId) throws URISyntaxException {
+        log.debug("REST request to update Participation : {}", participationId);
+        if (participationId == null) {
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+        }
+        Participation result = participationService.tie(participationId);
+        return ResponseEntity.ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, participationId.toString()))
+            .body(result);
     }
 
 }

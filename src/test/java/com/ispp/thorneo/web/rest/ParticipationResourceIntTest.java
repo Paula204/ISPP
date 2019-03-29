@@ -3,6 +3,7 @@ package com.ispp.thorneo.web.rest;
 import com.ispp.thorneo.ThorneoApp;
 
 import com.ispp.thorneo.domain.Participation;
+import com.ispp.thorneo.domain.User;
 import com.ispp.thorneo.repository.ParticipationRepository;
 import com.ispp.thorneo.repository.search.ParticipationSearchRepository;
 import com.ispp.thorneo.service.ParticipationService;
@@ -17,6 +18,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -106,6 +110,11 @@ public class ParticipationResourceIntTest {
         Participation participation = new Participation()
             .disqualify(DEFAULT_DISQUALIFY)
             .punctuation(DEFAULT_PUNCTUATION);
+        // Add required entity
+        User user = UserResourceIntTest.createEntity(em);
+        em.persist(user);
+        em.flush();
+        participation.setUser(user);
         return participation;
     }
 
@@ -213,11 +222,11 @@ public class ParticipationResourceIntTest {
         updatedParticipation
             .disqualify(UPDATED_DISQUALIFY)
             .punctuation(UPDATED_PUNCTUATION);
-
-        restParticipationMockMvc.perform(put("/api/participations")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedParticipation)))
-            .andExpect(status().isOk());
+        User user = participation.getUser();
+        SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
+        securityContext.setAuthentication(new UsernamePasswordAuthenticationToken(user.getLogin(), user.getPassword()));
+        SecurityContextHolder.setContext(securityContext);
+        this.participationService.updateParticipation(updatedParticipation);
 
         // Validate the Participation in the database
         List<Participation> participationList = participationRepository.findAll();
@@ -258,11 +267,12 @@ public class ParticipationResourceIntTest {
         participationService.save(participation);
 
         int databaseSizeBeforeDelete = participationRepository.findAll().size();
-
+        User user = participation.getUser();
+        SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
+        securityContext.setAuthentication(new UsernamePasswordAuthenticationToken(user.getLogin(), user.getPassword()));
+        SecurityContextHolder.setContext(securityContext);
         // Delete the participation
-        restParticipationMockMvc.perform(delete("/api/participations/{id}", participation.getId())
-            .accept(TestUtil.APPLICATION_JSON_UTF8))
-            .andExpect(status().isOk());
+        this.participationService.delete(participation.getId());
 
         // Validate the database is empty
         List<Participation> participationList = participationRepository.findAll();

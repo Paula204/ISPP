@@ -2,6 +2,7 @@
     "thorneoApp": {
         "tournament": {
             "home": {
+                "title2": "My Tournaments",
                 "title": "Tournaments",
                 "createLabel": "Create a new Tournament",
                 "createOrEditLabel": "Create or edit a Tournament",
@@ -28,11 +29,13 @@
             "latitude": "Latitude",
             "longitude": "Longitude",
             "type": "Type",
-            "participant": "Participant",
-            "sponsor": "Sponsor",
-            "premium": "Premium",
-            "free": "Free",
-            "game": "Game"
+            "participation": "Participants",
+            "user": "User",
+            "game": "Game",
+            "winner": "Winner",
+            "win": "Win",
+            "tie": "Tie",
+            "disqualify": "Disqualify"
         }
     }
 }

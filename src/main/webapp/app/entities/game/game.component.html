@@ -1,7 +1,7 @@
 <div>
     <h2 id="page-heading">
         <span jhiTranslate="thorneoApp.game.home.title">Games</span>
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-game" [routerLink]="['/game/new']">
+        <button *jhiHasAnyAuthority="'ROLE_ADMIN'" id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-game" [routerLink]="['/game/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
             <span class="hidden-sm-down"  jhiTranslate="thorneoApp.game.home.createLabel">
             Create new Game
@@ -9,11 +9,11 @@
         </button>
     </h2>
     <jhi-alert></jhi-alert>
-    <div class="row">
+    <!--<div class="row">
         <div class="col-sm-12">
             <form name="searchForm" class="form-inline">
                 <div class="input-group w-100 mt-3">
-                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'thorneoApp.game.home.search' | translate }}">
+                    <input type="text" class="form-control alert-form" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'thorneoApp.game.home.search' | translate }}">
                     <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
                         <fa-icon [icon]="'search'"></fa-icon>
                     </button>
@@ -23,15 +23,15 @@
                 </div>
             </form>
         </div>
-    </div>
+    </div>-->
     <br/>
     <div class="table-responsive" *ngIf="games">
         <table class="table table-striped">
             <thead>
             <tr>
-            <th><span jhiTranslate="global.field.id">ID</span></th>
+           <!-- <th><span jhiTranslate="global.field.id">ID</span></th>-->
             <th><span jhiTranslate="thorneoApp.game.title">Title</span></th>
-            <th><span jhiTranslate="thorneoApp.game.description">Description</span></th>
+            <!--<th><span jhiTranslate="thorneoApp.game.description">Description</span></th>-->
             <th><span jhiTranslate="thorneoApp.game.category">Category</span></th>
             <th><span jhiTranslate="thorneoApp.game.minAge">Min Age</span></th>
             <th></th>
@@ -39,10 +39,10 @@
             </thead>
             <tbody>
             <tr *ngFor="let game of games ;trackBy: trackId">
-                <td><a [routerLink]="['/game', game.id, 'view' ]">{{game.id}}</a></td>
+                <!--<td><a [routerLink]="['/game', game.id, 'view' ]">{{game.id}}</a></td>-->
                 <td>{{game.title}}</td>
-                <td>{{game.description}}</td>
-                <td jhiTranslate="{{'thorneoApp.GameType.' + game.category}}">{{game.category}}</td>
+                <!--<td>{{game.description}}</td>-->
+                <td jhiTranslate="{{'thorneoApp.Category.' + game.category}}">{{game.category}}</td>
                 <td>{{game.minAge}}</td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
@@ -52,13 +52,14 @@
                             <fa-icon [icon]="'eye'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                         </button>
-                        <button type="submit"
+                        <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="submit"
                                 [routerLink]="['/game', game.id, 'edit']"
                                 class="btn btn-primary btn-sm">
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                         </button>
-                        <button type="submit"
+
+                        <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="submit"
                                 [routerLink]="['/', 'game', { outlets: { popup: game.id + '/delete'} }]"
                                 replaceUrl="true"
                                 queryParamsHandling="merge"

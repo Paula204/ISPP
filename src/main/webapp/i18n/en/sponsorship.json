@@ -16,9 +16,10 @@
             "detail": {
                 "title": "Sponsorship"
             },
+            "id": "Id",
             "banner": "Banner",
             "targetUrl": "Target Url",
-            "sponsor": "Sponsor",
+            "user": "User",
             "tournament": "Tournament"
         }
     }

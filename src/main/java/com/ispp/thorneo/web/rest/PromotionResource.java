@@ -3,9 +3,14 @@ import com.ispp.thorneo.domain.Promotion;
 import com.ispp.thorneo.service.PromotionService;
 import com.ispp.thorneo.web.rest.errors.BadRequestAlertException;
 import com.ispp.thorneo.web.rest.util.HeaderUtil;
+import com.ispp.thorneo.web.rest.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -49,7 +54,7 @@ public class PromotionResource {
         if (promotion.getId() != null) {
             throw new BadRequestAlertException("A new promotion cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Promotion result = promotionService.save(promotion);
+        Promotion result = promotionService.savePromotion(promotion);
         return ResponseEntity.created(new URI("/api/promotions/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -70,7 +75,7 @@ public class PromotionResource {
         if (promotion.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        Promotion result = promotionService.save(promotion);
+        Promotion result = promotionService.savePromotion(promotion);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, promotion.getId().toString()))
             .body(result);
@@ -79,12 +84,15 @@ public class PromotionResource {
     /**
      * GET  /promotions : get all the promotions.
      *
+     * @param pageable the pagination information
      * @return the ResponseEntity with status 200 (OK) and the list of promotions in body
      */
     @GetMapping("/promotions")
-    public List<Promotion> getAllPromotions() {
-        log.debug("REST request to get all Promotions");
-        return promotionService.findAll();
+    public ResponseEntity<List<Promotion>> getAllPromotions(Pageable pageable) {
+        log.debug("REST request to get a page of Promotions");
+        Page<Promotion> page = promotionService.findAll(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/promotions");
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
     /**
@@ -118,12 +126,15 @@ public class PromotionResource {
      * to the query.
      *
      * @param query the query of the promotion search
+     * @param pageable the pagination information
      * @return the result of the search
      */
     @GetMapping("/_search/promotions")
-    public List<Promotion> searchPromotions(@RequestParam String query) {
-        log.debug("REST request to search Promotions for query {}", query);
-        return promotionService.search(query);
+    public ResponseEntity<List<Promotion>> searchPromotions(@RequestParam String query, Pageable pageable) {
+        log.debug("REST request to search for a page of Promotions for query {}", query);
+        Page<Promotion> page = promotionService.search(query, pageable);
+        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/promotions");
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
 }

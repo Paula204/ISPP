@@ -2,7 +2,9 @@ package com.ispp.thorneo.service;
 
 import com.ispp.thorneo.domain.Sponsorship;
 
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import java.util.Optional;
 
 /**
@@ -21,9 +23,10 @@ public interface SponsorshipService {
     /**
      * Get all the sponsorships.
      *
+     * @param pageable the pagination information
      * @return the list of entities
      */
-    List<Sponsorship> findAll();
+    Page<Sponsorship> findAll(Pageable pageable);
 
 
     /**
@@ -46,7 +49,8 @@ public interface SponsorshipService {
      *
      * @param query the query of the search
      * 
+     * @param pageable the pagination information
      * @return the list of entities
      */
-    List<Sponsorship> search(String query);
+    Page<Sponsorship> search(String query, Pageable pageable);
 }

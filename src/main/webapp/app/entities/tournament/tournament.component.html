@@ -1,115 +1,119 @@
 <div>
-    <h2 id="page-heading">
-        <span jhiTranslate="thorneoApp.tournament.home.title">Tournaments</span>
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-tournament" [routerLink]="['/tournament/new']">
-            <fa-icon [icon]="'plus'"></fa-icon>
-            <span class="hidden-sm-down"  jhiTranslate="thorneoApp.tournament.home.createLabel">
-            Create new Tournament
-            </span>
-        </button>
-    </h2>
-    <jhi-alert></jhi-alert>
-    <div class="row">
-        <div class="col-sm-12">
-            <form name="searchForm" class="form-inline">
-                <div class="input-group w-100 mt-3">
-                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'thorneoApp.tournament.home.search' | translate }}">
-                    <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
-                        <fa-icon [icon]="'search'"></fa-icon>
-                    </button>
-                    <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
-                        <fa-icon [icon]="'trash-alt'"></fa-icon>
-                    </button>
-                </div>
-            </form>
+        <h2 id="page-heading">
+            <span jhiTranslate="thorneoApp.tournament.home.title">Tournaments</span>
+            <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-tournament" [routerLink]="['/tournament/new']">
+                <fa-icon [icon]="'plus'"></fa-icon>
+                <span class="hidden-sm-down"  jhiTranslate="thorneoApp.tournament.home.createLabel">
+                Create new Tournament
+                </span>
+            </button>
+        </h2>
+        <jhi-alert></jhi-alert>
+       <!-- <div class="row">
+            <div class="col-sm-12">
+                <form name="searchForm" class="form-inline">
+                    <div class="input-group w-100 mt-3">
+                        <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'thorneoApp.tournament.home.search' | translate }}">
+                        <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
+                            <fa-icon [icon]="'search'"></fa-icon>
+                        </button>
+    
+                        <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                            <fa-icon [icon]="'trash-alt'"></fa-icon>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>-->
+        <br/>
+        <div class="table-responsive" *ngIf="tournaments">
+            <table class="table table-striped">
+                <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                <!--<th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="description"><span jhiTranslate="thorneoApp.tournament.description">Description</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="meetingDate"><span jhiTranslate="thorneoApp.tournament.meetingDate">Meeting Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="meetingPoint"><span jhiTranslate="thorneoApp.tournament.meetingPoint">Meeting Point</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="price"><span jhiTranslate="thorneoApp.tournament.price">Price</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="playerSize"><span jhiTranslate="thorneoApp.tournament.playerSize">Player Size</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="rewards"><span jhiTranslate="thorneoApp.tournament.rewards">Rewards</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="imageUrl"><span jhiTranslate="thorneoApp.tournament.imageUrl">Image Url</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="latitude"><span jhiTranslate="thorneoApp.tournament.latitude">Latitude</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="longitude"><span jhiTranslate="thorneoApp.tournament.longitude">Longitude</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="type"><span jhiTranslate="thorneoApp.tournament.type">Type</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="user.id"><span jhiTranslate="thorneoApp.tournament.user">User</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                -->
+                <th jhiSortBy="title"><span jhiTranslate="thorneoApp.tournament.title">Title</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="city"><span jhiTranslate="thorneoApp.tournament.city">City</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="game.id"><span jhiTranslate="thorneoApp.tournament.game">Game</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let tournament of tournaments ;trackBy: trackId">
+                    <!--    <td><a [routerLink]="['/tournament', tournament.id, 'view' ]">{{tournament.id}}</a></td>
+                    <td>{{tournament.description}}</td>
+                    <td>{{tournament.meetingDate | date:'medium'}}</td>
+                    <td>{{tournament.meetingPoint}}</td>
+                     <td>{{tournament.price}}</td>
+                    <td>{{tournament.playerSize}}</td>
+                    <td>{{tournament.rewards}}</td>
+                    <td>{{tournament.imageUrl}}</td>
+                    <td>{{tournament.latitude}}</td>
+                    <td>{{tournament.longitude}}</td>
+                    <td jhiTranslate="{{'thorneoApp.Type.' + tournament.type}}">{{tournament.type}}</td>
+                    <td>
+                        {{tournament.user?.id}}
+                    </td>
+                    -->
+    
+                    <td>{{tournament.title}}</td>
+    
+                    <td>{{tournament.city}}</td>
+    
+                    <td>
+                        <div *ngIf="tournament.game">
+                            <a [routerLink]="['../game', tournament.game?.id, 'view' ]" >{{tournament.game?.title}}</a>
+                        </div>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    [routerLink]="['/tournament', tournament.id, 'view' ]"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon [icon]="'eye'"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                            </button>
+    
+    
+                            <button *ngIf="tournament.user.login==currentAccount.login || currentAccount.authorities.includes('ROLE_ADMIN')" type="submit"
+                                    [routerLink]="['/tournament', tournament.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                            </button>
+    
+                            <button  *ngIf="tournament.user.login==currentAccount.login || currentAccount.authorities.includes('ROLE_ADMIN')" type="submit"
+                                    [routerLink]="['/', 'tournament', { outlets: { popup: tournament.id + '/delete'} }]"
+                                    replaceUrl="true"
+                                    queryParamsHandling="merge"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon [icon]="'times'"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                            </button>
+    
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div *ngIf="tournaments && tournaments.length">
+            <div class="row justify-content-center">
+                <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+            </div>
+            <div class="row justify-content-center">
+                <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+            </div>
         </div>
     </div>
-    <br/>
-    <div class="table-responsive" *ngIf="tournaments">
-        <table class="table table-striped">
-            <thead>
-            <tr>
-            <th><span jhiTranslate="global.field.id">ID</span></th>
-            <th><span jhiTranslate="thorneoApp.tournament.title">Title</span></th>
-            <th><span jhiTranslate="thorneoApp.tournament.description">Description</span></th>
-            <th><span jhiTranslate="thorneoApp.tournament.meetingDate">Meeting Date</span></th>
-            <th><span jhiTranslate="thorneoApp.tournament.meetingPoint">Meeting Point</span></th>
-            <th><span jhiTranslate="thorneoApp.tournament.city">City</span></th>
-            <th><span jhiTranslate="thorneoApp.tournament.price">Price</span></th>
-            <th><span jhiTranslate="thorneoApp.tournament.playerSize">Player Size</span></th>
-            <th><span jhiTranslate="thorneoApp.tournament.rewards">Rewards</span></th>
-            <th><span jhiTranslate="thorneoApp.tournament.imageUrl">Image Url</span></th>
-            <th><span jhiTranslate="thorneoApp.tournament.latitude">Latitude</span></th>
-            <th><span jhiTranslate="thorneoApp.tournament.longitude">Longitude</span></th>
-            <th><span jhiTranslate="thorneoApp.tournament.type">Type</span></th>
-            <th><span jhiTranslate="thorneoApp.tournament.sponsor">Sponsor</span></th>
-            <th><span jhiTranslate="thorneoApp.tournament.premium">Premium</span></th>
-            <th><span jhiTranslate="thorneoApp.tournament.free">Free</span></th>
-            <th><span jhiTranslate="thorneoApp.tournament.game">Game</span></th>
-            <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let tournament of tournaments ;trackBy: trackId">
-                <td><a [routerLink]="['/tournament', tournament.id, 'view' ]">{{tournament.id}}</a></td>
-                <td>{{tournament.title}}</td>
-                <td>{{tournament.description}}</td>
-                <td>{{tournament.meetingDate | date:'medium'}}</td>
-                <td>{{tournament.meetingPoint}}</td>
-                <td>{{tournament.city}}</td>
-                <td>{{tournament.price}}</td>
-                <td>{{tournament.playerSize}}</td>
-                <td>{{tournament.rewards}}</td>
-                <td>{{tournament.imageUrl}}</td>
-                <td>{{tournament.latitude}}</td>
-                <td>{{tournament.longitude}}</td>
-                <td jhiTranslate="{{'thorneoApp.Type.' + tournament.type}}">{{tournament.type}}</td>
-                <td>
-                    <div *ngIf="tournament.sponsor">
-                        <a [routerLink]="['../sponsor', tournament.sponsor?.id, 'view' ]" >{{tournament.sponsor?.id}}</a>
-                    </div>
-                </td>
-                <td>
-                    <div *ngIf="tournament.premium">
-                        <a [routerLink]="['../premium', tournament.premium?.id, 'view' ]" >{{tournament.premium?.id}}</a>
-                    </div>
-                </td>
-                <td>
-                    <div *ngIf="tournament.free">
-                        <a [routerLink]="['../free', tournament.free?.id, 'view' ]" >{{tournament.free?.id}}</a>
-                    </div>
-                </td>
-                <td>
-                    <div *ngIf="tournament.game">
-                        <a [routerLink]="['../game', tournament.game?.id, 'view' ]" >{{tournament.game?.id}}</a>
-                    </div>
-                </td>
-                <td class="text-right">
-                    <div class="btn-group flex-btn-group-container">
-                        <button type="submit"
-                                [routerLink]="['/tournament', tournament.id, 'view' ]"
-                                class="btn btn-info btn-sm">
-                            <fa-icon [icon]="'eye'"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
-                        </button>
-                        <button type="submit"
-                                [routerLink]="['/tournament', tournament.id, 'edit']"
-                                class="btn btn-primary btn-sm">
-                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
-                        </button>
-                        <button type="submit"
-                                [routerLink]="['/', 'tournament', { outlets: { popup: tournament.id + '/delete'} }]"
-                                replaceUrl="true"
-                                queryParamsHandling="merge"
-                                class="btn btn-danger btn-sm">
-                            <fa-icon [icon]="'times'"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
-                        </button>
-                    </div>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-</div>

@@ -9,6 +9,13 @@
             "500": "Internal server error."
         },
         "concurrencyFailure": "Another user modified this data at the same time as you. Your changes were rejected.",
-        "validation": "Validation error on the server."
+        "validation": "Validation error on the server.",
+        "URL": "The URL link you used is not supported.",
+        "notCreator": "You can't do this action",
+        "noParticipants": "You cannot close this tournament cause doesn't have any participants",
+        "closeTournament": "Closed tournament",
+        "Future": "Date must be future.",
+        "Length": "Max length 250 characters.",
+        "soWinners": "Only one winner allowed"
     }
 }

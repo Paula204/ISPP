@@ -18,6 +18,7 @@
             },
             "title": "Title",
             "qr": "Qr",
+            "user": "User",
             "sponsor": "Sponsor"
         }
     }

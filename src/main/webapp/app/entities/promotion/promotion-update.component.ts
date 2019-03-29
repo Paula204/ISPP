@@ -6,8 +6,7 @@ import { filter, map } from 'rxjs/operators';
 import { JhiAlertService } from 'ng-jhipster';
 import { IPromotion } from 'app/shared/model/promotion.model';
 import { PromotionService } from './promotion.service';
-import { ISponsor } from 'app/shared/model/sponsor.model';
-import { SponsorService } from 'app/entities/sponsor';
+import { IUser, User, UserService } from 'app/core';
 
 @Component({
     selector: 'jhi-promotion-update',
@@ -17,12 +16,10 @@ export class PromotionUpdateComponent implements OnInit {
     promotion: IPromotion;
     isSaving: boolean;
 
-    sponsors: ISponsor[];
-
     constructor(
         protected jhiAlertService: JhiAlertService,
         protected promotionService: PromotionService,
-        protected sponsorService: SponsorService,
+        protected userService: UserService,
         protected activatedRoute: ActivatedRoute
     ) {}
 
@@ -31,13 +28,6 @@ export class PromotionUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ promotion }) => {
             this.promotion = promotion;
         });
-        this.sponsorService
-            .query()
-            .pipe(
-                filter((mayBeOk: HttpResponse<ISponsor[]>) => mayBeOk.ok),
-                map((response: HttpResponse<ISponsor[]>) => response.body)
-            )
-            .subscribe((res: ISponsor[]) => (this.sponsors = res), (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     previousState() {
@@ -46,6 +36,9 @@ export class PromotionUpdateComponent implements OnInit {
 
     save() {
         this.isSaving = true;
+        if (this.promotion.user == null) {
+            this.promotion.user = new User();
+        }
         if (this.promotion.id !== undefined) {
             this.subscribeToSaveResponse(this.promotionService.update(this.promotion));
         } else {
@@ -70,7 +63,7 @@ export class PromotionUpdateComponent implements OnInit {
         this.jhiAlertService.error(errorMessage, null, null);
     }
 
-    trackSponsorById(index: number, item: ISponsor) {
+    trackUserById(index: number, item: IUser) {
         return item.id;
     }
 }

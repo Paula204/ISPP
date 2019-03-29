@@ -1,36 +1,3 @@
-entity UserAccount{
-	userName String required,
-    password String required,
-    banned Boolean
-}
-
-entity Authority{
-	free String,
-    premium String,
-    sponsor String,
-}
-
-entity Actor{
-	name String required,
-    surname String required,
-    photo String,
-    email String required, 
-    phone String    
-}
-
-entity Premium{
-}
-
-entity Free{
-}
-
-entity Administrator{
-}
-
-entity Sponsor{
-}
-
-
 entity Tournament{
 	title String required,
     description String required,
@@ -50,20 +17,23 @@ enum Type{
 	ELIMINATION, POINT
 }
 
-enum GameType{
-	CARD, MINIATURES, 
-    BOARD, DICE, ROL
-}
-
 entity Game{
 	title String required,
     description String,
-    category GameType,
+    category Category,
     minAge Integer
 }
 
+enum Category{
+	CARD,
+    MINIATURES,
+    BOARD,
+    DICE,
+    ROL
+}
+
 entity Participation{
-	disqualify Boolean, 
+	disqualify Boolean,
     punctuation Integer
 }
 
@@ -79,41 +49,30 @@ entity Promotion{
 
 
 
-
-relationship ManyToMany {
-	Premium{tournament} to Tournament,
-    Free{tournament} to Tournament,
-    Sponsor{tournament} to Tournament
-}
-
 relationship OneToMany {
-	Tournament{participant} to Participation,
-    Sponsor{promotion} to Promotion,
-    Actor{participation} to Participation
+	Tournament{participation required} to Participation
     
 }
 
 relationship ManyToOne {
-	Sponsorship{sponsor} to Sponsor,
+	Sponsorship{user} to User,
     Sponsorship{tournament} to Tournament,
-    Tournament{sponsor} to Sponsor,
-    Tournament{premium} to Premium,
-    Tournament{free} to Free, 
-    Tournament{game} to Game
+    Tournament{user} to User, 
+    Tournament{game} to Game,
+    Promotion{user required} to User,
+    Participation{user required} to User
 }
 
-relationship OneToOne {
-	Actor{userAccount} to UserAccount,
-    UserAccount{authority} to Authority,
-    Sponsor{actor} to Actor,
-    Premium{actor} to Actor,
-    Free{actor} to Actor,
-    Administrator{actor} to Actor
-}
 
+// Set pagination options
+paginate Sponsorship, Promotion with infinite-scroll
+paginate Tournament with pagination
+
+// Use Data Transfert Objects (DTO)
+// dto * with mapstruct
 
 // Set service options to all except few
-service all with serviceImpl except UserAccount, Authority
+service all with serviceImpl except User, Authority
 
 // Set an angular suffix
 // angularSuffix * with mySuffix

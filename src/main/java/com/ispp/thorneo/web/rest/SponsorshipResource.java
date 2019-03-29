@@ -3,9 +3,14 @@ import com.ispp.thorneo.domain.Sponsorship;
 import com.ispp.thorneo.service.SponsorshipService;
 import com.ispp.thorneo.web.rest.errors.BadRequestAlertException;
 import com.ispp.thorneo.web.rest.util.HeaderUtil;
+import com.ispp.thorneo.web.rest.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -79,12 +84,15 @@ public class SponsorshipResource {
     /**
      * GET  /sponsorships : get all the sponsorships.
      *
+     * @param pageable the pagination information
      * @return the ResponseEntity with status 200 (OK) and the list of sponsorships in body
      */
     @GetMapping("/sponsorships")
-    public List<Sponsorship> getAllSponsorships() {
-        log.debug("REST request to get all Sponsorships");
-        return sponsorshipService.findAll();
+    public ResponseEntity<List<Sponsorship>> getAllSponsorships(Pageable pageable) {
+        log.debug("REST request to get a page of Sponsorships");
+        Page<Sponsorship> page = sponsorshipService.findAll(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/sponsorships");
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
     /**
@@ -118,12 +126,15 @@ public class SponsorshipResource {
      * to the query.
      *
      * @param query the query of the sponsorship search
+     * @param pageable the pagination information
      * @return the result of the search
      */
     @GetMapping("/_search/sponsorships")
-    public List<Sponsorship> searchSponsorships(@RequestParam String query) {
-        log.debug("REST request to search Sponsorships for query {}", query);
-        return sponsorshipService.search(query);
+    public ResponseEntity<List<Sponsorship>> searchSponsorships(@RequestParam String query, Pageable pageable) {
+        log.debug("REST request to search for a page of Sponsorships for query {}", query);
+        Page<Sponsorship> page = sponsorshipService.search(query, pageable);
+        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/sponsorships");
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
 }

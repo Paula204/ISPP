@@ -2,10 +2,12 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { JhiLanguageService } from 'ng-jhipster';
 import { JhiLanguageHelper } from 'app/core';
+import { QRCodeModule } from 'angularx-qrcode';
 
 import { ThorneoSharedModule } from 'app/shared';
 import {
     TournamentComponent,
+    TournamentMyComponent,
     TournamentDetailComponent,
     TournamentUpdateComponent,
     TournamentDeletePopupComponent,
@@ -17,15 +19,22 @@ import {
 const ENTITY_STATES = [...tournamentRoute, ...tournamentPopupRoute];
 
 @NgModule({
-    imports: [ThorneoSharedModule, RouterModule.forChild(ENTITY_STATES)],
+    imports: [ThorneoSharedModule, RouterModule.forChild(ENTITY_STATES), QRCodeModule],
     declarations: [
         TournamentComponent,
+        TournamentMyComponent,
         TournamentDetailComponent,
         TournamentUpdateComponent,
         TournamentDeleteDialogComponent,
         TournamentDeletePopupComponent
     ],
-    entryComponents: [TournamentComponent, TournamentUpdateComponent, TournamentDeleteDialogComponent, TournamentDeletePopupComponent],
+    entryComponents: [
+        TournamentComponent,
+        TournamentMyComponent,
+        TournamentUpdateComponent,
+        TournamentDeleteDialogComponent,
+        TournamentDeletePopupComponent
+    ],
     providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

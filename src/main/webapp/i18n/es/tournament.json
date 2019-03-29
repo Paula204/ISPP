@@ -2,37 +2,40 @@
     "thorneoApp": {
         "tournament": {
             "home": {
-                "title": "Tournaments",
-                "createLabel": "Crear nuevo Tournament",
-                "createOrEditLabel": "Crear o editar Tournament",
-                "search": "Search for Tournament"
+                "title2": "Mis Torneos",
+                "title": "Torneo",
+                "createLabel": "Crear nuevo Torneo",
+                "createOrEditLabel": "Crear o editar un torneo",
+                "search": "Busca un torneo"
             },
-            "created": "Un nuevo Tournament ha sido creado con el identificador {{ param }}",
-            "updated": "Un Tournament ha sido actualizado con el identificador {{ param }}",
-            "deleted": "Un Tournament ha sido eliminado con el identificador {{ param }}",
+            "created": "Un nuevo torneo ha sido creado con el identificador {{ param }}",
+            "updated": "Un torneo ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un torneo ha sido eliminado con el identificador {{ param }}",
             "delete": {
-                "question": "¿Seguro que quiere eliminar Tournament {{ id }}?"
+                "question": "¿Seguro que quiere eliminar torneo {{ id }}?"
             },
             "detail": {
-                "title": "Tournament"
+                "title": "Torneo"
             },
-            "title": "Title",
-            "description": "Description",
-            "meetingDate": "Meeting Date",
-            "meetingPoint": "Meeting Point",
-            "city": "City",
-            "price": "Price",
-            "playerSize": "Player Size",
-            "rewards": "Rewards",
-            "imageUrl": "Image Url",
-            "latitude": "Latitude",
-            "longitude": "Longitude",
-            "type": "Type",
-            "participant": "Participant",
-            "sponsor": "Sponsor",
-            "premium": "Premium",
-            "free": "Free",
-            "game": "Game"
+            "title": "Título",
+            "description": "Descripción",
+            "meetingDate": "Fecha del evento",
+            "meetingPoint": "Punto de encuentro",
+            "city": "Ciudad",
+            "price": "Precio",
+            "playerSize": "Límite de jugadores",
+            "rewards": "Premios",
+            "imageUrl": "Url de la imagen",
+            "latitude": "Latitud",
+            "longitude": "Longitud",
+            "type": "Tipo de torneo",
+            "participation": "Participantes",
+            "user": "Administrador",
+            "game": "Juego",
+            "winner": "Ganador",
+            "win": "Ganador",
+            "tie": "Empate",
+            "disqualify": "Descalificar"
         }
     }
 }

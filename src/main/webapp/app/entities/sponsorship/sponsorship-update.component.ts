@@ -6,8 +6,7 @@ import { filter, map } from 'rxjs/operators';
 import { JhiAlertService } from 'ng-jhipster';
 import { ISponsorship } from 'app/shared/model/sponsorship.model';
 import { SponsorshipService } from './sponsorship.service';
-import { ISponsor } from 'app/shared/model/sponsor.model';
-import { SponsorService } from 'app/entities/sponsor';
+import { IUser, UserService } from 'app/core';
 import { ITournament } from 'app/shared/model/tournament.model';
 import { TournamentService } from 'app/entities/tournament';
 
@@ -19,14 +18,14 @@ export class SponsorshipUpdateComponent implements OnInit {
     sponsorship: ISponsorship;
     isSaving: boolean;
 
-    sponsors: ISponsor[];
+    users: IUser[];
 
     tournaments: ITournament[];
 
     constructor(
         protected jhiAlertService: JhiAlertService,
         protected sponsorshipService: SponsorshipService,
-        protected sponsorService: SponsorService,
+        protected userService: UserService,
         protected tournamentService: TournamentService,
         protected activatedRoute: ActivatedRoute
     ) {}
@@ -36,13 +35,13 @@ export class SponsorshipUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ sponsorship }) => {
             this.sponsorship = sponsorship;
         });
-        this.sponsorService
+        this.userService
             .query()
             .pipe(
-                filter((mayBeOk: HttpResponse<ISponsor[]>) => mayBeOk.ok),
-                map((response: HttpResponse<ISponsor[]>) => response.body)
+                filter((mayBeOk: HttpResponse<IUser[]>) => mayBeOk.ok),
+                map((response: HttpResponse<IUser[]>) => response.body)
             )
-            .subscribe((res: ISponsor[]) => (this.sponsors = res), (res: HttpErrorResponse) => this.onError(res.message));
+            .subscribe((res: IUser[]) => (this.users = res), (res: HttpErrorResponse) => this.onError(res.message));
         this.tournamentService
             .query()
             .pipe(
@@ -82,7 +81,7 @@ export class SponsorshipUpdateComponent implements OnInit {
         this.jhiAlertService.error(errorMessage, null, null);
     }
 
-    trackSponsorById(index: number, item: ISponsor) {
+    trackUserById(index: number, item: IUser) {
         return item.id;
     }
 

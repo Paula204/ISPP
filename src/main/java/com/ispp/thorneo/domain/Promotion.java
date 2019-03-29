@@ -8,6 +8,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.URL;
 import org.springframework.data.elasticsearch.annotations.Document;
 import java.io.Serializable;
 import java.util.Objects;
@@ -32,12 +34,15 @@ public class Promotion implements Serializable {
     private String title;
 
     @NotNull
+    @URL
+    @Length(max = 255)
     @Column(name = "qr", nullable = false)
     private String qr;
 
-    @ManyToOne
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @NotNull
     @JsonIgnoreProperties("promotions")
-    private Sponsor sponsor;
+    private User user;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -74,17 +79,17 @@ public class Promotion implements Serializable {
         this.qr = qr;
     }
 
-    public Sponsor getSponsor() {
-        return sponsor;
+    public User getUser() {
+        return user;
     }
 
-    public Promotion sponsor(Sponsor sponsor) {
-        this.sponsor = sponsor;
+    public Promotion user(User user) {
+        this.user = user;
         return this;
     }
 
-    public void setSponsor(Sponsor sponsor) {
-        this.sponsor = sponsor;
+    public void setUser(User user) {
+        this.user = user;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
