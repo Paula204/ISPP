@@ -15,6 +15,7 @@
         "noParticipants": "You cannot close this tournament cause doesn't have any participants",
         "closeTournament": "Closed tournament",
         "Future": "Date must be future.",
-        "Length": "Max length 250 characters."
+        "Length": "Max length 250 characters.",
+        "soWinners": "Only one winner allowed"
     }
 }

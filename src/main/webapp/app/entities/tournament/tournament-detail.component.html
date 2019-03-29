@@ -34,29 +34,29 @@
                         </br>
                         <p class="bold" jhiTranslate="thorneoApp.tournament.participation">Participants</p>
                         <ul>
-                            <li *ngFor="let participation of tournament.participations">
+                            <li *ngFor="let participation of tournament.participations" class="mt-1">
                                 {{participation.user.login}}
                                 <button *ngIf="currentAccount.id == tournament.user.id && tournament.type == 'ELIMINATION'" type="submit"
                                         (click)="disqualify(participation.id)"
-                                        class="btn border-0">
-                                    <span>Disqualify</span>
+                                        class="btn btn-sm btn-danger">
+                                    <span jhiTranslate="thorneoApp.tournament.disqualify">Disqualify</span>
                                 </button>
                                 <button *ngIf="currentAccount.id == tournament.user.id && tournament.type == 'POINT'" type="submit"
                                         (click)="win(participation.id)"
-                                        class="btn border-0">
-                                    <span>Win</span>
+                                        class="btn btn-sm btn-primary">
+                                    <span jhiTranslate="thorneoApp.tournament.win">Win</span>
                                 </button>
                                 <button *ngIf="currentAccount.id == tournament.user.id && tournament.type == 'POINT'" type="submit"
                                         (click)="tie(participation.id)"
-                                        class="btn border-0">
-                                    <span>Tie</span>
+                                        class="btn btn-sm btn-danger">
+                                    <span jhiTranslate="thorneoApp.tournament.tie">Tie</span>
                                 </button>
                             </li>
                         </ul>
                         <!--
                         <qrcode qrdata="http://localhost:9000/#/tournament/24/view" size="256" level="M"></qrcode>
                         -->
-                        <span *ngIf="tournament.winner != null"><p jhiTranslate="thorneoApp.tournament.winner">Winner</span>
+                        <span *ngIf="tournament.winner != null"><p class="bold" jhiTranslate="thorneoApp.tournament.winner"><p>: </p> Winner</span>
                         <span *ngIf="tournament.winner != null"><p>{{tournament.winner}}</p></span>
                     </div>
                 </div>

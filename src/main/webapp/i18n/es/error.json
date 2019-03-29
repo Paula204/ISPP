@@ -15,6 +15,7 @@
         "Future": "La fecha debe ser en futuro.",
         "Length": "Longitud máxima 250 caracteres.",
         "noParticipants": "No puedes cerrar este torneo porque no tiene participantes",
-        "closeTournament": "Torneo cerrado"
+        "closeTournament": "Torneo cerrado",
+        "soWinners": "Solo puede haber un ganador"
     }
 }

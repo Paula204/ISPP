@@ -30,6 +30,9 @@ public interface TournamentRepository extends JpaRepository<Tournament, Long> {
     @Query("select p.user.login from Tournament t join t.participations p where p.punctuation = ?1 and p.disqualify = false and t.id = ?2")
     String getWinner(Integer punctuation, Long id);
 
-    @Query("select p from Tournament t join t.participations p where p.punctuation = (select max(p.punctuation) from Participation participation where p.id = participation.id) and p.disqualify = false and t.id = ?1")
-    Participation getParticipationWithMaxPunctuation(Long id);
+    @Query("select p from Tournament t join t.participations p where p.punctuation = (select max(participation.punctuation) from Participation participation) and p.disqualify = false and t.id = ?1")
+    List<Participation> getParticipationWithMaxPunctuation(Long id);
+
+    @Query("select p from Tournament t join t.participations p where p.punctuation = (select max(participation.punctuation) from Participation participation where p.id = participation.id and participation.punctuation > 10000) and p.disqualify = false and t.id = ?1")
+    Participation findWinner(Long id);
 }
