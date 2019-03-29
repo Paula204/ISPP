@@ -36,17 +36,17 @@
                         <ul>
                             <li *ngFor="let participation of tournament.participations" class="mt-1">
                                 {{participation.user.login}}
-                                <button *ngIf="currentAccount.id == tournament.user.id && tournament.type == 'ELIMINATION'" type="submit"
+                                <button *ngIf="currentAccount.login == tournament.user.login && tournament.type == 'ELIMINATION'" type="submit"
                                         (click)="disqualify(participation.id)"
                                         class="btn btn-sm btn-danger">
                                     <span jhiTranslate="thorneoApp.tournament.disqualify">Disqualify</span>
                                 </button>
-                                <button *ngIf="currentAccount.id == tournament.user.id && tournament.type == 'POINT'" type="submit"
+                                <button *ngIf="currentAccount.login == tournament.user.login && tournament.type == 'POINT'" type="submit"
                                         (click)="win(participation.id)"
                                         class="btn btn-sm btn-primary">
                                     <span jhiTranslate="thorneoApp.tournament.win">Win</span>
                                 </button>
-                                <button *ngIf="currentAccount.id == tournament.user.id && tournament.type == 'POINT'" type="submit"
+                                <button *ngIf="currentAccount.login == tournament.user.login && tournament.type == 'POINT'" type="submit"
                                         (click)="tie(participation.id)"
                                         class="btn btn-sm btn-danger">
                                     <span jhiTranslate="thorneoApp.tournament.tie">Tie</span>
@@ -82,7 +82,6 @@
                     class="btn btn-primary green-background">
                 <fa-icon [icon]="'arrow-right'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.signOn"> Sign On</span>
             </button>
-
             <button *ngIf="tournament.winner == null && tournament.user.id == currentAccount.id && tournament.meetingDate.isBefore(currentDate)" type="submit"
                     (click)="close()"
                     class="btn btn-primary red">
