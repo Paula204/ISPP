@@ -9,6 +9,7 @@ import { IPromotion } from 'app/shared/model/promotion.model';
 })
 export class PromotionDetailComponent implements OnInit {
     promotion: IPromotion;
+    currentAccount: Account;
 
     constructor(protected activatedRoute: ActivatedRoute) {}
 
