@@ -32,7 +32,7 @@
                             <p>: </p><a [routerLink]="['/game', tournament.game?.id, 'view']">{{tournament.game?.title}}</a>
                         </span>
                         </br>
-                        <p class="bold" jhiTranslate="thorneoApp.tournament.participation">Participants</p>
+                        <p class="bold" jhiTranslate="thorneoApp.tournament.participation">Participants</p><p>: </p>
                         <ul>
                             <li *ngFor="let participation of tournament.participations">
                                 {{participation.user.login}}
