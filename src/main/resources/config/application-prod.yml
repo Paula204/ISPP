@@ -65,7 +65,7 @@ spring:
         host: smtp.gmail.com
         port: 587
         username: thorneodevs@gmail.com
-        password: Thorneo1234
+        password: Thorneo12345
         protocol: smtp
         tls: true
         auth: true
