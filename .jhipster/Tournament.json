@@ -1,0 +1,112 @@
+{
+    "name": "Tournament",
+    "fields": [
+        {
+            "fieldName": "title",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "meetingDate",
+            "fieldType": "Instant",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "meetingPoint",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "city",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "price",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "min"
+            ],
+            "fieldValidateRulesMin": 0
+        },
+        {
+            "fieldName": "playerSize",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "min"
+            ],
+            "fieldValidateRulesMin": 0
+        },
+        {
+            "fieldName": "rewards",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "imageUrl",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "latitude",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "longitude",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "type",
+            "fieldType": "Type",
+            "fieldValues": "ELIMINATION,POINT"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipValidateRules": "required",
+            "relationshipName": "participation",
+            "otherEntityName": "participation",
+            "otherEntityRelationshipName": "tournament"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "user",
+            "otherEntityName": "user",
+            "otherEntityField": "id",
+            "otherEntityRelationshipName": "tournament"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "game",
+            "otherEntityName": "game",
+            "otherEntityField": "id",
+            "otherEntityRelationshipName": "tournament"
+        }
+    ],
+    "changelogDate": "20190322214120",
+    "entityTableName": "tournament",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

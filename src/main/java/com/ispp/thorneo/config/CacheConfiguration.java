@@ -41,6 +41,12 @@ public class CacheConfiguration {
             cm.createCache(com.ispp.thorneo.domain.User.class.getName(), jcacheConfiguration);
             cm.createCache(com.ispp.thorneo.domain.Authority.class.getName(), jcacheConfiguration);
             cm.createCache(com.ispp.thorneo.domain.User.class.getName() + ".authorities", jcacheConfiguration);
+            cm.createCache(com.ispp.thorneo.domain.Tournament.class.getName(), jcacheConfiguration);
+            cm.createCache(com.ispp.thorneo.domain.Tournament.class.getName() + ".participations", jcacheConfiguration);
+            cm.createCache(com.ispp.thorneo.domain.Game.class.getName(), jcacheConfiguration);
+            cm.createCache(com.ispp.thorneo.domain.Participation.class.getName(), jcacheConfiguration);
+            cm.createCache(com.ispp.thorneo.domain.Sponsorship.class.getName(), jcacheConfiguration);
+            cm.createCache(com.ispp.thorneo.domain.Promotion.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

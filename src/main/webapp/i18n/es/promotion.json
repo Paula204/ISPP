@@ -1,0 +1,25 @@
+{
+    "thorneoApp": {
+        "promotion": {
+            "home": {
+                "title": "Promociones",
+                "createLabel": "Crear nueva promoción",
+                "createOrEditLabel": "Crear o editar promoción",
+                "search": "Buscar promociones"
+            },
+            "created": "Una nueva promoción ha sido creado con el identificador {{ param }}",
+            "updated": "Una promoción ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Una promoción ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar promoción {{ title }}?"
+            },
+            "detail": {
+                "title": "Promoción"
+            },
+            "title": "Título",
+            "qr": "Qr",
+            "user": "User",
+            "sponsor": "Sponsor"
+        }
+    }
+}

@@ -17,6 +17,7 @@ import { ThorneoAppRoutingModule } from './app-routing.module';
 import { ThorneoHomeModule } from './home/home.module';
 import { ThorneoAccountModule } from './account/account.module';
 import { ThorneoEntityModule } from './entities/entity.module';
+import { QRCodeModule } from 'angularx-qrcode';
 import * as moment from 'moment';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent, ActiveMenuDirective, ErrorComponent } from './layouts';
@@ -38,7 +39,8 @@ import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent
         ThorneoAccountModule,
         // jhipster-needle-angular-add-module JHipster will add new module here
         ThorneoEntityModule,
-        ThorneoAppRoutingModule
+        ThorneoAppRoutingModule,
+        QRCodeModule
     ],
     declarations: [JhiMainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, ActiveMenuDirective, FooterComponent],
     providers: [

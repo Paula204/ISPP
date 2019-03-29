@@ -1,0 +1,9 @@
+{
+    "thorneoApp": {
+        "Type": {
+            "null": "",
+            "ELIMINATION": "ELIMINATORIA",
+            "POINT": "PUNTOS"
+        }
+    }
+}
