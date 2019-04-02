@@ -1,0 +1,44 @@
+{
+    "name": "Sponsorship",
+    "fields": [
+        {
+            "fieldName": "banner",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "targetUrl",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "user",
+            "otherEntityName": "user",
+            "otherEntityField": "id",
+            "otherEntityRelationshipName": "sponsorship"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "tournament",
+            "otherEntityName": "tournament",
+            "otherEntityField": "id",
+            "otherEntityRelationshipName": "sponsorship"
+        }
+    ],
+    "changelogDate": "20190322214123",
+    "entityTableName": "sponsorship",
+    "dto": "no",
+    "pagination": "infinite-scroll",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

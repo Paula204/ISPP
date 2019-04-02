@@ -1,0 +1,25 @@
+{
+    "thorneoApp": {
+        "game": {
+            "home": {
+                "title": "Juegos",
+                "createLabel": "Crear nuevo juego",
+                "createOrEditLabel": "Crear o editar juego",
+                "search": "Buscar un juego"
+            },
+            "created": "Un nuevo juego ha sido creado con el identificador {{ param }}",
+            "updated": "Un juego ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un juego ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar juego {{ id }}?"
+            },
+            "detail": {
+                "title": "Juego"
+            },
+            "title": "Titulo",
+            "description": "Descripción",
+            "category": "Categoria",
+            "minAge": "Edad mínima"
+        }
+    }
+}

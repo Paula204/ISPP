@@ -22,7 +22,7 @@
         "serviceDiscoveryType": "eureka",
         "buildTool": "maven",
         "enableSwaggerCodegen": true,
-        "jwtSecretKey": "YTU5NTgzYjdkMWVlZDBhYTMxMGRmNjM1MDNiOWI4ZTg0NDg1MDY3NTE3NWE5OTczYWVkNDAyNjhhYjc0YWU0ZTJlZmU5MDVhMDFmMmRkZmNhOWVhNDAyZTZiMDhhNDJjNDRmMjMzMzk0NWU5NjBjOWQxMTQ2NzgyMWZhNmMxZWU=",
+        "jwtSecretKey": "ZjA0Nzc0ZDlmNzgyM2Y3ZmRkNDYyZjUxZDAzNTc0N2Y2MjFmZGM0NTI1MTQxOGM5MzFmODIwNjM5ZDRlZjNiMTIxZDcxNzdjZDI3OWQyNjFmZjhmZTdhNDYyYzQ5NGY0NjhlZDY0Y2E2NjVlMWMzYzI4NzI0NmQxNmYwZmVmOGU=",
         "clientFramework": "angularX",
         "useSass": true,
         "clientPackageManager": "npm",
@@ -78,6 +78,8 @@
         ],
         "enableTranslation": true,
         "nativeLanguage": "es",
-        "languages": ["es", "en"]
+        "languages": ["es", "en"],
+        "herokuAppName": "thorneo-sprint-1",
+        "herokuDeployType": "jar"
     }
 }

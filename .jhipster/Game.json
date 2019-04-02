@@ -1,0 +1,35 @@
+{
+    "name": "Game",
+    "fields": [
+        {
+            "fieldName": "title",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "category",
+            "fieldType": "Category",
+            "fieldValues": "CARD,MINIATURES,BOARD,DICE,ROL"
+        },
+        {
+            "fieldName": "minAge",
+            "fieldType": "Integer"
+        }
+    ],
+    "relationships": [],
+    "changelogDate": "20190322214121",
+    "entityTableName": "game",
+    "dto": "no",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

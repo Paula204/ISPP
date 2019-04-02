@@ -1,0 +1,12 @@
+{
+    "thorneoApp": {
+        "Category": {
+            "null": "",
+            "CARD": "Cartas",
+            "MINIATURES": "Miniaturas",
+            "BOARD": "Tablero",
+            "DICE": "Dados",
+            "ROL": "Rol"
+        }
+    }
+}
