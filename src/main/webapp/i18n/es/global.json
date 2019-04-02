@@ -13,6 +13,7 @@
                 "participation": "Mis Participaciones",
                 "sponsorship": "Patrocinadores",
                 "promotion": "Promociones",
+                "paypalCompletedPayments": "Paypal Completed Payments",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

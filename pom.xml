@@ -265,6 +265,11 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <dependency>
+            <groupId>com.braintreepayments.gateway</groupId>
+            <artifactId>braintree-java</artifactId>
+            <version>2.87.0</version>
+        </dependency>
         <!-- log4j needed to create embedded elasticsearch instance -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
