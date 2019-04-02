@@ -1,6 +1,7 @@
 package com.ispp.thorneo.service;
 
 import com.ispp.thorneo.TournamentForm;
+import com.ispp.thorneo.domain.Participation;
 import com.ispp.thorneo.domain.Tournament;
 
 import org.springframework.data.domain.Page;
