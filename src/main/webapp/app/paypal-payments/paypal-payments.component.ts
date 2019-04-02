@@ -82,7 +82,8 @@ export class PaypalPaymentsComponent implements OnInit, AfterViewChecked {
         this.addScript = true;
         return new Promise((resolve, reject) => {
             const scripttagElement = document.createElement('script');
-            scripttagElement.src = 'https://www.paypal.com/sdk/js?client-id=sb';
+            scripttagElement.src =
+                'https://www.paypal.com/sdk/js?client-id=AW4dDSqwdQ7jtlcUywucYvBIBt0e5HOJhMrxD2sdpA-nr4i3STRcjDS-qUNq9CsJ6q3eGrACFf5Tqqw_';
             // last paypal script (before february 2019)
             // scripttagElement.src = 'https://www.paypalobjects.com/api/checkout.js';
             scripttagElement.onload = resolve;
