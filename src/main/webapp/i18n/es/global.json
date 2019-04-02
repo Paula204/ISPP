@@ -106,7 +106,8 @@
             "save": "Guardar",
             "view": "Vista",
             "signOn": "Registrar",
-            "close": "Cerrar"
+            "close": "Cerrar",
+            "manage": "Gestionar"
         },
         "detail": {
             "field": "Campo",
