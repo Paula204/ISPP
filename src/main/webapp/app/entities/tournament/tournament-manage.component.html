@@ -1,15 +1,19 @@
 <div>
-<h1>{{tournament.title}}</h1>
+  <h1>{{tournament.title}}</h1>
+  
+  <table>
+      <tr>
+        <th>Participant</th>
+        <th>Points</th>
+      </tr>
+      <tr *ngFor="let participation of tournament.participations">
+        <td>{{participation.user.login}}</td>
+        <td>{{participation.punctuation}}</td>
+      </tr>
 
-<table>
-    <tr>
-      <th>Participant</th>
-    </tr>
-    <tr>
-        <td *ngFor="let participation of tournament.participations">
-            {{participation.user.login}}
-        </td>    
-    </tr>
-  </table>
 
+    </table>
+  
 </div>
+
+
