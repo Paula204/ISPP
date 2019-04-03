@@ -9,6 +9,10 @@ import { RouterModule } from '@angular/router';
                 loadChildren: './tournament/tournament.module#ThorneoTournamentModule'
             },
             {
+                path: 'my-tournament',
+                loadChildren: './tournament/tournament.module#ThorneoTournamentModule'
+            },
+            {
                 path: 'game',
                 loadChildren: './game/game.module#ThorneoGameModule'
             },
@@ -23,6 +27,10 @@ import { RouterModule } from '@angular/router';
             {
                 path: 'promotion',
                 loadChildren: './promotion/promotion.module#ThorneoPromotionModule'
+            },
+            {
+                path: 'paypal-completed-payments',
+                loadChildren: './paypal-completed-payments/paypal-completed-payments.module#ThorneoPaypalCompletedPaymentsModule'
             }
             /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
         ])

@@ -71,7 +71,7 @@ Main page styles
 }
 
 .h1-indice {
-    margin-top: 120px;
+    margin-top: 30px;
     font-weight: bold;
     line-height: 1.5em;
     color: #222;
@@ -83,23 +83,27 @@ Main page styles
     color: #6e6e6e;
 }
 
-@media (max-width: 500px) {
+.h1-sponsors {
+    margin-top: 140px;
+}
+
+@media (max-width: 870px) {
     .h1-indice {
         /* On small screens, we are no longer using row direction but column */
         flex-wrap: wrap;
-        font-size: 90%;
+        font-size: 100%;
         margin-top: 60px;
     }
     .p-indice {
         /* On small screens, we are no longer using row direction but column */
         flex-wrap: wrap;
-        font-size: 80%;
+        font-size: 85%;
     }
 
     .alert {
         /* On small screens, we are no longer using row direction but column */
         flex-wrap: wrap;
-        font-size: 80%;
+        font-size: 85%;
     }
 
     .logo-1,
@@ -150,4 +154,24 @@ Main page styles
 
 .alerta {
     background-color: white !important;
+}
+
+/* jhipster-needle-scss-add-global JHipster will add new css style */
+
+.row {
+    display: inline-flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.column {
+    flex: 50%;
+    padding: 10px;
+}
+
+.column p {
+    text-align: center;
+    vertical-align: middle;
 }

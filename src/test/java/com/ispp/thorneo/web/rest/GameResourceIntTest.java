@@ -3,10 +3,12 @@ package com.ispp.thorneo.web.rest;
 import com.ispp.thorneo.ThorneoApp;
 
 import com.ispp.thorneo.domain.Game;
+import com.ispp.thorneo.domain.User;
 import com.ispp.thorneo.repository.GameRepository;
 import com.ispp.thorneo.repository.search.GameSearchRepository;
 import com.ispp.thorneo.service.GameService;
 import com.ispp.thorneo.web.rest.errors.ExceptionTranslator;
+import com.ispp.thorneo.service.UserService;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -17,6 +19,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -64,6 +70,9 @@ public class GameResourceIntTest {
     @Autowired
     private GameService gameService;
 
+    @Autowired
+    private UserService userService;
+
     /**
      * This repository is mocked in the com.ispp.thorneo.repository.search test package.
      *
@@ -83,6 +92,9 @@ public class GameResourceIntTest {
 
     @Autowired
     private EntityManager em;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
     @Autowired
     private Validator validator;
@@ -249,10 +261,7 @@ public class GameResourceIntTest {
             .category(UPDATED_CATEGORY)
             .minAge(UPDATED_MIN_AGE);
 
-        restGameMockMvc.perform(put("/api/games")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedGame)))
-            .andExpect(status().isOk());
+        this.gameService.save(updatedGame);
 
         // Validate the Game in the database
         List<Game> gameList = gameRepository.findAll();
@@ -296,10 +305,12 @@ public class GameResourceIntTest {
 
         int databaseSizeBeforeDelete = gameRepository.findAll().size();
 
+        User admin = this.userService.getUserWithAuthoritiesByLogin("admin").get();
+        SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
+        securityContext.setAuthentication(new UsernamePasswordAuthenticationToken(admin.getLogin(), admin.getPassword()));
+        SecurityContextHolder.setContext(securityContext);
         // Delete the game
-        restGameMockMvc.perform(delete("/api/games/{id}", game.getId())
-            .accept(TestUtil.APPLICATION_JSON_UTF8))
-            .andExpect(status().isOk());
+        this.gameService.delete(game.getId());
 
         // Validate the database is empty
         List<Game> gameList = gameRepository.findAll();

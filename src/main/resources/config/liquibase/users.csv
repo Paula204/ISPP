@@ -3,4 +3,4 @@ id;login;password_hash;first_name;last_name;email;image_url;activated;lang_key;c
 2;anonymoususer;$2a$10$j8S5d7Sr7.8VTOYNviDPOeWX8KcYILUVJBsYV83Y5NtECayypx9lO;Anonymous;User;anonymous@localhost;;true;es;system;system
 3;admin;$2a$10$gSAhZrxMllrbgj/kkK9UceBPpChGWJA7SYIb1Mqo.n5aNLq1/oRrC;Administrator;Administrator;admin@localhost;;true;es;system;system
 4;user;$2a$10$VEjxo0jq2YG9Rbk2HmX9S.k1uZBGYUHdUcid3g/vfiEl7lwWgOH/K;User;User;user@localhost;;true;es;system;system
-5;sponsor;$10$3cF6JZI8TA1ccdt1u.ifY.foAJ26/XEcVq/EYlnUn3OE76UhWJ9wS;Sponsor;Sponsor;sponsor@localhost;;true;es;system;system
+5;sponsor;$2a$10$AkgAzgd52lCJ6ahnw8nrgeXE2ueFExH0eqqWVXvVe.92sjIm.CKSK;Sponsor;Sponsor;sponsor@localhost;;true;es;system;system

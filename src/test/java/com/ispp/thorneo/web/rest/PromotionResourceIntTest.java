@@ -7,6 +7,7 @@ import com.ispp.thorneo.domain.User;
 import com.ispp.thorneo.repository.PromotionRepository;
 import com.ispp.thorneo.repository.search.PromotionSearchRepository;
 import com.ispp.thorneo.service.PromotionService;
+import com.ispp.thorneo.service.UserService;
 import com.ispp.thorneo.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -20,6 +21,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -51,8 +55,8 @@ public class PromotionResourceIntTest {
     private static final String DEFAULT_TITLE = "AAAAAAAAAA";
     private static final String UPDATED_TITLE = "BBBBBBBBBB";
 
-    private static final String DEFAULT_QR = "AAAAAAAAAA";
-    private static final String UPDATED_QR = "BBBBBBBBBB";
+    private static final String DEFAULT_QR = "http://www.google.com";
+    private static final String UPDATED_QR = "http://www.google.com";
 
     @Autowired
     private PromotionRepository promotionRepository;
@@ -79,6 +83,9 @@ public class PromotionResourceIntTest {
 
     @Autowired
     private EntityManager em;
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private Validator validator;
@@ -127,11 +134,9 @@ public class PromotionResourceIntTest {
     public void createPromotion() throws Exception {
         int databaseSizeBeforeCreate = promotionRepository.findAll().size();
 
+
         // Create the Promotion
-        restPromotionMockMvc.perform(post("/api/promotions")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(promotion)))
-            .andExpect(status().isCreated());
+        this.promotionService.save(promotion);
 
         // Validate the Promotion in the database
         List<Promotion> promotionList = promotionRepository.findAll();
@@ -258,10 +263,7 @@ public class PromotionResourceIntTest {
             .title(UPDATED_TITLE)
             .qr(UPDATED_QR);
 
-        restPromotionMockMvc.perform(put("/api/promotions")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedPromotion)))
-            .andExpect(status().isOk());
+        this.promotionService.save(updatedPromotion);
 
         // Validate the Promotion in the database
         List<Promotion> promotionList = promotionRepository.findAll();
@@ -303,10 +305,12 @@ public class PromotionResourceIntTest {
 
         int databaseSizeBeforeDelete = promotionRepository.findAll().size();
 
+        User sponsor = promotion.getUser();
+        SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
+        securityContext.setAuthentication(new UsernamePasswordAuthenticationToken(sponsor.getLogin(), sponsor.getPassword()));
+        SecurityContextHolder.setContext(securityContext);
         // Delete the promotion
-        restPromotionMockMvc.perform(delete("/api/promotions/{id}", promotion.getId())
-            .accept(TestUtil.APPLICATION_JSON_UTF8))
-            .andExpect(status().isOk());
+        this.promotionService.delete(promotion.getId());
 
         // Validate the database is empty
         List<Promotion> promotionList = promotionRepository.findAll();

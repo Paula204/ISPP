@@ -1,28 +1,25 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <div *ngIf="participation">
-            <h2><span jhiTranslate="thorneoApp.participation.detail.title">Participation</span> {{participation.id}}</h2>
+                <h2 class="text-center" jhiTranslate="thorneoApp.participation.detail.title" > </h2>
             <hr>
             <jhi-alert-error></jhi-alert-error>
-            <dl class="row-md jh-entity-details">
-                <dt><span jhiTranslate="thorneoApp.participation.disqualify">Disqualify</span></dt>
-                <dd>
-                    <span>{{participation.disqualify}}</span>
-                </dd>
-                <dt><span jhiTranslate="thorneoApp.participation.punctuation">Punctuation</span></dt>
-                <dd>
-                    <span>{{participation.punctuation}}</span>
-                </dd>
-                <dt><span jhiTranslate="thorneoApp.participation.tournament">Tournament</span></dt>
-                <dd>
-                    <div *ngIf="participation.tournament">
-                        <a [routerLink]="['/tournament', participation.tournament?.id, 'view']">{{participation.tournament?.id}}</a>
+            <dl class="row-md jh-entity-details paper">
+                <div class="lines">
+                    <div class="texto" >
+                        <p class="bold" jhiTranslate="thorneoApp.participation.punctuation">Punctuation</p><p>: {{participation.punctuation}}</p>
+                        </br>
+                        <p class="bold" jhiTranslate="thorneoApp.participation.tournament">Tournament</p><p>: </p>
+                        <p><a [routerLink]="['/tournament', participation.tournament?.id, 'view']">{{participation.tournament?.title}}</a></p>
+                        </br>
+                        <p class="bold" jhiTranslate="thorneoApp.participation.user">User</p><p>: {{participation.user?.firstName}} {{participation.user?.lastName}}</p>
+                        </br>
+                        <p class="bold" jhiTranslate="thorneoApp.participation.disqualify">Disqualify</p><p>: </p><p jhiTranslate="thorneoApp.participation.{{participation.disqualify}}">{{participation.disqualify}}</p>
                     </div>
-                </dd>
-                <dt><span jhiTranslate="thorneoApp.participation.user">User</span></dt>
-                <dd>
-                    {{participation.user?.id}}
-                </dd>
+                </div>
+                <div class="holes hole-top"></div>
+                <div class="holes hole-middle"></div>
+                <div class="holes hole-bottom"></div>
             </dl>
 
             <button type="submit"
@@ -31,7 +28,7 @@
                 <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
             </button>
 
-            <button type="button"
+            <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="button"
                     [routerLink]="['/participation', participation.id, 'edit']"
                     class="btn btn-primary">
                 <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>

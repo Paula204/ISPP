@@ -1,9 +1,16 @@
 package com.ispp.thorneo.service.impl;
 
+import afu.org.checkerframework.checker.oigj.qual.O;
+import com.ispp.thorneo.domain.Authority;
+import com.ispp.thorneo.domain.Tournament;
+import com.ispp.thorneo.domain.User;
 import com.ispp.thorneo.service.ParticipationService;
 import com.ispp.thorneo.domain.Participation;
 import com.ispp.thorneo.repository.ParticipationRepository;
 import com.ispp.thorneo.repository.search.ParticipationSearchRepository;
+import com.ispp.thorneo.service.UserService;
+import com.ispp.thorneo.web.rest.errors.BadRequestAlertException;
+import io.jsonwebtoken.lang.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,9 +37,12 @@ public class ParticipationServiceImpl implements ParticipationService {
 
     private final ParticipationSearchRepository participationSearchRepository;
 
-    public ParticipationServiceImpl(ParticipationRepository participationRepository, ParticipationSearchRepository participationSearchRepository) {
+    private final UserService userService;
+
+    public ParticipationServiceImpl(ParticipationRepository participationRepository, ParticipationSearchRepository participationSearchRepository,UserService userService) {
         this.participationRepository = participationRepository;
         this.participationSearchRepository = participationSearchRepository;
+        this.userService = userService;
     }
 
     /**
@@ -82,7 +92,8 @@ public class ParticipationServiceImpl implements ParticipationService {
      */
     @Override
     public void delete(Long id) {
-        log.debug("Request to delete Participation : {}", id);        participationRepository.deleteById(id);
+        log.debug("Request to delete Participation : {}", id);
+        participationRepository.deleteById(id);
         participationSearchRepository.deleteById(id);
     }
 
@@ -99,5 +110,103 @@ public class ParticipationServiceImpl implements ParticipationService {
         return StreamSupport
             .stream(participationSearchRepository.search(queryStringQuery(query)).spliterator(), false)
             .collect(Collectors.toList());
+    }
+
+    @Override
+    public void deleteParticipation(Long id) {
+        Assert.notNull(id, "invalid id");
+
+        User user = userService.getUserWithAuthorities().get();
+
+        Participation participation = participationRepository.getOne(id);
+
+        if ((user != null && participation != null && (participation.getUser().getId() != user.getId())
+            || (user != null && participation != null && checkIfAdmin(user)))) {
+            throw new BadRequestAlertException("invalid participation", "participation", "notCreator");
+        }
+
+        delete(id);
+    }
+
+    @Override
+    public Participation updateParticipation(Participation participation) {
+        Participation result;
+
+        User user = userService.getUserWithAuthorities().get();
+
+        Authority userAuth = new Authority();
+        userAuth.setName("ROLE_USER");
+
+        if (participation == null || (participation.getUser().getId() != user.getId() && !checkIfAdmin(user))) {
+            throw new BadRequestAlertException("invalid user", "participation", "notCreator");
+        }
+
+        Participation newParticipation = participationRepository.getOne(participation.getId());
+        newParticipation.setPunctuation(participation.getPunctuation());
+        newParticipation.setDisqualify(participation.isDisqualify());
+        result = save(newParticipation);
+
+        return result;
+    }
+
+    @Override
+    public Participation disqualify(Long id) {
+        Participation result;
+        Participation participation = checkManager(id);
+        participation.setDisqualify(true);
+        result = save(participation);
+
+        return result;
+    }
+
+    @Override
+    public Participation win(Long id) {
+        Participation result;
+        Participation participation = checkManager(id);
+        Integer punctuation = participation.getPunctuation() + 3;
+        participation.setPunctuation(punctuation);
+
+        result = save(participation);
+
+        return result;
+    }
+
+    @Override
+    public Participation tie(Long id) {
+        Participation result;
+        Participation participation = checkManager(id);
+        Integer punctuation = participation.getPunctuation() + 1;
+        participation.setPunctuation(punctuation);
+
+        result = save(participation);
+
+        return result;
+    }
+
+    private Participation checkManager(Long id) {
+        Assert.notNull(id, "Invalid id");
+
+        Participation participation = participationRepository.getOne(id);
+        Assert.notNull(participation);
+
+        User user = userService.getUserWithAuthorities().get();
+        Assert.notNull(user);
+
+        if (participation.getTournament().getUser().getId() != user.getId()) {
+            throw new BadRequestAlertException("invalid user", "participation", "notCreator");
+        }
+        return participation;
+    }
+
+    private boolean checkIfAdmin(User user) {
+
+        Authority admin = new Authority();
+        admin.setName("ROLE_ADMIN");
+
+        if (!user.getAuthorities().contains(admin)) {
+            throw new BadRequestAlertException("invalid user", "participation", "notCreator");
+        }
+
+        return true;
     }
 }

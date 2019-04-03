@@ -1,5 +1,6 @@
 {
     "global": {
+        "payment": "Pago con Paypal",
         "title": "Thorneo",
         "browsehappy": "Está usando un navegador <strong>no actualizado</strong>. Por favor, <a href=\"http://browsehappy.com/?locale=en\">actualice su navegador</a> para mejorar su experiencia.",
         "menu": {
@@ -7,11 +8,13 @@
             "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
             "entities": {
                 "main": "Entidades",
-                "tournament": "Tournament",
-                "game": "Game",
-                "participation": "Participation",
-                "sponsorship": "Sponsorship",
-                "promotion": "Promotion",
+                "tournament": "Torneos",
+                "tournamentmy": "Mis Torneos",
+                "game": "Juegos",
+                "participation": "Mis Participaciones",
+                "sponsorship": "Patrocinadores",
+                "promotion": "Promociones",
+                "paypalCompletedPayments": "Pago Completado con PayPal",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {
@@ -41,8 +44,8 @@
         "form": {
             "username": "Usuario",
             "username.placeholder": "Nombre de usuario",
-            "currentpassword": "Current password",
-            "currentpassword.placeholder": "Current password",
+            "currentpassword": "Contraseña actual",
+            "currentpassword.placeholder": "Contraseña actual",
             "newpassword": "Nueva contraseña",
             "newpassword.placeholder": "Nueva contraseña",
             "confirmpassword": "Confirmación de la nueva contraseña",
@@ -101,10 +104,11 @@
             "cancel": "Cancelar",
             "delete": "Eliminar",
             "edit": "Editar",
-            "open": "Open",
+            "open": "Abrir",
             "save": "Guardar",
             "view": "Vista",
-            "signOn": "Registrar"
+            "signOn": "Registrar",
+            "close": "Cerrar"
         },
         "detail": {
             "field": "Campo",
@@ -132,12 +136,14 @@
         "url.not.found": "Not found",
         "NotNull": "¡El campo {{fieldName}} no puede estar vacío!",
         "Size": "¡El campo {{fieldName}} no cumple con los requisitos de tamaño mínimo/máximo!",
-        "userexists": "Login name already used!",
+        "userexists": "Nombre de usuario está en uso.",
         "emailexists": "Email is already in use!",
-        "idexists": "A new {{entityName}} cannot already have an ID",
-        "idnull": "ID inválido",
+        "idexists": "Una nueva {{entityName}} no puede tener una ID.",
+        "URL": "El enlace proporcionado no es válido",
+        "Length": "El enlace proporcionado es demasiado largo",
+        "Future": "La fecha especificada está en pasado",
         "idsame": "Estás registrado en este torneo",
         "idManager": "Eres el creador de este torneo"
     },
-    "footer": "pie de página"
+    "footer": "ThorneoDevs"
 }

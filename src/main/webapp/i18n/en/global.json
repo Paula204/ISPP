@@ -1,5 +1,6 @@
 {
     "global": {
+        "payment": "Paypal Payments",
         "title": "Thorneo",
         "browsehappy": "You are using an <strong>outdated</strong> browser. Please <a href=\"http://browsehappy.com/?locale=en\">upgrade your browser</a> to improve your experience.",
         "menu": {
@@ -8,10 +9,12 @@
             "entities": {
                 "main": "Entities",
                 "tournament": "Tournament",
+                "tournamentmy": "My Tournaments",
                 "game": "Game",
-                "participation": "Participation",
+                "participation": "My Participations",
                 "sponsorship": "Sponsorship",
                 "promotion": "Promotion",
+                "paypalCompletedPayments": "Paypal Completed Payments",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {
@@ -104,7 +107,8 @@
             "open": "Open",
             "save": "Save",
             "view": "View",
-            "signOn": "Sign On"
+            "signOn": "Sign On",
+            "close": "Close"
         },
         "detail": {
             "field": "Field",
@@ -137,8 +141,11 @@
         "emailexists": "Email is already in use!",
         "idexists": "A new {{ entityName }} cannot already have an ID",
         "idnull": "Invalid ID",
+        "URL": "The provided URL is not valid",
+        "Length": "The provided URL is too long",
+        "Future": "The date you provide is past",
         "idsame": "You're registered on this tournament",
         "idManager": "You're the manager of this tournament"
     },
-    "footer": "This is your footer"
+    "footer": "ThorneoDevs"
 }

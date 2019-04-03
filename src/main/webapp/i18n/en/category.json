@@ -2,11 +2,11 @@
     "thorneoApp": {
         "Category": {
             "null": "",
-            "CARD": "CARD",
-            "MINIATURES": "MINIATURES",
-            "BOARD": "BOARD",
-            "DICE": "DICE",
-            "ROL": "ROL"
+            "CARD": "Card",
+            "MINIATURES": "Miniatures",
+            "BOARD": "Board",
+            "DICE": "Dice",
+            "ROL": "Role"
         }
     }
 }

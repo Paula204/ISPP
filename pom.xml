@@ -4,7 +4,7 @@
 
     <groupId>com.ispp.thorneo</groupId>
     <artifactId>thorneo</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.5.1-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>Thorneo</name>
 
@@ -264,6 +264,11 @@
                     <artifactId>commons-logging</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.braintreepayments.gateway</groupId>
+            <artifactId>braintree-java</artifactId>
+            <version>2.87.0</version>
         </dependency>
         <!-- log4j needed to create embedded elasticsearch instance -->
         <dependency>

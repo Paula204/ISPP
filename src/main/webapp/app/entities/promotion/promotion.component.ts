@@ -17,7 +17,7 @@ import { PromotionService } from './promotion.service';
 })
 export class PromotionComponent implements OnInit, OnDestroy {
     promotions: IPromotion[];
-    currentAccount: any;
+    currentAccount: Account;
     eventSubscriber: Subscription;
     itemsPerPage: number;
     links: any;

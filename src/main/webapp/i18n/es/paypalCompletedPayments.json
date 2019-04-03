@@ -1,0 +1,29 @@
+{
+    "thorneoApp": {
+        "paypalCompletedPayments": {
+            "home": {
+                "title": "Pagos con Paypal Completados",
+                "createLabel": "Crear nuevo Pago Completado con PayPal",
+                "createOrEditLabel": "Crear o editar Pago Completado con PayPal",
+                "search": "Buscar un pago completado con PayPal"
+            },
+            "created": "Un nuevo Pago Completado con PayPal ha sido creado con el identificador {{ param }}",
+            "updated": "Un Pago Completado con PayPal ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Pago Completado con PayPal ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Pago Completado con PayPal {{ id }}?"
+            },
+            "detail": {
+                "title": "Pago Completado con PayPal"
+            },
+            "date": "Fecha",
+            "idPayment": "Id Pago",
+            "currency": "Divisa",
+            "amount": "Cantidad",
+            "email": "Email",
+            "name": "Nombre",
+            "status": "Estado",
+            "user": "Usuario"
+        }
+    }
+}

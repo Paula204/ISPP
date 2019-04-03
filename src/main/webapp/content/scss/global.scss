@@ -4,6 +4,9 @@
 /* ==============================================================
 Bootstrap tweaks
 ===============================================================*/
+body {
+    margin-bottom: 50px;
+}
 
 body,
 h1,
@@ -13,6 +16,11 @@ h4 {
     font-weight: 300;
     font-family: 'Merriweather Sans', sans-serif;
     line-height: 1.5em;
+}
+
+.card,
+.jh-card {
+    min-height: 100vh;
 }
 
 a {
@@ -93,17 +101,53 @@ Generic styles
     font-family: 'Merriweather Sans', sans-serif;
     color: #eee;
     background-color: #5facf2;
+    position: relative;
+    left: 0;
+    bottom: 0;
+    width: 100%;
 }
 
 .footer img {
-    width: 100px;
-    height: 100px;
-    padding: 2%;
-    margin: 2%;
+    width: 50px;
+    height: 50px;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 .footer a {
     color: #eee;
+}
+
+.footer-row {
+    display: inline-flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.footer-column {
+    flex: 50%;
+    padding: 5px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+@media screen and (max-width: 768px) {
+    .footer-row {
+        flex-wrap: nowrap;
+    }
+
+    .footer-column img {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .footer {
+        position: relative;
+    }
 }
 .hand,
 [jhisortby] {
@@ -117,6 +161,22 @@ Custom alerts for notification
     border-radius: 20px;
 }
 
+.alert-form {
+    border-radius: 15px;
+}
+
+.cambiar-login:hover {
+    color: #4a3802;
+}
+
+.center {
+    text-align: center;
+}
+.img-user {
+    width: 65%;
+    height: 60%;
+    margin: 0 auto;
+}
 .alerts {
     .alert {
         text-overflow: ellipsis;
@@ -252,22 +312,67 @@ ui bootstrap tweaks
 
 /* jhipster-needle-scss-add-global JHipster will add new css style */
 
-.row {
-    display: inline-flex;
-    justify-content: center;
-    text-align: center;
-    align-items: center;
-    margin: 0 auto;
+//DISPLAY VIEW
+
+.paper {
+    position: relative;
+    height: auto;
+    width: auto;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0px 0px 5px 0px #888;
+}
+.paper::before {
+    content: '';
+    position: absolute;
+    left: 45px;
+    height: 100%;
+    width: 2px;
+    background: rgba(255, 0, 0, 0.4);
+}
+.lines {
+    margin-top: 40px;
+    height: calc(100% - 40px);
+    width: 100%;
+    background-image: repeating-linear-gradient(white 0px, white 24px, steelblue 25px);
+}
+.texto {
+    margin-left: 50px;
+    line-height: 25px;
+    padding-top: 25px;
+    padding-bottom: 15px;
+    margin-bottom: 85px;
+}
+.texto p {
+    margin: 0;
+    display: inline;
+}
+.bold {
+    font-weight: bold;
 }
 
-.column {
-    flex: 50%;
-    padding: 10px;
+.texto a {
+    margin: 0;
+    display: inline;
 }
 
-.column p {
-    text-align: center;
-    vertical-align: middle;
+.holes {
+    position: absolute;
+    left: 10px;
+    height: 25px;
+    width: 25px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: inset 0px 0px 2px 0px #888;
+}
+
+.hole-top {
+    top: 10%;
+}
+.hole-middle {
+    top: 50%;
+}
+.hole-bottom {
+    bottom: 10%;
 }
 
 //ANIMATIONS

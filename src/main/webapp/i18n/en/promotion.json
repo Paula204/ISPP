@@ -18,7 +18,8 @@
             },
             "title": "Title",
             "qr": "Qr",
-            "user": "User"
+            "user": "User",
+            "sponsor": "Sponsor"
         }
     }
 }

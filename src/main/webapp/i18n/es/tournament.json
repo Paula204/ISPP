@@ -2,6 +2,7 @@
     "thorneoApp": {
         "tournament": {
             "home": {
+                "title2": "Mis Torneos",
                 "title": "Torneo",
                 "createLabel": "Crear nuevo Torneo",
                 "createOrEditLabel": "Crear o editar un torneo",
@@ -30,7 +31,11 @@
             "type": "Tipo de torneo",
             "participation": "Participantes",
             "user": "Administrador",
-            "game": "Juego"
+            "game": "Juego",
+            "winner": "Ganador",
+            "win": "Ganador",
+            "tie": "Empate",
+            "disqualify": "Descalificar"
         }
     }
 }

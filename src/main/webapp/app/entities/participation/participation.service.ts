@@ -41,4 +41,16 @@ export class ParticipationService {
         const options = createRequestOption(req);
         return this.http.get<IParticipation[]>(this.resourceSearchUrl, { params: options, observe: 'response' });
     }
+
+    disqualify(participation: number): Observable<EntityResponseType> {
+        return this.http.put<IParticipation>(this.resourceUrl + '/disqualify', participation, { observe: 'response' });
+    }
+
+    win(participation: number): Observable<EntityResponseType> {
+        return this.http.put<IParticipation>(this.resourceUrl + '/win', participation, { observe: 'response' });
+    }
+
+    tie(participation: number): Observable<EntityResponseType> {
+        return this.http.put<IParticipation>(this.resourceUrl + '/tie', participation, { observe: 'response' });
+    }
 }

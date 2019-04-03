@@ -12,6 +12,7 @@ import io.micrometer.core.annotation.Timed;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -96,6 +97,18 @@ public class TournamentResource {
             .body(result);
     }
 
+    @PutMapping("/tournaments/close")
+    public ResponseEntity<Tournament> closeTournament(@Valid @RequestBody Tournament tournament) throws URISyntaxException {
+        log.debug("REST request to close Tournament: {}", tournament);
+        if (tournament.getId() == null) {
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+        }
+        Tournament result = tournamentService.closeTournament(tournament);
+        return ResponseEntity.ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, tournament.getId().toString()))
+            .body(result);
+    }
+
     /**
      * GET  /tournaments : get all the tournaments.
      *
@@ -110,6 +123,14 @@ public class TournamentResource {
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
+    @GetMapping("/tournaments/mine")
+    public ResponseEntity<List<Tournament>> getMyTournaments() {
+        log.debug("REST request to get a page of my Tournaments");
+        Page<Tournament> page = new PageImpl<>(tournamentService.findMyTournaments());
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/tournaments/mine");
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
     /**
      * GET  /tournaments/:id : get the "id" tournament.
      *
@@ -117,9 +138,9 @@ public class TournamentResource {
      * @return the ResponseEntity with status 200 (OK) and with body the tournament, or with status 404 (Not Found)
      */
     @GetMapping("/tournaments/{id}")
-    public ResponseEntity<Tournament> getTournament(@PathVariable Long id) {
+    public ResponseEntity<TournamentForm> getTournament(@PathVariable Long id) {
         log.debug("REST request to get Tournament : {}", id);
-        Optional<Tournament> tournament = tournamentService.findOne(id);
+        Optional<TournamentForm> tournament = tournamentService.getTournament(id);
 
         return ResponseUtil.wrapOrNotFound(tournament);
     }

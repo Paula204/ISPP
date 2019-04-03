@@ -70,7 +70,7 @@ public class ParticipationResource {
         if (participation.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        Participation result = participationService.save(participation);
+        Participation result = participationService.updateParticipation(participation);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, participation.getId().toString()))
             .body(result);
@@ -109,7 +109,7 @@ public class ParticipationResource {
     @DeleteMapping("/participations/{id}")
     public ResponseEntity<Void> deleteParticipation(@PathVariable Long id) {
         log.debug("REST request to delete Participation : {}", id);
-        participationService.delete(id);
+        participationService.deleteParticipation(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 
@@ -124,6 +124,42 @@ public class ParticipationResource {
     public List<Participation> searchParticipations(@RequestParam String query) {
         log.debug("REST request to search Participations for query {}", query);
         return participationService.search(query);
+    }
+
+    @PutMapping("/participations/disqualify")
+    public ResponseEntity<Participation> disqualify(@Valid @RequestBody Long participationId) throws URISyntaxException {
+        log.debug("REST request to update Participation : {}", participationId);
+        if (participationId == null) {
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+        }
+        Participation result = participationService.disqualify(participationId);
+        return ResponseEntity.ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, participationId.toString()))
+            .body(result);
+    }
+
+    @PutMapping("/participations/win")
+    public ResponseEntity<Participation> win(@Valid @RequestBody Long participationId) throws URISyntaxException {
+        log.debug("REST request to update Participation : {}", participationId);
+        if (participationId == null) {
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+        }
+        Participation result = participationService.win(participationId);
+        return ResponseEntity.ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, participationId.toString()))
+            .body(result);
+    }
+
+    @PutMapping("/participations/tie")
+    public ResponseEntity<Participation> tie(@Valid @RequestBody Long participationId) throws URISyntaxException {
+        log.debug("REST request to update Participation : {}", participationId);
+        if (participationId == null) {
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+        }
+        Participation result = participationService.tie(participationId);
+        return ResponseEntity.ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, participationId.toString()))
+            .body(result);
     }
 
 }
