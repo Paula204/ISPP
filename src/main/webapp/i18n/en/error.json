@@ -16,6 +16,7 @@
         "closeTournament": "Closed tournament",
         "Future": "Date must be future.",
         "Length": "Max length 250 characters.",
-        "soWinners": "Only one winner allowed"
+        "soWinners": "Only one winner allowed",
+        "currentRole": "You've this role assign"
     }
 }
