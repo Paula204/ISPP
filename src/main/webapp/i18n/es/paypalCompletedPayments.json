@@ -1,0 +1,29 @@
+{
+    "thorneoApp": {
+        "paypalCompletedPayments": {
+            "home": {
+                "title": "Paypal Completed Payments",
+                "createLabel": "Crear nuevo Paypal Completed Payments",
+                "createOrEditLabel": "Crear o editar Paypal Completed Payments",
+                "search": "Search for Paypal Completed Payments"
+            },
+            "created": "Un nuevo Paypal Completed Payments ha sido creado con el identificador {{ param }}",
+            "updated": "Un Paypal Completed Payments ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Paypal Completed Payments ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Paypal Completed Payments {{ id }}?"
+            },
+            "detail": {
+                "title": "Paypal Completed Payments"
+            },
+            "date": "Date",
+            "idPayment": "Id Payment",
+            "currency": "Currency",
+            "amount": "Amount",
+            "email": "Email",
+            "name": "Name",
+            "status": "Status",
+            "user": "User"
+        }
+    }
+}

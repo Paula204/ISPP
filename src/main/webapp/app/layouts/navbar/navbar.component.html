@@ -17,6 +17,13 @@
                     </span>
                 </a>
             </li>
+            
+            <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <a class="nav-link" routerLink="paypal-payments" (click)="collapseNavbar()">
+                    <i class="fa fa-hand-spock-o" aria-hidden="true"></i>
+                    <span>Paypal payments</span>
+                </a>
+            </li>
             <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
             <li *ngSwitchCase="true" ngbDropdown class="nav-item dropdown pointer" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                 <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="entity-menu">
@@ -62,6 +69,12 @@
                             <span jhiTranslate="global.menu.entities.promotion">Promotion</span>
                         </a>
                     </li>-->
+                    <li>
+                        <a class="dropdown-item" routerLink="paypal-completed-payments" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.paypalCompletedPayments">Paypal Completed Payments</span>
+                        </a>
+                    </li>
                     <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
                 </ul>
             </li>
