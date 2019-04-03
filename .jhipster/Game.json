@@ -15,7 +15,7 @@
         {
             "fieldName": "category",
             "fieldType": "Category",
-            "fieldValues": "CARD,MINIATURES,BOARD,DICE,ROL"
+            "fieldValues": "Cards,Miniatures,Board,Dice,Rol"
         },
         {
             "fieldName": "minAge",

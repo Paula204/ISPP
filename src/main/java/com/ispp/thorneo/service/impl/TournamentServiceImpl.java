@@ -210,7 +210,7 @@ public class TournamentServiceImpl implements TournamentService {
     public String getWinner(Long id) {
         Assert.notNull(id, "id is null");
 
-        Participation p = tournamentRepository.getParticipationWithMaxPunctuation(id);
+        Participation p = tournamentRepository.findWinner(id);
 
         if (p == null || p.getPunctuation() < winnerPunctuation || p.isDisqualify()) {
             return null;
@@ -229,19 +229,24 @@ public class TournamentServiceImpl implements TournamentService {
         User user = userService.getUserWithAuthorities().get();
         Assert.notNull(user, "User is null");
 
-        Participation p = tournamentRepository.getParticipationWithMaxPunctuation(tournament.getId());
+        List<Participation> participations = tournamentRepository.getParticipationWithMaxPunctuation(tournament.getId());
+
+        if (participations.size() > 1) {
+            throw new BadRequestAlertException("So winners", "tournament", "soWinners");
+        }
+        if (participations == null || participations.size() == 0) {
+            throw new BadRequestAlertException("Null participants", "tournament", "noParticipants");
+        }
+        Participation p = participations.get(0);
+        if (p.getPunctuation() >= winnerPunctuation) {
+            throw new BadRequestAlertException("Close tournament", "tournament", "closeTournament");
+        }
 
         User manager = tournament.getUser();
 
         Authority admin = new Authority();
         admin.setName("ROLE_ADMIN");
 
-        if (p == null) {
-            throw new BadRequestAlertException("Null participants", "tournament", "noParticipants");
-        }
-        if (p.getPunctuation() >= winnerPunctuation) {
-            throw new BadRequestAlertException("Close tournament", "tournament", "closeTournament");
-        }
         if (manager != null && user.getId() != manager.getId() && !user.getAuthorities().contains(admin) ) {
             throw new BadRequestAlertException("Invalid user", "tournament", "idManager");
         }

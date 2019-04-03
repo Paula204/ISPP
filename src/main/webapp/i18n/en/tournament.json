@@ -32,7 +32,10 @@
             "participation": "Participants",
             "user": "User",
             "game": "Game",
-            "winner": "Winner"
+            "winner": "Winner",
+            "win": "Win",
+            "tie": "Tie",
+            "disqualify": "Disqualify"
         }
     }
 }
