@@ -23,6 +23,14 @@ export class AccountService {
         return this.http.post(SERVER_API_URL + 'api/account', account, { observe: 'response' });
     }
 
+    upgradePremium(account: any): Observable<HttpResponse<any>> {
+        return this.http.post(SERVER_API_URL + 'api/account/upgrade/premium', account, { observe: 'response' });
+    }
+
+    upgradeSponsor(account: any): Observable<HttpResponse<any>> {
+        return this.http.post(SERVER_API_URL + 'api/account/upgrade/sponsor', account, { observe: 'response' });
+    }
+
     authenticate(identity) {
         this.userIdentity = identity;
         this.authenticated = identity !== null;
