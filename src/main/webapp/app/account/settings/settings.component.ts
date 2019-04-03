@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { JhiLanguageService } from 'ng-jhipster';
 
 import { AccountService, JhiLanguageHelper, User } from 'app/core';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'jhi-settings',
@@ -17,7 +18,8 @@ export class SettingsComponent implements OnInit {
     constructor(
         private accountService: AccountService,
         private languageService: JhiLanguageService,
-        private languageHelper: JhiLanguageHelper
+        private languageHelper: JhiLanguageHelper,
+        private router: Router
     ) {}
 
     ngOnInit() {
@@ -105,5 +107,13 @@ export class SettingsComponent implements OnInit {
             login: account.login,
             imageUrl: account.imageUrl
         };
+    }
+
+    payPremium() {
+        this.router.navigate(['paypal-payments/premium']);
+    }
+
+    paySponsor() {
+        this.router.navigate(['paypal-payments/sponsor']);
     }
 }
