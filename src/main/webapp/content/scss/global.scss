@@ -4,9 +4,6 @@
 /* ==============================================================
 Bootstrap tweaks
 ===============================================================*/
-body {
-    margin-bottom: 50px;
-}
 
 body,
 h1,
@@ -18,14 +15,8 @@ h4 {
     line-height: 1.5em;
 }
 
-.card,
-.jh-card {
-    min-height: 100vh;
-}
-
 a {
     color: #ffba58;
-
     line-height: 1.5em;
 }
 
@@ -67,6 +58,7 @@ Generic styles
     padding: 1.5%;
     margin-top: 20px;
     border: none;
+    min-height: 100vh;
 }
 
 .error {
