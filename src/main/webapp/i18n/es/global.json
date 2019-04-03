@@ -14,7 +14,9 @@
                 "sponsorship": "Patrocinadores",
                 "promotion": "Promociones",
                 "paypalCompletedPayments": "Paypal Completed Payments",
-                "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
+                "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)",
+                "sponsor": "Actualizar a Patrocinador",
+                "premium": "Actualizar a Premium"
             },
             "account": {
                 "main": "Cuenta",
