@@ -79,6 +79,12 @@
                     </select>
                 </div>
                 <button type="submit" [disabled]="settingsForm.form.invalid" class="btn btn-primary" jhiTranslate="settings.form.button">Save</button>
+                <button type="submit" (click)="payPremium()" class="btn btn-sm btn-danger">
+                    <span>Premium</span>
+                </button>
+                <button type="submit" (click)="paySponsor()" class="btn btn-sm btn-danger">
+                    <span>Sponsor</span>
+                </button>
             </form>
         </div>
     </div>

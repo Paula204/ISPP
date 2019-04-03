@@ -3,9 +3,10 @@ import { IPaypalCompletedPayments } from 'app/shared/model/paypal-completed-paym
 import { PaypalCompletedPayments } from 'app/shared/model/paypal-completed-payments.model';
 import { PaypalCompletedPaymentsService } from 'app/entities/paypal-completed-payments/paypal-completed-payments.service';
 import { AccountService } from 'app/core/auth/account.service';
-import { IUser, UserService } from 'app/core';
+import { IUser, User, UserService } from 'app/core';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
 
 declare let paypal: any;
@@ -23,11 +24,26 @@ export class PaypalPaymentsComponent implements OnInit, AfterViewChecked {
     addScript = false;
     paypalLoad = true;
 
-    constructor(protected paypalCompletedPaymentsService: PaypalCompletedPaymentsService, protected accountService: AccountService) {
+    currentUser: User;
+
+    route: string;
+
+    constructor(
+        protected paypalCompletedPaymentsService: PaypalCompletedPaymentsService,
+        protected accountService: AccountService,
+        protected activatedRoute: ActivatedRoute
+    ) {
         this.message = 'PaypalPaymentsComponent message';
+        console.log('==================================');
+        let url = activatedRoute.snapshot.url.length;
+        this.route = activatedRoute.snapshot.url[url - 1].toString();
     }
 
-    ngOnInit() {}
+    ngOnInit() {
+        this.accountService.identity().then(account => {
+            this.currentUser = account;
+        });
+    }
 
     ngAfterViewChecked() {
         if (!this.addScript) {
@@ -69,6 +85,12 @@ export class PaypalPaymentsComponent implements OnInit, AfterViewChecked {
                                         }
                                         _this.subscribeToSaveResponse(_this.paypalCompletedPaymentsService.create(_this.paypalPayment));
                                     });
+                                if (_this.route === 'premium') {
+                                    _this.upgradePremium();
+                                }
+                                if (_this.route === 'sponsor') {
+                                    _this.upgradeSponsor();
+                                }
                             });
                         }
                     })
@@ -106,5 +128,29 @@ export class PaypalPaymentsComponent implements OnInit, AfterViewChecked {
     protected onSaveError() {
         this.isSaving = false;
         console.log('Fail to create payment entity.');
+    }
+
+    upgradePremium() {
+        this.currentUser.authorities.push('ROLE_PREMIUM');
+        this.accountService.upgradePremium(this.currentUser).subscribe(
+            () => {
+                this.onSaveSuccess();
+            },
+            () => {
+                this.onSaveError();
+            }
+        );
+    }
+
+    upgradeSponsor() {
+        this.currentUser.authorities.push('ROLE_SPONSOR');
+        this.accountService.upgradeSponsor(this.currentUser).subscribe(
+            () => {
+                this.onSaveSuccess();
+            },
+            () => {
+                this.onSaveError();
+            }
+        );
     }
 }
