@@ -36,7 +36,7 @@ export class PaypalPaymentsComponent implements OnInit, AfterViewChecked {
     ) {
         this.message = 'PaypalPaymentsComponent message';
         console.log('==================================');
-        let res = activatedRoute.snapshot.url.length;
+        const res = activatedRoute.snapshot.url.length;
         this.route = activatedRoute.snapshot.url[res - 1].toString();
     }
 
