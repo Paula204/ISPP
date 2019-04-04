@@ -27,6 +27,7 @@ export class PaypalPaymentsComponent implements OnInit, AfterViewChecked {
     currentUser: User;
 
     route: string;
+    amount: number;
 
     constructor(
         protected paypalCompletedPaymentsService: PaypalCompletedPaymentsService,
@@ -35,8 +36,8 @@ export class PaypalPaymentsComponent implements OnInit, AfterViewChecked {
     ) {
         this.message = 'PaypalPaymentsComponent message';
         console.log('==================================');
-        let url = activatedRoute.snapshot.url.length;
-        this.route = activatedRoute.snapshot.url[url - 1].toString();
+        let res = activatedRoute.snapshot.url.length;
+        this.route = activatedRoute.snapshot.url[res - 1].toString();
     }
 
     ngOnInit() {
@@ -49,6 +50,12 @@ export class PaypalPaymentsComponent implements OnInit, AfterViewChecked {
         if (!this.addScript) {
             this.addPaypalScript().then(() => {
                 const _this = this;
+                if (_this.route === 'premium') {
+                    _this.amount = 11.22;
+                }
+                if (_this.route === 'sponsor') {
+                    _this.amount = 22.45;
+                }
                 paypal
                     .Buttons({
                         createOrder(data, actions) {
@@ -56,7 +63,7 @@ export class PaypalPaymentsComponent implements OnInit, AfterViewChecked {
                                 purchase_units: [
                                     {
                                         amount: {
-                                            value: '0.10'
+                                            value: _this.amount
                                         }
                                     }
                                 ]
