@@ -30,5 +30,14 @@ export const PAYPAL_PAYMENTS_ROUTE: Routes = [
             pageTitle: 'paypal-payments.premium'
         },
         canActivate: [UserRouteAccessService]
+    },
+    {
+        path: 'paypal-payments/inscribeTorneo',
+        component: PaypalPaymentsComponent,
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'paypal-payments.inscribeTorneo'
+        },
+        canActivate: [UserRouteAccessService]
     }
 ];
