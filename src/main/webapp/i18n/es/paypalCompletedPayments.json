@@ -2,28 +2,28 @@
     "thorneoApp": {
         "paypalCompletedPayments": {
             "home": {
-                "title": "Paypal Completed Payments",
-                "createLabel": "Crear nuevo Paypal Completed Payments",
-                "createOrEditLabel": "Crear o editar Paypal Completed Payments",
-                "search": "Search for Paypal Completed Payments"
+                "title": "Pagos con Paypal Completados",
+                "createLabel": "Crear nuevo Pago Completado con PayPal",
+                "createOrEditLabel": "Crear o editar Pago Completado con PayPal",
+                "search": "Buscar un pago completado con PayPal"
             },
-            "created": "Un nuevo Paypal Completed Payments ha sido creado con el identificador {{ param }}",
-            "updated": "Un Paypal Completed Payments ha sido actualizado con el identificador {{ param }}",
-            "deleted": "Un Paypal Completed Payments ha sido eliminado con el identificador {{ param }}",
+            "created": "Un nuevo Pago Completado con PayPal ha sido creado con el identificador {{ param }}",
+            "updated": "Un Pago Completado con PayPal ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Pago Completado con PayPal ha sido eliminado con el identificador {{ param }}",
             "delete": {
-                "question": "¿Seguro que quiere eliminar Paypal Completed Payments {{ id }}?"
+                "question": "¿Seguro que quiere eliminar Pago Completado con PayPal {{ id }}?"
             },
             "detail": {
-                "title": "Paypal Completed Payments"
+                "title": "Pago Completado con PayPal"
             },
-            "date": "Date",
-            "idPayment": "Id Payment",
-            "currency": "Currency",
-            "amount": "Amount",
+            "date": "Fecha",
+            "idPayment": "Id Pago",
+            "currency": "Divisa",
+            "amount": "Cantidad",
             "email": "Email",
-            "name": "Name",
-            "status": "Status",
-            "user": "User"
+            "name": "Nombre",
+            "status": "Estado",
+            "user": "Usuario"
         }
     }
 }
