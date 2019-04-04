@@ -15,7 +15,9 @@
                 "sponsorship": "Sponsorship",
                 "promotion": "Promotion",
                 "paypalCompletedPayments": "Paypal Completed Payments",
-                "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
+                "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)",
+                "sponsor": "Upgrade to Sponsor",
+                "premium": "Upgrade to Premium"
             },
             "account": {
                 "main": "Account",
