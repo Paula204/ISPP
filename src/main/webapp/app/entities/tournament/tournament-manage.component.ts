@@ -8,6 +8,8 @@ import { Observable } from 'rxjs';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { JhiAlertService } from 'ng-jhipster';
 import { Account, AccountService } from 'app/core';
+import * as $ from 'jquery';
+//import * as bracket from "jquery-bracket";
 
 @Component({
     selector: 'jhi-tournament-manage',
@@ -37,6 +39,10 @@ export class TournamentManageComponent implements OnInit {
             this.currentAccount = account;
         });
         this.currentDate = new Date();
+
+        $(function() {
+            alert('Hello');
+        });
     }
 
     previousState() {
