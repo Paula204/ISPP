@@ -8,6 +8,8 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
+import { TournamentService } from 'app/entities/tournament';
+import { Tournament } from 'app/shared/model/tournament.model';
 
 declare let paypal: any;
 
@@ -27,13 +29,22 @@ export class PaypalPaymentsComponent implements OnInit, AfterViewChecked {
     currentUser: User;
 
     route: string;
+
+    idTorneo: number;
+    torneo: Tournament;
     amount: number;
+
 
     constructor(
         protected paypalCompletedPaymentsService: PaypalCompletedPaymentsService,
         protected accountService: AccountService,
-        protected activatedRoute: ActivatedRoute
+        protected activatedRoute: ActivatedRoute,
+        protected tournamentService: TournamentService
     ) {
+        this.activatedRoute.queryParams.subscribe(params => {
+            this.idTorneo = params['idTorneo'];
+            alert(this.idTorneo);
+        });
         this.message = 'PaypalPaymentsComponent message';
         console.log('==================================');
         const res = activatedRoute.snapshot.url.length;
@@ -98,6 +109,9 @@ export class PaypalPaymentsComponent implements OnInit, AfterViewChecked {
                                 if (_this.route === 'sponsor') {
                                     _this.upgradeSponsor();
                                 }
+                                if (_this.route === 'inscribeTorneo') {
+                                    _this.upgradeThorneo();
+                                }
                             });
                         }
                     })
@@ -159,5 +173,14 @@ export class PaypalPaymentsComponent implements OnInit, AfterViewChecked {
                 this.onSaveError();
             }
         );
+    }
+
+    upgradeThorneo() {
+        console.log(this.idTorneo);
+        if (this.torneo.participations === null) {
+            this.torneo.participations = [];
+        }
+        alert(this.torneo.title);
+        this.subscribeToSaveResponse(this.tournamentService.signOn(this.torneo));
     }
 }
