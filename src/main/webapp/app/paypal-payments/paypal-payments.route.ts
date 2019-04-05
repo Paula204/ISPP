@@ -32,7 +32,7 @@ export const PAYPAL_PAYMENTS_ROUTE: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: 'paypal-payments/inscribeTorneo',
+        path: 'paypal-payments/inscribeTorneo/:idTorneo',
         component: PaypalPaymentsComponent,
         data: {
             authorities: ['ROLE_USER'],
