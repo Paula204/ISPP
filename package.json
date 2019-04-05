@@ -8,6 +8,7 @@
         "node_modules"
     ],
     "dependencies": {
+        "@agm/core": "^1.0.0-beta.5",
         "@angular/common": "7.2.2",
         "@angular/compiler": "7.2.2",
         "@angular/core": "7.2.2",
@@ -23,6 +24,7 @@
         "@ngx-translate/http-loader": "4.0.0",
         "angularx-qrcode": "^1.5.3",
         "bootstrap": "4.2.1",
+        "braintree-web": "^3.44.0",
         "core-js": "2.6.3",
         "moment": "2.24.0",
         "ng-jhipster": "0.9.1",

@@ -1,5 +1,6 @@
 {
     "global": {
+        "payment": "Paypal Payments",
         "title": "Thorneo",
         "browsehappy": "You are using an <strong>outdated</strong> browser. Please <a href=\"http://browsehappy.com/?locale=en\">upgrade your browser</a> to improve your experience.",
         "menu": {
@@ -13,7 +14,10 @@
                 "participation": "My Participations",
                 "sponsorship": "Sponsorship",
                 "promotion": "Promotion",
-                "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
+                "paypalCompletedPayments": "Paypal Completed Payments",
+                "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)",
+                "sponsor": "Upgrade to Sponsor",
+                "premium": "Upgrade to Premium"
             },
             "account": {
                 "main": "Account",
@@ -145,5 +149,5 @@
         "idsame": "You're registered on this tournament",
         "idManager": "You're the manager of this tournament"
     },
-    "footer": "This is your footer"
+    "footer": "ThorneoDevs"
 }

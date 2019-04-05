@@ -1,5 +1,6 @@
 {
     "global": {
+        "payment": "Pago con Paypal",
         "title": "Thorneo",
         "browsehappy": "Está usando un navegador <strong>no actualizado</strong>. Por favor, <a href=\"http://browsehappy.com/?locale=en\">actualice su navegador</a> para mejorar su experiencia.",
         "menu": {
@@ -13,7 +14,10 @@
                 "participation": "Mis Participaciones",
                 "sponsorship": "Patrocinadores",
                 "promotion": "Promociones",
-                "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
+                "paypalCompletedPayments": "Pago Completado con PayPal",
+                "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)",
+                "sponsor": "Actualizar a Patrocinador",
+                "premium": "Actualizar a Premium"
             },
             "account": {
                 "main": "Cuenta",
@@ -42,8 +46,8 @@
         "form": {
             "username": "Usuario",
             "username.placeholder": "Nombre de usuario",
-            "currentpassword": "Current password",
-            "currentpassword.placeholder": "Current password",
+            "currentpassword": "Contraseña actual",
+            "currentpassword.placeholder": "Contraseña actual",
             "newpassword": "Nueva contraseña",
             "newpassword.placeholder": "Nueva contraseña",
             "confirmpassword": "Confirmación de la nueva contraseña",
@@ -143,5 +147,5 @@
         "idsame": "Estás registrado en este torneo",
         "idManager": "Eres el creador de este torneo"
     },
-    "footer": "pie de página"
+    "footer": "ThorneoDevs"
 }
