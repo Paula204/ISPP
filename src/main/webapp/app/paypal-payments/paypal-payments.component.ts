@@ -61,11 +61,11 @@ export class PaypalPaymentsComponent implements OnInit, AfterViewChecked {
         if (!this.addScript) {
             this.addPaypalScript().then(() => {
                 const _this = this;
-                if (_this.route === 'premium') {
-                    _this.amount = 11.22;
-                }
+
                 if (_this.route === 'sponsor') {
                     _this.amount = 22.45;
+                } else if (_this.route === 'premium') {
+                    _this.amount = 11.22;
                 } else {
                     _this.amount = _this.torneo.price;
                 }
