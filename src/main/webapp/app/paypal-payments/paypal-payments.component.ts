@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
 import { TournamentService } from 'app/entities/tournament';
-import { Tournament } from 'app/shared/model/tournament.model';
+import { ITournament, Tournament } from 'app/shared/model/tournament.model';
 
 declare let paypal: any;
 
@@ -20,21 +20,15 @@ declare let paypal: any;
 })
 export class PaypalPaymentsComponent implements OnInit, AfterViewChecked {
     paypalPayment: IPaypalCompletedPayments = new PaypalCompletedPayments(null, moment(), '', '', 1, '', '', '');
-
     message: string;
     isSaving: boolean;
     addScript = false;
     paypalLoad = true;
-
     currentUser: User;
-
     route: string;
-
     idTorneo: number;
     torneo: Tournament;
     amount: number;
-
-
     constructor(
         protected paypalCompletedPaymentsService: PaypalCompletedPaymentsService,
         protected accountService: AccountService,
@@ -55,6 +49,12 @@ export class PaypalPaymentsComponent implements OnInit, AfterViewChecked {
         this.accountService.identity().then(account => {
             this.currentUser = account;
         });
+        if (this.route !== 'premium' && this.route !== 'sponsor') {
+            const torneos = this.tournamentService.find(+this.route);
+            torneos.subscribe((tournament: HttpResponse<ITournament>) => {
+                this.torneo = tournament.body;
+            });
+        }
     }
 
     ngAfterViewChecked() {
@@ -66,6 +66,8 @@ export class PaypalPaymentsComponent implements OnInit, AfterViewChecked {
                 }
                 if (_this.route === 'sponsor') {
                     _this.amount = 22.45;
+                } else {
+                    _this.amount = _this.torneo.price;
                 }
                 paypal
                     .Buttons({
@@ -108,8 +110,7 @@ export class PaypalPaymentsComponent implements OnInit, AfterViewChecked {
                                 }
                                 if (_this.route === 'sponsor') {
                                     _this.upgradeSponsor();
-                                }
-                                if (_this.route === 'inscribeTorneo') {
+                                } else {
                                     _this.upgradeThorneo();
                                 }
                             });

@@ -62,7 +62,7 @@ export class TournamentDetailComponent implements OnInit {
             this.tournament.participations = [];
         }
 
-        this.router.navigate(['paypal-payments/inscribeTorneo?idTorneo=' + this.tournament.id]);
+        this.router.navigate(['paypal-payments/inscribeTorneo' + this.tournament.id]);
     }
 
     close() {
