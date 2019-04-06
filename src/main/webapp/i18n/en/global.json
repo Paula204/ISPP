@@ -26,7 +26,8 @@
                 "sessions": "Sessions",
                 "login": "Sign in",
                 "logout": "Sign out",
-                "register": "Register"
+                "register": "Register",
+                "upgrade": "Upgrade account"
             },
             "admin": {
                 "main": "Administration",
