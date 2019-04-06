@@ -5,7 +5,8 @@
                 <h1 class="text-lg-center text-white text-center align-self-center">Free</h1>
             </div>
             <div class="card-body">
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <p class="card-text" jhiTranslate="upgradeUser.free.ads">Ads</p>
+                <p class="card-text" jhiTranslate="upgradeUser.free.percentage">Commission</p>
             </div>
         </div>
         <div class="card col-sm-3 p-0 mx-1">
@@ -13,7 +14,8 @@
                 <h1 class="text-lg-center text-white text-center align-self-center">Premium</h1>
             </div>
             <div class="card-body">
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <p class="card-text" jhiTranslate="upgradeUser.premium.noAds">No Ads</p>
+                <p class="card-text" jhiTranslate="upgradeUser.premium.noPercentage">No commission</p>
                 <button type="submit" (click)="payPremium()" class="btn btn-success">
                     <span jhiTranslate="global.menu.entities.premium">Premium</span>
                 </button>
@@ -24,7 +26,9 @@
                 <h1 class="text-lg-center text-white text-center align-self-center">Sponsor</h1>
             </div>
             <div class="card-body">
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <p class="card-text" jhiTranslate="upgradeUser.sponsor.benefits">Premium benefits</p>
+                <p class="card-text" jhiTranslate="upgradeUser.sponsor.announcement">Ads in our page</p>
+                <p class="card-text" jhiTranslate="upgradeUser.sponsor.social">Ads on our social networks</p>
                 <button type="submit" (click)="paySponsor()" class="btn btn-primary border-0" style="background-color: #7841e9 !important;">
                     <span jhiTranslate="global.menu.entities.sponsor">Sponsor</span>
                 </button>
