@@ -8,6 +8,8 @@ import { Observable } from 'rxjs';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { JhiAlertService } from 'ng-jhipster';
 import { Account, AccountService } from 'app/core';
+import { IParticipation, Participation } from 'app/shared/model/participation.model';
+import { templateSourceUrl } from '@angular/compiler';
 // import * as $ from 'jquery';
 declare let $: any;
 
@@ -22,6 +24,9 @@ export class TournamentManageComponent implements OnInit {
     currentDate: Date;
 
     isSaving: boolean;
+    p: IParticipation[];
+    i: number;
+    l: number;
 
     constructor(
         protected jhiAlertService: JhiAlertService,
@@ -39,9 +44,31 @@ export class TournamentManageComponent implements OnInit {
             this.currentAccount = account;
         });
         this.currentDate = new Date();
+        /* teams = [];
+        integer i = 1;
+        for Participation p : this.tournament.participations{
+            if i %2 !=0
+            templateSourceUrl.add([])
+        } */
+        // this.p = this.tournament.participations[X];
+        this.p = this.tournament.participations;
+        let par: IParticipation;
+        const teamsP = [];
+
+        if (this.p.length % 2 !== 0) {
+            this.p.push(null);
+        }
+        this.l = this.p.length;
+        for (this.i = 0; this.i < this.l - 1; this.i++) {
+            if (this.i % 2 === 0) {
+                if (this.p[this.i + 1] === null) teamsP.push([this.p[this.i].user.login, null]);
+                else teamsP.push([this.p[this.i].user.login, this.p[this.i + 1].user.login]);
+            }
+        }
         const saveData = {
-            teams: [['Team 1', 'Team 2'], ['Team 3', null], ['Team 4', null], ['Team 5', null]],
-            results: [[[[1, 0], [null, null], [null, null], [null, null]], [[null, null], [1, 4]], [[null, null], [null, null]]]]
+            teams: teamsP,
+            // [['', 'Team 2'], ['Team 3', null], ['Team 4', null], ['Team 5', null]],
+            results: [[[null, null], [null, null]], [[null, null]]]
         };
         /* Called whenever bracket is modified
          *
