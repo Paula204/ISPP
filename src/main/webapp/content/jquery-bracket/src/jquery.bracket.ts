@@ -1111,7 +1111,7 @@
                         }
 
                         span.unbind();
-                        opts.decorator.edit(span, team.name.toNull(), done_fn);
+                        opts.decorator.edit($(this), team.name.toNull(), done_fn);
                     }
 
                     editor();
@@ -1160,12 +1160,12 @@
                             if ((!val || !isNumber(val)) && !isNumber(team.score)) {
                                 val = '0';
                             } else if ((!val || !isNumber(val)) && isNumber(team.score)) {
-                                val = team.score;
+                                val = team.score.get();
                             }
 
-                            span.html(val);
+                            span.html(val.toString());
                             if (isNumber(val)) {
-                                team.score = Score.of(parseInt(val, 10));
+                                team.score = Score.of(parseInt(val.toString(), 10));
                                 renderAll(true);
                             }
                             span.click(editor);
@@ -1627,7 +1627,7 @@
             if (opts.decorator && (!opts.decorator.edit || !opts.decorator.render)) {
                 throw Error('Invalid decorator input');
             } else if (!opts.decorator) {
-                opts.decorator = { edit: defaultEdit, render: defaultRender };
+                opts.decorator = { edit: defaultEdit, render: defaultRender.arguments };
             }
 
             if (!opts.init) {
@@ -1671,7 +1671,7 @@
 
             /* wrap data to into necessary arrays */
             const r = wrap(opts.init.results, 4 - depth(opts.init.results));
-            opts.init.results = wrapResults(r);
+            opts.init.results = r;
 
             assertNumber(opts, 'teamWidth');
             assertNumber(opts, 'scoreWidth');
