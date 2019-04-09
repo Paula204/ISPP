@@ -4,8 +4,57 @@
 /* ==============================================================
 Bootstrap tweaks
 ===============================================================*/
-body {
-    margin-bottom: 50px;
+.hidden-bracket {
+    display: none !important;
+}
+
+.bracket {
+    position: relative;
+    display: flex;
+    height: 100%;
+    padding-top: 38px;
+}
+.bracket:before {
+    position: absolute;
+    content: '';
+    width: 50%;
+    height: 2px;
+    top: 38px;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    background-color: black;
+}
+.bracket li {
+    list-style-type: none;
+    position: relative;
+    width: 50%;
+    flex: 1;
+    height: 100%;
+    padding-top: 8px;
+    /* border: 1px solid black */
+    text-align: center;
+}
+.bracket li:before {
+    position: absolute;
+    content: '';
+    width: 2px;
+    height: 9px;
+    top: 0;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    background-color: black;
+}
+.bracket li.winner {
+    position: absolute;
+    top: 0;
+    left: -1px;
+    height: 30px;
+    width: 100%;
+}
+.bracket li.winner:before {
+    top: 30px;
 }
 
 body,
@@ -18,14 +67,8 @@ h4 {
     line-height: 1.5em;
 }
 
-.card,
-.jh-card {
-    min-height: 100vh;
-}
-
 a {
     color: #ffba58;
-
     line-height: 1.5em;
 }
 
@@ -67,6 +110,7 @@ Generic styles
     padding: 1.5%;
     margin-top: 20px;
     border: none;
+    min-height: 100vh;
 }
 
 .error {
@@ -344,7 +388,6 @@ ui bootstrap tweaks
 }
 .texto p {
     margin: 0;
-    display: inline;
 }
 .bold {
     font-weight: bold;

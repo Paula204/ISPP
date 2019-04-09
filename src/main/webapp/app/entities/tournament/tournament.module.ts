@@ -13,7 +13,8 @@ import {
     TournamentDeletePopupComponent,
     TournamentDeleteDialogComponent,
     tournamentRoute,
-    tournamentPopupRoute
+    tournamentPopupRoute,
+    TournamentManageComponent //
 } from './';
 
 const ENTITY_STATES = [...tournamentRoute, ...tournamentPopupRoute];
@@ -26,7 +27,8 @@ const ENTITY_STATES = [...tournamentRoute, ...tournamentPopupRoute];
         TournamentDetailComponent,
         TournamentUpdateComponent,
         TournamentDeleteDialogComponent,
-        TournamentDeletePopupComponent
+        TournamentDeletePopupComponent,
+        TournamentManageComponent //
     ],
     entryComponents: [
         TournamentComponent,

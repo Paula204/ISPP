@@ -110,7 +110,8 @@
             "save": "Save",
             "view": "View",
             "signOn": "Sign On",
-            "close": "Close"
+            "close": "Close",
+            "manage": "Manage"
         },
         "detail": {
             "field": "Field",
