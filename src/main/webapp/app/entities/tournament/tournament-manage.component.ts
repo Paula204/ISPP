@@ -27,6 +27,7 @@ export class TournamentManageComponent implements OnInit {
     p: IParticipation[];
     i: number;
     l: number;
+    participation: Participation;
 
     constructor(
         protected jhiAlertService: JhiAlertService,
@@ -52,17 +53,20 @@ export class TournamentManageComponent implements OnInit {
         } */
         // this.p = this.tournament.participations[X];
         this.p = this.tournament.participations;
-        let par: IParticipation;
         const teamsP = [];
 
-        if (this.p.length % 2 !== 0) {
-            this.p.push(null);
+        if (this.p.length % 8 !== 0) {
+            const participationPrueba = null;
+            this.p.push(participationPrueba);
         }
         this.l = this.p.length;
         for (this.i = 0; this.i < this.l - 1; this.i++) {
             if (this.i % 2 === 0) {
-                if (this.p[this.i + 1] === null) teamsP.push([this.p[this.i].user.login, null]);
-                else teamsP.push([this.p[this.i].user.login, this.p[this.i + 1].user.login]);
+                if (this.p[this.i + 1] === null) {
+                    teamsP.push([this.p[this.i].user.login, null]);
+                } else {
+                    teamsP.push([this.p[this.i].user.login, this.p[this.i + 1].user.login]);
+                }
             }
         }
         const saveData = {
