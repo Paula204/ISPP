@@ -8,6 +8,7 @@ import { filter, map } from 'rxjs/operators';
 import { Tournament } from 'app/shared/model/tournament.model';
 import { TournamentService } from './tournament.service';
 import { TournamentComponent } from './tournament.component';
+import { TournamentMyComponent } from './tournament-my.component';
 import { TournamentDetailComponent } from './tournament-detail.component';
 import { TournamentUpdateComponent } from './tournament-update.component';
 import { TournamentDeletePopupComponent } from './tournament-delete-dialog.component';
@@ -37,9 +38,22 @@ export const tournamentRoute: Routes = [
             pagingParams: JhiResolvePagingParams
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_USER', 'ROLE_ADMIN'],
             defaultSort: 'id,asc',
             pageTitle: 'thorneoApp.tournament.home.title'
+        },
+        canActivate: [UserRouteAccessService]
+    },
+    {
+        path: 'my',
+        component: TournamentMyComponent,
+        resolve: {
+            pagingParams: JhiResolvePagingParams
+        },
+        data: {
+            authorities: ['ROLE_USER', 'ROLE_ADMIN'],
+            defaultSort: 'id,asc',
+            pageTitle: 'thorneoApp.tournament.home.title2'
         },
         canActivate: [UserRouteAccessService]
     },
@@ -50,7 +64,7 @@ export const tournamentRoute: Routes = [
             tournament: TournamentResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_USER', 'ROLE_ADMIN'],
             pageTitle: 'thorneoApp.tournament.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -62,7 +76,7 @@ export const tournamentRoute: Routes = [
             tournament: TournamentResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_USER', 'ROLE_ADMIN'],
             pageTitle: 'thorneoApp.tournament.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -74,7 +88,7 @@ export const tournamentRoute: Routes = [
             tournament: TournamentResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_USER', 'ROLE_ADMIN'],
             pageTitle: 'thorneoApp.tournament.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -89,7 +103,7 @@ export const tournamentPopupRoute: Routes = [
             tournament: TournamentResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_USER', 'ROLE_ADMIN'],
             pageTitle: 'thorneoApp.tournament.home.title'
         },
         canActivate: [UserRouteAccessService],

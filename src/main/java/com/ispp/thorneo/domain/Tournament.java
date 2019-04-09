@@ -64,7 +64,6 @@ public class Tournament implements Serializable {
     @Column(name = "rewards")
     private String rewards;
 
-    @NotNull
     @Column(name = "image_url", nullable = false)
     private String imageUrl;
 
@@ -85,7 +84,11 @@ public class Tournament implements Serializable {
     @Column(name = "imagen_content_type")
     private String imagenContentType;
 
-    @OneToMany(mappedBy = "tournament")
+    @Column(name = "state")
+    private String state;
+
+    @NotNull
+    @OneToMany(mappedBy = "tournament", fetch = FetchType.EAGER, orphanRemoval = true)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Participation> participations = new HashSet<>();
     @ManyToOne
@@ -287,6 +290,19 @@ public class Tournament implements Serializable {
         this.imagenContentType = imagenContentType;
     }
 
+    public String getState() {
+        return state;
+    }
+
+    public Tournament state(String state) {
+        this.state = state;
+        return this;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
     public Set<Participation> getParticipations() {
         return participations;
     }
@@ -377,6 +393,7 @@ public class Tournament implements Serializable {
             ", type='" + getType() + "'" +
             ", imagen='" + getImagen() + "'" +
             ", imagenContentType='" + getImagenContentType() + "'" +
+            ", state='" + getState() + "'" +
             "}";
     }
 }

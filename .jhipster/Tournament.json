@@ -108,6 +108,10 @@
             "fieldType": "byte[]",
             "fieldTypeBlobContent": "image",
             "fieldValidateRules": []
+        },
+        {
+            "fieldName": "state",
+            "fieldType": "String"
         }
     ],
     "changelogDate": "20190322214120",

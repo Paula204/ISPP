@@ -93,6 +93,9 @@ public class TournamentResourceIntTest {
     private static final String DEFAULT_IMAGEN_CONTENT_TYPE = "image/jpg";
     private static final String UPDATED_IMAGEN_CONTENT_TYPE = "image/png";
 
+    private static final String DEFAULT_STATE = "AAAAAAAAAA";
+    private static final String UPDATED_STATE = "BBBBBBBBBB";
+
     @Autowired
     private TournamentRepository tournamentRepository;
 
@@ -159,7 +162,8 @@ public class TournamentResourceIntTest {
             .longitude(DEFAULT_LONGITUDE)
             .type(DEFAULT_TYPE)
             .imagen(DEFAULT_IMAGEN)
-            .imagenContentType(DEFAULT_IMAGEN_CONTENT_TYPE);
+            .imagenContentType(DEFAULT_IMAGEN_CONTENT_TYPE)
+            .state(DEFAULT_STATE);
         // Add required entity
         Participation participation = ParticipationResourceIntTest.createEntity(em);
         em.persist(participation);
@@ -202,6 +206,7 @@ public class TournamentResourceIntTest {
         assertThat(testTournament.getType()).isEqualTo(DEFAULT_TYPE);
         assertThat(testTournament.getImagen()).isEqualTo(DEFAULT_IMAGEN);
         assertThat(testTournament.getImagenContentType()).isEqualTo(DEFAULT_IMAGEN_CONTENT_TYPE);
+        assertThat(testTournament.getState()).isEqualTo(DEFAULT_STATE);
 
         // Validate the Tournament in Elasticsearch
         verify(mockTournamentSearchRepository, times(1)).save(testTournament);
@@ -361,7 +366,8 @@ public class TournamentResourceIntTest {
             .andExpect(jsonPath("$.[*].longitude").value(hasItem(DEFAULT_LONGITUDE.intValue())))
             .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE.toString())))
             .andExpect(jsonPath("$.[*].imagenContentType").value(hasItem(DEFAULT_IMAGEN_CONTENT_TYPE)))
-            .andExpect(jsonPath("$.[*].imagen").value(hasItem(Base64Utils.encodeToString(DEFAULT_IMAGEN))));
+            .andExpect(jsonPath("$.[*].imagen").value(hasItem(Base64Utils.encodeToString(DEFAULT_IMAGEN))))
+            .andExpect(jsonPath("$.[*].state").value(hasItem(DEFAULT_STATE.toString())));
     }
     
     @Test
@@ -388,7 +394,8 @@ public class TournamentResourceIntTest {
             .andExpect(jsonPath("$.longitude").value(DEFAULT_LONGITUDE.intValue()))
             .andExpect(jsonPath("$.type").value(DEFAULT_TYPE.toString()))
             .andExpect(jsonPath("$.imagenContentType").value(DEFAULT_IMAGEN_CONTENT_TYPE))
-            .andExpect(jsonPath("$.imagen").value(Base64Utils.encodeToString(DEFAULT_IMAGEN)));
+            .andExpect(jsonPath("$.imagen").value(Base64Utils.encodeToString(DEFAULT_IMAGEN)))
+            .andExpect(jsonPath("$.state").value(DEFAULT_STATE.toString()));
     }
 
     @Test
@@ -427,7 +434,8 @@ public class TournamentResourceIntTest {
             .longitude(UPDATED_LONGITUDE)
             .type(UPDATED_TYPE)
             .imagen(UPDATED_IMAGEN)
-            .imagenContentType(UPDATED_IMAGEN_CONTENT_TYPE);
+            .imagenContentType(UPDATED_IMAGEN_CONTENT_TYPE)
+            .state(UPDATED_STATE);
 
         restTournamentMockMvc.perform(put("/api/tournaments")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -452,6 +460,7 @@ public class TournamentResourceIntTest {
         assertThat(testTournament.getType()).isEqualTo(UPDATED_TYPE);
         assertThat(testTournament.getImagen()).isEqualTo(UPDATED_IMAGEN);
         assertThat(testTournament.getImagenContentType()).isEqualTo(UPDATED_IMAGEN_CONTENT_TYPE);
+        assertThat(testTournament.getState()).isEqualTo(UPDATED_STATE);
 
         // Validate the Tournament in Elasticsearch
         verify(mockTournamentSearchRepository, times(1)).save(testTournament);
@@ -524,7 +533,8 @@ public class TournamentResourceIntTest {
             .andExpect(jsonPath("$.[*].longitude").value(hasItem(DEFAULT_LONGITUDE.intValue())))
             .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE.toString())))
             .andExpect(jsonPath("$.[*].imagenContentType").value(hasItem(DEFAULT_IMAGEN_CONTENT_TYPE)))
-            .andExpect(jsonPath("$.[*].imagen").value(hasItem(Base64Utils.encodeToString(DEFAULT_IMAGEN))));
+            .andExpect(jsonPath("$.[*].imagen").value(hasItem(Base64Utils.encodeToString(DEFAULT_IMAGEN))))
+            .andExpect(jsonPath("$.[*].state").value(hasItem(DEFAULT_STATE)));
     }
 
     @Test

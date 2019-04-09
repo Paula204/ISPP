@@ -29,9 +29,14 @@
             "longitude": "Longitude",
             "type": "Type",
             "imagen": "Imagen",
+            "state": "State",
             "participation": "Participation",
             "user": "User",
-            "game": "Game"
+            "game": "Game",
+            "winner": "Winner",
+            "win": "Win",
+            "tie": "Tie",
+            "disqualify": "Disqualify"
         }
     }
 }

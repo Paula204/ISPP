@@ -2,36 +2,42 @@
     "thorneoApp": {
         "tournament": {
             "home": {
-                "title": "Tournaments",
-                "createLabel": "Crear nuevo Tournament",
-                "createOrEditLabel": "Crear o editar Tournament",
-                "search": "Search for Tournament"
+                "title2": "Mis Torneos",
+                "title": "Tourneo",
+                "createLabel": "Crear nuevo Torneo",
+                "createOrEditLabel": "Crear o editar Torneo",
+                "search": "Buscar un torneo"
             },
-            "created": "Un nuevo Tournament ha sido creado con el identificador {{ param }}",
-            "updated": "Un Tournament ha sido actualizado con el identificador {{ param }}",
-            "deleted": "Un Tournament ha sido eliminado con el identificador {{ param }}",
+            "created": "Un nuevo Tournament ha sido creado",
+            "updated": "Un Tournament ha sido actualizado",
+            "deleted": "Un Tournament ha sido eliminado",
             "delete": {
-                "question": "¿Seguro que quiere eliminar Tournament {{ id }}?"
+                "question": "¿Seguro que quiere eliminar Tournament?"
             },
             "detail": {
                 "title": "Tournament"
             },
-            "title": "Title",
-            "description": "Description",
-            "meetingDate": "Meeting Date",
-            "meetingPoint": "Meeting Point",
-            "city": "City",
-            "price": "Price",
-            "playerSize": "Player Size",
-            "rewards": "Rewards",
-            "imageUrl": "Image Url",
-            "latitude": "Latitude",
-            "longitude": "Longitude",
-            "type": "Type",
+            "title": "Título",
+            "description": "Descripción",
+            "meetingDate": "Fecha del evento",
+            "meetingPoint": "Punto de encuentro",
+            "city": "Ciudad",
+            "price": "Precio",
+            "playerSize": "Capacidad del torneo",
+            "rewards": "Premios",
+            "imageUrl": "Url",
+            "latitude": "Latitud",
+            "longitude": "Longitud",
+            "type": "Tipo",
             "imagen": "Imagen",
-            "participation": "Participation",
-            "user": "User",
-            "game": "Game"
+            "state": "Estado",
+            "participation": "Participantes",
+            "user": "Usuario",
+            "game": "Juego",
+            "winner": "Ganador",
+            "win": "Ganador",
+            "tie": "Empate",
+            "disqualify": "Descalificar"
         }
     }
 }

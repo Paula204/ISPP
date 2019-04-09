@@ -1,11 +1,11 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import * as moment from 'moment';
 import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
-import { JhiAlertService, JhiDataUtils } from 'ng-jhipster';
+import { JhiAlertService } from 'ng-jhipster';
 import { ITournament } from 'app/shared/model/tournament.model';
 import { TournamentService } from './tournament.service';
 import { IUser, UserService } from 'app/core';
@@ -20,18 +20,13 @@ export class TournamentUpdateComponent implements OnInit {
     tournament: ITournament;
     isSaving: boolean;
 
-    users: IUser[];
-
     games: IGame[];
     meetingDate: string;
 
     constructor(
-        protected dataUtils: JhiDataUtils,
         protected jhiAlertService: JhiAlertService,
         protected tournamentService: TournamentService,
-        protected userService: UserService,
         protected gameService: GameService,
-        protected elementRef: ElementRef,
         protected activatedRoute: ActivatedRoute
     ) {}
 
@@ -41,13 +36,6 @@ export class TournamentUpdateComponent implements OnInit {
             this.tournament = tournament;
             this.meetingDate = this.tournament.meetingDate != null ? this.tournament.meetingDate.format(DATE_TIME_FORMAT) : null;
         });
-        this.userService
-            .query()
-            .pipe(
-                filter((mayBeOk: HttpResponse<IUser[]>) => mayBeOk.ok),
-                map((response: HttpResponse<IUser[]>) => response.body)
-            )
-            .subscribe((res: IUser[]) => (this.users = res), (res: HttpErrorResponse) => this.onError(res.message));
         this.gameService
             .query()
             .pipe(
@@ -55,22 +43,6 @@ export class TournamentUpdateComponent implements OnInit {
                 map((response: HttpResponse<IGame[]>) => response.body)
             )
             .subscribe((res: IGame[]) => (this.games = res), (res: HttpErrorResponse) => this.onError(res.message));
-    }
-
-    byteSize(field) {
-        return this.dataUtils.byteSize(field);
-    }
-
-    openFile(contentType, field) {
-        return this.dataUtils.openFile(contentType, field);
-    }
-
-    setFileData(event, entity, field, isImage) {
-        this.dataUtils.setFileData(event, entity, field, isImage);
-    }
-
-    clearInputImage(field: string, fieldContentType: string, idInput: string) {
-        this.dataUtils.clearInputImage(this.tournament, this.elementRef, field, fieldContentType, idInput);
     }
 
     previousState() {
