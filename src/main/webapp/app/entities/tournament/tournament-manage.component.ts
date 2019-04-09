@@ -45,24 +45,25 @@ export class TournamentManageComponent implements OnInit {
             this.currentAccount = account;
         });
         this.currentDate = new Date();
-        /* teams = [];
-        integer i = 1;
-        for Participation p : this.tournament.participations{
-            if i %2 !=0
-            templateSourceUrl.add([])
-        } */
-        // this.p = this.tournament.participations[X];
         this.p = this.tournament.participations;
         const teamsP = [];
 
-        if (this.p.length % 8 !== 0) {
+        if (this.p.length % 2 !== 0) {
             const participationPrueba = null;
             this.p.push(participationPrueba);
+        }
+        if (this.p.length > 4) {
+            while (this.p.length % 8 !== 0) {
+                const participationPrueba = null;
+                this.p.push(participationPrueba);
+            }
         }
         this.l = this.p.length;
         for (this.i = 0; this.i < this.l - 1; this.i++) {
             if (this.i % 2 === 0) {
-                if (this.p[this.i + 1] === null) {
+                if (this.p[this.i] === null) {
+                    teamsP.push([null, null]);
+                } else if (this.p[this.i + 1] === null) {
                     teamsP.push([this.p[this.i].user.login, null]);
                 } else {
                     teamsP.push([this.p[this.i].user.login, this.p[this.i + 1].user.login]);
@@ -71,8 +72,7 @@ export class TournamentManageComponent implements OnInit {
         }
         const saveData = {
             teams: teamsP,
-            // [['', 'Team 2'], ['Team 3', null], ['Team 4', null], ['Team 5', null]],
-            results: [[[null, null], [null, null]], [[null, null]]]
+            results: []
         };
         /* Called whenever bracket is modified
          *
