@@ -2,7 +2,6 @@
     "thorneoApp": {
         "tournament": {
             "home": {
-                "title2": "My Tournaments",
                 "title": "Tournaments",
                 "createLabel": "Create a new Tournament",
                 "createOrEditLabel": "Create or edit a Tournament",
@@ -29,7 +28,9 @@
             "latitude": "Latitude",
             "longitude": "Longitude",
             "type": "Type",
-            "participation": "Participants",
+            "imagen": "Imagen",
+            "state": "State",
+            "participation": "Participation",
             "user": "User",
             "game": "Game",
             "winner": "Winner",

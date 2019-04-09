@@ -1,0 +1,17 @@
+{
+    "upgradeUser": {
+        "free": {
+            "ads": "Ads on your tournaments",
+            "percentage": "9% commission per inscription"
+        },
+        "premium": {
+            "noAds": "No ads",
+            "noPercentage": "No commissions"
+        },
+        "sponsor": {
+            "benefits": "Premium benefits",
+            "announcement": "Your ads in our page",
+            "social": "Tournament advertising on our social networks"
+        }
+    }
+}

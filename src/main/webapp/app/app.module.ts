@@ -22,6 +22,10 @@ import * as moment from 'moment';
 import { ThorneoAppPaypalPaymentsModule } from './paypal-payments/paypal-payments.module';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent, ActiveMenuDirective, ErrorComponent } from './layouts';
+import { UpgradeUserModule } from 'app/upgrade-user';
+import { ThorneoAppLawModule } from 'app/law';
+import { CookiesComponent } from './cookies/cookies.component';
+import { CookiesModule } from 'app/cookies';
 
 @NgModule({
     imports: [
@@ -39,6 +43,9 @@ import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent
         ThorneoHomeModule,
         ThorneoAccountModule,
         ThorneoAppPaypalPaymentsModule,
+        UpgradeUserModule,
+        ThorneoAppLawModule,
+        CookiesModule,
         // jhipster-needle-angular-add-module JHipster will add new module here
         ThorneoEntityModule,
         ThorneoAppRoutingModule,
