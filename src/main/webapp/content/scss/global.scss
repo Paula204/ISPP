@@ -418,6 +418,59 @@ ui bootstrap tweaks
     bottom: 10%;
 }
 
+//GESTOR BRACKET
+
+.gestionador {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bracket:before {
+    position: absolute;
+    content: '';
+    width: 50%;
+    height: 2px;
+    top: 38px;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    background-color: transparent !important;
+}
+
+.teamContainer,
+teamContainer.np {
+    margin: 5px;
+}
+
+.team.na {
+    // display:none;
+}
+
+.bracket {
+    padding-top: 0px !important;
+}
+
+div.jQBracket.rl .connector.highlight,
+div.jQBracket.rl .connector div.connector.highlight {
+    border-color: #5facf2 !important;
+}
+div.jQBracket .team.highlight {
+    background-color: #5facf2;
+    color: #000;
+}
+div.jQBracket .connector.highlight,
+div.jQBracket .connector div.connector.highlight {
+    border-color: #5facf2;
+}
+.team.na {
+    opacity: 0;
+}
+div.jQBracket .np .connector,
+div.jQBracket .np .connector div.connector {
+    opacity: 0;
+    border-color: #999;
+}
 //ANIMATIONS
 
 /* ----------------------------------------------

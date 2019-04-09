@@ -126,7 +126,7 @@ div.jQBracket .team.highlightLoser {
     color: #000;
 }
 div.jQBracket .team.highlight {
-    background-color: #3c0;
+    background-color: #5facf2;
     color: #000;
 }
 div.jQBracket .team.bye {
@@ -160,7 +160,7 @@ div.jQBracket .connector div.connector.highlightLoser {
 }
 div.jQBracket .connector.highlight,
 div.jQBracket .connector div.connector.highlight {
-    border-color: #0c0;
+    border-color: #5facf2;
 }
 div.jQBracket .np .connector,
 div.jQBracket .np .connector div.connector {
@@ -262,7 +262,7 @@ div.jQBracket.rl .connector div.connector.highlightLoser {
 }
 div.jQBracket.rl .connector.highlight,
 div.jQBracket.rl .connector div.connector.highlight {
-    border-color: #0c0;
+    border-color: #5facf2;
 }
 div.jQBracket.rl .bubble {
     left: -35px;
