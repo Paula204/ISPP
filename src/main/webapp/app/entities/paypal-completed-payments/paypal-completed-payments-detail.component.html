@@ -1,0 +1,55 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="paypalCompletedPayments">
+            <h2><span jhiTranslate="thorneoApp.paypalCompletedPayments.detail.title">Paypal Completed Payments</span> {{paypalCompletedPayments.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="thorneoApp.paypalCompletedPayments.date">Date</span></dt>
+                <dd>
+                    <span>{{paypalCompletedPayments.date}}</span>
+                </dd>
+                <dt><span jhiTranslate="thorneoApp.paypalCompletedPayments.idPayment">Id Payment</span></dt>
+                <dd>
+                    <span>{{paypalCompletedPayments.idPayment}}</span>
+                </dd>
+                <dt><span jhiTranslate="thorneoApp.paypalCompletedPayments.currency">Currency</span></dt>
+                <dd>
+                    <span>{{paypalCompletedPayments.currency}}</span>
+                </dd>
+                <dt><span jhiTranslate="thorneoApp.paypalCompletedPayments.amount">Amount</span></dt>
+                <dd>
+                    <span>{{paypalCompletedPayments.amount}}</span>
+                </dd>
+                <dt><span jhiTranslate="thorneoApp.paypalCompletedPayments.email">Email</span></dt>
+                <dd>
+                    <span>{{paypalCompletedPayments.email}}</span>
+                </dd>
+                <dt><span jhiTranslate="thorneoApp.paypalCompletedPayments.name">Name</span></dt>
+                <dd>
+                    <span>{{paypalCompletedPayments.name}}</span>
+                </dd>
+                <dt><span jhiTranslate="thorneoApp.paypalCompletedPayments.status">Status</span></dt>
+                <dd>
+                    <span>{{paypalCompletedPayments.status}}</span>
+                </dd>
+                <dt><span jhiTranslate="thorneoApp.paypalCompletedPayments.user">User</span></dt>
+                <dd>
+                    {{paypalCompletedPayments.user?.id}}
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/paypal-completed-payments', paypalCompletedPayments.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
