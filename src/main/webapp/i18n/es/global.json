@@ -1,5 +1,6 @@
 {
     "global": {
+        "payment": "Pago con Paypal",
         "title": "Thorneo",
         "browsehappy": "Está usando un navegador <strong>no actualizado</strong>. Por favor, <a href=\"http://browsehappy.com/?locale=en\">actualice su navegador</a> para mejorar su experiencia.",
         "menu": {
@@ -13,7 +14,10 @@
                 "participation": "Mis Participaciones",
                 "sponsorship": "Patrocinadores",
                 "promotion": "Promociones",
-                "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
+                "paypalCompletedPayments": "Pago Completado con PayPal",
+                "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)",
+                "sponsor": "Actualizar a Patrocinador",
+                "premium": "Actualizar a Premium"
             },
             "account": {
                 "main": "Cuenta",
@@ -22,7 +26,8 @@
                 "sessions": "Sesiones",
                 "login": "Iniciar sesión",
                 "logout": "Cerrar la sesión",
-                "register": "Crear una cuenta"
+                "register": "Crear una cuenta",
+                "upgrade": "Actualizar cuenta"
             },
             "admin": {
                 "main": "Administración",
@@ -42,8 +47,8 @@
         "form": {
             "username": "Usuario",
             "username.placeholder": "Nombre de usuario",
-            "currentpassword": "Current password",
-            "currentpassword.placeholder": "Current password",
+            "currentpassword": "Contraseña actual",
+            "currentpassword.placeholder": "Contraseña actual",
             "newpassword": "Nueva contraseña",
             "newpassword.placeholder": "Nueva contraseña",
             "confirmpassword": "Confirmación de la nueva contraseña",
@@ -144,5 +149,67 @@
         "idsame": "Estás registrado en este torneo",
         "idManager": "Eres el creador de este torneo"
     },
-    "footer": "pie de página"
+    "footer": "ThorneoDevs",
+    "law": {
+        "title": "Términos y condiciones",
+        "law1": "La presente política contiene todos los términos y condiciones que describen los derechos de uso de los usuarios con respecto a nuestro sitio web y cualquier otro servicio relacionado con el mismo.",
+        "law2": "Cuando accede a este sitio web se confirma que ha leído esta política de uso y la política de privacidad y que acepta ambos documentos así como las leyes aplicables y otras normas condiciones incluidas en este sitio web.",
+        "law3": "Ciertos aspectos de este sitio web pueden contar con restricciones de edad, en función de lo que es apropiado para determinadas edades o lo que está permitido legalmente. Siempre que se aplique este tipo de restricciones se indicará claramente en el sitio web y se le podrá solicitar que verifique su edad antes de continuar.",
+        "law4": "Cambios en la política de uso",
+        "law5": "Nos reservamos el derecho a modificar la política de uso de este sitio web, en cuyo caso, se le informará lo antes posible. El uso continuado de nuestro sitio web significa que reconoce y acepta tales cambios.",
+        "law6": "Formato del sitio web",
+        "law7": "Usted reconoce y acepta que nuestro sitio web podrá sufir modificaciones ocasionales sin previo aviso.",
+        "law8": "Política de derechos de autor",
+        "law9": "Las imágenes de personas, lugares y demás contenido mostrado en este sitio web son usados con permiso, son propiedad de la empresa o se han recogido de un medio público.",
+        "law10": "El usuario queda infomado de todo lo que vea o lea en este sitio web está sujeto a derechos de autor de la empresa o de terceros.",
+        "law11": "Usted tiene permiso para ver y usar las imágenes y el contenido para su uso personal y no comercial como parte de este sitio web. Cualquier otro uso de estas imágenes queda prohibido a menos que esté permitido por algún lugar de este sitio web. El uso no autorizado de las imágenes puede infringir las leyes de derecho de autor, marca comercial, privacidad e intimidad y honor de publicidad así como otras regulaciones.",
+        "law12": "No se garatiza qe el uso que usted haga de los materiales del sitio web no infringirá el derecho de terceros.",
+        "law13": "El uso no autorizado del sitio o los contenidos del mismo puede ocasionar daños en determinadas jurisdicciones, así como otras sanciones penales o civiles.",
+        "law14": "Contenidos que usted comparte con nuestra empresa",
+        "law15": "Nosotros podemos incluir características en este sitio web que le permitan compartir sus contenidos con nosotros y otro usuarios del mismo sitio web.",
+        "law16": "Debe de tener en cuenta que al compartir contenido a través del sitio, su contenido puede estar accesible públicamente. Lo cual conlleva a que autoriza a la empresa el derecho y las licencias mundiales, no exclusivos y transferibles sin ningún tipo de compensación para usted, el derecho a usar ese contenido de la forma que la empresa considere necesario por cualquier medio. Con lo cual se manifiesta que usted dispone de todos los derechos necesarios para conceder las licencias concebidas en esta sección que dicho contenido cumple todas las leyes, normas y reglamentos aplicables y no infringe ni viola los derechos de autor, privacidad, propiedad intelectual u otros derecho de terceros, además de que dichos contenido esté excento de virus y software malintencionado.",
+        "law17": "Normas de conducta",
+        "law19": "Cuando use este sitio web y/o comparta contenido con nosotros, tiene prohibido publicar y transmitir lo siguiente:",
+        "law20": "Materiales que puedan infringir la ley.",
+        "law21": "Código informático, archivo o programa con intención de dañar o apropiarse del funcionamiento del hardware, software o equipo para vigilar su uso.",
+        "law22": "Material promocional o publicitario no autorizado.",
+        "law23": "Información y datos sobre una persona o empresa sin la autorización pertinente.",
+        "law24": "Por otra parte, usted tiene prohibido lo siguiente:",
+        "law26": "Perturbar el funcionamiento de este sitio web. Lo cual incluye servidores o las redes usadas para el funcionamiento de la misma.",
+        "law27": "Restringir o impedir a otras personas usen este sitio web.",
+        "law28": "Realizar alguna modificación en el sitio web sin el consentimiento de la empresa.",
+        "law29": "Eliminar materiales de este sitio web.",
+        "law30": "Crear una base de datos descargando y almacenando sistemáticamente la totalidad o parte del contenido de este sitio web.",
+        "law31": "Usar algún dispositivo automático o manual para extraer, indexar, minar o alguna otra forma de reproducir o sortear la seguridad e información de este sitio web sin consentimiento previo.",
+        "law32": "Nosotros colaboraremos completamente con cualquier autoridad policial u orden judicial que solicite a la empresa revelar la identidad de cualquier persona que haya publicado información o materiales y se reserva los derechos de retirar tales materiales de este sitio web en cualquier momento.",
+        "law33": "La empresa se reserva el derecho de eliminar los mensajes según crea conveniente.",
+        "law34": "Enlaces de este sitio web",
+        "law35": "Este sitio web puede incluir hipervínculos a otros sitios web que no sean propiedad ni estén controlados por la empresa, no haciendose responsable del contenido, políticas de privacidad, seguridad o prácticas de sitios web de terceros.",
+        "law36": "Responsabilidad",
+        "law37": "Usted usará y navegará en este sitio web bajo su propia responsabilidad.",
+        "law38": "La empresa intenta asegurar un acceso fiable, sin embargo, no se responsabiliza del acceso a este sitio web.",
+        "law39": "La empresa no se hace responsables de problemas de acceso o errores u omisiones de contenido en este sitio web.",
+        "law40": "La empresa no se hace cargo de pérdidas o daños derivados de problemas de acceso a este sitio web.",
+        "law41": "Indemnización",
+        "law42": "Usted es responsable del incumplimiento de sus obligaciones conforme a la presente política de uso y de las consecuencias que se deriven de dicha infracción. Reconociendo que la empresa tiene derecho a reclamarle una compensación por las pérdidas causadas por alguna acción ilegal incluidas en los términos de uso.",
+        "law43": "Legislación aplicable",
+        "law44": "Esta política de uso se rige e interpreta conforme a la legislación de España, independientemente de la elección que adopten de las disposiciones legales."
+    },
+    "cookies": {
+        "title": "Política de cookies",
+        "cookie1": "Objetivo de la política de cookies",
+        "cookie2": "La presente política de cookies tiene por objetivo informar sobre la política de uso de dispsitivos de almacenamiento y recuperación de datos en equipos terminales por el sitio web con la finalidad de decidir si autorizas o no el uso de cookies en los equpos terminales que utilizas en tu navegación a través del sitio.",
+        "cookie3": "¿Que son las cookies?",
+        "cookie4": "Las cookies son ficheros o archivos de texto que un servidor web descarga y almacena en tu ordenador/terminal al acceder a determinadas páginas web para almacenar y recupear información sobre la navegación que ralizas desde dicho equipo. Dichas cookies son enviadas a nuestro servidor cada vez que entras en el sitio web.",
+        "cookie5": "Las cookies utilizadas por nuestra web son las cookies para saber el idioma en el que usted desea visualizar la web, las cookies de inicio de sesión y para guardar los datos de su tarjeta de crédito, estas cookies se generan cada vez que el usuario se registre o abra su sesión y se utiliza para mantener identificado al usuario y para autrizarle a acceder a determinados servicios o contenidos. En el caso de las cookies para la tarjeta de crédito, se usan para que el usuario no tenga que rellenar el formulario cada vez que desee realizar una compra.",
+        "cookie6": "En cualquier caso las cookies se pueden desactivar a través de la configuración del navegador o configurar su eliminación. Para ello consulte la configuración de su navegador con el fin de obtener más información al respecto.",
+        "cookie7": "Existen dos casos en el que aceptas el uso de cookies:",
+        "cookie8": "Cuando aceptas marcando la casilla correspondiente en el banner informativo que provee el sitio web.",
+        "cookie9": "Admitiendo el uso de cookies y visitando el sitio web.",
+        "cookie10": "Debe de tener en cuenta que evitar el uso de cookies puede dar lugar a errores en la misma e imposibilitarle realizar funcionalidades del sitio web.",
+        "cookie11": "Proteccion de datos de carácter personal",
+        "cookie12": "Las cookies son ficheros de texto que un servidor web descarga y almacena en tu equipo al acceder a determnadas páginas web para almacenar y recuperar información sobre la navegación que realizas desde dicho equipo pero no recopila datos de carácter personal. Sin embargo, si eres un usuario registrado de este sitio web podemos asociar tus datos personales a las cookies descargadas en tu equipo, consulte nuestra política de protección de datos para obtener más información.",
+        "cookie13": "Actualización",
+        "cookie14": "Esta política se actualizará, por lo que dichas actualizaciones se publicarán en el sitio web. A partir de que pongamos en su conocimiento las nuevas condiciones mediante la publicación de las mismas en el sitio web se asume que se sustituyen por las publicadas anteriormente, por lo que es su responsabilidad acceder periódicamente a estas condiciones pulbicadas en el sitio web para conocer en todo momento la última versión."
+    }
 }
