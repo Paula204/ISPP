@@ -79,6 +79,12 @@
                     </select>
                 </div>
                 <button type="submit" [disabled]="settingsForm.form.invalid" class="btn btn-primary" jhiTranslate="settings.form.button">Save</button>
+                <button type="submit" (click)="payPremium()" class="btn btn-outline-success">
+                    <span jhiTranslate="global.menu.entities.premium">Premium</span>
+                </button>
+                <button type="submit" (click)="paySponsor()" class="btn btn-outline-success">
+                    <span jhiTranslate="global.menu.entities.sponsor">Sponsor</span>
+                </button>
             </form>
         </div>
     </div>

@@ -8,9 +8,10 @@ import { Observable } from 'rxjs';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { JhiAlertService } from 'ng-jhipster';
 import { Account, AccountService } from 'app/core';
-//import * as $ from 'jquery';
-
-declare var $: any;
+import { IParticipation, Participation } from 'app/shared/model/participation.model';
+import { templateSourceUrl } from '@angular/compiler';
+// import * as $ from 'jquery';
+declare let $: any;
 
 @Component({
     selector: 'jhi-tournament-manage',
@@ -23,6 +24,10 @@ export class TournamentManageComponent implements OnInit {
     currentDate: Date;
 
     isSaving: boolean;
+    p: IParticipation[];
+    i: number;
+    l: number;
+    participation: Participation;
 
     constructor(
         protected jhiAlertService: JhiAlertService,
@@ -40,19 +45,42 @@ export class TournamentManageComponent implements OnInit {
             this.currentAccount = account;
         });
         this.currentDate = new Date();
+        this.p = this.tournament.participations;
+        const teamsP = [];
 
-        var saveData = {
-            teams: [['Team 1', 'Team 2'], ['Team 3', null], ['Team 4', null], ['Team 5', null]],
-            results: [[[[1, 0], [null, null], [null, null], [null, null]], [[null, null], [1, 4]], [[null, null], [null, null]]]]
+        if (this.p.length % 2 !== 0) {
+            const participationPrueba = null;
+            this.p.push(participationPrueba);
+        }
+        if (this.p.length > 4) {
+            while (this.p.length % 8 !== 0) {
+                const participationPrueba = null;
+                this.p.push(participationPrueba);
+            }
+        }
+        this.l = this.p.length;
+        for (this.i = 0; this.i < this.l - 1; this.i++) {
+            if (this.i % 2 === 0) {
+                if (this.p[this.i] === null) {
+                    teamsP.push([null, null]);
+                } else if (this.p[this.i + 1] === null) {
+                    teamsP.push([this.p[this.i].user.login, null]);
+                } else {
+                    teamsP.push([this.p[this.i].user.login, this.p[this.i + 1].user.login]);
+                }
+            }
+        }
+        const saveData = {
+            teams: teamsP,
+            results: []
         };
-
         /* Called whenever bracket is modified
          *
          * data:     changed bracket object in format given to init
          * userData: optional data given when bracket is created.
          */
         function saveFn(data, userData) {
-            var json = $.toJSON(data);
+            const json = $.toJSON(data);
             $('#saveOutput').text('POST ' + userData + ' ' + json);
             /* You probably want to do something like this
             jQuery.ajax("rest/"+userData, {contentType: 'application/json',
@@ -63,15 +91,14 @@ export class TournamentManageComponent implements OnInit {
         }
 
         $(function() {
-            var container = $('.prueba');
+            const container = $('.prueba');
             container.bracket({
                 init: saveData,
                 save: saveFn,
                 userData: 'http://myapi'
             });
-
             /* You can also inquiry the current data */
-            var data = container.bracket('data');
+            const data = container.bracket('data');
             $('#dataOutput').text($.toJSON(data));
         });
     }
@@ -82,35 +109,29 @@ export class TournamentManageComponent implements OnInit {
 
     signOn() {
         this.isSaving = true;
-
         if (this.tournament.participations === null) {
             this.tournament.participations = [];
         }
-
         this.subscribeToSaveResponse(this.tournamentService.signOn(this.tournament));
     }
 
     close() {
         this.isSaving = true;
-
         this.subscribeToSaveResponse(this.tournamentService.close(this.tournament));
     }
 
     disqualify(id: number) {
         this.isSaving = true;
-
         this.subscribeToSaveResponse(this.participationService.disqualify(id));
     }
 
     win(id: number) {
         this.isSaving = true;
-
         this.subscribeToSaveResponse(this.participationService.win(id));
     }
 
     tie(id: number) {
         this.isSaving = true;
-
         this.subscribeToSaveResponse(this.participationService.tie(id));
     }
 
