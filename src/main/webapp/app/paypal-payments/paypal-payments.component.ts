@@ -3,10 +3,13 @@ import { IPaypalCompletedPayments } from 'app/shared/model/paypal-completed-paym
 import { PaypalCompletedPayments } from 'app/shared/model/paypal-completed-payments.model';
 import { PaypalCompletedPaymentsService } from 'app/entities/paypal-completed-payments/paypal-completed-payments.service';
 import { AccountService } from 'app/core/auth/account.service';
-import { IUser, UserService } from 'app/core';
+import { IUser, User, UserService } from 'app/core';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
+import { TournamentService } from 'app/entities/tournament';
+import { ITournament, Tournament } from 'app/shared/model/tournament.model';
 
 declare let paypal: any;
 
@@ -17,22 +20,55 @@ declare let paypal: any;
 })
 export class PaypalPaymentsComponent implements OnInit, AfterViewChecked {
     paypalPayment: IPaypalCompletedPayments = new PaypalCompletedPayments(null, moment(), '', '', 1, '', '', '');
-
     message: string;
     isSaving: boolean;
     addScript = false;
     paypalLoad = true;
-
-    constructor(protected paypalCompletedPaymentsService: PaypalCompletedPaymentsService, protected accountService: AccountService) {
+    currentUser: User;
+    route: string;
+    idTorneo: number;
+    torneo: Tournament;
+    amount: number;
+    constructor(
+        protected paypalCompletedPaymentsService: PaypalCompletedPaymentsService,
+        protected accountService: AccountService,
+        protected activatedRoute: ActivatedRoute,
+        protected tournamentService: TournamentService
+    ) {
+        this.activatedRoute.queryParams.subscribe(params => {
+            this.idTorneo = params['idTorneo'];
+            alert(this.idTorneo);
+        });
         this.message = 'PaypalPaymentsComponent message';
+        console.log('==================================');
+        const res = activatedRoute.snapshot.url.length;
+        this.route = activatedRoute.snapshot.url[res - 1].toString();
     }
 
-    ngOnInit() {}
+    ngOnInit() {
+        this.accountService.identity().then(account => {
+            this.currentUser = account;
+        });
+        if (this.route !== 'premium' && this.route !== 'sponsor') {
+            const torneos = this.tournamentService.find(+this.route);
+            torneos.subscribe((tournament: HttpResponse<ITournament>) => {
+                this.torneo = tournament.body;
+            });
+        }
+    }
 
     ngAfterViewChecked() {
         if (!this.addScript) {
             this.addPaypalScript().then(() => {
                 const _this = this;
+
+                if (_this.route === 'sponsor') {
+                    _this.amount = 22.45;
+                } else if (_this.route === 'premium') {
+                    _this.amount = 11.22;
+                } else {
+                    _this.amount = _this.torneo.price;
+                }
                 paypal
                     .Buttons({
                         createOrder(data, actions) {
@@ -40,7 +76,7 @@ export class PaypalPaymentsComponent implements OnInit, AfterViewChecked {
                                 purchase_units: [
                                     {
                                         amount: {
-                                            value: '0.10'
+                                            value: _this.amount
                                         }
                                     }
                                 ]
@@ -69,6 +105,14 @@ export class PaypalPaymentsComponent implements OnInit, AfterViewChecked {
                                         }
                                         _this.subscribeToSaveResponse(_this.paypalCompletedPaymentsService.create(_this.paypalPayment));
                                     });
+                                if (_this.route === 'premium') {
+                                    _this.upgradePremium();
+                                }
+                                if (_this.route === 'sponsor') {
+                                    _this.upgradeSponsor();
+                                } else {
+                                    _this.upgradeThorneo();
+                                }
                             });
                         }
                     })
@@ -106,5 +150,38 @@ export class PaypalPaymentsComponent implements OnInit, AfterViewChecked {
     protected onSaveError() {
         this.isSaving = false;
         console.log('Fail to create payment entity.');
+    }
+
+    upgradePremium() {
+        this.currentUser.authorities.push('ROLE_PREMIUM');
+        this.accountService.upgradePremium(this.currentUser).subscribe(
+            () => {
+                this.onSaveSuccess();
+            },
+            () => {
+                this.onSaveError();
+            }
+        );
+    }
+
+    upgradeSponsor() {
+        this.currentUser.authorities.push('ROLE_SPONSOR');
+        this.accountService.upgradeSponsor(this.currentUser).subscribe(
+            () => {
+                this.onSaveSuccess();
+            },
+            () => {
+                this.onSaveError();
+            }
+        );
+    }
+
+    upgradeThorneo() {
+        console.log(this.idTorneo);
+        if (this.torneo.participations === null) {
+            this.torneo.participations = [];
+        }
+        alert(this.torneo.title);
+        this.subscribeToSaveResponse(this.tournamentService.signOn(this.torneo));
     }
 }
