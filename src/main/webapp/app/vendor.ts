@@ -1,8 +1,9 @@
 /* after changing this file run 'npm run webpack:build' */
 /* tslint:disable */
 import '../content/scss/vendor.scss';
-import '../content/jquery-bracket/dist/jquery.bracket.min.js';
 import '../content/jquery/dist/jquery.min.js';
+import '../content/jquery-bracket/dist/jquery.bracket.min.js';
+import '../content/jquery-group/dist/jquery.group.min.js';
 
 // Imports all fontawesome core and solid icons
 
