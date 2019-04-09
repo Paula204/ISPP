@@ -77,11 +77,7 @@
                     class="btn btn-primary">
                 <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
             </button>
-            <button *ngIf="tournament.winner == null && tournament.user.login != currentAccount.login" type="button"
-                    [routerLink]="['/paypal-payments/inscribeTorneo',tournament.id]"
-                    class="btn btn-primary green-background">
-                <fa-icon [icon]="'arrow-right'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.signOn"> Sign On</span>
-            </button>
+
             <button *ngIf="tournament.winner == null && tournament.user.login != currentAccount.login" type="submit"
                     (click)="signOn()"
                     class="btn btn-primary green-background">
@@ -94,12 +90,24 @@
                 <span jhiTranslate="entity.action.close">Close tournament</span>
             </button>
 
-            <button type="button"
-                [routerLink]="['/tournament', tournament.id, 'manage' ]"
-                class="btn btn-primary">
+<!--Creado un if else para que no salgan los dos botones-->
+            <div *ngIf="tournament.user.login==currentAccount.login; else elseBlock">
+                <button  type="button "
+                         [routerLink]="['/tournament', tournament.id, 'manage' ]"
+                         class="btn btn-primary">
                 <fa-icon [icon]="'wrench'"></fa-icon>
                 <span class="d-none d-md-inline" jhiTranslate="entity.action.manage">Manage</span>
-            </button>
+            </button></div>
+            <ng-template #elseBlock>
+                <button type="button "
+                        [routerLink]="['/tournament', tournament.id, 'manager' ]"
+                        class="btn btn-primary">
+                    <fa-icon [icon]="'wrench'"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.manage">Manage</span>
+                </button>
+
+            </ng-template>
+
 
         </div>
     </div>
