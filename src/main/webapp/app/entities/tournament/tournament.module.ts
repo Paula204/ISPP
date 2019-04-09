@@ -37,7 +37,9 @@ const ENTITY_STATES = [...tournamentRoute, ...tournamentPopupRoute];
         TournamentMyComponent,
         TournamentUpdateComponent,
         TournamentDeleteDialogComponent,
-        TournamentDeletePopupComponent
+        TournamentDeletePopupComponent,
+        TournamentManageComponent, //
+        TournamentManageGroupComponent //
     ],
     providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]

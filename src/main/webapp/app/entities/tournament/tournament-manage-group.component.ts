@@ -17,7 +17,7 @@ declare let $: any;
     selector: 'jhi-tournament-manage-group',
     templateUrl: './tournament-manage-group.component.html'
 })
-export class TournamentManageComponent implements OnInit {
+export class TournamentManageGroupComponent implements OnInit {
     tournament: ITournamentForm;
 
     currentAccount: Account;
