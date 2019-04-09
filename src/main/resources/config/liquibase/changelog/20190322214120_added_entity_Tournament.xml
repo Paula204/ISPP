@@ -70,17 +70,6 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="imagen" type="longblob">
-                <constraints nullable="true" />
-            </column>
-            <column name="imagen_content_type" type="varchar(255)">
-                <constraints nullable="true" />
-            </column>
-
-            <column name="state" type="varchar(255)">
-                <constraints nullable="true" />
-            </column>
-
             <column name="user_id" type="bigint">
                 <constraints nullable="true" />
             </column>
@@ -95,4 +84,4 @@
         
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
-</databaseChangeLog>
+    </databaseChangeLog>

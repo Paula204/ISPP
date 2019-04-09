@@ -4,8 +4,11 @@ import com.ispp.thorneo.ThorneoApp;
 
 import com.ispp.thorneo.domain.Tournament;
 import com.ispp.thorneo.domain.Participation;
+import com.ispp.thorneo.domain.Game;
+import com.ispp.thorneo.domain.User;
 import com.ispp.thorneo.repository.TournamentRepository;
 import com.ispp.thorneo.repository.search.TournamentSearchRepository;
+import com.ispp.thorneo.security.SecurityUtils;
 import com.ispp.thorneo.service.TournamentService;
 import com.ispp.thorneo.web.rest.errors.ExceptionTranslator;
 
@@ -20,11 +23,15 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Base64Utils;
 import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
@@ -32,6 +39,7 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 
 import static com.ispp.thorneo.web.rest.TestUtil.createFormattingConversionService;
@@ -58,8 +66,8 @@ public class TournamentResourceIntTest {
     private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";
     private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
 
-    private static final Instant DEFAULT_MEETING_DATE = Instant.ofEpochMilli(0L);
-    private static final Instant UPDATED_MEETING_DATE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+    private static final Instant DEFAULT_MEETING_DATE = Instant.now().plusSeconds(55000);
+    private static final Instant UPDATED_MEETING_DATE = Instant.now().plusSeconds(85000);
 
     private static final String DEFAULT_MEETING_POINT = "AAAAAAAAAA";
     private static final String UPDATED_MEETING_POINT = "BBBBBBBBBB";
@@ -70,14 +78,14 @@ public class TournamentResourceIntTest {
     private static final Integer DEFAULT_PRICE = 0;
     private static final Integer UPDATED_PRICE = 1;
 
-    private static final Integer DEFAULT_PLAYER_SIZE = 0;
-    private static final Integer UPDATED_PLAYER_SIZE = 1;
+    private static final Integer DEFAULT_PLAYER_SIZE = 2;
+    private static final Integer UPDATED_PLAYER_SIZE = 3;
 
     private static final String DEFAULT_REWARDS = "AAAAAAAAAA";
     private static final String UPDATED_REWARDS = "BBBBBBBBBB";
 
-    private static final String DEFAULT_IMAGE_URL = "AAAAAAAAAA";
-    private static final String UPDATED_IMAGE_URL = "BBBBBBBBBB";
+    private static final String DEFAULT_IMAGE_URL = "http://www.google.com";
+    private static final String UPDATED_IMAGE_URL = "http://www.google.es";
 
     private static final Long DEFAULT_LATITUDE = 1L;
     private static final Long UPDATED_LATITUDE = 2L;
@@ -87,14 +95,6 @@ public class TournamentResourceIntTest {
 
     private static final Type DEFAULT_TYPE = Type.ELIMINATION;
     private static final Type UPDATED_TYPE = Type.POINT;
-
-    private static final byte[] DEFAULT_IMAGEN = TestUtil.createByteArray(1, "0");
-    private static final byte[] UPDATED_IMAGEN = TestUtil.createByteArray(1, "1");
-    private static final String DEFAULT_IMAGEN_CONTENT_TYPE = "image/jpg";
-    private static final String UPDATED_IMAGEN_CONTENT_TYPE = "image/png";
-
-    private static final String DEFAULT_STATE = "AAAAAAAAAA";
-    private static final String UPDATED_STATE = "BBBBBBBBBB";
 
     @Autowired
     private TournamentRepository tournamentRepository;
@@ -124,6 +124,9 @@ public class TournamentResourceIntTest {
 
     @Autowired
     private Validator validator;
+
+    @Autowired
+    private UserDetailsService domainUserDetailsService;
 
     private MockMvc restTournamentMockMvc;
 
@@ -160,15 +163,18 @@ public class TournamentResourceIntTest {
             .imageUrl(DEFAULT_IMAGE_URL)
             .latitude(DEFAULT_LATITUDE)
             .longitude(DEFAULT_LONGITUDE)
-            .type(DEFAULT_TYPE)
-            .imagen(DEFAULT_IMAGEN)
-            .imagenContentType(DEFAULT_IMAGEN_CONTENT_TYPE)
-            .state(DEFAULT_STATE);
+            .type(DEFAULT_TYPE);
         // Add required entity
         Participation participation = ParticipationResourceIntTest.createEntity(em);
         em.persist(participation);
         em.flush();
         tournament.getParticipations().add(participation);
+        Game game = GameResourceIntTest.createEntity(em);
+        em.persist(game);
+        tournament.setGame(game);
+        User user = UserResourceIntTest.createEntity(em);
+        em.persist(user);
+        tournament.setUser(user);
         return tournament;
     }
 
@@ -181,12 +187,13 @@ public class TournamentResourceIntTest {
     @Transactional
     public void createTournament() throws Exception {
         int databaseSizeBeforeCreate = tournamentRepository.findAll().size();
+        SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
+        securityContext.setAuthentication(new UsernamePasswordAuthenticationToken(tournament.getUser().getLogin(),
+            tournament.getUser().getPassword()));
+        SecurityContextHolder.setContext(securityContext);
 
         // Create the Tournament
-        restTournamentMockMvc.perform(post("/api/tournaments")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(tournament)))
-            .andExpect(status().isCreated());
+        this.tournamentService.saveTournament(tournament);
 
         // Validate the Tournament in the database
         List<Tournament> tournamentList = tournamentRepository.findAll();
@@ -204,9 +211,6 @@ public class TournamentResourceIntTest {
         assertThat(testTournament.getLatitude()).isEqualTo(DEFAULT_LATITUDE);
         assertThat(testTournament.getLongitude()).isEqualTo(DEFAULT_LONGITUDE);
         assertThat(testTournament.getType()).isEqualTo(DEFAULT_TYPE);
-        assertThat(testTournament.getImagen()).isEqualTo(DEFAULT_IMAGEN);
-        assertThat(testTournament.getImagenContentType()).isEqualTo(DEFAULT_IMAGEN_CONTENT_TYPE);
-        assertThat(testTournament.getState()).isEqualTo(DEFAULT_STATE);
 
         // Validate the Tournament in Elasticsearch
         verify(mockTournamentSearchRepository, times(1)).save(testTournament);
@@ -364,10 +368,7 @@ public class TournamentResourceIntTest {
             .andExpect(jsonPath("$.[*].imageUrl").value(hasItem(DEFAULT_IMAGE_URL.toString())))
             .andExpect(jsonPath("$.[*].latitude").value(hasItem(DEFAULT_LATITUDE.intValue())))
             .andExpect(jsonPath("$.[*].longitude").value(hasItem(DEFAULT_LONGITUDE.intValue())))
-            .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE.toString())))
-            .andExpect(jsonPath("$.[*].imagenContentType").value(hasItem(DEFAULT_IMAGEN_CONTENT_TYPE)))
-            .andExpect(jsonPath("$.[*].imagen").value(hasItem(Base64Utils.encodeToString(DEFAULT_IMAGEN))))
-            .andExpect(jsonPath("$.[*].state").value(hasItem(DEFAULT_STATE.toString())));
+            .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE.toString())));
     }
     
     @Test
@@ -392,10 +393,7 @@ public class TournamentResourceIntTest {
             .andExpect(jsonPath("$.imageUrl").value(DEFAULT_IMAGE_URL.toString()))
             .andExpect(jsonPath("$.latitude").value(DEFAULT_LATITUDE.intValue()))
             .andExpect(jsonPath("$.longitude").value(DEFAULT_LONGITUDE.intValue()))
-            .andExpect(jsonPath("$.type").value(DEFAULT_TYPE.toString()))
-            .andExpect(jsonPath("$.imagenContentType").value(DEFAULT_IMAGEN_CONTENT_TYPE))
-            .andExpect(jsonPath("$.imagen").value(Base64Utils.encodeToString(DEFAULT_IMAGEN)))
-            .andExpect(jsonPath("$.state").value(DEFAULT_STATE.toString()));
+            .andExpect(jsonPath("$.type").value(DEFAULT_TYPE.toString()));
     }
 
     @Test
@@ -432,15 +430,12 @@ public class TournamentResourceIntTest {
             .imageUrl(UPDATED_IMAGE_URL)
             .latitude(UPDATED_LATITUDE)
             .longitude(UPDATED_LONGITUDE)
-            .type(UPDATED_TYPE)
-            .imagen(UPDATED_IMAGEN)
-            .imagenContentType(UPDATED_IMAGEN_CONTENT_TYPE)
-            .state(UPDATED_STATE);
-
-        restTournamentMockMvc.perform(put("/api/tournaments")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedTournament)))
-            .andExpect(status().isOk());
+            .type(UPDATED_TYPE);
+        SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
+        securityContext.setAuthentication(new UsernamePasswordAuthenticationToken(updatedTournament.getUser().getLogin(),
+            updatedTournament.getUser().getPassword()));
+        SecurityContextHolder.setContext(securityContext);
+        this.tournamentService.saveTournament(updatedTournament);
 
         // Validate the Tournament in the database
         List<Tournament> tournamentList = tournamentRepository.findAll();
@@ -458,9 +453,6 @@ public class TournamentResourceIntTest {
         assertThat(testTournament.getLatitude()).isEqualTo(UPDATED_LATITUDE);
         assertThat(testTournament.getLongitude()).isEqualTo(UPDATED_LONGITUDE);
         assertThat(testTournament.getType()).isEqualTo(UPDATED_TYPE);
-        assertThat(testTournament.getImagen()).isEqualTo(UPDATED_IMAGEN);
-        assertThat(testTournament.getImagenContentType()).isEqualTo(UPDATED_IMAGEN_CONTENT_TYPE);
-        assertThat(testTournament.getState()).isEqualTo(UPDATED_STATE);
 
         // Validate the Tournament in Elasticsearch
         verify(mockTournamentSearchRepository, times(1)).save(testTournament);
@@ -494,7 +486,10 @@ public class TournamentResourceIntTest {
         tournamentService.save(tournament);
 
         int databaseSizeBeforeDelete = tournamentRepository.findAll().size();
-
+        SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
+        securityContext.setAuthentication(new UsernamePasswordAuthenticationToken(tournament.getUser().getLogin(),
+            tournament.getUser().getPassword()));
+        SecurityContextHolder.setContext(securityContext);
         // Delete the tournament
         restTournamentMockMvc.perform(delete("/api/tournaments/{id}", tournament.getId())
             .accept(TestUtil.APPLICATION_JSON_UTF8))
@@ -531,10 +526,7 @@ public class TournamentResourceIntTest {
             .andExpect(jsonPath("$.[*].imageUrl").value(hasItem(DEFAULT_IMAGE_URL)))
             .andExpect(jsonPath("$.[*].latitude").value(hasItem(DEFAULT_LATITUDE.intValue())))
             .andExpect(jsonPath("$.[*].longitude").value(hasItem(DEFAULT_LONGITUDE.intValue())))
-            .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE.toString())))
-            .andExpect(jsonPath("$.[*].imagenContentType").value(hasItem(DEFAULT_IMAGEN_CONTENT_TYPE)))
-            .andExpect(jsonPath("$.[*].imagen").value(hasItem(Base64Utils.encodeToString(DEFAULT_IMAGEN))))
-            .andExpect(jsonPath("$.[*].state").value(hasItem(DEFAULT_STATE)));
+            .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE.toString())));
     }
 
     @Test

@@ -3,19 +3,19 @@
         "tournament": {
             "home": {
                 "title2": "Mis Torneos",
-                "title": "Tourneo",
+                "title": "Torneo",
                 "createLabel": "Crear nuevo Torneo",
-                "createOrEditLabel": "Crear o editar Torneo",
-                "search": "Buscar un torneo"
+                "createOrEditLabel": "Crear o editar un torneo",
+                "search": "Busca un torneo"
             },
-            "created": "Un nuevo Tournament ha sido creado",
-            "updated": "Un Tournament ha sido actualizado",
-            "deleted": "Un Tournament ha sido eliminado",
+            "created": "Un nuevo torneo ha sido creado con el identificador {{ param }}",
+            "updated": "Un torneo ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un torneo ha sido eliminado con el identificador {{ param }}",
             "delete": {
-                "question": "¿Seguro que quiere eliminar Tournament?"
+                "question": "¿Seguro que quiere eliminar torneo {{ id }}?"
             },
             "detail": {
-                "title": "Tournament"
+                "title": "Torneo"
             },
             "title": "Título",
             "description": "Descripción",
@@ -23,16 +23,14 @@
             "meetingPoint": "Punto de encuentro",
             "city": "Ciudad",
             "price": "Precio",
-            "playerSize": "Capacidad del torneo",
+            "playerSize": "Límite de jugadores",
             "rewards": "Premios",
-            "imageUrl": "Url",
+            "imageUrl": "Url de la imagen",
             "latitude": "Latitud",
             "longitude": "Longitud",
-            "type": "Tipo",
-            "imagen": "Imagen",
-            "state": "Estado",
+            "type": "Tipo de torneo",
             "participation": "Participantes",
-            "user": "Usuario",
+            "user": "Administrador",
             "game": "Juego",
             "winner": "Ganador",
             "win": "Ganador",
