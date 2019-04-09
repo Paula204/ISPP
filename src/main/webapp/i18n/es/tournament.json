@@ -2,20 +2,20 @@
     "thorneoApp": {
         "tournament": {
             "home": {
-                "title2": "Mis Torneos",
-                "title": "Tourneo",
-                "createLabel": "Crear nuevo Torneo",
-                "createOrEditLabel": "Crear o editar Torneo",
+                "title2": "Mis torneos",
+                "title": "torneo",
+                "createLabel": "Crear nuevo torneo",
+                "createOrEditLabel": "Crear o editar torneo",
                 "search": "Buscar un torneo"
             },
-            "created": "Un nuevo Tournament ha sido creado",
-            "updated": "Un Tournament ha sido actualizado",
-            "deleted": "Un Tournament ha sido eliminado",
+            "created": "Un nuevo Torneo ha sido creado",
+            "updated": "Un Torneo ha sido actualizado",
+            "deleted": "Un Torneo ha sido eliminado",
             "delete": {
-                "question": "¿Seguro que quiere eliminar Tournament?"
+                "question": "¿Seguro que quiere eliminar Torneo?"
             },
             "detail": {
-                "title": "Tournament"
+                "title": "Torneo"
             },
             "title": "Título",
             "description": "Descripción",
@@ -37,7 +37,9 @@
             "winner": "Ganador",
             "win": "Ganador",
             "tie": "Empate",
-            "disqualify": "Descalificar"
+            "disqualify": "Descalificar",
+            "checkUrl": "Usar url",
+            "checkImage": "Subir imagen"
         }
     }
 }
