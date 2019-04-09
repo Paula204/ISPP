@@ -5,17 +5,17 @@ div.jQBracket {
     position: relative;
 }
 div.jQBracket .tools {
-    position: absolute;
-    top: 0;
-    color: #fff;
+    justify-content: flex-end;
+    display: flex;
 }
 div.jQBracket .tools span {
     cursor: pointer;
     margin: 5px;
+    padding: 3px;
     display: block;
     text-align: center;
-    width: 18px;
-    height: 18px;
+    width: 10%;
+    height: 10%;
     background-color: #666;
 }
 div.jQBracket .tools span:hover {
@@ -50,8 +50,9 @@ div.jQBracket .team {
     position: relative;
     z-index: 1;
     float: left;
-    background-color: #eee;
+    background-color: #ffd59a;
     cursor: default;
+    padding: 3px;
 }
 div.jQBracket .team:first-child {
     border-bottom: 1px solid #999;
@@ -67,10 +68,11 @@ div.jQBracket .team input {
 div.jQBracket .team div.label {
     padding: 3px;
     position: absolute;
-    height: 22px;
+    height: 150%;
     white-space: nowrap;
     overflow: hidden;
     box-sizing: border-box;
+    font-weight: bold;
 }
 div.jQBracket .team div.label[disabled] {
     cursor: default;
@@ -81,6 +83,7 @@ div.jQBracket .team div.score {
     background-color: rgba(255, 255, 255, 0.3);
     text-align: center;
     box-sizing: border-box;
+    font-weight: bold;
 }
 div.jQBracket .team div.score input {
     text-align: center;
@@ -105,13 +108,13 @@ div.jQBracket .team.win {
     color: #333;
 }
 div.jQBracket .team.win div.score {
-    color: #060;
+    color: #0280f0;
 }
 div.jQBracket .team.lose div.score {
     color: #900;
 }
 div.jQBracket .team.lose {
-    background-color: #ddd;
+    background-color: rgb(240, 240, 240);
     color: #999;
 }
 div.jQBracket .team.tie div.score {

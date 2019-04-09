@@ -440,7 +440,6 @@ ui bootstrap tweaks
 
 .teamContainer,
 teamContainer.np {
-    margin: 5px;
 }
 
 .team.na {
@@ -465,11 +464,13 @@ div.jQBracket .connector div.connector.highlight {
 }
 .team.na {
     opacity: 0;
+    pointer-events: none;
 }
 div.jQBracket .np .connector,
 div.jQBracket .np .connector div.connector {
     opacity: 0;
     border-color: #999;
+    pointer-events: none;
 }
 //ANIMATIONS
 
