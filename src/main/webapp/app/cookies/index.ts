@@ -1,3 +1,3 @@
-export * from './law.component';
-export * from './law.route';
-export * from './law.module';
+export * from './cookies.component';
+export * from './cookies.route';
+export * from './cookies.module';

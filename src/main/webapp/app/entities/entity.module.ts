@@ -31,6 +31,10 @@ import { RouterModule } from '@angular/router';
             {
                 path: 'paypal-completed-payments',
                 loadChildren: './paypal-completed-payments/paypal-completed-payments.module#ThorneoPaypalCompletedPaymentsModule'
+            },
+            {
+                path: 'tournament',
+                loadChildren: './tournament/tournament.module#ThorneoTournamentModule'
             }
             /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
         ])

@@ -7,11 +7,10 @@ import { map } from 'rxjs/operators';
 
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared';
-import { ITournament, ITournamentForm } from 'app/shared/model/tournament.model';
+import { ITournament } from 'app/shared/model/tournament.model';
 
 type EntityResponseType = HttpResponse<ITournament>;
 type EntityArrayResponseType = HttpResponse<ITournament[]>;
-type EntityArrayResponseTypeExtra = HttpResponse<ITournamentForm>;
 
 @Injectable({ providedIn: 'root' })
 export class TournamentService {
@@ -34,24 +33,10 @@ export class TournamentService {
             .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
     }
 
-    signOn(tournament: ITournament): Observable<EntityResponseType> {
-        const copy = this.convertDateFromClient(tournament);
+    find(id: number): Observable<EntityResponseType> {
         return this.http
-            .put<ITournament>(this.resourceUrl + '/signOn', copy, { observe: 'response' })
+            .get<ITournament>(`${this.resourceUrl}/${id}`, { observe: 'response' })
             .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
-    }
-
-    close(tournament: ITournament): Observable<EntityResponseType> {
-        const copy = this.convertDateFromClient(tournament);
-        return this.http
-            .put<ITournament>(this.resourceUrl + '/close', copy, { observe: 'response' })
-            .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
-    }
-
-    find(id: number): Observable<EntityArrayResponseTypeExtra> {
-        return this.http
-            .get<ITournamentForm>(`${this.resourceUrl}/${id}`, { observe: 'response' })
-            .pipe(map((res: EntityArrayResponseTypeExtra) => this.convertDateFromServer(res)));
     }
 
     query(req?: any): Observable<EntityArrayResponseType> {

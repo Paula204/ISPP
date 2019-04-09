@@ -4,4 +4,3 @@ export * from './tournament-delete-dialog.component';
 export * from './tournament-detail.component';
 export * from './tournament.component';
 export * from './tournament.route';
-export * from './tournament-my.component';

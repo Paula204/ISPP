@@ -1,18 +1,13 @@
 package com.ispp.thorneo.web.rest;
-
-import com.ispp.thorneo.TournamentForm;
-import com.ispp.thorneo.domain.Participation;
 import com.ispp.thorneo.domain.Tournament;
 import com.ispp.thorneo.service.TournamentService;
 import com.ispp.thorneo.web.rest.errors.BadRequestAlertException;
 import com.ispp.thorneo.web.rest.util.HeaderUtil;
 import com.ispp.thorneo.web.rest.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
-import io.micrometer.core.annotation.Timed;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -22,7 +17,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.*;
+
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.StreamSupport;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
@@ -57,8 +54,7 @@ public class TournamentResource {
         if (tournament.getId() != null) {
             throw new BadRequestAlertException("A new tournament cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        tournament.setParticipations(new HashSet<Participation>());
-        Tournament result = tournamentService.saveTournament(tournament);
+        Tournament result = tournamentService.save(tournament);
         return ResponseEntity.created(new URI("/api/tournaments/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -85,30 +81,6 @@ public class TournamentResource {
             .body(result);
     }
 
-    @PutMapping("/tournaments/signOn")
-    public ResponseEntity<Tournament> signOnTournament(@Valid @RequestBody Tournament tournament) throws URISyntaxException {
-        log.debug("REST request to sign on Tournament: {}", tournament);
-        if (tournament.getId() == null) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
-        }
-        Tournament result = tournamentService.signOn(tournament);
-        return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, tournament.getId().toString()))
-            .body(result);
-    }
-
-    @PutMapping("/tournaments/close")
-    public ResponseEntity<Tournament> closeTournament(@Valid @RequestBody Tournament tournament) throws URISyntaxException {
-        log.debug("REST request to close Tournament: {}", tournament);
-        if (tournament.getId() == null) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
-        }
-        Tournament result = tournamentService.closeTournament(tournament);
-        return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, tournament.getId().toString()))
-            .body(result);
-    }
-
     /**
      * GET  /tournaments : get all the tournaments.
      *
@@ -123,14 +95,6 @@ public class TournamentResource {
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
-    @GetMapping("/tournaments/mine")
-    public ResponseEntity<List<Tournament>> getMyTournaments() {
-        log.debug("REST request to get a page of my Tournaments");
-        Page<Tournament> page = new PageImpl<>(tournamentService.findMyTournaments());
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/tournaments/mine");
-        return ResponseEntity.ok().headers(headers).body(page.getContent());
-    }
-
     /**
      * GET  /tournaments/:id : get the "id" tournament.
      *
@@ -138,10 +102,9 @@ public class TournamentResource {
      * @return the ResponseEntity with status 200 (OK) and with body the tournament, or with status 404 (Not Found)
      */
     @GetMapping("/tournaments/{id}")
-    public ResponseEntity<TournamentForm> getTournament(@PathVariable Long id) {
+    public ResponseEntity<Tournament> getTournament(@PathVariable Long id) {
         log.debug("REST request to get Tournament : {}", id);
-        Optional<TournamentForm> tournament = tournamentService.getTournament(id);
-
+        Optional<Tournament> tournament = tournamentService.findOne(id);
         return ResponseUtil.wrapOrNotFound(tournament);
     }
 
