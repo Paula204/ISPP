@@ -32,7 +32,10 @@
             "participation": "Participantes",
             "user": "Administrador",
             "game": "Juego",
-            "winner": "Ganador"
+            "winner": "Ganador",
+            "win": "Ganador",
+            "tie": "Empate",
+            "disqualify": "Descalificar"
         }
     }
 }

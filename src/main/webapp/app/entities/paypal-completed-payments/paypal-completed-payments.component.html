@@ -1,0 +1,85 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="thorneoApp.paypalCompletedPayments.home.title">Paypal Completed Payments</span>
+        <!--<button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-paypal-completed-payments" [routerLink]="['/paypal-completed-payments/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span class="hidden-sm-down"  jhiTranslate="thorneoApp.paypalCompletedPayments.home.createLabel">
+            Create new Paypal Completed Payments
+            </span>
+        </button>-->
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'thorneoApp.paypalCompletedPayments.home.search' | translate }}">
+                    <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
+                        <fa-icon [icon]="'search'"></fa-icon>
+                    </button>
+                    <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                        <fa-icon [icon]="'trash-alt'"></fa-icon>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="paypalCompletedPayments">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span jhiTranslate="global.field.id">ID</span></th>
+            <th><span jhiTranslate="thorneoApp.paypalCompletedPayments.date">Date</span></th>
+            <th><span jhiTranslate="thorneoApp.paypalCompletedPayments.idPayment">Id Payment</span></th>
+            <th><span jhiTranslate="thorneoApp.paypalCompletedPayments.currency">Currency</span></th>
+            <th><span jhiTranslate="thorneoApp.paypalCompletedPayments.amount">Amount</span></th>
+            <th><span jhiTranslate="thorneoApp.paypalCompletedPayments.email">Email</span></th>
+            <th><span jhiTranslate="thorneoApp.paypalCompletedPayments.name">Name</span></th>
+            <th><span jhiTranslate="thorneoApp.paypalCompletedPayments.status">Status</span></th>
+            <th><span jhiTranslate="thorneoApp.paypalCompletedPayments.user">User</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let paypalCompletedPayments of paypalCompletedPayments ;trackBy: trackId">
+                <td><a [routerLink]="['/paypal-completed-payments', paypalCompletedPayments.id, 'view' ]">{{paypalCompletedPayments.id}}</a></td>
+                <td>{{paypalCompletedPayments.date | date:'medium'}}</td>
+                <td>{{paypalCompletedPayments.idPayment}}</td>
+                <td>{{paypalCompletedPayments.currency}}</td>
+                <td>{{paypalCompletedPayments.amount}}</td>
+                <td>{{paypalCompletedPayments.email}}</td>
+                <td>{{paypalCompletedPayments.name}}</td>
+                <td>{{paypalCompletedPayments.status}}</td>
+                <td>
+                    {{paypalCompletedPayments.user?.id}}
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/paypal-completed-payments', paypalCompletedPayments.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <!--<button type="submit"
+                                [routerLink]="['/paypal-completed-payments', paypalCompletedPayments.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>-->
+                        <!--<button type="submit"
+                                [routerLink]="['/', 'paypal-completed-payments', { outlets: { popup: paypalCompletedPayments.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>-->
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

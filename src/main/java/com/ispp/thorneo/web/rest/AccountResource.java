@@ -1,6 +1,7 @@
 package com.ispp.thorneo.web.rest;
 
 
+import com.ispp.thorneo.domain.Authority;
 import com.ispp.thorneo.domain.User;
 import com.ispp.thorneo.repository.UserRepository;
 import com.ispp.thorneo.security.SecurityUtils;
@@ -121,6 +122,46 @@ public class AccountResource {
         }
         userService.updateUser(userDTO.getFirstName(), userDTO.getLastName(), userDTO.getEmail(),
             userDTO.getLangKey(), userDTO.getImageUrl());
+    }
+
+    @PostMapping("/account/upgrade/premium")
+    public void upgradePremium(@Valid @RequestBody UserDTO userDTO) {
+        Authority premium = new Authority();
+        premium.setName("ROLE_PREMIUM");
+
+        String userLogin = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
+        Optional<User> existingUser = userRepository.findOneByEmailIgnoreCase(userDTO.getEmail());
+        if (existingUser.isPresent() && (!existingUser.get().getLogin().equalsIgnoreCase(userLogin))) {
+            throw new EmailAlreadyUsedException();
+        }
+        if (existingUser.isPresent() && existingUser.get().getAuthorities().contains(premium)) {
+            throw new BadRequestAlertException("You've this role", "account", "currentRole");
+        }
+        Optional<User> user = userRepository.findOneByLogin(userLogin);
+        if (!user.isPresent()) {
+            throw new InternalServerErrorException("User could not be found");
+        }
+        userService.updateUser(userDTO);
+    }
+
+    @PostMapping("/account/upgrade/sponsor")
+    public void upgradeSponsor(@Valid @RequestBody UserDTO userDTO) {
+        Authority sponsor = new Authority();
+        sponsor.setName("ROLE_SPONSOR");
+
+        String userLogin = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
+        Optional<User> existingUser = userRepository.findOneByEmailIgnoreCase(userDTO.getEmail());
+        if (existingUser.isPresent() && (!existingUser.get().getLogin().equalsIgnoreCase(userLogin))) {
+            throw new EmailAlreadyUsedException();
+        }
+        if (existingUser.isPresent() && existingUser.get().getAuthorities().contains(sponsor)) {
+            throw new BadRequestAlertException("You've this role", "account", "currentRole");
+        }
+        Optional<User> user = userRepository.findOneByLogin(userLogin);
+        if (!user.isPresent()) {
+            throw new InternalServerErrorException("User could not be found");
+        }
+        userService.updateUser(userDTO);
     }
 
     /**

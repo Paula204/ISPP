@@ -18,6 +18,11 @@ h4 {
     line-height: 1.5em;
 }
 
+.card,
+.jh-card {
+    min-height: 100vh;
+}
+
 a {
     color: #ffba58;
 
@@ -96,7 +101,7 @@ Generic styles
     font-family: 'Merriweather Sans', sans-serif;
     color: #eee;
     background-color: #5facf2;
-    position: fixed;
+    position: relative;
     left: 0;
     bottom: 0;
     width: 100%;
