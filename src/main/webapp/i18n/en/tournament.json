@@ -2,6 +2,7 @@
     "thorneoApp": {
         "tournament": {
             "home": {
+                "title2": "My Tournaments",
                 "title": "Tournaments",
                 "createLabel": "Create a new Tournament",
                 "createOrEditLabel": "Create or edit a Tournament",
@@ -38,7 +39,10 @@
             "tie": "Tie",
             "disqualify": "Disqualify",
             "checkUrl": "Upload url",
-            "checkImage": "Upload picture"
+            "checkImage": "Upload picture",
+            "disqualify": "Disqualify",
+            "doubleE": "Double Elimination",
+            "singleE": "Single Elimination"
         }
     }
 }

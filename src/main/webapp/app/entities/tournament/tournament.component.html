@@ -103,19 +103,30 @@
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
                         </button>
 
-                    </div>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <div *ngIf="tournaments && tournaments.length">
-        <div class="row justify-content-center">
-            <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
-
+                            <button *ngIf="tournament.user.login==currentAccount.login || currentAccount.authorities.includes('ROLE_ADMIN')" type="submit"
+                                [routerLink]="['/tournament', tournament.id, 'manage' ]"
+                                class="btn btn-info btn-sm">
+                                <fa-icon [icon]="'wrench'"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.manage">Manage</span>
+                            </button>
+                            <button *ngIf="tournament.user.login==currentAccount.login && tournament.type === 'POINT' || currentAccount.authorities.includes('ROLE_ADMIN') && tournament.type === 'POINT'" type="submit"
+                                [routerLink]="['/tournament', tournament.id, 'manage-group' ]"
+                                class="btn btn-info btn-sm">
+                                <fa-icon [icon]="'wrench'"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.manage">Manage</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
-        <div class="row justify-content-center">
-            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        <div *ngIf="tournaments && tournaments.length">
+            <div class="row justify-content-center">
+                <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+            </div>
+            <div class="row justify-content-center">
+                <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+            </div>
         </div>
     </div>
-</div>

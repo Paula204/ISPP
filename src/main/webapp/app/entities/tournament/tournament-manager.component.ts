@@ -14,10 +14,10 @@ import { templateSourceUrl } from '@angular/compiler';
 declare let $: any;
 
 @Component({
-    selector: 'jhi-tournament-manage-group',
-    templateUrl: './tournament-manage-group.component.html'
+    selector: 'jhi-tournament-manage2',
+    templateUrl: './tournament-manager.component.html'
 })
-export class TournamentManageGroupComponent implements OnInit {
+export class TournamentManagerComponent implements OnInit {
     tournament: ITournamentForm;
 
     currentAccount: Account;
@@ -45,6 +45,62 @@ export class TournamentManageGroupComponent implements OnInit {
             this.currentAccount = account;
         });
         this.currentDate = new Date();
+        this.p = this.tournament.participations;
+        const teamsP = [];
+
+        if (this.p.length % 2 !== 0) {
+            const participationPrueba = null;
+            this.p.push(participationPrueba);
+        }
+        if (this.p.length > 4) {
+            while (this.p.length % 8 !== 0) {
+                const participationPrueba = null;
+                this.p.push(participationPrueba);
+            }
+        }
+        this.l = this.p.length;
+        for (this.i = 0; this.i < this.l - 1; this.i++) {
+            if (this.i % 2 === 0) {
+                if (this.p[this.i] === null) {
+                    teamsP.push([null, null]);
+                } else if (this.p[this.i + 1] === null) {
+                    teamsP.push([this.p[this.i].user.login, null]);
+                } else {
+                    teamsP.push([this.p[this.i].user.login, this.p[this.i + 1].user.login]);
+                }
+            }
+        }
+        const saveData = {
+            teams: teamsP,
+            results: []
+        };
+        /* Called whenever bracket is modified
+         *
+         * data:     changed bracket object in format given to init
+         * userData: optional data given when bracket is created.
+         */
+        function saveFn(data, userData) {
+            const json = $.toJSON(data);
+            $('#saveOutput').text('POST ' + userData + ' ' + json);
+            /* You probably want to do something like this
+                jQuery.ajax("rest/"+userData, {contentType: 'application/json',
+                                              dataType: 'json',
+                                              type: 'post',
+                                              data: json})
+                */
+        }
+
+        $(function() {
+            const container = $('.prueba2');
+            container.bracket({
+                init: saveData,
+                userData: 'http://myapi'
+            });
+            /* You can also inquiry the current data */
+            const data = container.bracket('data');
+
+            $('#dataOutput').text($.toJSON(data));
+        });
     }
 
     previousState() {

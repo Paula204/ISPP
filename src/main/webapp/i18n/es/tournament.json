@@ -2,17 +2,17 @@
     "thorneoApp": {
         "tournament": {
             "home": {
-                "title2": "Mis torneos",
-                "title": "torneo",
-                "createLabel": "Crear nuevo torneo",
-                "createOrEditLabel": "Crear o editar torneo",
-                "search": "Buscar un torneo"
+                "title2": "Mis Torneos",
+                "title": "Torneo",
+                "createLabel": "Crear nuevo Torneo",
+                "createOrEditLabel": "Crear o editar un torneo",
+                "search": "Busca un torneo"
             },
-            "created": "Un nuevo Torneo ha sido creado",
-            "updated": "Un Torneo ha sido actualizado",
-            "deleted": "Un Torneo ha sido eliminado",
+            "created": "Un nuevo torneo ha sido creado con el identificador {{ param }}",
+            "updated": "Un torneo ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un torneo ha sido eliminado con el identificador {{ param }}",
             "delete": {
-                "question": "¿Seguro que quiere eliminar Torneo?"
+                "question": "¿Seguro que quiere eliminar torneo {{ id }}?"
             },
             "detail": {
                 "title": "Torneo"
@@ -23,23 +23,24 @@
             "meetingPoint": "Punto de encuentro",
             "city": "Ciudad",
             "price": "Precio",
-            "playerSize": "Capacidad del torneo",
+            "playerSize": "Límite de jugadores",
             "rewards": "Premios",
-            "imageUrl": "Url",
+            "imageUrl": "Url de la imagen",
             "latitude": "Latitud",
             "longitude": "Longitud",
-            "type": "Tipo",
-            "imagen": "Imagen",
-            "state": "Estado",
+            "type": "Tipo de torneo",
             "participation": "Participantes",
-            "user": "Usuario",
+            "user": "Administrador",
             "game": "Juego",
             "winner": "Ganador",
             "win": "Ganador",
             "tie": "Empate",
             "disqualify": "Descalificar",
             "checkUrl": "Usar url",
-            "checkImage": "Subir imagen"
+            "checkImage": "Subir imagen",
+            "disqualify": "Descalificar",
+            "doubleE": "Eliminación doble",
+            "singleE": "Eliminación simple"
         }
     }
 }

@@ -2,6 +2,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { JhiLanguageService } from 'ng-jhipster';
 import { JhiLanguageHelper } from 'app/core';
+import { QRCodeModule } from 'angularx-qrcode';
 
 import { ThorneoSharedModule } from 'app/shared';
 import {
@@ -12,7 +13,8 @@ import {
     TournamentDeleteDialogComponent,
     tournamentRoute,
     tournamentPopupRoute,
-    TournamentManageComponent
+    TournamentManageComponent, //
+    TournamentManagerComponent
 } from './';
 import { TournamentMyComponent } from 'app/entities/tournament/tournament-my.component';
 import { TournamentManageGroupComponent } from 'app/entities/tournament/tournament-manage-group.component';
@@ -20,22 +22,29 @@ import { TournamentManageGroupComponent } from 'app/entities/tournament/tourname
 const ENTITY_STATES = [...tournamentRoute, ...tournamentPopupRoute];
 
 @NgModule({
-    imports: [ThorneoSharedModule, RouterModule.forChild(ENTITY_STATES)],
+    imports: [ThorneoSharedModule, RouterModule.forChild(ENTITY_STATES), QRCodeModule],
     declarations: [
         TournamentComponent,
+        TournamentMyComponent,
         TournamentDetailComponent,
         TournamentUpdateComponent,
         TournamentDeleteDialogComponent,
         TournamentDeletePopupComponent,
+        TournamentManageComponent, //
+        TournamentManagerComponent,
         TournamentMyComponent,
         TournamentManageComponent,
         TournamentManageGroupComponent
     ],
     entryComponents: [
         TournamentComponent,
+        TournamentMyComponent,
         TournamentUpdateComponent,
         TournamentDeleteDialogComponent,
         TournamentDeletePopupComponent,
+        TournamentManageComponent, //
+        TournamentManagerComponent,
+        TournamentManageGroupComponent, //
         TournamentMyComponent,
         TournamentManageComponent,
         TournamentManageGroupComponent

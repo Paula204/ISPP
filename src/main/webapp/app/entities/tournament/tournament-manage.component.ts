@@ -83,15 +83,15 @@ export class TournamentManageComponent implements OnInit {
             const json = $.toJSON(data);
             $('#saveOutput').text('POST ' + userData + ' ' + json);
             /* You probably want to do something like this
-            jQuery.ajax("rest/"+userData, {contentType: 'application/json',
-                                          dataType: 'json',
-                                          type: 'post',
-                                          data: json})
-            */
+                jQuery.ajax("rest/"+userData, {contentType: 'application/json',
+                                              dataType: 'json',
+                                              type: 'post',
+                                              data: json})
+                */
         }
 
         $(function() {
-            const container = $('.prueba');
+            const container = $('.gestionador');
             container.bracket({
                 init: saveData,
                 save: saveFn,
@@ -99,6 +99,7 @@ export class TournamentManageComponent implements OnInit {
             });
             /* You can also inquiry the current data */
             const data = container.bracket('data');
+
             $('#dataOutput').text($.toJSON(data));
         });
     }
