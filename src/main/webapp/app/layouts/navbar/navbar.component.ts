@@ -20,7 +20,6 @@ export class NavbarComponent implements OnInit {
     swaggerEnabled: boolean;
     modalRef: NgbModalRef;
     version: string;
-    isUser: boolean;
 
     constructor(
         private loginService: LoginService,

@@ -17,6 +17,7 @@
         "Future": "Date must be future.",
         "Length": "Max length 250 characters.",
         "soWinners": "Only one winner allowed",
-        "currentRole": "You've this role assign"
+        "currentRole": "You've this role assign",
+        "notRole": "You doesn't have this role"
     }
 }
