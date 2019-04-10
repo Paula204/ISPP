@@ -91,7 +91,7 @@ export class TournamentManageComponent implements OnInit {
         }
 
         $(function() {
-            const container = $('.prueba');
+            const container = $('.gestionador');
             container.bracket({
                 init: saveData,
                 save: saveFn,

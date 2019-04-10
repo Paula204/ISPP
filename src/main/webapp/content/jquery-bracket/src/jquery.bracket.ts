@@ -302,8 +302,8 @@
         centerConnectors: boolean;
     }
 
-    function depth(a): number {
-        function df(arrayOrValue, d: number): number {
+    function depth(a: any[][]): number {
+        function df(arrayOrValue: any[], d: number): number {
             if (arrayOrValue instanceof Array) {
                 return df(arrayOrValue[0], d + 1);
             }
@@ -313,7 +313,7 @@
         return df(a, 0);
     }
 
-    function wrap(a, d: number) {
+    function wrap(a: any[] | any[][], d: number) {
         if (d > 0) {
             a = wrap([a], d - 1);
         }
@@ -385,13 +385,13 @@
         span.empty().append(input);
         input.focus();
         input.blur(() => {
-            done(input.val());
+            done(String(input.val()));
         });
         input.keydown(e => {
             const key = e.keyCode || e.which;
             if (key === 9 /*tab*/ || key === 13 /*return*/ || key === 27 /*esc*/) {
                 e.preventDefault();
-                done(input.val(), key !== 27);
+                done(String(input.val()), key !== 27);
             }
         });
     }
@@ -515,7 +515,7 @@
         }
     }
 
-    const loserMatchSources = (winners, losers, matchCount: number, m, n, r) => (): [MatchSource, MatchSource] => {
+    const loserMatchSources = (winners, losers, matchCount: number, m: number, n: number, r: number) => (): [MatchSource, MatchSource] => {
         /* first round comes from winner bracket */
         if (n % 2 === 0 && r === 0) {
             return [
@@ -561,7 +561,7 @@
 
     const loserAlignment = (teamCon: JQuery, match: Match) => () => teamCon.css('top', match.el.height() / 2 - teamCon.height() / 2 + 'px');
 
-    const mkMatchConnector = (centerConnectors: boolean) => (tC, match: Match): Connector => {
+    const mkMatchConnector = (centerConnectors: boolean) => (tC: { height: () => number }, match: Match): Connector => {
         // inside lower bracket
         const connectorOffset = tC.height() / 4;
         const center = { height: 0, shift: connectorOffset * 2 };
@@ -945,7 +945,7 @@
         }
     }
 
-    const calculateHeight = height => {
+    const calculateHeight = (height: number) => {
         // drop:
         // [team]'\
         //         \_[team]
@@ -1004,7 +1004,7 @@
         isSingleElimination: boolean,
         skipGrandFinalComeback: boolean,
         skipSecondaryFinal: boolean,
-        results
+        results: any[][] | { length: number }[]
     ) {
         if (isSingleElimination) {
             return Math.log(teamCount * 2) / Math.log(2);
@@ -1020,8 +1020,10 @@
 
     function exportData(data) {
         const output = $.extend(true, {}, data);
-        output.teams = output.teams.map(ts => ts.map(t => t.toNull()));
-        output.results = output.results.map(brackets =>
+        output.teams = output.teams.map((ts: { map: (arg0: (t: any) => any) => void }) =>
+            ts.map((t: { toNull: () => void }) => t.toNull())
+        );
+        output.results = output.results.map((brackets: { map: (arg0: (rounds: any) => any) => void }) =>
             brackets.map(rounds =>
                 rounds.map((matches: ResultObject) => {
                     const matchData = [matches.first.toNull(), matches.second.toNull()];
@@ -1094,7 +1096,7 @@
                     const span = $(this);
 
                     function editor() {
-                        function done_fn(val, next: boolean) {
+                        function done_fn(val: any, next: boolean) {
                             // Needs to be taken before possible null is assigned below
                             const teamId = team.seed.get();
 
@@ -1109,7 +1111,7 @@
                         }
 
                         span.unbind();
-                        opts.decorator.edit(span, team.name.toNull(), done_fn);
+                        opts.decorator.edit($(this), team.name.toNull(), done_fn);
                     }
 
                     editor();
@@ -1158,12 +1160,12 @@
                             if ((!val || !isNumber(val)) && !isNumber(team.score)) {
                                 val = '0';
                             } else if ((!val || !isNumber(val)) && isNumber(team.score)) {
-                                val = team.score;
+                                val = team.score.get();
                             }
 
-                            span.html(val);
+                            span.html(val.toString());
                             if (isNumber(val)) {
-                                team.score = Score.of(parseInt(val, 10));
+                                team.score = Score.of(parseInt(val.toString(), 10));
                                 renderAll(true);
                             }
                             span.click(editor);
@@ -1389,10 +1391,10 @@
         }
     }
 
-    const undefinedToNull = value => (value === undefined ? null : value);
+    const undefinedToNull = (value: number) => (value === undefined ? null : value);
 
-    const wrapResults = initResults =>
-        initResults.map(brackets =>
+    const wrapResults = (initResults: { map: (arg0: (brackets: any) => any) => void }) =>
+        initResults.map((brackets: { map: (arg0: (rounds: any) => any) => void }) =>
             brackets.map(rounds =>
                 rounds.map(
                     (matches: [number, number, any]) =>
@@ -1478,9 +1480,9 @@
             embedEditButtons(topCon, data, opts);
         }
 
-        let fEl;
-        let wEl;
-        let lEl;
+        let fEl: JQuery<HTMLElement>;
+        let wEl: JQuery<HTMLElement>;
+        let lEl: JQuery<HTMLElement>;
 
         if (isSingleElimination) {
             wEl = $('<div class="bracket"></div>').appendTo(topCon);
@@ -1606,7 +1608,7 @@
         }
     };
 
-    const isPow2 = x => x & (x - 1);
+    const isPow2 = (x: number) => x & (x - 1);
 
     const methods = {
         init(originalOpts: Options) {
@@ -1625,7 +1627,7 @@
             if (opts.decorator && (!opts.decorator.edit || !opts.decorator.render)) {
                 throw Error('Invalid decorator input');
             } else if (!opts.decorator) {
-                opts.decorator = { edit: defaultEdit, render: defaultRender };
+                opts.decorator = { edit: defaultEdit, render: defaultRender.arguments };
             }
 
             if (!opts.init) {
@@ -1669,7 +1671,7 @@
 
             /* wrap data to into necessary arrays */
             const r = wrap(opts.init.results, 4 - depth(opts.init.results));
-            opts.init.results = wrapResults(r);
+            opts.init.results = r;
 
             assertNumber(opts, 'teamWidth');
             assertNumber(opts, 'scoreWidth');
@@ -1714,7 +1716,7 @@
             }
             opts.dir = opts.dir || 'lr';
             opts.init.teams = !opts.init.teams || opts.init.teams.length === 0 ? [[null, null]] : opts.init.teams;
-            opts.init.teams = opts.init.teams.map(ts => ts.map(t => (t === null ? Option.empty() : Option.of(t))));
+            //opts.init.teams = opts.init.teams.map(ts => ts.map(t => (t === null ? Option.empty() : Option.of(t))));
             opts.skipConsolationRound = opts.skipConsolationRound || false;
             opts.skipSecondaryFinal = opts.skipSecondaryFinal || false;
             if (opts.dir !== 'lr' && opts.dir !== 'rl') {
@@ -1731,7 +1733,7 @@
         }
     };
 
-    $.fn.bracket = function(method) {
+    $.fn.bracket = function(method: string) {
         if (methods[method]) {
             return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
         } else if (typeof method === 'object' || !method) {
