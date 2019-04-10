@@ -108,7 +108,7 @@
                                 <fa-icon [icon]="'wrench'"></fa-icon>
                                 <span class="d-none d-md-inline" jhiTranslate="entity.action.manage">Manage</span>
                             </button>
-                            <button *ngIf="tournament.user.id==currentAccount.id && tournament.type === 'POINT' || currentAccount.authorities.includes('ROLE_ADMIN') && tournament.type === 'POINT'" type="submit"
+                            <button *ngIf="tournament.user.login==currentAccount.login && tournament.type === 'POINT' || currentAccount.authorities.includes('ROLE_ADMIN') && tournament.type === 'POINT'" type="submit"
                                 [routerLink]="['/tournament', tournament.id, 'manage-group' ]"
                                 class="btn btn-info btn-sm">
                                 <fa-icon [icon]="'wrench'"></fa-icon>
