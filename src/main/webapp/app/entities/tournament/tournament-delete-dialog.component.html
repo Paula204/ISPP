@@ -1,10 +1,10 @@
 <form name="deleteForm" (ngSubmit)="confirmDelete(tournament.id)">
     <div class="modal-header">
-        <h4 class="modal-title alert" jhiTranslate="entity.delete.title">Confirm delete operation</h4>
+        <h4 class="modal-title" jhiTranslate="entity.delete.title">Confirm delete operation</h4>
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
                 (click)="clear()">&times;</button>
     </div>
-    <div class="modal-body alert">
+    <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
         <p id="jhi-delete-tournament-heading" jhiTranslate="thorneoApp.tournament.delete.question" [translateValues]="{id: tournament.id}">Are you sure you want to delete this Tournament?</p>
     </div>

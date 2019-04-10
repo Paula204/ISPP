@@ -5,5 +5,4 @@ export * from './tournament-detail.component';
 export * from './tournament-manage.component';
 export * from './tournament.component';
 export * from './tournament.route';
-export * from './tournament-my.component';
-export * from './tournament-manage-group.component';
+

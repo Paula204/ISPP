@@ -1,0 +1,17 @@
+{
+    "upgradeUser": {
+        "free": {
+            "ads": "Anuncios en tus torneos",
+            "percentage": "9% de comisión por entrada"
+        },
+        "premium": {
+            "noAds": "Sin anuncios",
+            "noPercentage": "Sin comisiones"
+        },
+        "sponsor": {
+            "benefits": "Beneficios premium",
+            "announcement": "Tus anuncios en la página principal",
+            "social": "Anunciar torneos en redes sociales"
+        }
+    }
+}

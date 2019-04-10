@@ -84,6 +84,8 @@ class TournamentGatlingTest extends Simulation {
                 , "latitude":null
                 , "longitude":null
                 , "type":"ELIMINATION"
+                , "imagen":null
+                , "state":"SAMPLE_TEXT"
                 }""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_tournament_url"))).exitHereIfFailed
