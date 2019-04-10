@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { ITournament, ITournamentForm, Tournament } from 'app/shared/model/tournament.model';
@@ -15,7 +15,9 @@ declare let $: any;
 
 @Component({
     selector: 'jhi-tournament-manage',
-    templateUrl: './tournament-manage.component.html'
+    styles: [' body{background-color: #fff} .card{flex-direction: unset} .jh-card{flex-direction: unset}'],
+    templateUrl: './tournament-manage.component.html',
+    encapsulation: ViewEncapsulation.None
 })
 export class TournamentManageComponent implements OnInit {
     tournament: ITournamentForm;
