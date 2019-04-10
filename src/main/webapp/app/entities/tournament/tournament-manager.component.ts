@@ -14,10 +14,10 @@ import { templateSourceUrl } from '@angular/compiler';
 declare let $: any;
 
 @Component({
-    selector: 'jhi-tournament-manage',
-    templateUrl: './tournament-manage.component.html'
+    selector: 'jhi-tournament-manage2',
+    templateUrl: './tournament-manager.component.html'
 })
-export class TournamentManageComponent implements OnInit {
+export class TournamentManagerComponent implements OnInit {
     tournament: ITournamentForm;
 
     currentAccount: Account;
@@ -91,10 +91,9 @@ export class TournamentManageComponent implements OnInit {
         }
 
         $(function() {
-            const container = $('.gestionador');
+            const container = $('.prueba2');
             container.bracket({
                 init: saveData,
-                save: saveFn,
                 userData: 'http://myapi'
             });
             /* You can also inquiry the current data */

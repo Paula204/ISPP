@@ -78,6 +78,7 @@
                 <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span class="d-none d-md-inline" jhiTranslate="entity.action.edit"> Edit</span>
             </button>
 
+
             
             <button *ngIf="tournament.user.id==currentAccount.id && tournament.type === 'ELIMINATION' || currentAccount.authorities.includes('ROLE_ADMIN') && tournament.type === 'ELIMINATION'" type="submit"
                 [routerLink]="['/tournament', tournament.id, 'manage' ]"
@@ -97,6 +98,7 @@
                 <fa-icon [icon]="'arrow-right'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.signOn"> Sign On</span>
             </button>
 
+
             <button *ngIf="tournament.winner == null && tournament.user.login != currentAccount.login" type="submit"
                     (click)="signOn()"
                     class="btn btn-primary green-background">
@@ -109,6 +111,27 @@
                     <fa-icon [icon]="'ban'"></fa-icon>
                 <span jhiTranslate="entity.action.close">Close tournament</span>
             </button>
+
+
+<!--Creado un if else para que no salgan los dos botones-->
+            <div *ngIf="tournament.user.login==currentAccount.login; else elseBlock">
+                <button  type="button "
+                         [routerLink]="['/tournament', tournament.id, 'manage' ]"
+                         class="btn btn-primary">
+                <fa-icon [icon]="'wrench'"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.manage">Manage</span>
+            </button></div>
+            <ng-template #elseBlock>
+                <button type="button "
+                        [routerLink]="['/tournament', tournament.id, 'manager' ]"
+                        class="btn btn-primary">
+                    <fa-icon [icon]="'wrench'"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.manage">Manage</span>
+                </button>
+
+            </ng-template>
+
+
 
         </div>
     </div>
