@@ -9,27 +9,25 @@
             <dl class="row-md jh-entity-details paper">
                 <div class="lines">
                     <div class="texto" >
-
-                        <p class="bold" jhiTranslate="thorneoApp.tournament.description">Description</p><p>: {{tournament.description}}</p>
+                        <p class="bold" jhiTranslate="thorneoApp.tournament.description">Description</p><p> {{tournament.description}}</p>
                         </br>
-                        <p class="bold" jhiTranslate="thorneoApp.tournament.meetingDate">Meeting Date</p><p>: {{tournament.meetingDate}}</p>
+                        <p class="bold" jhiTranslate="thorneoApp.tournament.meetingDate">Meeting Date</p><p> {{tournament.meetingDate}}</p>
                         </br>
-                        <p class="bold" jhiTranslate="thorneoApp.tournament.meetingPoint">Meeting Point</p><p>: {{tournament.meetingPoint}}</p>
+                        <p class="bold" jhiTranslate="thorneoApp.tournament.meetingPoint">Meeting Point</p><p> {{tournament.meetingPoint}}</p>
                         </br>
-                        <p class="bold" jhiTranslate="thorneoApp.tournament.city">City</p><p>: {{tournament.city}}</p>
+                        <p class="bold" jhiTranslate="thorneoApp.tournament.city">City</p><p> {{tournament.city}}</p>
                         </br>
-                        <p class="bold"jhiTranslate="thorneoApp.tournament.price">Price</p><p>: {{tournament.price}}</p>
+                        <p class="bold"jhiTranslate="thorneoApp.tournament.price">Price</p><p> {{tournament.price}}</p><!-- Habria que poner un if notnull se muestra -->
                         </br>
-                        <p class="bold" jhiTranslate="thorneoApp.tournament.playerSize">Player Size</p><p>: {{tournament.playerSize}}</p>
+                        <p class="bold" jhiTranslate="thorneoApp.tournament.playerSize">Player Size</p><p> {{tournament.playerSize}}</p>
                         </br>
-                        <p class="bold" jhiTranslate="thorneoApp.tournament.rewards">Rewards</p><p>: {{tournament.rewards}}</p>
+                        <p class="bold" jhiTranslate="thorneoApp.tournament.rewards">Rewards</p><p> {{tournament.rewards}}</p>
                         </br>
-                        <p class="bold"jhiTranslate="thorneoApp.tournament.type">Type</p>: <p></p><p jhiTranslate="{{'thorneoApp.Type.' + tournament.type}}">{{tournament.type}}</p>
+                        <p class="bold"jhiTranslate="thorneoApp.tournament.type">Type</p><p jhiTranslate="{{'thorneoApp.Type.' + tournament.type}}">{{tournament.type}}</p>
                         </br>
-                        <p  class="bold"jhiTranslate="thorneoApp.tournament.user">User</p><p>: {{tournament.user?.login}}</p>
+                        <p  class="bold"jhiTranslate="thorneoApp.tournament.user">User</p><p>{{tournament.user?.login}}</p>
                         </br>
                         <p  class="bold"jhiTranslate="thorneoApp.tournament.game">Game</p>
-
                         <span *ngIf="tournament.game">
                             <a [routerLink]="['/game', tournament.game?.id, 'view']">{{tournament.game?.title}}</a>
                         </span>
@@ -136,5 +134,8 @@
 
 
         </div>
+
+
+
     </div>
 </div>
