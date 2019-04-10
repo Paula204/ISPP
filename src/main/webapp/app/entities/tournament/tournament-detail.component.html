@@ -78,12 +78,12 @@
                 <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span class="d-none d-md-inline" jhiTranslate="entity.action.edit"> Edit</span>
             </button>
 
-
+            <!--
             <button *ngIf="tournament.user.login==currentAccount.login && tournament.type === 'POINT' || currentAccount.authorities.includes('ROLE_ADMIN') && tournament.type === 'POINT'" type="submit"
                 [routerLink]="['/tournament', tournament.id, 'manage-group' ]"
                 class="btn btn-primary">
                 <fa-icon [icon]="'wrench'"></fa-icon>&nbsp;<span class="d-none d-md-inline" jhiTranslate="entity.action.manage">Manage</span>
-            </button>
+            </button>-->
 
             <button *ngIf="tournament.winner == null && tournament.user.login != currentAccount.login" type="button"
                     [routerLink]="['/paypal-payments/inscribeTorneo',tournament.id]"
