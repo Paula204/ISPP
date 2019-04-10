@@ -18,12 +18,12 @@
                 </a>
             </li>
             
-            <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            <!--<li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                 <a class="nav-link" routerLink="paypal-payments" (click)="collapseNavbar()">
                     <i class="fa fa-hand-spock-o" aria-hidden="true"></i>
                     <span jhiTranslate="global.payment">Paypal payments</span>
                 </a>
-            </li>
+            </li>-->
             <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
             <li *ngSwitchCase="true" ngbDropdown class="nav-item dropdown pointer" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                 <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="entity-menu">
@@ -171,6 +171,12 @@
                         <a class="dropdown-item" (click)="logout()" id="logout">
                             <fa-icon icon="sign-out-alt" fixedWidth="true"></fa-icon>
                             <span jhiTranslate="global.menu.account.logout">Sign out</span>
+                        </a>
+                    </li>
+                    <li *ngSwitchCase="true">
+                        <a class="dropdown-item" routerLink="upgrade-user" id="upgrade">
+                            <fa-icon icon="level-up-alt" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.account.upgrade">Upgrade</span>
                         </a>
                     </li>
                     <li *ngSwitchCase="false">
