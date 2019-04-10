@@ -35,7 +35,9 @@
             "winner": "Winner",
             "win": "Win",
             "tie": "Tie",
-            "disqualify": "Disqualify"
+            "disqualify": "Disqualify",
+            "doubleE": "Double Elimination",
+            "singleE": "Single Elimination"
         }
     }
 }
