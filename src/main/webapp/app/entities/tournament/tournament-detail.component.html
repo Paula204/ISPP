@@ -80,13 +80,13 @@
 
 
             
-            <button *ngIf="tournament.user.id==currentAccount.login && tournament.type === 'ELIMINATION' || currentAccount.authorities.includes('ROLE_ADMIN') && tournament.type === 'ELIMINATION'" type="submit"
+            <button *ngIf="tournament.user.login==currentAccount.login && tournament.type === 'ELIMINATION' || currentAccount.authorities.includes('ROLE_ADMIN') && tournament.type === 'ELIMINATION'" type="submit"
                 [routerLink]="['/tournament', tournament.id, 'manage' ]"
                 class="btn btn-primary">
                 <fa-icon [icon]="'wrench'"></fa-icon>&nbsp;<span class="d-none d-md-inline" jhiTranslate="entity.action.manage">Manage</span>
             </button>
             
-            <button *ngIf="tournament.user.id==currentAccount.id && tournament.type === 'POINT' || currentAccount.authorities.includes('ROLE_ADMIN') && tournament.type === 'POINT'" type="submit"
+            <button *ngIf="tournament.user.login==currentAccount.login && tournament.type === 'POINT' || currentAccount.authorities.includes('ROLE_ADMIN') && tournament.type === 'POINT'" type="submit"
                 [routerLink]="['/tournament', tournament.id, 'manage-group' ]"
                 class="btn btn-primary">
                 <fa-icon [icon]="'wrench'"></fa-icon>&nbsp;<span class="d-none d-md-inline" jhiTranslate="entity.action.manage">Manage</span>
