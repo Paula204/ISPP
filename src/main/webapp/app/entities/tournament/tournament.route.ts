@@ -11,6 +11,7 @@ import { TournamentComponent } from './tournament.component';
 import { TournamentMyComponent } from './tournament-my.component';
 import { TournamentDetailComponent } from './tournament-detail.component';
 import { TournamentManageComponent } from './tournament-manage.component';
+import { TournamentManageGroupComponent } from './tournament-manage-group.component';
 
 import { TournamentUpdateComponent } from './tournament-update.component';
 import { TournamentDeletePopupComponent } from './tournament-delete-dialog.component';
@@ -98,6 +99,18 @@ export const tournamentRoute: Routes = [
     {
         path: ':id/manage',
         component: TournamentManageComponent,
+        resolve: {
+            tournament: TournamentResolve
+        },
+        data: {
+            authorities: ['ROLE_USER', 'ROLE_ADMIN'],
+            pageTitle: 'thorneoApp.tournament.home.title'
+        },
+        canActivate: [UserRouteAccessService]
+    },
+    {
+        path: ':id/manage-group',
+        component: TournamentManageGroupComponent,
         resolve: {
             tournament: TournamentResolve
         },

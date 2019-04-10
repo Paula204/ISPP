@@ -11,6 +11,8 @@ import { Account, AccountService } from 'app/core';
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { TournamentService } from './tournament.service';
 
+import { Type } from 'app/shared/model/tournament.model';
+
 @Component({
     selector: 'jhi-tournament',
     templateUrl: './tournament-my.component.html'
@@ -30,6 +32,7 @@ export class TournamentMyComponent implements OnInit, OnDestroy {
     predicate: any;
     previousPage: any;
     reverse: any;
+    type: Type;
 
     constructor(
         protected tournamentService: TournamentService,

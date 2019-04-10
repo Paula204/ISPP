@@ -69,36 +69,45 @@
             <button type="submit"
                     (click)="previousState()"
                     class="btn btn-info">
-                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span class="d-none d-md-inline" jhiTranslate="entity.action.back"> Back</span>
             </button>
 
             <button *ngIf="tournament.user.login==currentAccount.login && tournament.winner == null" type="button"
                     [routerLink]="['/tournament', tournament.id, 'edit']"
                     class="btn btn-primary">
-                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span class="d-none d-md-inline" jhiTranslate="entity.action.edit"> Edit</span>
             </button>
+
+            
+            <button *ngIf="tournament.user.id==currentAccount.id && tournament.type === 'ELIMINATION' || currentAccount.authorities.includes('ROLE_ADMIN') && tournament.type === 'ELIMINATION'" type="submit"
+                [routerLink]="['/tournament', tournament.id, 'manage' ]"
+                class="btn btn-primary">
+                <fa-icon [icon]="'wrench'"></fa-icon>&nbsp;<span class="d-none d-md-inline" jhiTranslate="entity.action.manage">Manage</span>
+            </button>
+            
+            <button *ngIf="tournament.user.id==currentAccount.id && tournament.type === 'POINT' || currentAccount.authorities.includes('ROLE_ADMIN') && tournament.type === 'POINT'" type="submit"
+                [routerLink]="['/tournament', tournament.id, 'manage-group' ]"
+                class="btn btn-primary">
+                <fa-icon [icon]="'wrench'"></fa-icon>&nbsp;<span class="d-none d-md-inline" jhiTranslate="entity.action.manage">Manage</span>
+            </button>
+
             <button *ngIf="tournament.winner == null && tournament.user.login != currentAccount.login" type="button"
                     [routerLink]="['/paypal-payments/inscribeTorneo',tournament.id]"
                     class="btn btn-primary green-background">
                 <fa-icon [icon]="'arrow-right'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.signOn"> Sign On</span>
             </button>
+
             <button *ngIf="tournament.winner == null && tournament.user.login != currentAccount.login" type="submit"
                     (click)="signOn()"
                     class="btn btn-primary green-background">
                 <fa-icon [icon]="'arrow-right'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.signOn"> Sign On</span>
             </button>
+            
             <button *ngIf="tournament.winner == null && tournament.user.login == currentAccount.login && tournament.meetingDate.isBefore(currentDate)" type="submit"
                     (click)="close()"
                     class="btn btn-primary red">
                     <fa-icon [icon]="'ban'"></fa-icon>
                 <span jhiTranslate="entity.action.close">Close tournament</span>
-            </button>
-
-            <button type="button"
-                [routerLink]="['/tournament', tournament.id, 'manage' ]"
-                class="btn btn-primary">
-                <fa-icon [icon]="'wrench'"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.manage">Manage</span>
             </button>
 
         </div>

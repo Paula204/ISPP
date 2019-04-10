@@ -35,7 +35,9 @@
             "winner": "Ganador",
             "win": "Ganador",
             "tie": "Empate",
-            "disqualify": "Descalificar"
+            "disqualify": "Descalificar",
+            "doubleE": "Eliminación doble",
+            "singleE": "Eliminación simple"
         }
     }
 }
