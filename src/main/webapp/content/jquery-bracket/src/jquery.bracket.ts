@@ -1716,7 +1716,7 @@
             }
             opts.dir = opts.dir || 'lr';
             opts.init.teams = !opts.init.teams || opts.init.teams.length === 0 ? [[null, null]] : opts.init.teams;
-            opts.init.teams = opts.init.teams.map(ts => ts.map(t => (t === null ? Option.empty() : Option.of(t))));
+            //opts.init.teams = opts.init.teams.map(ts => ts.map(t => (t === null ? Option.empty() : Option.of(t))));
             opts.skipConsolationRound = opts.skipConsolationRound || false;
             opts.skipSecondaryFinal = opts.skipSecondaryFinal || false;
             if (opts.dir !== 'lr' && opts.dir !== 'rl') {
