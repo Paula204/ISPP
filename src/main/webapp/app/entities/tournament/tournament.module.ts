@@ -14,7 +14,9 @@ import {
     TournamentDeleteDialogComponent,
     tournamentRoute,
     tournamentPopupRoute,
-    TournamentManageComponent //
+    TournamentManageComponent, //
+    TournamentManagerComponent,
+    TournamentManageGroupComponent //
 } from './';
 
 const ENTITY_STATES = [...tournamentRoute, ...tournamentPopupRoute];
@@ -28,14 +30,19 @@ const ENTITY_STATES = [...tournamentRoute, ...tournamentPopupRoute];
         TournamentUpdateComponent,
         TournamentDeleteDialogComponent,
         TournamentDeletePopupComponent,
-        TournamentManageComponent //
+        TournamentManageComponent, //
+        TournamentManagerComponent,
+        TournamentManageGroupComponent
     ],
     entryComponents: [
         TournamentComponent,
         TournamentMyComponent,
         TournamentUpdateComponent,
         TournamentDeleteDialogComponent,
-        TournamentDeletePopupComponent
+        TournamentDeletePopupComponent,
+        TournamentManageComponent, //
+        TournamentManagerComponent,
+        TournamentManageGroupComponent //
     ],
     providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]

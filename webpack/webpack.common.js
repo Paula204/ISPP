@@ -76,6 +76,7 @@ module.exports = (options) => ({
             { from: './src/main/webapp/manifest.webapp', to: 'manifest.webapp' },
             { from: './src/main/webapp/content/jquery/dist/jquery.min.js', to: 'jquery.min.js' },
             { from: './src/main/webapp/content/jquery-bracket/dist/jquery.bracket.min.js', to: 'jquery.bracket.min.js' },
+            // { from: './src/main/webapp/content/jquery-group/dist/jquery.group.min.js', to: 'jquery.group.min.js' },
             // jhipster-needle-add-assets-to-webpack - JHipster will add/remove third-party resources in this array
             { from: './src/main/webapp/robots.txt', to: 'robots.txt' }
         ]),
