@@ -64,7 +64,7 @@ public class Tournament implements Serializable {
     @Column(name = "rewards")
     private String rewards;
 
-    @Column(name = "image_url", nullable = false)
+    @Column(name = "image_url")
     private String imageUrl;
 
     @Column(name = "latitude")

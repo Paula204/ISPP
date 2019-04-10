@@ -55,7 +55,7 @@
             </column>
 
             <column name="image_url" type="varchar(255)">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
 
             <column name="latitude" type="bigint">

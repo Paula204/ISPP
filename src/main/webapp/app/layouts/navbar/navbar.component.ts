@@ -20,6 +20,7 @@ export class NavbarComponent implements OnInit {
     swaggerEnabled: boolean;
     modalRef: NgbModalRef;
     version: string;
+    isUser: boolean;
 
     constructor(
         private loginService: LoginService,
@@ -57,6 +58,10 @@ export class NavbarComponent implements OnInit {
 
     isAuthenticated() {
         return this.accountService.isAuthenticated();
+    }
+
+    isUserRole() {
+        return !this.accountService.hasAnyAuthority(['ROLE_ADMIN', 'ROLE_SPONSOR']);
     }
 
     login() {
