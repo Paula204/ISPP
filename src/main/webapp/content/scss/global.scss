@@ -424,6 +424,7 @@ ui bootstrap tweaks
     display: flex;
     align-items: center;
     justify-content: center;
+    height: auto;
 }
 
 .bracket:before {
@@ -436,14 +437,6 @@ ui bootstrap tweaks
     -webkit-transform: translateX(-50%);
     transform: translateX(-50%);
     background-color: transparent !important;
-}
-
-.teamContainer,
-teamContainer.np {
-}
-
-.team.na {
-    // display:none;
 }
 
 .bracket {
@@ -471,6 +464,71 @@ div.jQBracket .np .connector div.connector {
     opacity: 0;
     border-color: #999;
     pointer-events: none;
+}
+
+div.jQBracket .round {
+    margin-right: 80px;
+}
+
+@media only screen and (max-width: 660px) {
+    div.jQBracket {
+        font-family: Arial;
+        font-size: 100%;
+        flex-direction: column;
+    }
+    div.bracket::before {
+        display: none;
+        clear: both;
+    }
+    div.bracket {
+        flex-direction: column;
+        width: 100%;
+        min-height: 300px;
+        margin-right: 0px !important;
+    }
+    div.jQBracket .bracket {
+        display: block;
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+    }
+    div.jQBracket .round {
+        display: block;
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+    }
+    .connector {
+        display: none;
+    }
+
+    div.jQBracket .match {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
+
+    div.jQBracket .teamContainer {
+    }
+    div.jQBracket .team {
+    }
+    div.jQBracket .team:first-child {
+        border-bottom: 0px solid #999;
+        margin-right: 10px;
+    }
+    div.jQBracket .connector {
+        display: none;
+    }
+    .team.np,
+    .team.na {
+        display: none;
+    }
+    div.jQBracket .np .connector,
+    div.jQBracket .np .connector div.connector {
+        display: none;
+    }
 }
 //ANIMATIONS
 
