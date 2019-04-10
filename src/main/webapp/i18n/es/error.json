@@ -16,6 +16,7 @@
         "Length": "Longitud máxima 250 caracteres.",
         "noParticipants": "No puedes cerrar este torneo porque no tiene participantes",
         "closeTournament": "Torneo cerrado",
-        "soWinners": "Solo puede haber un ganador"
+        "soWinners": "Solo puede haber un ganador",
+        "currentRole": "Ya tienes este rol asignado"
     }
 }

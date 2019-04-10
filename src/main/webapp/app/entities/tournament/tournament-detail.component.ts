@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { ITournament, ITournamentForm, Tournament } from 'app/shared/model/tournament.model';
 import { TournamentService } from '.';
@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { JhiAlertService } from 'ng-jhipster';
 import { Account, AccountService } from 'app/core';
+import { HasAnyAuthorityDirective } from 'app/shared';
 
 @Component({
     selector: 'jhi-tournament-detail',
@@ -26,7 +27,8 @@ export class TournamentDetailComponent implements OnInit {
         protected activatedRoute: ActivatedRoute,
         protected accountService: AccountService,
         protected tournamentService: TournamentService,
-        protected participationService: ParticipationService
+        protected participationService: ParticipationService,
+        private router: Router
     ) {}
 
     ngOnInit() {
@@ -51,6 +53,16 @@ export class TournamentDetailComponent implements OnInit {
         }
 
         this.subscribeToSaveResponse(this.tournamentService.signOn(this.tournament));
+    }
+
+    signOnUser() {
+        this.isSaving = true;
+
+        if (this.tournament.participations === null) {
+            this.tournament.participations = [];
+        }
+
+        this.router.navigate(['paypal-payments/inscribeTorneo' + this.tournament.id]);
     }
 
     close() {

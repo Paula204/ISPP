@@ -1,5 +1,6 @@
 {
     "global": {
+        "payment": "Paypal Payments",
         "title": "Thorneo",
         "browsehappy": "You are using an <strong>outdated</strong> browser. Please <a href=\"http://browsehappy.com/?locale=en\">upgrade your browser</a> to improve your experience.",
         "menu": {
@@ -13,7 +14,10 @@
                 "participation": "My Participations",
                 "sponsorship": "Sponsorship",
                 "promotion": "Promotion",
-                "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
+                "paypalCompletedPayments": "Paypal Completed Payments",
+                "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)",
+                "sponsor": "Upgrade to Sponsor",
+                "premium": "Upgrade to Premium"
             },
             "account": {
                 "main": "Account",
@@ -22,7 +26,8 @@
                 "sessions": "Sessions",
                 "login": "Sign in",
                 "logout": "Sign out",
-                "register": "Register"
+                "register": "Register",
+                "upgrade": "Upgrade account"
             },
             "admin": {
                 "main": "Administration",
@@ -106,7 +111,8 @@
             "save": "Save",
             "view": "View",
             "signOn": "Sign On",
-            "close": "Close"
+            "close": "Close",
+            "manage": "Manage"
         },
         "detail": {
             "field": "Field",
@@ -145,5 +151,22 @@
         "idsame": "You're registered on this tournament",
         "idManager": "You're the manager of this tournament"
     },
-    "footer": "This is your footer"
+    "footer": "ThorneoDevs",
+    "cookies": {
+        "title": "Cookies policy",
+        "cookie1": "Objective of the cookies policy",
+        "cookie2": "The purpose of this cookie policy is information on the policy of using recovery devices and data recovery in terminal equipment for the website in order to decide whether the authorizations or the use of cookies in the final files that you use in your navigation through the site.",
+        "cookie3": "What are cookies?",
+        "cookie4": "Cookies are files or text files that a web server downloads and stores on your computer / terminal when accessing certain web pages to store and retrieve information about the navigation you make from that computer. These cookies are sent to our server every time you enter the website.",
+        "cookie5": "The cookies used by our website are cookies to know the language in which you wish to view the website, cookies to log in and cookies to save credit card, these cookies are generated every time the user registers or opens your session and is used to keep you logged in it  and to authorize him to access certain services or contents. In the case of credit cards cookies, we use it to fill the forms of the user when he or she will pay a basket.",
+        "cookie6": "In any case the cookies can be deactivated through the configuration of the browser or to configure its elimination. For this, check the configuration of your browser in order to obtain more information about it.",
+        "cookie7": "There are two cases in which you accept the use of cookies:",
+        "cookie8": "When you accept by checking the corresponding box in the information banner provided by the website.",
+        "cookie9": "Admitting the use of cookies and visiting the website.",
+        "cookie10": "You should bear in mind that avoiding the use of cookies can lead to errors in the same and make it impossible to perform website functionalities.",
+        "cookie11": "Personal data protection",
+        "cookie12": "Cookies are text files that a web server downloads and stores on your computer when accessing certain web pages to store and retrieve information about the navigation you make from that computer but does not collect personal data. However, if you are a registered user of this website we can associate your personal data with the cookies downloaded to your computer, see our data protection policy for more information.",
+        "cookie13": "Upgrade",
+        "cookie14": "This policy will be updated, so these updates will be posted on the website. As soon as we inform you of the new conditions by publishing them on the website, it is assumed that they will be replaced by those previously published, so it is your responsibility to periodically access these conditions published on the website to learn about them. all the time the latest version."
+    }
 }
