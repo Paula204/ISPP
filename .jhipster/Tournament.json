@@ -1,32 +1,5 @@
 {
-    "fluentMethods": true,
-    "clientRootFolder": "",
-    "relationships": [
-        {
-            "relationshipType": "one-to-many",
-            "relationshipValidateRules": "required",
-            "relationshipName": "participation",
-            "otherEntityName": "participation",
-            "otherEntityRelationshipName": "tournament",
-            "otherEntityRelationshipNameUndefined": false
-        },
-        {
-            "relationshipType": "many-to-one",
-            "relationshipName": "user",
-            "otherEntityName": "user",
-            "otherEntityField": "id",
-            "otherEntityRelationshipName": "tournament",
-            "otherEntityRelationshipNameUndefined": false
-        },
-        {
-            "relationshipType": "many-to-one",
-            "relationshipName": "game",
-            "otherEntityName": "game",
-            "otherEntityField": "id",
-            "otherEntityRelationshipName": "tournament",
-            "otherEntityRelationshipNameUndefined": false
-        }
-    ],
+    "name": "Tournament",
     "fields": [
         {
             "fieldName": "title",
@@ -102,24 +75,38 @@
             "fieldName": "type",
             "fieldType": "Type",
             "fieldValues": "ELIMINATION,POINT"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipValidateRules": "required",
+            "relationshipName": "participation",
+            "otherEntityName": "participation",
+            "otherEntityRelationshipName": "tournament"
         },
         {
-            "fieldName": "imagen",
-            "fieldType": "byte[]",
-            "fieldTypeBlobContent": "image",
-            "fieldValidateRules": []
+            "relationshipType": "many-to-one",
+            "relationshipName": "user",
+            "otherEntityName": "user",
+            "otherEntityField": "id",
+            "otherEntityRelationshipName": "tournament"
         },
         {
-            "fieldName": "state",
-            "fieldType": "String"
+            "relationshipType": "many-to-one",
+            "relationshipName": "game",
+            "otherEntityName": "game",
+            "otherEntityField": "id",
+            "otherEntityRelationshipName": "tournament"
         }
     ],
     "changelogDate": "20190322214120",
-    "dto": "no",
-    "searchEngine": "elasticsearch",
-    "service": "serviceImpl",
     "entityTableName": "tournament",
-    "databaseType": "sql",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "serviceImpl",
     "jpaMetamodelFiltering": false,
-    "pagination": "pagination"
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
 }

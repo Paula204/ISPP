@@ -9,6 +9,9 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
+import org.hibernate.validator.constraints.Length;
+
+import org.hibernate.validator.constraints.URL;
 import org.springframework.data.elasticsearch.annotations.Document;
 import java.io.Serializable;
 import java.time.Instant;
@@ -57,13 +60,16 @@ public class Tournament implements Serializable {
     @Column(name = "price")
     private Integer price;
 
-    @Min(value = 0)
+    @Min(value = 2)
     @Column(name = "player_size")
     private Integer playerSize;
 
     @Column(name = "rewards")
     private String rewards;
 
+    @NotNull
+    @URL
+    @Length(max = 255)
     @Column(name = "image_url", nullable = false)
     private String imageUrl;
 
@@ -73,28 +79,21 @@ public class Tournament implements Serializable {
     @Column(name = "longitude")
     private Long longitude;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "jhi_type")
     private Type type;
-
-    @Lob
-    @Column(name = "imagen")
-    private byte[] imagen;
-
-    @Column(name = "imagen_content_type")
-    private String imagenContentType;
-
-    @Column(name = "state")
-    private String state;
 
     @NotNull
     @OneToMany(mappedBy = "tournament", fetch = FetchType.EAGER, orphanRemoval = true)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Participation> participations = new HashSet<>();
+
     @ManyToOne
     @JsonIgnoreProperties("tournaments")
     private User user;
 
+    @NotNull
     @ManyToOne
     @JsonIgnoreProperties("tournaments")
     private Game game;
@@ -264,45 +263,6 @@ public class Tournament implements Serializable {
         this.type = type;
     }
 
-    public byte[] getImagen() {
-        return imagen;
-    }
-
-    public Tournament imagen(byte[] imagen) {
-        this.imagen = imagen;
-        return this;
-    }
-
-    public void setImagen(byte[] imagen) {
-        this.imagen = imagen;
-    }
-
-    public String getImagenContentType() {
-        return imagenContentType;
-    }
-
-    public Tournament imagenContentType(String imagenContentType) {
-        this.imagenContentType = imagenContentType;
-        return this;
-    }
-
-    public void setImagenContentType(String imagenContentType) {
-        this.imagenContentType = imagenContentType;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public Tournament state(String state) {
-        this.state = state;
-        return this;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
     public Set<Participation> getParticipations() {
         return participations;
     }
@@ -391,9 +351,6 @@ public class Tournament implements Serializable {
             ", latitude=" + getLatitude() +
             ", longitude=" + getLongitude() +
             ", type='" + getType() + "'" +
-            ", imagen='" + getImagen() + "'" +
-            ", imagenContentType='" + getImagenContentType() + "'" +
-            ", state='" + getState() + "'" +
             "}";
     }
 }

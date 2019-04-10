@@ -22,9 +22,6 @@ export interface ITournament {
     latitude?: number;
     longitude?: number;
     type?: Type;
-    imagenContentType?: string;
-    imagen?: any;
-    state?: string;
     participations?: IParticipation[];
     user?: IUser;
     game?: IGame;
@@ -44,9 +41,6 @@ export interface ITournamentForm {
     latitude?: number;
     longitude?: number;
     type?: Type;
-    imagenContentType?: string;
-    imagen?: any;
-    state?: string;
     participations?: IParticipation[];
     user?: IUser;
     game?: IGame;
@@ -68,9 +62,6 @@ export class Tournament implements ITournament {
         public latitude?: number,
         public longitude?: number,
         public type?: Type,
-        public imagenContentType?: string,
-        public imagen?: any,
-        public state?: string,
         public participations?: IParticipation[],
         public user?: IUser,
         public game?: IGame
@@ -78,24 +69,23 @@ export class Tournament implements ITournament {
 }
 
 export class TournamentForm implements ITournamentForm {
-    id?: number;
-    title?: string;
-    description?: string;
-    meetingDate?: Moment;
-    meetingPoint?: string;
-    city?: string;
-    price?: number;
-    playerSize?: number;
-    rewards?: string;
-    imageUrl?: string;
-    latitude?: number;
-    longitude?: number;
-    type?: Type;
-    imagenContentType?: string;
-    imagen?: any;
-    state?: string;
-    participations?: IParticipation[];
-    user?: IUser;
-    game?: IGame;
-    winner?: string;
+    constructor(
+        public id?: number,
+        public title?: string,
+        public description?: string,
+        public meetingDate?: Moment,
+        public meetingPoint?: string,
+        public city?: string,
+        public price?: number,
+        public playerSize?: number,
+        public rewards?: string,
+        public imageUrl?: string,
+        public latitude?: number,
+        public longitude?: number,
+        public type?: Type,
+        public participations?: IParticipation[],
+        public user?: IUser,
+        public game?: IGame,
+        public winner?: string
+    ) {}
 }

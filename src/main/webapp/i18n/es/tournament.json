@@ -2,6 +2,7 @@
     "thorneoApp": {
         "tournament": {
             "home": {
+
                 "title2": "Mis torneos",
                 "title": "torneo",
                 "createLabel": "Crear nuevo torneo",
@@ -13,6 +14,7 @@
             "deleted": "Un Torneo ha sido eliminado",
             "delete": {
                 "question": "¿Seguro que quiere eliminar Torneo?"
+
             },
             "detail": {
                 "title": "Torneo"
@@ -23,16 +25,14 @@
             "meetingPoint": "Punto de encuentro",
             "city": "Ciudad",
             "price": "Precio",
-            "playerSize": "Capacidad del torneo",
+            "playerSize": "Límite de jugadores",
             "rewards": "Premios",
-            "imageUrl": "Url",
+            "imageUrl": "Url de la imagen",
             "latitude": "Latitud",
             "longitude": "Longitud",
-            "type": "Tipo",
-            "imagen": "Imagen",
-            "state": "Estado",
+            "type": "Tipo de torneo",
             "participation": "Participantes",
-            "user": "Usuario",
+            "user": "Administrador",
             "game": "Juego",
             "winner": "Ganador",
             "win": "Ganador",
