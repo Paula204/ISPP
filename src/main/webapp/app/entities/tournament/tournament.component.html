@@ -102,18 +102,18 @@
                                 <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
                             </button>
 
-                            <button *ngIf="tournament.user.id==currentAccount.id && tournament.type === 'ELIMINATION' || currentAccount.authorities.includes('ROLE_ADMIN') && tournament.type === 'ELIMINATION'" type="submit"
+                            <button *ngIf="tournament.user.login==currentAccount.login || currentAccount.authorities.includes('ROLE_ADMIN')" type="submit"
                                 [routerLink]="['/tournament', tournament.id, 'manage' ]"
                                 class="btn btn-info btn-sm">
                                 <fa-icon [icon]="'wrench'"></fa-icon>
                                 <span class="d-none d-md-inline" jhiTranslate="entity.action.manage">Manage</span>
-                            </button>
-                            <button *ngIf="tournament.user.id==currentAccount.id && tournament.type === 'POINT' || currentAccount.authorities.includes('ROLE_ADMIN') && tournament.type === 'POINT'" type="submit"
+                            </button><!--
+                            <button *ngIf="tournament.user.login==currentAccount.login && tournament.type === 'POINT' || currentAccount.authorities.includes('ROLE_ADMIN') && tournament.type === 'POINT'" type="submit"
                                 [routerLink]="['/tournament', tournament.id, 'manage-group' ]"
                                 class="btn btn-info btn-sm">
                                 <fa-icon [icon]="'wrench'"></fa-icon>
                                 <span class="d-none d-md-inline" jhiTranslate="entity.action.manage">Manage</span>
-                            </button>
+                            </button>-->
                         </div>
                     </td>
                 </tr>

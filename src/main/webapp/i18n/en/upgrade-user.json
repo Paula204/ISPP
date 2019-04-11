@@ -9,6 +9,9 @@
             "noPercentage": "No commissions"
         },
         "sponsor": {
+            "cancel": "Cancel subscription",
+            "mensual": "Mensual Pay",
+            "anual": "Annual Pay",
             "benefits": "Premium benefits",
             "announcement": "Your ads in our page",
             "social": "Tournament advertising on our social networks"

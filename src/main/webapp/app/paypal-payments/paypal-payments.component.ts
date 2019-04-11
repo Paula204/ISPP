@@ -6,7 +6,7 @@ import { AccountService } from 'app/core/auth/account.service';
 import { IUser, User, UserService } from 'app/core';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
 import { TournamentService } from 'app/entities/tournament';
 import { ITournament, Tournament } from 'app/shared/model/tournament.model';
@@ -29,15 +29,18 @@ export class PaypalPaymentsComponent implements OnInit, AfterViewChecked {
     idTorneo: number;
     torneo: Tournament;
     amount: number;
+    cycles: number;
+    frequency: string;
+    pagoTorneo: boolean;
     constructor(
         protected paypalCompletedPaymentsService: PaypalCompletedPaymentsService,
         protected accountService: AccountService,
         protected activatedRoute: ActivatedRoute,
-        protected tournamentService: TournamentService
+        protected tournamentService: TournamentService,
+        private router: Router
     ) {
         this.activatedRoute.queryParams.subscribe(params => {
             this.idTorneo = params['idTorneo'];
-            alert(this.idTorneo);
         });
         this.message = 'PaypalPaymentsComponent message';
         console.log('==================================');
@@ -64,10 +67,16 @@ export class PaypalPaymentsComponent implements OnInit, AfterViewChecked {
 
                 if (_this.route === 'sponsor') {
                     _this.amount = 22.45;
+                    _this.cycles = 12;
+                    _this.frequency = 'Month';
                 } else if (_this.route === 'premium') {
-                    _this.amount = 11.22;
+                    _this.amount = 225.42;
+                    _this.cycles = 1;
+                    _this.frequency = 'Year';
                 } else {
                     _this.amount = _this.torneo.price;
+                    _this.cycles = 1;
+                    _this.frequency = 'Year';
                 }
                 paypal
                     .Buttons({
@@ -75,18 +84,29 @@ export class PaypalPaymentsComponent implements OnInit, AfterViewChecked {
                             return actions.order.create({
                                 purchase_units: [
                                     {
+                                        type: 'REGULAR',
+                                        frequency: _this.frequency,
                                         amount: {
                                             value: _this.amount
-                                        }
+                                        },
+                                        cycles: _this.cycles
                                     }
                                 ]
                             });
+                            /*purchase_units: [
+                                    {
+                                        amount: {
+                                            value: _this.amount,
+                                        },
+                                    }
+                                ]*/
                         },
                         onApprove(data, actions) {
                             // Capture the funds from the transaction
                             actions.order.capture().then(function(details) {
                                 // Show a success message to your buyer
-                                alert('Transaction completed by ' + details.payer.name.given_name);
+                                alert('Transaction completed');
+                                // by ' + details.payer.name.given_name
                                 _this.isSaving = true;
                                 _this.paypalPayment.date = moment();
                                 _this.paypalPayment.idPayment = details.id;
@@ -106,12 +126,13 @@ export class PaypalPaymentsComponent implements OnInit, AfterViewChecked {
                                         _this.subscribeToSaveResponse(_this.paypalCompletedPaymentsService.create(_this.paypalPayment));
                                     });
                                 if (_this.route === 'premium') {
-                                    _this.upgradePremium();
+                                    _this.upgradeSponsor();
                                 }
                                 if (_this.route === 'sponsor') {
                                     _this.upgradeSponsor();
                                 } else {
                                     _this.upgradeThorneo();
+                                    this.pagoTorneo = true;
                                 }
                             });
                         }
@@ -153,8 +174,8 @@ export class PaypalPaymentsComponent implements OnInit, AfterViewChecked {
     }
 
     upgradePremium() {
-        this.currentUser.authorities.push('ROLE_PREMIUM');
-        this.accountService.upgradePremium(this.currentUser).subscribe(
+        this.currentUser.authorities.push('ROLE_SPONSOR');
+        this.accountService.upgradeSponsor(this.currentUser).subscribe(
             () => {
                 this.onSaveSuccess();
             },
@@ -181,7 +202,6 @@ export class PaypalPaymentsComponent implements OnInit, AfterViewChecked {
         if (this.torneo.participations === null) {
             this.torneo.participations = [];
         }
-        alert(this.torneo.title);
         this.subscribeToSaveResponse(this.tournamentService.signOn(this.torneo));
     }
 }
