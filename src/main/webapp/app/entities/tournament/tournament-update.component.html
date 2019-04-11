@@ -7,27 +7,27 @@
                 <div class="form-group" [hidden]="!tournament.id">
                     <label for="id" jhiTranslate="global.field.id">ID</label>
                     <input type="text" class="form-control" id="id" name="id"
-                        [(ngModel)]="tournament.id" readonly />
+                           [(ngModel)]="tournament.id" readonly />
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="thorneoApp.tournament.title" for="field_title">Title</label>
                     <input type="text" class="form-control alert-form" name="title" id="field_title"
-                        [(ngModel)]="tournament.title" required/>
+                           [(ngModel)]="tournament.title" required/>
                     <div [hidden]="!(editForm.controls.title?.dirty && editForm.controls.title?.invalid)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.title?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
+                               [hidden]="!editForm.controls.title?.errors?.required" jhiTranslate="entity.validation.required">
+                            This field is required.
                         </small>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="thorneoApp.tournament.description" for="field_description">Description</label>
                     <textarea type="text" class="form-control alert-form" name="description" id="field_description"
-                        [(ngModel)]="tournament.description" required></textarea>
+                              [(ngModel)]="tournament.description" required></textarea>
                     <div [hidden]="!(editForm.controls.description?.dirty && editForm.controls.description?.invalid)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.description?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
+                               [hidden]="!editForm.controls.description?.errors?.required" jhiTranslate="entity.validation.required">
+                            This field is required.
                         </small>
                     </div>
                 </div>
@@ -35,15 +35,15 @@
                     <label class="form-control-label" jhiTranslate="thorneoApp.tournament.meetingDate" for="field_meetingDate">Meeting Date</label>
                     <div class="d-flex">
                         <input id="field_meetingDate" type="datetime-local" class="form-control alert-form" name="meetingDate" [(ngModel)]="meetingDate" placeholder="YYYY-MM-DD HH:mm"
-                        required/>
+                               required/>
                     </div>
                     <div [hidden]="!(editForm.controls.meetingDate?.dirty && editForm.controls.meetingDate?.invalid)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.meetingDate?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
+                               [hidden]="!editForm.controls.meetingDate?.errors?.required" jhiTranslate="entity.validation.required">
+                            This field is required.
                         </small>
                         <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.meetingDate?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                               [hidden]="!editForm.controls.meetingDate?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
                             This field should be a date and time.
                         </small>
                     </div>
@@ -51,36 +51,36 @@
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="thorneoApp.tournament.meetingPoint" for="field_meetingPoint">Meeting Point</label>
                     <input type="text" class="form-control alert-form" name="meetingPoint" id="field_meetingPoint"
-                        [(ngModel)]="tournament.meetingPoint" required/>
+                           [(ngModel)]="tournament.meetingPoint" required/>
                     <div [hidden]="!(editForm.controls.meetingPoint?.dirty && editForm.controls.meetingPoint?.invalid)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.meetingPoint?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
+                               [hidden]="!editForm.controls.meetingPoint?.errors?.required" jhiTranslate="entity.validation.required">
+                            This field is required.
                         </small>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="thorneoApp.tournament.city" for="field_city">City</label>
                     <input type="text" class="form-control alert-form" name="city" id="field_city"
-                        [(ngModel)]="tournament.city" required/>
+                           [(ngModel)]="tournament.city" required/>
                     <div [hidden]="!(editForm.controls.city?.dirty && editForm.controls.city?.invalid)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.city?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
+                               [hidden]="!editForm.controls.city?.errors?.required" jhiTranslate="entity.validation.required">
+                            This field is required.
                         </small>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="thorneoApp.tournament.price" for="field_price">Price</label>
                     <input type="number" class="form-control alert-form" name="price" id="field_price"
-                        [(ngModel)]="tournament.price" min="0" jhiMin="0"/>
+                           [(ngModel)]="tournament.price" min="0" jhiMin="0"/>
                     <div [hidden]="!(editForm.controls.price?.dirty && editForm.controls.price?.invalid)">
                         <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.price?.errors?.min" jhiTranslate="entity.validation.min" [translateValues]="{ min: 0 }">
+                               [hidden]="!editForm.controls.price?.errors?.min" jhiTranslate="entity.validation.min" [translateValues]="{ min: 0 }">
                             This field should be at least 0.
                         </small>
                         <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.price?.errors?.number" jhiTranslate="entity.validation.number">
+                               [hidden]="!editForm.controls.price?.errors?.number" jhiTranslate="entity.validation.number">
                             This field should be a number.
                         </small>
                     </div>
@@ -88,14 +88,14 @@
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="thorneoApp.tournament.playerSize" for="field_playerSize">Player Size</label>
                     <input type="number" class="form-control alert-form" name="playerSize" id="field_playerSize"
-                        [(ngModel)]="tournament.playerSize" min="0" jhiMin="0"/>
+                           [(ngModel)]="tournament.playerSize" min="0" jhiMin="0"/>
                     <div [hidden]="!(editForm.controls.playerSize?.dirty && editForm.controls.playerSize?.invalid)">
                         <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.playerSize?.errors?.min" jhiTranslate="entity.validation.min" [translateValues]="{ min: 0 }">
+                               [hidden]="!editForm.controls.playerSize?.errors?.min" jhiTranslate="entity.validation.min" [translateValues]="{ min: 0 }">
                             This field should be at least 0.
                         </small>
                         <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.playerSize?.errors?.number" jhiTranslate="entity.validation.number">
+                               [hidden]="!editForm.controls.playerSize?.errors?.number" jhiTranslate="entity.validation.number">
                             This field should be a number.
                         </small>
                     </div>
@@ -103,60 +103,70 @@
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="thorneoApp.tournament.rewards" for="field_rewards">Rewards</label>
                     <input type="text" class="form-control alert-form" name="rewards" id="field_rewards"
-                        [(ngModel)]="tournament.rewards" />
+                           [(ngModel)]="tournament.rewards" />
                 </div>
-                <div class="form-group">
-                    <label class="form-control-label"  jhiTranslate="error.Length"  jhiTranslate="thorneoApp.tournament.imageUrl" for="field_imageUrl">Image Url</label>
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <button type="button" class="btn btn-primary" jhiTranslate="thorneoApp.tournament.checkUrl" (click)="showUrl = true">Left</button>
+                    <button type="button" class="btn btn-primary" jhiTranslate="thorneoApp.tournament.checkImage" (click)="showUrl = false">Middle</button>
+                </div>
+                <div *ngIf="showUrl == true" class="form-group">
+                    <label class="form-control-label"   jhiTranslate="error.Length"  jhiTranslate="thorneoApp.tournament.imageUrl" for="field_imageUrl">Image Url</label>
                     <input type="text" class="form-control alert-form" name="imageUrl" id="field_imageUrl"
-                        [(ngModel)]="tournament.imageUrl" required/>
+                           [(ngModel)]="tournament.imageUrl" required/>
                     <div [hidden]="!(editForm.controls.imageUrl?.dirty && editForm.controls.imageUrl?.invalid)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.imageUrl?.errors?.required" jhiTranslate="error.Length" jhiTranslate="entity.validation.required">
-                        This field is required.
+                               [hidden]="!editForm.controls.imageUrl?.errors?.required" jhiTranslate="error.Length" jhiTranslate="entity.validation.required">
+                            This field is required.
                         </small>
                     </div>
                 </div>
-                <!--
+                <div *ngIf="showUrl == false" class="form-group">
+                    <label class="form-control-label" jhiTranslate="thorneoApp.tournament.imagen" for="field_imagen">Imagen</label>
+                    <div>
+                        <img [src]="'data:' + tournament.imagenContentType + ';base64,' + tournament.imagen" style="max-height: 100px;" *ngIf="tournament.imagen" alt="tournament image"/>
+                        <div *ngIf="tournament.imagen" class="form-text text-danger clearfix">
+                            <span class="pull-left">{{tournament.imagenContentType}}, {{byteSize(tournament.imagen)}}</span>
+                            <button type="button" (click)="clearInputImage('imagen', 'imagenContentType', 'fileImage')" class="btn btn-secondary btn-xs pull-right">
+                                <fa-icon [icon]="'times'"></fa-icon>
+                            </button>
+                        </div>
+                        <input type="file" id="file_imagen" (change)="setFileData($event, tournament, 'imagen', true)" accept="image/*" jhiTranslate="entity.action.addimage"/>
+                    </div>
+                    <input type="hidden" class="form-control" name="imagen" id="field_imagen"
+                           [(ngModel)]="tournament.imagen" />
+                    <input type="hidden" class="form-control" name="imagenContentType" id="field_imagenContentType"
+                           [(ngModel)]="tournament.imagenContentType" />
+                </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="thorneoApp.tournament.latitude" for="field_latitude">Latitude</label>
-                    <input type="number" class="form-control alert-form" name="latitude" id="field_latitude"
-                        [(ngModel)]="tournament.latitude" />
-                </div>                -->
-                <!--<div class="form-group">
-                     <label class="form-control-label" jhiTranslate="thorneoApp.tournament.longitude" for="field_longitude">Longitude</label>
-                     <input type="number" class="form-control" name="longitude" id="field_longitude"
-                         [(ngModel)]="tournament.longitude" />
-                 </div>-->
-                 <div class="form-group">
-                     <label class="form-control-label" jhiTranslate="thorneoApp.tournament.type" for="field_type">Type</label>
-                     <select class="form-control" name="type" [(ngModel)]="tournament.type" id="field_type" required>
-                         <option value="ELIMINATION">{{'thorneoApp.Type.ELIMINATION' | translate}}</option>
-                         <option value="POINT">{{'thorneoApp.Type.POINT' | translate}}</option>
-                     </select>
-                 </div>
+                    <label class="form-control-label" jhiTranslate="thorneoApp.tournament.type" for="field_type">Type</label>
+                    <select class="form-control" name="type" [(ngModel)]="tournament.type" id="field_type" required>
+                        <option value="ELIMINATION">{{'thorneoApp.Type.ELIMINATION' | translate}}</option>
+                        <option value="POINT">{{'thorneoApp.Type.POINT' | translate}}</option>
+                    </select>
+                </div>
 
-                 <div [hidden]="!(editForm.controls.participation?.dirty && editForm.controls.participation?.invalid)">
-                     <small class="form-text text-danger"
-                         [hidden]="!editForm.controls.participation?.errors?.required" jhiTranslate="entity.validation.required">
-                         This field is required.
-                     </small>
-                 </div>
-                 <div class="form-group">
-                     <label class="form-control-label" jhiTranslate="thorneoApp.tournament.game" for="field_game">Game</label>
-                     <select class="form-control" id="field_game" name="game" [(ngModel)]="tournament.game" required>
-                         <option [ngValue]="null"></option>
-                         <option [ngValue]="gameOption.id === tournament.game?.id ? tournament.game : gameOption" *ngFor="let gameOption of games; trackBy: trackGameById">{{gameOption.title}}</option>
-                     </select>
-                 </div>
-             </div>
-             <div>
-                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
-                     <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
-                 </button>
-                 <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
-                     <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
-                 </button>
-             </div>
-         </form>
-     </div>
- </div>
+                <div [hidden]="!(editForm.controls.participation?.dirty && editForm.controls.participation?.invalid)">
+                    <small class="form-text text-danger"
+                           [hidden]="!editForm.controls.participation?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="thorneoApp.tournament.game" for="field_game">Game</label>
+                    <select class="form-control" id="field_game" name="game" [(ngModel)]="tournament.game">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="gameOption.id === tournament.game?.id ? tournament.game : gameOption" *ngFor="let gameOption of games; trackBy: trackGameById">{{gameOption.title}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

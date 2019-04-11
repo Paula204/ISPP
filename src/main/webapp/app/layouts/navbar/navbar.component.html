@@ -181,6 +181,12 @@
                             <span jhiTranslate="global.menu.account.logout">Sign out</span>
                         </a>
                     </li>
+                    <li *ngIf="isAuthenticated() && isUserRole()">
+                        <a class="dropdown-item" routerLink="upgrade-user" id="upgrade">
+                            <fa-icon icon="level-up-alt" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.account.upgrade">Upgrade</span>
+                        </a>
+                    </li>
                     <li *ngSwitchCase="false">
                         <a class="dropdown-item" (click)="login()" id="login">
                             <fa-icon icon="sign-in-alt" fixedWidth="true"></fa-icon>
