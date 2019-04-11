@@ -23,7 +23,7 @@ export class TournamentUpdateComponent implements OnInit {
     games: IGame[];
     meetingDate: string;
 
-    private showUrl: boolean;
+    showUrl: boolean;
 
     constructor(
         protected jhiAlertService: JhiAlertService,
