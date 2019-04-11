@@ -11,6 +11,7 @@ import { JhiAlertService } from 'ng-jhipster';
 })
 export class UpgradeUserComponent implements OnInit {
     isSponsor: any;
+    isAdmin: any;
     currentAccount: Account;
     eso: string;
     constructor(protected jhiAlertService: JhiAlertService, protected accountService: AccountService, private router: Router) {}
@@ -21,6 +22,9 @@ export class UpgradeUserComponent implements OnInit {
         });
         this.accountService.hasAuthority('ROLE_SPONSOR').then(role => {
             this.isSponsor = role;
+        });
+        this.accountService.hasAuthority('ROLE_ADMIN').then(role => {
+            this.isAdmin = role;
         });
     }
 
