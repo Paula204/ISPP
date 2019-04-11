@@ -1,5 +1,7 @@
 <div class="row justify-content-center">
     <div class="col-8">
+        <div jhiTranslate="thorneoApp.sponsorship.warning" class="alert alert-warning" role="alert">
+        </div>
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
             <h2 id="jhi-sponsorship-heading" jhiTranslate="thorneoApp.sponsorship.home.createOrEditLabel">Create or edit a Sponsorship</h2>
             <div>
@@ -11,7 +13,7 @@
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="thorneoApp.sponsorship.banner" for="field_banner">Banner</label>
-                    <input type="text" class="form-control alert-form" name="banner" id="field_banner"
+                    <input type="text" class="form-control" name="banner" id="field_banner"
                         [(ngModel)]="sponsorship.banner" required/>
                     <div [hidden]="!(editForm.controls.banner?.dirty && editForm.controls.banner?.invalid)">
                         <small class="form-text text-danger"
@@ -22,7 +24,7 @@
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="thorneoApp.sponsorship.targetUrl" for="field_targetUrl">Target Url</label>
-                    <input type="text" class="form-control alert-form" name="targetUrl" id="field_targetUrl"
+                    <input type="text" class="form-control" name="targetUrl" id="field_targetUrl"
                         [(ngModel)]="sponsorship.targetUrl" required/>
                     <div [hidden]="!(editForm.controls.targetUrl?.dirty && editForm.controls.targetUrl?.invalid)">
                         <small class="form-text text-danger"
@@ -32,14 +34,14 @@
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" [hidden]="!sponsorship.user">
                     <label class="form-control-label" jhiTranslate="thorneoApp.sponsorship.user" for="field_user">User</label>
                     <select class="form-control" id="field_user" name="user" [(ngModel)]="sponsorship.user" >
                         <option [ngValue]="null"></option>
                         <option [ngValue]="userOption.id === sponsorship.user?.id ? sponsorship.user : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.id}}</option>
                     </select>
                 </div>
-                <div class="form-group">
+                <div class="form-group" [hidden]="!sponsorship.tournament">
                     <label class="form-control-label" jhiTranslate="thorneoApp.sponsorship.tournament" for="field_tournament">Tournament</label>
                     <select class="form-control" id="field_tournament" name="tournament" [(ngModel)]="sponsorship.tournament" >
                         <option [ngValue]="null"></option>
