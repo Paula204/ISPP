@@ -177,14 +177,31 @@ Generic styles
     vertical-align: middle;
 }
 
+.termcond {
+    height: 50%;
+    font-size: 70%;
+    text-align: center;
+    color: #fff;
+    justify-content: center;
+    align-items: center;
+    vertical-align: middle;
+}
+
 @media screen and (max-width: 768px) {
     .footer-row {
         flex-wrap: nowrap;
     }
 
     .footer-column img {
-        width: 30px;
-        height: 30px;
+        width: 25px;
+        height: 25px;
+        flex-direction: row;
+    }
+
+    .termcond {
+        width: 35%;
+        height: 35%;
+        font-size: 50%;
     }
 }
 
