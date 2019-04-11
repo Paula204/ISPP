@@ -69,7 +69,7 @@
                             <span jhiTranslate="global.menu.entities.promotion">Promotion</span>
                         </a>
                     </li>-->
-                    <li>
+                    <li *jhiHasAnyAuthority="'ROLE_ADMIN'">
                         <a class="dropdown-item" routerLink="paypal-completed-payments" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                             <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
                             <span jhiTranslate="global.menu.entities.paypalCompletedPayments">Paypal Completed Payments</span>
@@ -165,6 +165,12 @@
                         <a class="dropdown-item" routerLink="password" routerLinkActive="active" (click)="collapseNavbar()">
                             <fa-icon icon="clock" fixedWidth="true"></fa-icon>
                             <span jhiTranslate="global.menu.account.password">Password</span>
+                        </a>
+                    </li>
+                    <li *ngSwitchCase="true">
+                        <a class="dropdown-item" routerLink="upgrade-user" id="upgrade">
+                            <fa-icon icon="user-plus" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.account.upgrade">Upgrade</span>
                         </a>
                     </li>
                     <li *ngSwitchCase="true">

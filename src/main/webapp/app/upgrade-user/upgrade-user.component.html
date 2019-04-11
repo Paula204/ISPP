@@ -9,7 +9,7 @@
                 <p class="card-text" jhiTranslate="upgradeUser.free.percentage">Commission</p>
             </div>
         </div>
-        <div class="card col-sm-3 p-0 mx-1">
+        <!--<div class="card col-sm-3 p-0 mx-1">
             <div class="bg-success card-img-top d-flex align-content-center justify-content-center" style="height: 200px">
                 <h1 class="text-lg-center text-white text-center align-self-center">Premium</h1>
             </div>
@@ -20,18 +20,37 @@
                     <span jhiTranslate="global.menu.entities.premium">Premium</span>
                 </button>
             </div>
-        </div>
+        </div>-->
         <div class="card col-sm-3 p-0 ml-1">
             <div class="bg-primary card-img-top d-flex align-content-center justify-content-center" style="height: 200px; background-color: #7841e9 !important;">
                 <h1 class="text-lg-center text-white text-center align-self-center">Sponsor</h1>
             </div>
             <div class="card-body">
-                <p class="card-text" jhiTranslate="upgradeUser.sponsor.benefits">Premium benefits</p>
-                <p class="card-text" jhiTranslate="upgradeUser.sponsor.announcement">Ads in our page</p>
+                <p class="card-text" jhiTranslate="upgradeUser.premium.noAds">No Ads</p>
+                <p class="card-text" jhiTranslate="upgradeUser.premium.noPercentage">No commission</p>                <p class="card-text" jhiTranslate="upgradeUser.sponsor.announcement">Ads in our page</p>
                 <p class="card-text" jhiTranslate="upgradeUser.sponsor.social">Ads on our social networks</p>
+                <div *ngIf="isSponsor==false">
+                <br>
+                <p class="card-text" jhiTranslate="upgradeUser.sponsor.mensual">Mensual</p>
+                <p class="card-text" >19,99€</p>
                 <button type="submit" (click)="paySponsor()" class="btn btn-primary border-0" style="background-color: #7841e9 !important;">
                     <span jhiTranslate="global.menu.entities.sponsor">Sponsor</span>
                 </button>
+                <br>
+                <br>
+                <p class="card-text" jhiTranslate="upgradeUser.sponsor.anual">Annual</p>
+                <p class="card-text">199,99€</p>
+                <button  type="submit" (click)="payPremium()" class="btn btn-success">
+                    <span jhiTranslate="global.menu.entities.sponsor">Sponsor</span>
+                </button>
+                </div>
+                <div *ngIf="isSponsor==true">
+                    <br>
+                   <!-- <button type="submit" (click)="" class="btn btn-primary border-0" style="background-color: #7841e9 !important;">
+                        <span jhiTranslate="upgradeUser.sponsor.cancel">Cancel subscription</span>
+                    </button>-->
+                </div>
+
             </div>
         </div>
     </div>
