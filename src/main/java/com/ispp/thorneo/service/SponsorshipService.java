@@ -28,6 +28,12 @@ public interface SponsorshipService {
      */
     Page<Sponsorship> findAll(Pageable pageable);
 
+    /**
+     * Get a random sponsorship
+     *
+     * @return a random entity.
+     */
+    Optional<Sponsorship> giveMeARandom();
 
     /**
      * Get the "id" sponsorship.
