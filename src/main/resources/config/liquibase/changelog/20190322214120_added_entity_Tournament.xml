@@ -55,7 +55,7 @@
             </column>
 
             <column name="image_url" type="varchar(255)">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
 
             <column name="latitude" type="bigint">
@@ -70,6 +70,17 @@
                 <constraints nullable="true" />
             </column>
 
+            <column name="imagen" type="longblob">
+                <constraints nullable="true" />
+            </column>
+            <column name="imagen_content_type" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="state" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
             <column name="user_id" type="bigint">
                 <constraints nullable="true" />
             </column>
@@ -81,7 +92,12 @@
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
         <dropDefaultValue tableName="tournament" columnName="meeting_date" columnDataType="datetime"/>
+
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/tournaments.csv"
+                  separator=";"
+                  tableName="tournament"/>
         
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
-    </databaseChangeLog>
+</databaseChangeLog>

@@ -4,19 +4,13 @@
             <h2 class="text-center" ><h2 class=" d-inline" jhiTranslate="thorneoApp.sponsorship.detail.title"></h2><h2 class="d-inline"> {{sponsorship.id}}</h2></h2>
             <hr>
             <jhi-alert-error></jhi-alert-error>
+            <img class="img-fluid mx-auto d-block" width="200" height="auto" src="{{sponsorship.targetUrl}}"/>
             <dl class="row-md jh-entity-details paper">
                 <div class="lines">
                     <div class="texto" >
                     <p class="bold" jhiTranslate="thorneoApp.sponsorship.banner">Banner</p><p>: <a href="{{sponsorship.banner}}">{{sponsorship.banner}}"</a></p>
                     </br>             
                     <p class="bold" jhiTranslate="thorneoApp.sponsorship.targetUrl">Target Url</p><p>: <a href="{{sponsorship.targetUrl}}">{{sponsorship.targetUrl}}</a></p>
-                    </br>
-                    <p class="bold" jhiTranslate="thorneoApp.sponsorship.user">User</p><p>: {{sponsorship.user?.firstName}} {{sponsorship.user?.lastName}}</p>
-                    </br>
-                    <p class="bold" jhiTranslate="thorneoApp.sponsorship.tournament">Tournament</p>
-                        <span *ngIf="sponsorship.tournament">: 
-                            <p><a [routerLink]="['/tournament', sponsorship.tournament?.id, 'view']">{{sponsorship.tournament?.title}}</a></p>
-                        </span>
                     </br>
                     </div>
                 </div>

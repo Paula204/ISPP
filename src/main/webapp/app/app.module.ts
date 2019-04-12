@@ -24,6 +24,8 @@ import { ThorneoAppPaypalPaymentsModule } from './paypal-payments/paypal-payment
 import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent, ActiveMenuDirective, ErrorComponent } from './layouts';
 import { UpgradeUserModule } from 'app/upgrade-user';
 import { ThorneoAppLawModule } from 'app/law';
+import { CookiesComponent } from './cookies/cookies.component';
+import { CookiesModule } from 'app/cookies';
 
 @NgModule({
     imports: [
@@ -43,6 +45,7 @@ import { ThorneoAppLawModule } from 'app/law';
         ThorneoAppPaypalPaymentsModule,
         UpgradeUserModule,
         ThorneoAppLawModule,
+        CookiesModule,
         // jhipster-needle-angular-add-module JHipster will add new module here
         ThorneoEntityModule,
         ThorneoAppRoutingModule,

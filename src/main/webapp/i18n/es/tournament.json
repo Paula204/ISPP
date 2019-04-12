@@ -26,6 +26,7 @@
             "playerSize": "Límite de jugadores",
             "rewards": "Premios",
             "imageUrl": "Url de la imagen",
+            "imagen": "Imagen",
             "latitude": "Latitud",
             "longitude": "Longitud",
             "type": "Tipo de torneo",
@@ -36,8 +37,12 @@
             "win": "Ganador",
             "tie": "Empate",
             "disqualify": "Descalificar",
+            "checkUrl": "Usar url",
+            "checkImage": "Subir imagen",
+            "disqualify": "Descalificar",
             "doubleE": "Eliminación doble",
-            "singleE": "Eliminación simple"
+            "singleE": "Eliminación simple",
+            "image": "Imagen"
         }
     }
 }

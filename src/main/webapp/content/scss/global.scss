@@ -177,14 +177,31 @@ Generic styles
     vertical-align: middle;
 }
 
+.termcond {
+    height: 50%;
+    font-size: 70%;
+    text-align: center;
+    color: #fff;
+    justify-content: center;
+    align-items: center;
+    vertical-align: middle;
+}
+
 @media screen and (max-width: 768px) {
     .footer-row {
         flex-wrap: nowrap;
     }
 
     .footer-column img {
-        width: 30px;
-        height: 30px;
+        width: 25px;
+        height: 25px;
+        flex-direction: row;
+    }
+
+    .termcond {
+        width: 35%;
+        height: 35%;
+        font-size: 50%;
     }
 }
 
@@ -203,10 +220,6 @@ Custom alerts for notification
 ========================================================================== */
 .alert {
     border-radius: 20px;
-}
-
-.alert-form {
-    border-radius: 15px;
 }
 
 .cambiar-login:hover {
@@ -365,14 +378,7 @@ ui bootstrap tweaks
     background: rgba(255, 255, 255, 0.9);
     box-shadow: 0px 0px 5px 0px #888;
 }
-.paper::before {
-    content: '';
-    position: absolute;
-    left: 45px;
-    height: 100%;
-    width: 2px;
-    background: rgba(255, 0, 0, 0.4);
-}
+
 .lines {
     margin-top: 40px;
     height: calc(100% - 40px);
@@ -398,26 +404,46 @@ ui bootstrap tweaks
     display: inline;
 }
 
-.holes {
-    position: absolute;
-    left: 10px;
-    height: 25px;
-    width: 25px;
-    background: white;
-    border-radius: 50%;
-    box-shadow: inset 0px 0px 2px 0px #888;
+@media only screen and (max-width: 660px) {
+    .texto {
+        margin-left: 5px;
+        line-height: 25px;
+        padding-top: 25px;
+        padding-bottom: 15px;
+        margin-bottom: 85px;
+        margin-right: 5px;
+    }
 }
+@media only screen and (min-width: 660px) {
+    .paper::before {
+        content: '';
+        position: absolute;
+        left: 45px;
+        height: 100%;
+        width: 2px;
+        background: rgba(255, 0, 0, 0.4);
+    }
 
-.hole-top {
-    top: 10%;
-}
-.hole-middle {
-    top: 50%;
-}
-.hole-bottom {
-    bottom: 10%;
-}
+    .holes {
+        position: absolute;
+        left: 10px;
+        height: 25px;
+        width: 25px;
+        background: white;
+        border-radius: 50%;
+        box-shadow: inset 0px 0px 2px 0px #888;
+    }
 
+    .hole-top {
+        top: 10%;
+    }
+    .hole-middle {
+        top: 50%;
+    }
+    .hole-bottom {
+        bottom: 10%;
+    }
+}
 //GESTOR BRACKET
 
 .gestionador {
@@ -425,6 +451,7 @@ ui bootstrap tweaks
     align-items: center;
     justify-content: center;
     height: auto;
+    flex-direction: unset;
 }
 
 .bracket:before {
@@ -456,12 +483,12 @@ div.jQBracket .connector div.connector.highlight {
     border-color: #5facf2;
 }
 .team.na {
-    opacity: 0;
+    // opacity: 0;
     pointer-events: none;
 }
 div.jQBracket .np .connector,
 div.jQBracket .np .connector div.connector {
-    opacity: 0;
+    // opacity: 0;
     border-color: #999;
     pointer-events: none;
 }
@@ -470,64 +497,38 @@ div.jQBracket .round {
     margin-right: 80px;
 }
 
-@media only screen and (max-width: 660px) {
-    div.jQBracket {
-        font-family: Arial;
-        font-size: 100%;
-        flex-direction: column;
-    }
-    div.bracket::before {
-        display: none;
-        clear: both;
-    }
-    div.bracket {
-        flex-direction: column;
-        width: 100%;
-        min-height: 300px;
-        margin-right: 0px !important;
-    }
-    div.jQBracket .bracket {
-        display: block;
-        margin: 0 !important;
-        padding: 0 !important;
-        width: 100% !important;
-    }
-    div.jQBracket .round {
-        display: block;
-        margin: 0 !important;
-        padding: 0 !important;
-        width: 100% !important;
-    }
+.finals {
+    text-align: center;
+}
+
+//Border of the tournament
+.module-border-wrap {
+    position: relative;
+    background: linear-gradient(to right, #2792f2, #ff9500);
+    padding: 5px;
+}
+
+.module {
+    background: #fff;
+    color: #000;
+    padding: 2rem;
+}
+
+.round:last-child {
     .connector {
         display: none;
     }
+}
 
-    div.jQBracket .match {
+@media only screen and (max-width: 660px) {
+    // FLEX ORDER
+
+    // jQBraquet (tools, finals, braquet, loser braquet
+    .flex-container {
+        list-style: none;
         display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
         justify-content: center;
-        align-items: center;
-    }
-
-    div.jQBracket .teamContainer {
-    }
-    div.jQBracket .team {
-    }
-    div.jQBracket .team:first-child {
-        border-bottom: 0px solid #999;
-        margin-right: 10px;
-    }
-    div.jQBracket .connector {
-        display: none;
-    }
-    .team.np,
-    .team.na {
-        display: none;
-    }
-    div.jQBracket .np .connector,
-    div.jQBracket .np .connector div.connector {
-        display: none;
+        flex-flow: column wrap;
     }
 }
 //ANIMATIONS

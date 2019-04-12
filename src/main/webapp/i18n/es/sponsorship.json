@@ -20,7 +20,8 @@
             "banner": "Banner",
             "targetUrl": "Url",
             "user": "Usuario",
-            "tournament": "Torneo"
+            "tournament": "Torneo",
+            "warning": "La resolución recomendada para su anuncio es de 720x200"
         }
     }
 }

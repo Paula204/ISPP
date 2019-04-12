@@ -32,6 +32,8 @@ export class PaypalPaymentsComponent implements OnInit, AfterViewChecked {
     cycles: number;
     frequency: string;
     pagoTorneo: boolean;
+    isUser: any;
+    isSponsor: any;
     constructor(
         protected paypalCompletedPaymentsService: PaypalCompletedPaymentsService,
         protected accountService: AccountService,
@@ -58,6 +60,12 @@ export class PaypalPaymentsComponent implements OnInit, AfterViewChecked {
                 this.torneo = tournament.body;
             });
         }
+        this.accountService.hasAuthority('ROLE_SPONSOR').then(role => {
+            this.isSponsor = role;
+        });
+        this.accountService.hasAuthority('ROLE_USER').then(role => {
+            this.isUser = role;
+        });
     }
 
     ngAfterViewChecked() {
@@ -74,7 +82,11 @@ export class PaypalPaymentsComponent implements OnInit, AfterViewChecked {
                     _this.cycles = 1;
                     _this.frequency = 'Year';
                 } else {
-                    _this.amount = _this.torneo.price;
+                    if (this.isSponsor === false && this.isUser === true) {
+                        _this.amount = _this.torneo.price + _this.torneo.price * 0.09;
+                    } else {
+                        _this.amount = _this.torneo.price;
+                    }
                     _this.cycles = 1;
                     _this.frequency = 'Year';
                 }

@@ -1,15 +1,15 @@
 import { Routes } from '@angular/router';
 
 import { UserRouteAccessService } from 'app/core';
-import { LawComponent } from './law.component';
+import { CookiesComponent } from './cookies.component';
 
-export const LAW_ROUTE: Routes = [
+export const COOKIES_ROUTE: Routes = [
     {
-        path: 'law',
-        component: LawComponent,
+        path: 'cookies',
+        component: CookiesComponent,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'law.title'
+            pageTitle: 'cookies.title'
         },
         canActivate: [UserRouteAccessService]
     }

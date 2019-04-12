@@ -1,10 +1,10 @@
-<nav class="navbar navbar-dark navbar-expand-md">
+<nav class="navbar navbar-dark navbar-expand-md" style="padding-bottom: 1px; padding-top: 1px">
     <a class="navbar-brand logo" routerLink="/" (click)="collapseNavbar()">
         <span class="logo-img"></span>
         <!--<span jhiTranslate="global.title" class="navbar-title">Thorneo</span> -->
         <!--<span class="navbar-version">{{version}}</span>-->
     </a>
-    <a class="navbar-toggler-icon" href="javascript:void(0);" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleNavbar()">
+    <a class="navbar-toggler-icon navbar navbar-expand-sm navbar-toggler" href="javascript:void(0);" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleNavbar()">
         <!--<fa-icon icon="bars"></fa-icon>-->
     </a>
     <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed" [ngSwitch]="isAuthenticated()">
@@ -57,12 +57,13 @@
                             <span jhiTranslate="global.menu.entities.participation">Participation</span>
                         </a>
                     </li>
-                   <!-- <li *jhiHasAnyAuthority="'ROLE_ADMIN'">
+                   <li *jhiHasAnyAuthority="'ROLE_SPONSOR'">
                         <a class="dropdown-item" routerLink="sponsorship" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                             <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
                             <span jhiTranslate="global.menu.entities.sponsorship">Sponsorship</span>
                         </a>
                     </li>
+
                     <li >
                         <a class="dropdown-item" routerLink="promotion" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                             <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
@@ -70,6 +71,10 @@
                         </a>
                     </li>-->
                     <li *jhiHasAnyAuthority="'ROLE_ADMIN'">
+
+
+                    <li>
+
                         <a class="dropdown-item" routerLink="paypal-completed-payments" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                             <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
                             <span jhiTranslate="global.menu.entities.paypalCompletedPayments">Paypal Completed Payments</span>
@@ -92,7 +97,8 @@
                             <span jhiTranslate="global.menu.admin.userManagement">User management</span>
                         </a>
                     </li>
-                    <li>
+                    <!--  Metricas
+                        <li>
                         <a class="dropdown-item" routerLink="admin/jhi-metrics" routerLinkActive="active" (click)="collapseNavbar()">
                             <fa-icon icon="tachometer-alt" fixedWidth="true"></fa-icon>
                             <span jhiTranslate="global.menu.admin.metrics">Metrics</span>
@@ -104,6 +110,7 @@
                             <span jhiTranslate="global.menu.admin.health">Health</span>
                         </a>
                     </li>
+                    -->
                     <li>
                         <a class="dropdown-item" routerLink="admin/jhi-configuration" routerLinkActive="active" (click)="collapseNavbar()">
                             <fa-icon icon="list" fixedWidth="true"></fa-icon>
@@ -116,6 +123,7 @@
                             <span jhiTranslate="global.menu.admin.audits">Audits</span>
                         </a>
                     </li>
+                    <!--
                     <li>
                         <a class="dropdown-item" routerLink="admin/logs" routerLinkActive="active" (click)="collapseNavbar()">
                             <fa-icon icon="tasks" fixedWidth="true"></fa-icon>
@@ -128,6 +136,7 @@
                             <span jhiTranslate="global.menu.admin.apidocs">API</span>
                         </a>
                     </li>
+                    -->
                     <!-- jhipster-needle-add-element-to-admin-menu - JHipster will add entities to the admin menu here -->
                 </ul>
             </li>
@@ -167,18 +176,21 @@
                             <span jhiTranslate="global.menu.account.password">Password</span>
                         </a>
                     </li>
+                    <div *jhiHasAnyAuthority="['ROLE_SPONSOR', 'ROLE_USER']">
                     <li *ngSwitchCase="true">
                         <a class="dropdown-item" routerLink="upgrade-user" id="upgrade">
                             <fa-icon icon="user-plus" fixedWidth="true"></fa-icon>
                             <span jhiTranslate="global.menu.account.upgrade">Upgrade</span>
                         </a>
                     </li>
+                    </div>
                     <li *ngSwitchCase="true">
                         <a class="dropdown-item" (click)="logout()" id="logout">
                             <fa-icon icon="sign-out-alt" fixedWidth="true"></fa-icon>
                             <span jhiTranslate="global.menu.account.logout">Sign out</span>
                         </a>
                     </li>
+
                     <li *ngSwitchCase="false">
                         <a class="dropdown-item" (click)="login()" id="login">
                             <fa-icon icon="sign-in-alt" fixedWidth="true"></fa-icon>
