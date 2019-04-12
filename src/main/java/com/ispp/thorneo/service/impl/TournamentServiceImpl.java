@@ -160,9 +160,6 @@ public class TournamentServiceImpl implements TournamentService {
         if (tournament.getMeetingDate().isBefore(Instant.now())) {
             throw new BadRequestAlertException("Invalid date", "tournament", "Future");
         }
-        if (tournament.getParticipations().size() > persistence.getPlayerSize() ){
-            throw new BadRequestAlertException("Too much users", "tournament", "Users");
-        }
 
         tournament.setUser(user);
 
