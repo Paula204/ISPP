@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { ITournament, ITournamentForm, Tournament } from 'app/shared/model/tournament.model';
@@ -15,7 +15,11 @@ declare let $: any;
 
 @Component({
     selector: 'jhi-tournament-manage2',
-    templateUrl: './tournament-manager.component.html'
+    styles: [
+        ' body{background-color: #fff} .card{flex-direction: unset} .jh-card{flex-direction: unset} div.finals.round.match {height:0px;top:0} @media only screen and (min-width: 660px) {.card{ display: flex; justify-content: center}}'
+    ],
+    templateUrl: './tournament-manager.component.html',
+    encapsulation: ViewEncapsulation.None
 })
 export class TournamentManagerComponent implements OnInit {
     tournament: ITournamentForm;
@@ -91,7 +95,7 @@ export class TournamentManagerComponent implements OnInit {
         }
 
         $(function() {
-            const container = $('.prueba2');
+            const container = $('.gestionador');
             container.bracket({
                 init: saveData,
                 userData: 'http://myapi'

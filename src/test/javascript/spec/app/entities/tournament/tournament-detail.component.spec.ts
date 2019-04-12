@@ -5,13 +5,13 @@ import { of } from 'rxjs';
 
 import { ThorneoTestModule } from '../../../test.module';
 import { TournamentDetailComponent } from 'app/entities/tournament/tournament-detail.component';
-import { Tournament, TournamentForm } from 'app/shared/model/tournament.model';
+import { Tournament } from 'app/shared/model/tournament.model';
 
 describe('Component Tests', () => {
     describe('Tournament Management Detail Component', () => {
         let comp: TournamentDetailComponent;
         let fixture: ComponentFixture<TournamentDetailComponent>;
-        const route = ({ data: of({ tournament: new TournamentForm(123) }) } as any) as ActivatedRoute;
+        const route = ({ data: of({ tournament: new Tournament(123) }) } as any) as ActivatedRoute;
 
         beforeEach(() => {
             TestBed.configureTestingModule({
