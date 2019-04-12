@@ -164,6 +164,23 @@ public class AccountResource {
         userService.updateUser(userDTO);
     }
 
+    @PostMapping("/account/deleteRole")
+    public void deleteRole(@Valid @RequestBody UserDTO userDTO) {
+        String userLogin = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
+        Optional<User> existingUser = userRepository.findOneByEmailIgnoreCase(userDTO.getEmail());
+        if (existingUser.isPresent() && (!existingUser.get().getLogin().equalsIgnoreCase(userLogin))) {
+            throw new EmailAlreadyUsedException();
+        }
+        Optional<User> user = userRepository.findOneByLogin(userLogin);
+        if (!user.isPresent()) {
+            throw new InternalServerErrorException("User could not be found");
+        }
+        userDTO.getAuthorities().remove("ROLE_SPONSOR");
+        userDTO.getAuthorities().remove("ROLE_PREMIUM");
+
+        userService.updateUser(userDTO);
+    }
+
     /**
      * POST  /account/change-password : changes the current user's password
      *

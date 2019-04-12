@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Account, AccountService } from 'app/core';
+import { HasAnyAuthorityDirective } from 'app/shared';
+import { JhiAlertService } from 'ng-jhipster';
 
 @Component({
     selector: 'jhi-upgrade-user',
@@ -7,9 +10,23 @@ import { Router } from '@angular/router';
     styles: []
 })
 export class UpgradeUserComponent implements OnInit {
-    constructor(private router: Router) {}
+    isSponsor: any;
+    isAdmin: any;
+    currentAccount: Account;
+    eso: string;
+    constructor(protected jhiAlertService: JhiAlertService, protected accountService: AccountService, private router: Router) {}
 
-    ngOnInit() {}
+    ngOnInit() {
+        this.accountService.identity().then(account => {
+            this.currentAccount = account;
+        });
+        this.accountService.hasAuthority('ROLE_SPONSOR').then(role => {
+            this.isSponsor = role;
+        });
+        this.accountService.hasAuthority('ROLE_ADMIN').then(role => {
+            this.isAdmin = role;
+        });
+    }
 
     payPremium() {
         this.router.navigate(['paypal-payments/premium']);

@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import * as moment from 'moment';
 import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
-import { JhiAlertService } from 'ng-jhipster';
+import { JhiAlertService, JhiDataUtils } from 'ng-jhipster';
 import { ITournament } from 'app/shared/model/tournament.model';
 import { TournamentService } from './tournament.service';
 import { IUser, UserService } from 'app/core';
@@ -23,11 +23,15 @@ export class TournamentUpdateComponent implements OnInit {
     games: IGame[];
     meetingDate: string;
 
+    showUrl: boolean;
+
     constructor(
         protected jhiAlertService: JhiAlertService,
         protected tournamentService: TournamentService,
         protected gameService: GameService,
-        protected activatedRoute: ActivatedRoute
+        protected activatedRoute: ActivatedRoute,
+        protected elementRef: ElementRef,
+        protected dataUtils: JhiDataUtils
     ) {}
 
     ngOnInit() {
@@ -82,5 +86,21 @@ export class TournamentUpdateComponent implements OnInit {
 
     trackGameById(index: number, item: IGame) {
         return item.id;
+    }
+
+    byteSize(field) {
+        return this.dataUtils.byteSize(field);
+    }
+
+    openFile(contentType, field) {
+        return this.dataUtils.openFile(contentType, field);
+    }
+
+    setFileData(event, entity, field, isImage) {
+        this.dataUtils.setFileData(event, entity, field, isImage);
+    }
+
+    clearInputImage(field: string, fieldContentType: string, idInput: string) {
+        this.dataUtils.clearInputImage(this.tournament, this.elementRef, field, fieldContentType, idInput);
     }
 }

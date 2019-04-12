@@ -38,7 +38,10 @@ describe('Service Tests', () => {
                 'AAAAAAA',
                 0,
                 0,
-                Type.ELIMINATION
+                Type.ELIMINATION,
+                'image/png',
+                'AAAAAAA',
+                'AAAAAAA'
             );
         });
 
@@ -95,7 +98,9 @@ describe('Service Tests', () => {
                         imageUrl: 'BBBBBB',
                         latitude: 1,
                         longitude: 1,
-                        type: 'BBBBBB'
+                        type: 'BBBBBB',
+                        imagen: 'BBBBBB',
+                        state: 'BBBBBB'
                     },
                     elemDefault
                 );
@@ -128,7 +133,9 @@ describe('Service Tests', () => {
                         imageUrl: 'BBBBBB',
                         latitude: 1,
                         longitude: 1,
-                        type: 'BBBBBB'
+                        type: 'BBBBBB',
+                        imagen: 'BBBBBB',
+                        state: 'BBBBBB'
                     },
                     elemDefault
                 );

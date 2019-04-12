@@ -33,6 +33,7 @@ export class TournamentMyComponent implements OnInit, OnDestroy {
     previousPage: any;
     reverse: any;
     type: Type;
+    currentDate: Date;
 
     constructor(
         protected tournamentService: TournamentService,
@@ -138,6 +139,7 @@ export class TournamentMyComponent implements OnInit, OnDestroy {
             this.currentAccount = account;
         });
         this.registerChangeInTournaments();
+        this.currentDate = new Date();
     }
 
     ngOnDestroy() {

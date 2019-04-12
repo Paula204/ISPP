@@ -25,7 +25,7 @@
         "@types/jquery": "^3.3.29",
         "angularx-qrcode": "^1.5.3",
         "bootstrap": "4.2.1",
-        "braintree-web": "^3.44.0",
+        "braintree-web": "^3.44.1",
         "core-js": "2.6.3",
         "duel": "^3.2.0",
         "ffa": "^3.2.2",
