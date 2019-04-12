@@ -143,7 +143,9 @@
                     <label class="form-control-label" jhiTranslate="thorneoApp.tournament.type" for="field_type">Type</label>
                     <select class="form-control" name="type" [(ngModel)]="tournament.type" id="field_type" required>
                         <option value="ELIMINATION">{{'thorneoApp.Type.ELIMINATION' | translate}}</option>
-                        <option value="POINT">{{'thorneoApp.Type.POINT' | translate}}</option>
+                       <!-- 
+                            <option value="POINT">{{'thorneoApp.Type.POINT' | translate}}</option>
+                       --> 
                     </select>
                 </div>
 
@@ -161,6 +163,7 @@
                     </select>
                 </div>
             </div>
+            <jhi-alert-error></jhi-alert-error>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
                     <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>

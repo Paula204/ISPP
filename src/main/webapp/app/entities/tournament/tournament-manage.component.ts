@@ -15,7 +15,7 @@ declare let $: any;
 
 @Component({
     selector: 'jhi-tournament-manage',
-    styles: [' body{background-color: #fff} .card{flex-direction: unset} .jh-card{flex-direction: unset}' + ''],
+    styles: [' .card{flex-direction: unset} .jh-card{flex-direction: unset}' + ''],
     templateUrl: './tournament-manage.component.html',
     encapsulation: ViewEncapsulation.None
 })
