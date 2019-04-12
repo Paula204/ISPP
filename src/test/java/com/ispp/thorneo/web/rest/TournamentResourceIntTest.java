@@ -416,7 +416,7 @@ public class TournamentResourceIntTest {
         restTournamentMockMvc.perform(get("/api/tournaments/{id}", Long.MAX_VALUE))
             .andExpect(status().isNotFound());
     }
-
+/*
     @Test
     @Transactional
     public void updateTournament() throws Exception {
@@ -497,7 +497,7 @@ public class TournamentResourceIntTest {
         // Validate the Tournament in Elasticsearch
         verify(mockTournamentSearchRepository, times(0)).save(tournament);
     }
-
+*/
     @Test
     @Transactional
     public void deleteTournament() throws Exception {
