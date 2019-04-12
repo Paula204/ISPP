@@ -7,9 +7,6 @@
             <div>
                 <jhi-alert-error></jhi-alert-error>
                 <div class="form-group" [hidden]="!sponsorship.id">
-                    <label for="id" jhiTranslate="global.field.id">ID</label>
-                    <input type="text" class="form-control" id="id" name="id"
-                        [(ngModel)]="sponsorship.id" readonly />
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="thorneoApp.sponsorship.banner" for="field_banner">Banner</label>
@@ -42,11 +39,6 @@
                     </select>
                 </div>
                 <div class="form-group" [hidden]="!sponsorship.tournament">
-                    <label class="form-control-label" jhiTranslate="thorneoApp.sponsorship.tournament" for="field_tournament">Tournament</label>
-                    <select class="form-control" id="field_tournament" name="tournament" [(ngModel)]="sponsorship.tournament" >
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="tournamentOption.id === sponsorship.tournament?.id ? sponsorship.tournament : tournamentOption" *ngFor="let tournamentOption of tournaments; trackBy: trackTournamentById">{{tournamentOption.id}}</option>
-                    </select>
                 </div>
             </div>
             <div>

@@ -9,6 +9,9 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { JhiAlertService } from 'ng-jhipster';
 import { Account, AccountService } from 'app/core';
 import { HasAnyAuthorityDirective } from 'app/shared';
+import { filter, map } from 'rxjs/operators';
+import { ISponsorship, Sponsorship } from 'app/shared/model/sponsorship.model';
+import { SponsorshipService } from 'app/entities/sponsorship';
 
 @Component({
     selector: 'jhi-tournament-detail',
@@ -19,12 +22,14 @@ export class TournamentDetailComponent implements OnInit {
 
     currentAccount: Account;
     currentDate: Date;
+    sponsorship: ISponsorship;
 
     isSaving: boolean;
 
     constructor(
         protected jhiAlertService: JhiAlertService,
         protected activatedRoute: ActivatedRoute,
+        protected sponsorshipService: SponsorshipService,
         protected accountService: AccountService,
         protected tournamentService: TournamentService,
         protected participationService: ParticipationService,
@@ -39,6 +44,13 @@ export class TournamentDetailComponent implements OnInit {
             this.currentAccount = account;
         });
         this.currentDate = new Date();
+        this.sponsorshipService
+            .findRandom()
+            .pipe(
+                filter((response: HttpResponse<Sponsorship>) => response.ok),
+                map((sponsorship: HttpResponse<Sponsorship>) => sponsorship.body)
+            )
+            .subscribe(value => (this.sponsorship = value));
     }
 
     previousState() {
