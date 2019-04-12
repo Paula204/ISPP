@@ -40,7 +40,9 @@ export class TournamentComponent implements OnInit, OnDestroy {
     previousPage: any;
     reverse: any;
     sponsorship: ISponsorship;
-
+    type: Type;
+    currentDate: Date;
+  
     constructor(
         protected tournamentService: TournamentService,
         protected sponsorshipService: SponsorshipService,
@@ -153,6 +155,7 @@ export class TournamentComponent implements OnInit, OnDestroy {
                 map((sponsorship: HttpResponse<Sponsorship>) => sponsorship.body)
             )
             .subscribe(value => (this.sponsorship = value));
+        this.currentDate = new Date();
     }
 
     ngOnDestroy() {

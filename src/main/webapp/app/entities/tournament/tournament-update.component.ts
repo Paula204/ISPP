@@ -11,6 +11,8 @@ import { TournamentService } from './tournament.service';
 import { IUser, UserService } from 'app/core';
 import { IGame } from 'app/shared/model/game.model';
 import { GameService } from 'app/entities/game';
+import { Account, AccountService, User } from 'app/core';
+import { SERVER_API_URL } from 'app/app.constants';
 
 @Component({
     selector: 'jhi-tournament-update',
@@ -25,13 +27,18 @@ export class TournamentUpdateComponent implements OnInit {
 
     showUrl: boolean;
 
+    currentAccount: Account;
+
+    public resourceUrl = SERVER_API_URL + 'api/tournaments';
+
     constructor(
         protected jhiAlertService: JhiAlertService,
         protected tournamentService: TournamentService,
         protected gameService: GameService,
         protected activatedRoute: ActivatedRoute,
         protected elementRef: ElementRef,
-        protected dataUtils: JhiDataUtils
+        protected dataUtils: JhiDataUtils,
+        protected accountService: AccountService
     ) {}
 
     ngOnInit() {
@@ -40,6 +47,11 @@ export class TournamentUpdateComponent implements OnInit {
             this.tournament = tournament;
             this.meetingDate = this.tournament.meetingDate != null ? this.tournament.meetingDate.format(DATE_TIME_FORMAT) : null;
         });
+
+        this.accountService.identity().then(account => {
+            this.currentAccount = account;
+        });
+
         this.gameService
             .query()
             .pipe(
@@ -57,7 +69,11 @@ export class TournamentUpdateComponent implements OnInit {
         this.isSaving = true;
         this.tournament.meetingDate = this.meetingDate != null ? moment(this.meetingDate, DATE_TIME_FORMAT) : null;
         if (this.tournament.id !== undefined) {
-            this.subscribeToSaveResponse(this.tournamentService.update(this.tournament));
+            if (this.tournament.user.login == this.currentAccount.login) {
+                this.subscribeToSaveResponse(this.tournamentService.update(this.tournament));
+            } else {
+                this.previousState();
+            }
         } else {
             this.subscribeToSaveResponse(this.tournamentService.create(this.tournament));
         }

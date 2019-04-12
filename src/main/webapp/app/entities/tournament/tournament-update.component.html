@@ -109,6 +109,9 @@
                     <input type="text" class="form-control" name="rewards" id="field_rewards"
                         [(ngModel)]="tournament.rewards" />
                 </div>
+                <div class="form-group">                    
+                    <label class="form-control-label" jhiTranslate="thorneoApp.tournament.image" for="field_imagen">Imagen</label>
+                </div>
                 <div class="btn-group" role="group" aria-label="Basic example">
                     <button type="button" class="btn btn-primary" jhiTranslate="thorneoApp.tournament.checkUrl" (click)="showUrl = true">Left</button>
                     <button type="button" class="btn btn-primary" jhiTranslate="thorneoApp.tournament.checkImage" (click)="showUrl = false">Middle</button>
@@ -125,7 +128,6 @@
                     </div>
                 </div>
                 <div *ngIf="showUrl == false" class="form-group">
-                    <label class="form-control-label" jhiTranslate="thorneoApp.tournament.imagen" for="field_imagen">Imagen</label>
                     <div>
                         <img [src]="'data:' + tournament.imagenContentType + ';base64,' + tournament.imagen" style="max-height: 100px;" *ngIf="tournament.imagen" alt="tournament image"/>
                         <div *ngIf="tournament.imagen" class="form-text text-danger clearfix">
@@ -141,8 +143,8 @@
                     <input type="hidden" class="form-control" name="imagenContentType" id="field_imagenContentType"
                            [(ngModel)]="tournament.imagenContentType" />
                 </div>
+              <!--
                 <div class="form-group">
-
                     <label class="form-control-label" jhiTranslate="thorneoApp.tournament.latitude" for="field_latitude">Latitude</label>
                     <input type="number" class="form-control" name="latitude" id="field_latitude"
                         [(ngModel)]="tournament.latitude" />
@@ -152,13 +154,14 @@
                      <input type="number" class="form-control" name="longitude" id="field_longitude"
                          [(ngModel)]="tournament.longitude" />
                  </div>-->
-                 <div class="form-group">
-                     <label class="form-control-label" jhiTranslate="thorneoApp.tournament.type" for="field_type">Type</label>
-                     <select class="form-control" name="type" [(ngModel)]="tournament.type" id="field_type" required>
-                         <option value="ELIMINATION">{{'thorneoApp.Type.ELIMINATION' | translate}}</option>
-                         <option value="POINT">{{'thorneoApp.Type.POINT' | translate}}</option>
-                     </select>
-                 </div>
+                    <label class="form-control-label" jhiTranslate="thorneoApp.tournament.type" for="field_type">Type</label>
+                    <select class="form-control" name="type" [(ngModel)]="tournament.type" id="field_type" required>
+                        <option value="ELIMINATION">{{'thorneoApp.Type.ELIMINATION' | translate}}</option>
+                       <!-- 
+                            <option value="POINT">{{'thorneoApp.Type.POINT' | translate}}</option>
+                       --> 
+                    </select>
+                </div>
 
                 <div [hidden]="!(editForm.controls.participation?.dirty && editForm.controls.participation?.invalid)">
                     <small class="form-text text-danger"
@@ -174,6 +177,7 @@
                     </select>
                 </div>
             </div>
+            <jhi-alert-error></jhi-alert-error>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
                     <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
