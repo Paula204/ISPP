@@ -39,9 +39,10 @@ export class TournamentComponent implements OnInit, OnDestroy {
     predicate: any;
     previousPage: any;
     reverse: any;
+    sponsorship: ISponsorship;
     type: Type;
     currentDate: Date;
-    sponsorship: ISponsorship;
+
     constructor(
         protected tournamentService: TournamentService,
         protected sponsorshipService: SponsorshipService,
@@ -147,7 +148,6 @@ export class TournamentComponent implements OnInit, OnDestroy {
             this.currentAccount = account;
         });
         this.registerChangeInTournaments();
-        this.currentDate = new Date();
         this.sponsorshipService
             .findRandom()
             .pipe(
@@ -155,6 +155,7 @@ export class TournamentComponent implements OnInit, OnDestroy {
                 map((sponsorship: HttpResponse<Sponsorship>) => sponsorship.body)
             )
             .subscribe(value => (this.sponsorship = value));
+        this.currentDate = new Date();
     }
 
     ngOnDestroy() {

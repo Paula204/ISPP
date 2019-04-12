@@ -1,10 +1,16 @@
 <div class="row justify-content-center">
-    <div class="col-8">
+    <div class="col-4"></div>
+    <div class="col-4 justify-content-center " style="padding: 10px">
         <div *ngIf="!currentAccount.authorities.includes('ROLE_SPONSOR') && !currentAccount.authorities.includes('ROLE_ADMIN')"  class="carousel-inner" style="max-height:120px; max-width:720px" >
             <div class="carousel-item active">
                 <img class="d-block w-100" src="{{sponsorship.targetUrl}}">
             </div>
         </div>
+    </div>
+    <div class="col-4"></div>
+</div>
+<div class="row justify-content-center">
+    <div class="col-12">
         <div *ngIf="tournament">
             <h2 class="text-center">{{tournament.title}}</h2>
             <hr>
@@ -33,9 +39,10 @@
                         </br>
                         <p  class="bold"jhiTranslate="thorneoApp.tournament.game">Game</p>
                         <span *ngIf="tournament.game">
-                            <p>: </p><a [routerLink]="['/game', tournament.game?.id, 'view']">{{tournament.game?.title}}</a>
+                            <a [routerLink]="['/game', tournament.game?.id, 'view']">{{tournament.game?.title}}</a>
                         </span>
                         </br>
+                    </br>
                         <p class="bold" jhiTranslate="thorneoApp.tournament.participation">Participants</p>
                         <ul>
                             <li *ngFor="let participation of tournament.participations" class="mt-1">
@@ -88,7 +95,7 @@
             </button>-->
 
             <!--Creado un if else para que no salgan los dos botones-->
-            <div class="d-inline"  *ngIf="tournament.participations.length > 1 && tournament.meetingDate.isBefore(currentDate)">
+            <div class="d-inline"  *ngIf="tournament.participations.length > 2"></div>
                     <div *ngIf="tournament.user.login===currentAccount.login; then thenBlock else elseBlock"></div>
                         <ng-template #thenBlock>
                             <button  type="button "
@@ -116,6 +123,19 @@
                 <span jhiTranslate="entity.action.close">Close tournament</span>
             </button>
             <jhi-alert-error></jhi-alert-error>
+
         </div>
     </div>
+</div>
+    <div class="row justify-content-center">
+    <div class="col-4"></div>
+    <div class="col-4 justify-content-center " style="padding: 10px">
+        <div *ngIf="!currentAccount.authorities.includes('ROLE_SPONSOR') && !currentAccount.authorities.includes('ROLE_ADMIN')"  class="carousel-inner" style="max-height:120px; max-width:720px" >
+            <div class="carousel-item active">
+                <img class="d-block w-100" src="{{sponsorship.targetUrl}}">
+            </div>
+        </div>
+    </div>
+    <div class="col-4"></div>
+</div>
 </div>

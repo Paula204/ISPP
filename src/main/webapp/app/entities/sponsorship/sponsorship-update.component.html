@@ -32,11 +32,6 @@
                 </div>
 
                 <div class="form-group" [hidden]="!sponsorship.user">
-                    <label class="form-control-label" jhiTranslate="thorneoApp.sponsorship.user" for="field_user">User</label>
-                    <select class="form-control" id="field_user" name="user" [(ngModel)]="sponsorship.user" >
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="userOption.id === sponsorship.user?.id ? sponsorship.user : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.id}}</option>
-                    </select>
                 </div>
                 <div class="form-group" [hidden]="!sponsorship.tournament">
                 </div>

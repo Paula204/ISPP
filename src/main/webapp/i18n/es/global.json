@@ -147,7 +147,8 @@
         "Length": "El enlace proporcionado es demasiado largo",
         "Future": "La fecha especificada está en pasado",
         "idsame": "Estás registrado en este torneo",
-        "idManager": "Eres el creador de este torneo"
+        "idManager": "Eres el creador de este torneo",
+        "noAction": "No puedes realizar esta acción"
     },
     "footer": "ThorneoDevs",
     "law": {

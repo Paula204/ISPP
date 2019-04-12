@@ -1,9 +1,12 @@
 package com.ispp.thorneo.web.rest;
 
 import com.ispp.thorneo.TournamentForm;
+import com.ispp.thorneo.domain.Authority;
 import com.ispp.thorneo.domain.Participation;
 import com.ispp.thorneo.domain.Tournament;
+import com.ispp.thorneo.domain.User;
 import com.ispp.thorneo.service.TournamentService;
+import com.ispp.thorneo.service.UserService;
 import com.ispp.thorneo.web.rest.errors.BadRequestAlertException;
 import com.ispp.thorneo.web.rest.util.HeaderUtil;
 import com.ispp.thorneo.web.rest.util.PaginationUtil;
@@ -40,8 +43,11 @@ public class TournamentResource {
 
     private final TournamentService tournamentService;
 
-    public TournamentResource(TournamentService tournamentService) {
+    private final UserService userService;
+
+    public TournamentResource(TournamentService tournamentService, UserService userService) {
         this.tournamentService = tournamentService;
+        this.userService = userService;
     }
 
     /**
@@ -76,8 +82,23 @@ public class TournamentResource {
     @PutMapping("/tournaments")
     public ResponseEntity<Tournament> updateTournament(@Valid @RequestBody Tournament tournament) throws URISyntaxException {
         log.debug("REST request to update Tournament : {}", tournament);
+
+        Authority admin = new Authority();
+        admin.setName("ROLE_ADMIN");
+
+        User currentUser = userService.getUserWithAuthorities().get();
+
         if (tournament.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+        }
+        if (currentUser.getAuthorities().contains(admin)) {
+            Tournament result = tournamentService.save(tournament);
+            return ResponseEntity.ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, tournament.getId().toString()))
+            .body(result);
+        }
+        if (currentUser.getId() != tournament.getUser().getId()) {
+            throw new BadRequestAlertException("Invalid user", "tournament", "noAction");
         }
         Tournament result = tournamentService.save(tournament);
         return ResponseEntity.ok()

@@ -8,6 +8,7 @@ import { map } from 'rxjs/operators';
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared';
 import { ITournament, ITournamentForm } from 'app/shared/model/tournament.model';
+import { Account, AccountService, User } from 'app/core';
 
 type EntityResponseType = HttpResponse<ITournament>;
 type EntityArrayResponseType = HttpResponse<ITournament[]>;
@@ -17,8 +18,13 @@ type EntityArrayResponseTypeExtra = HttpResponse<ITournamentForm>;
 export class TournamentService {
     public resourceUrl = SERVER_API_URL + 'api/tournaments';
     public resourceSearchUrl = SERVER_API_URL + 'api/_search/tournaments';
+    currentAccount: Account;
 
-    constructor(protected http: HttpClient) {}
+    constructor(protected http: HttpClient, protected accountService: AccountService) {
+        this.accountService.identity().then(account => {
+            this.currentAccount = account;
+        });
+    }
 
     create(tournament: ITournament): Observable<EntityResponseType> {
         const copy = this.convertDateFromClient(tournament);
@@ -27,8 +33,13 @@ export class TournamentService {
             .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
     }
 
+    previousState() {
+        window.history.back();
+    }
+
     update(tournament: ITournament): Observable<EntityResponseType> {
         const copy = this.convertDateFromClient(tournament);
+
         return this.http
             .put<ITournament>(this.resourceUrl, copy, { observe: 'response' })
             .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));

@@ -149,7 +149,8 @@
         "Length": "The provided URL is too long",
         "Future": "The date you provide is past",
         "idsame": "You're registered on this tournament",
-        "idManager": "You're the manager of this tournament"
+        "idManager": "You're the manager of this tournament",
+        "noAction": "You cannot do this action"
     },
     "footer": "ThorneoDevs",
     "cookies": {
