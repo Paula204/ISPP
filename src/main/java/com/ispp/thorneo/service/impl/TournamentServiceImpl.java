@@ -24,6 +24,7 @@ import org.springframework.util.Assert;
 import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
@@ -93,7 +94,7 @@ public class TournamentServiceImpl implements TournamentService {
     public Optional<Tournament> findOne(Long id) {
         log.debug("Request to get Tournament : {}", id);
 
-        Optional<Tournament> aux = tournamentRepository.findById(id);
+        //Optional<Tournament> aux = tournamentRepository.findById(id);
 
 //        Object resultQuery = tournamentRepository.getAllParticipantsByTournament(id);
 //
@@ -137,7 +138,12 @@ public class TournamentServiceImpl implements TournamentService {
     @Override
     public Tournament saveTournament(Tournament tournament) {
         Tournament result;
-
+        Tournament persistence;
+        if (tournament.getId() != null){
+            persistence = this.findOne(tournament.getId()).get();
+        } else {
+            persistence = tournament;
+        }
         Assert.notNull(tournament, "Tournament is null");
 
         User user = userService.getUserWithAuthorities().get();
@@ -153,6 +159,9 @@ public class TournamentServiceImpl implements TournamentService {
         }
         if (tournament.getMeetingDate().isBefore(Instant.now())) {
             throw new BadRequestAlertException("Invalid date", "tournament", "Future");
+        }
+        if (tournament.getParticipations().size() > persistence.getPlayerSize() ){
+            throw new BadRequestAlertException("Too much users", "tournament", "Users");
         }
 
         tournament.setUser(user);
@@ -269,6 +278,37 @@ public class TournamentServiceImpl implements TournamentService {
         TournamentForm tournamentForm = new TournamentForm(tournament, winner);
 
         result = Optional.of(tournamentForm);
+
+        return result;
+    }
+
+    @Override
+    public Tournament closeTournamentFinalized(Tournament tournament, Long winnerId) {
+        Assert.notNull(tournament, "tournament is null");
+        Assert.notNull(winnerId, "winner is null");
+
+        Tournament result;
+        User user = userService.getUserWithAuthorities(winnerId).get();
+        Assert.notNull(user, "user is null");
+        Set<Participation> participations = tournament.getParticipations();
+        Boolean b = false;
+        Participation par = new Participation();
+        for (Participation p : participations){
+            if (p.getUser().getId() == user.getId()){
+                b = true;
+                par = p;
+                break;
+            }
+        }
+        Assert.isTrue(b, "User not inscribed in tournament");
+
+        par.setPunctuation( par.getPunctuation() + winnerPunctuation);
+        this.participationService.save(par);
+
+        tournament.getParticipations().remove(par);
+        tournament.addParticipation(par);
+
+        result = save(tournament);
 
         return result;
     }

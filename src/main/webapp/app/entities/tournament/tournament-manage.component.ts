@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { ITournament, ITournamentForm, Tournament } from 'app/shared/model/tournament.model';
+import { IUser } from 'app/core/user/user.model';
 import { TournamentService } from '.';
 import { ParticipationService } from 'app/entities/participation';
 import { Observable } from 'rxjs';
@@ -123,6 +124,11 @@ export class TournamentManageComponent implements OnInit {
         this.subscribeToSaveResponse(this.tournamentService.close(this.tournament));
     }
 
+    closeTournament(id: number) {
+        this.isSaving = true;
+        this.subscribeToSaveResponse(this.tournamentService.closeTournament(this.tournament, id));
+    }
+
     disqualify(id: number) {
         this.isSaving = true;
         this.subscribeToSaveResponse(this.participationService.disqualify(id));
@@ -131,6 +137,10 @@ export class TournamentManageComponent implements OnInit {
     win(id: number) {
         this.isSaving = true;
         this.subscribeToSaveResponse(this.participationService.win(id));
+    }
+
+    trackUserById(index: number, item: IUser) {
+        return item.id;
     }
 
     tie(id: number) {

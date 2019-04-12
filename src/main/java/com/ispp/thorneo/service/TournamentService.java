@@ -74,5 +74,7 @@ public interface TournamentService {
 
     Tournament closeTournament(Tournament tournament);
 
+    Tournament closeTournamentFinalized(Tournament tournament, Long winnerId);
+
     Optional<TournamentForm> getTournament(Long id);
 }
