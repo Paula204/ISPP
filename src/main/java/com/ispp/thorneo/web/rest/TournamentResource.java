@@ -114,21 +114,35 @@ public class TournamentResource {
             .body(result);
     }
 
-    @PutMapping("/tournaments/closeTournament")
-    public ResponseEntity<Tournament> closeFinalizedTournament(@Valid @RequestBody Tournament tournament,
-     @Valid @RequestBody Long winnerId) throws URISyntaxException {
-        log.debug("REST request to close Tournament finalized: {}", tournament);
+//    @PutMapping("/tournaments/closeTournament")
+//    public ResponseEntity<Tournament> closeFinalizedTournament(@Valid @RequestBody Tournament tournament,
+//     @Valid @RequestBody Long winnerId) throws URISyntaxException {
+//        log.debug("REST request to close Tournament finalized: {}", tournament);
+//        if (tournament.getId() == null) {
+//            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+//        }
+//        if (winnerId == null){
+//            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+//        }
+//        Tournament res = this.tournamentService.closeTournamentFinalized(tournament, winnerId);
+//        return ResponseEntity.ok()
+//        .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, tournament.getId().toString()))
+//        .body(res);
+//    }
+
+    @PutMapping("/tournaments/closeTournamentChooseWinner/{id}")
+    public ResponseEntity<Tournament> closeTournamentChooseWinner(@Valid @RequestBody Tournament tournament, @PathVariable Long id) throws URISyntaxException {
+        log.debug("REST request to close Tournament: {}", tournament);
         if (tournament.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        if (winnerId == null){
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
-        }
-        Tournament res = this.tournamentService.closeTournamentFinalized(tournament, winnerId);
+        Tournament result = tournamentService.closeTournament(tournament);
         return ResponseEntity.ok()
-        .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, tournament.getId().toString()))
-        .body(res);
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, tournament.getId().toString()))
+            .body(result);
     }
+
+
     /**
      * GET  /tournaments : get all the tournaments.
      *
