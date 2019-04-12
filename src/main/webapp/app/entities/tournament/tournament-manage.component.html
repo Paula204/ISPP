@@ -3,6 +3,17 @@
   <div class="module-border-wrap"><div class="module">
     <div class="gestionador flex-container"></div>
   </div></div>
+
+
+  <p>manolo</p>
+  <div class="form-group">
+    <label class="form-control-label" jhiTranslate="thorneoApp.tournament.winner" for="field_user">User</label>
+    <select class="form-control" id="field_user">
+        <option [ngValue]="null"></option>
+        <option *ngFor="let participation of tournament.participations" [ngValue]="participation.user.id">{{participation.user.login}}</option>
+    </select>
+</div>
+
 </div>
 
 

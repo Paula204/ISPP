@@ -3,7 +3,9 @@ package com.ispp.thorneo.web.rest;
 import com.ispp.thorneo.TournamentForm;
 import com.ispp.thorneo.domain.Participation;
 import com.ispp.thorneo.domain.Tournament;
+import com.ispp.thorneo.domain.User;
 import com.ispp.thorneo.service.TournamentService;
+import com.ispp.thorneo.service.UserService;
 import com.ispp.thorneo.web.rest.errors.BadRequestAlertException;
 import com.ispp.thorneo.web.rest.util.HeaderUtil;
 import com.ispp.thorneo.web.rest.util.PaginationUtil;
@@ -39,9 +41,12 @@ public class TournamentResource {
     private static final String ENTITY_NAME = "tournament";
 
     private final TournamentService tournamentService;
+    
+    private final UserService userService;
 
-    public TournamentResource(TournamentService tournamentService) {
+    public TournamentResource(TournamentService tournamentService, UserService userService){
         this.tournamentService = tournamentService;
+        this.userService = userService;
     }
 
     /**
@@ -109,6 +114,21 @@ public class TournamentResource {
             .body(result);
     }
 
+    @PutMapping("/tournaments/closeTournament")
+    public ResponseEntity<Tournament> closeFinalizedTournament(@Valid @RequestBody Tournament tournament,
+     @Valid @RequestBody Long winnerId) throws URISyntaxException {
+        log.debug("REST request to close Tournament finalized: {}", tournament);
+        if (tournament.getId() == null) {
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+        }
+        if (winnerId == null){
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+        }
+        Tournament res = this.tournamentService.closeTournamentFinalized(tournament, winnerId);
+        return ResponseEntity.ok()
+        .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, tournament.getId().toString()))
+        .body(res);
+    }
     /**
      * GET  /tournaments : get all the tournaments.
      *
