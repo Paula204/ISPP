@@ -29,7 +29,7 @@
             "latitude": "Latitude",
             "longitude": "Longitude",
             "type": "Type",
-            "imagen": "Imagen",
+            "imagen": "Image",
             "state": "State",
             "participation": "Participation",
             "user": "User",
