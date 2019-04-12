@@ -18,6 +18,8 @@ import { filter, map } from 'rxjs/operators';
 
 declare let $: any;
 
+import { Type } from 'app/shared/model/tournament.model';
+
 @Component({
     selector: 'jhi-tournament',
     templateUrl: './tournament.component.html'
