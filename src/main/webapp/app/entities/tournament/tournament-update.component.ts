@@ -69,7 +69,7 @@ export class TournamentUpdateComponent implements OnInit {
         this.isSaving = true;
         this.tournament.meetingDate = this.meetingDate != null ? moment(this.meetingDate, DATE_TIME_FORMAT) : null;
         if (this.tournament.id !== undefined) {
-            if (this.tournament.user.login == this.currentAccount.login) {
+            if (this.tournament.user.login === this.currentAccount.login) {
                 this.subscribeToSaveResponse(this.tournamentService.update(this.tournament));
             } else {
                 this.previousState();

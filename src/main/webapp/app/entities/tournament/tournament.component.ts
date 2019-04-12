@@ -4,11 +4,19 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 
+import { Sponsorship } from 'app/shared/model/sponsorship.model';
+import { ISponsorship } from 'app/shared/model/sponsorship.model';
 import { ITournament } from 'app/shared/model/tournament.model';
 import { Account, AccountService } from 'app/core';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { TournamentService } from './tournament.service';
+import { SponsorshipService } from 'app/entities/sponsorship';
+
+import * as Http from 'http';
+import { filter, map } from 'rxjs/operators';
+
+declare let $: any;
 
 import { Type } from 'app/shared/model/tournament.model';
 
@@ -33,9 +41,10 @@ export class TournamentComponent implements OnInit, OnDestroy {
     reverse: any;
     type: Type;
     currentDate: Date;
-
+    sponsorship: ISponsorship;
     constructor(
         protected tournamentService: TournamentService,
+        protected sponsorshipService: SponsorshipService,
         protected parseLinks: JhiParseLinks,
         protected jhiAlertService: JhiAlertService,
         protected accountService: AccountService,
@@ -139,6 +148,13 @@ export class TournamentComponent implements OnInit, OnDestroy {
         });
         this.registerChangeInTournaments();
         this.currentDate = new Date();
+        this.sponsorshipService
+            .findRandom()
+            .pipe(
+                filter((response: HttpResponse<Sponsorship>) => response.ok),
+                map((sponsorship: HttpResponse<Sponsorship>) => sponsorship.body)
+            )
+            .subscribe(value => (this.sponsorship = value));
     }
 
     ngOnDestroy() {
@@ -171,3 +187,25 @@ export class TournamentComponent implements OnInit, OnDestroy {
         this.jhiAlertService.error(errorMessage, null, null);
     }
 }
+
+/**
+@Component({
+    selector: 'jhi-carousel',
+    templateUrl: './carousel.html'
+})
+export class CarouselComponent {
+    private start = false;
+    urls = [];
+    constructor(private http: Http) {
+        http.get('/getcarousel').subscribe(res => this.startCarousel(res.json));
+    }
+
+    startCarousel(urls: string[]) {
+        this.urls = urls;
+        $('.carousel').carousel();
+    }
+
+    isActive(url: string) {
+        return url === this.urls[0];
+    }
+}**/

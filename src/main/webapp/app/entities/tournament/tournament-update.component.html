@@ -11,8 +11,8 @@
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="thorneoApp.tournament.title" for="field_title">Title</label>
-                    <input type="text" class="form-control alert-form" name="title" id="field_title"
-                           [(ngModel)]="tournament.title" required/>
+                    <input type="text" class="form-control" name="title" id="field_title"
+                        [(ngModel)]="tournament.title" required/>
                     <div [hidden]="!(editForm.controls.title?.dirty && editForm.controls.title?.invalid)">
                         <small class="form-text text-danger"
                                [hidden]="!editForm.controls.title?.errors?.required" jhiTranslate="entity.validation.required">
@@ -22,8 +22,8 @@
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="thorneoApp.tournament.description" for="field_description">Description</label>
-                    <textarea type="text" class="form-control alert-form" name="description" id="field_description"
-                              [(ngModel)]="tournament.description" required></textarea>
+                    <textarea type="text" class="form-control" name="description" id="field_description"
+                        [(ngModel)]="tournament.description" required></textarea>
                     <div [hidden]="!(editForm.controls.description?.dirty && editForm.controls.description?.invalid)">
                         <small class="form-text text-danger"
                                [hidden]="!editForm.controls.description?.errors?.required" jhiTranslate="entity.validation.required">
@@ -34,8 +34,8 @@
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="thorneoApp.tournament.meetingDate" for="field_meetingDate">Meeting Date</label>
                     <div class="d-flex">
-                        <input id="field_meetingDate" type="datetime-local" class="form-control alert-form" name="meetingDate" [(ngModel)]="meetingDate" placeholder="YYYY-MM-DD HH:mm"
-                               required/>
+                        <input id="field_meetingDate" type="datetime-local" class="form-control" name="meetingDate" [(ngModel)]="meetingDate" placeholder="YYYY-MM-DD HH:mm"
+                        required/>
                     </div>
                     <div [hidden]="!(editForm.controls.meetingDate?.dirty && editForm.controls.meetingDate?.invalid)">
                         <small class="form-text text-danger"
@@ -50,8 +50,9 @@
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="thorneoApp.tournament.meetingPoint" for="field_meetingPoint">Meeting Point</label>
-                    <input type="text" class="form-control alert-form" name="meetingPoint" id="field_meetingPoint"
-                           [(ngModel)]="tournament.meetingPoint" required/>
+                    <input type="text" class="form-control" name="meetingPoint" id="field_meetingPoint"
+                        [(ngModel)]="tournament.meetingPoint" required/>
+
                     <div [hidden]="!(editForm.controls.meetingPoint?.dirty && editForm.controls.meetingPoint?.invalid)">
                         <small class="form-text text-danger"
                                [hidden]="!editForm.controls.meetingPoint?.errors?.required" jhiTranslate="entity.validation.required">
@@ -61,8 +62,10 @@
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="thorneoApp.tournament.city" for="field_city">City</label>
-                    <input type="text" class="form-control alert-form" name="city" id="field_city"
-                           [(ngModel)]="tournament.city" required/>
+
+                    <input type="text" class="form-control" name="city" id="field_city"
+                        [(ngModel)]="tournament.city" required/>
+
                     <div [hidden]="!(editForm.controls.city?.dirty && editForm.controls.city?.invalid)">
                         <small class="form-text text-danger"
                                [hidden]="!editForm.controls.city?.errors?.required" jhiTranslate="entity.validation.required">
@@ -72,8 +75,8 @@
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="thorneoApp.tournament.price" for="field_price">Price</label>
-                    <input type="number" class="form-control alert-form" name="price" id="field_price"
-                           [(ngModel)]="tournament.price" min="0" jhiMin="0"/>
+                    <input type="number" class="form-control" name="price" id="field_price"
+                        [(ngModel)]="tournament.price" min="0" jhiMin="0"/>
                     <div [hidden]="!(editForm.controls.price?.dirty && editForm.controls.price?.invalid)">
                         <small class="form-text text-danger"
                                [hidden]="!editForm.controls.price?.errors?.min" jhiTranslate="entity.validation.min" [translateValues]="{ min: 0 }">
@@ -87,8 +90,8 @@
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="thorneoApp.tournament.playerSize" for="field_playerSize">Player Size</label>
-                    <input type="number" class="form-control alert-form" name="playerSize" id="field_playerSize"
-                           [(ngModel)]="tournament.playerSize" min="0" jhiMin="0"/>
+                    <input type="number" class="form-control" name="playerSize" id="field_playerSize"
+                        [(ngModel)]="tournament.playerSize" min="0" jhiMin="0"/>
                     <div [hidden]="!(editForm.controls.playerSize?.dirty && editForm.controls.playerSize?.invalid)">
                         <small class="form-text text-danger"
                                [hidden]="!editForm.controls.playerSize?.errors?.min" jhiTranslate="entity.validation.min" [translateValues]="{ min: 0 }">
@@ -102,8 +105,9 @@
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="thorneoApp.tournament.rewards" for="field_rewards">Rewards</label>
-                    <input type="text" class="form-control alert-form" name="rewards" id="field_rewards"
-                           [(ngModel)]="tournament.rewards" />
+
+                    <input type="text" class="form-control" name="rewards" id="field_rewards"
+                        [(ngModel)]="tournament.rewards" />
                 </div>
                 <div class="form-group">                    
                     <label class="form-control-label" jhiTranslate="thorneoApp.tournament.image" for="field_imagen">Imagen</label>

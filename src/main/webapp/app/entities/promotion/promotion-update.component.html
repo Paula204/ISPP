@@ -11,7 +11,7 @@
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="thorneoApp.promotion.title" for="field_title">Title</label>
-                    <input type="text" class="form-control alert-form" name="title" id="field_title"
+                    <input type="text" class="form-control" name="title" id="field_title"
                         [(ngModel)]="promotion.title" required/>
                     <div [hidden]="!(editForm.controls.title?.dirty && editForm.controls.title?.invalid)">
                         <small class="form-text text-danger"
@@ -22,7 +22,7 @@
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="thorneoApp.promotion.qr" for="field_qr">Qr</label>
-                    <input type="text" class="form-control alert-form" name="qr" id="field_qr"
+                    <input type="text" class="form-control" name="qr" id="field_qr"
                         [(ngModel)]="promotion.qr" required/>
                     <div [hidden]="!(editForm.controls.qr?.dirty && editForm.controls.qr?.invalid)">
                         <small class="form-text text-danger"

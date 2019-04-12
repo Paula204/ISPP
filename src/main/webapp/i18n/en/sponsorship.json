@@ -20,7 +20,8 @@
             "banner": "Banner",
             "targetUrl": "Target Url",
             "user": "User",
-            "tournament": "Tournament"
+            "tournament": "Tournament",
+            "warning": "The recommended resolution for your banner is 720x200"
         }
     }
 }
