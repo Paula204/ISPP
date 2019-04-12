@@ -16,7 +16,6 @@ import { filter, map } from 'rxjs/operators';
 import { ISponsorship, Sponsorship } from 'app/shared/model/sponsorship.model';
 import { SponsorshipService } from 'app/entities/sponsorship';
 
-
 @Component({
     selector: 'jhi-tournament-detail',
     templateUrl: './tournament-detail.component.html'
@@ -29,7 +28,6 @@ export class TournamentDetailComponent implements OnInit {
     nonbotton: boolean;
 
     sponsorship: ISponsorship;
-
 
     isSaving: boolean;
     participa: boolean;
