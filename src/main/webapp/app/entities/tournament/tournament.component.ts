@@ -42,7 +42,6 @@ export class TournamentComponent implements OnInit, OnDestroy {
     sponsorship: ISponsorship;
     type: Type;
     currentDate: Date;
-  
     constructor(
         protected tournamentService: TournamentService,
         protected sponsorshipService: SponsorshipService,
