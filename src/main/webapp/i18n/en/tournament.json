@@ -29,7 +29,6 @@
             "latitude": "Latitude",
             "longitude": "Longitude",
             "type": "Type",
-            "imagen": "Image",
             "image": "Image",
             "state": "State",
             "participation": "Participation",
