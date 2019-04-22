@@ -12,7 +12,7 @@
 
 eureka:
     instance:
-        hostname: thorneo-sprint-1.herokuapp.com
+        hostname: thorneo-sprint-2.herokuapp.com
         non-secure-port: 80
         prefer-ip-address: false
     client:
