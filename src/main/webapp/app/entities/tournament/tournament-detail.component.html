@@ -86,7 +86,6 @@
                 class="btn btn-primary">
                 <fa-icon [icon]="'wrench'"></fa-icon>&nbsp;<span class="d-none d-md-inline" jhiTranslate="entity.action.manage">Manage</span>
             </button>-->
-
             <!--Creado un if else para que no salgan los dos botones-->
             <div class="d-inline"  *ngIf="tournament.participations.length > 1 && tournament.meetingDate.isBefore(currentDate)">
                     <div *ngIf="tournament.user.login===currentAccount.login; then thenBlock else elseBlock"></div>

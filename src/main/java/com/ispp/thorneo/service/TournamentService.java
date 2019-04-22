@@ -73,7 +73,6 @@ public interface TournamentService {
     String getWinner(Long id);
 
     Tournament closeTournament(Tournament tournament);
-
     Tournament closeTournamentFinalized(Tournament tournament, Long winnerId);
 
     Optional<TournamentForm> getTournament(Long id);
