@@ -109,6 +109,18 @@ public class SponsorshipResource {
     }
 
     /**
+     * GET /sponsorship/id : get a random sponsorship.
+     *
+     * @returnThe Response Entity with status 200 (OK).
+     */
+    @GetMapping("/sponsorships/takeOne")
+    public ResponseEntity<Sponsorship> giveMeARandom(){
+        log.debug("REST request to get a random Sponsorship");
+        Optional<Sponsorship> sponsorship = sponsorshipService.giveMeARandom();
+        return ResponseUtil.wrapOrNotFound(sponsorship);
+    }
+
+    /**
      * DELETE  /sponsorships/:id : delete the "id" sponsorship.
      *
      * @param id the id of the sponsorship to delete

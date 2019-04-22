@@ -1,5 +1,10 @@
 <div class="row justify-content-center">
-    <div class="col-12">
+    <div class="col-8">
+        <div *ngIf="!currentAccount.authorities.includes('ROLE_SPONSOR') && !currentAccount.authorities.includes('ROLE_ADMIN')"  class="carousel-inner" style="max-height:120px; max-width:720px" >
+            <div class="carousel-item active">
+                <img class="d-block w-100" src="{{sponsorship.targetUrl}}">
+            </div>
+        </div>
         <div *ngIf="tournament">
             <h2 class="text-center">{{tournament.title}}</h2>
             <hr>
@@ -28,14 +33,13 @@
                         </br>
                         <p  class="bold"jhiTranslate="thorneoApp.tournament.game">Game</p>
                         <span *ngIf="tournament.game">
-                            <a [routerLink]="['/game', tournament.game?.id, 'view']">{{tournament.game?.title}}</a>
+                            <p>: </p><a [routerLink]="['/game', tournament.game?.id, 'view']">{{tournament.game?.title}}</a>
                         </span>
                         </br>
-                        </br>
                         <p class="bold" jhiTranslate="thorneoApp.tournament.participation">Participants</p>
-                            <p *ngFor="let participation of tournament.participations" >
+                        <ul>
+                            <li *ngFor="let participation of tournament.participations" class="mt-1">
                                 {{participation.user.login}}
-                                <!--
                                 <button *ngIf="currentAccount.login == tournament.user.login && tournament.type == 'ELIMINATION'" type="submit"
                                         (click)="disqualify(participation.id)"
                                         class="btn btn-sm btn-danger">
@@ -51,8 +55,8 @@
                                         class="btn btn-sm btn-danger">
                                     <span jhiTranslate="thorneoApp.tournament.tie">Tie</span>
                                 </button>
-                                -->
-                            </p>
+                            </li>
+                        </ul>
                         <!--
                         <qrcode qrdata="http://localhost:9000/#/tournament/24/view" size="256" level="M"></qrcode>
                         -->
@@ -68,7 +72,7 @@
             <button type="submit"
                     (click)="previousState()"
                     class="btn btn-info">
-                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span class="d-none d-md-inline" jhiTranslate="entity.action.back"> Back</span>
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
             </button>
 
             <button *ngIf="tournament.user.login==currentAccount.login && tournament.winner == null" type="button"
@@ -83,7 +87,6 @@
                 <fa-icon [icon]="'wrench'"></fa-icon>&nbsp;<span class="d-none d-md-inline" jhiTranslate="entity.action.manage">Manage</span>
             </button>-->
 
-
             <button *ngIf="tournament.winner == null && tournament.user.login != currentAccount.login" type="submit"
                     (click)="signOn()"
                     class="btn btn-primary green-background">
@@ -94,7 +97,6 @@
             <button *ngIf="tournament.winner == null && tournament.user.login == currentAccount.login && tournament.meetingDate.isBefore(currentDate)" type="submit"
                     (click)="close()"
                     class="btn btn-primary red">
-                    <fa-icon [icon]="'ban'"></fa-icon>
                 <span jhiTranslate="entity.action.close">Close tournament</span>
             </button>
 
@@ -122,9 +124,11 @@
             </button></ng-template>
 
 
+            <div *ngIf="!currentAccount.authorities.includes('ROLE_SPONSOR') && !currentAccount.authorities.includes('ROLE_ADMIN')"  class="carousel-inner" style="max-height:120px; max-width:720px" >
+                <div class="carousel-item active">
+                    <img class="d-block w-100" src="{{sponsorship.targetUrl}}">
+                </div>
+            </div>
         </div>
-
-
-
     </div>
 </div>

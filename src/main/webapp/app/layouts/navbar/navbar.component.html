@@ -57,12 +57,13 @@
                             <span jhiTranslate="global.menu.entities.participation">Participation</span>
                         </a>
                     </li>
-                   <!-- <li *jhiHasAnyAuthority="'ROLE_ADMIN'">
+                   <li *jhiHasAnyAuthority="'ROLE_SPONSOR'">
                         <a class="dropdown-item" routerLink="sponsorship" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                             <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
                             <span jhiTranslate="global.menu.entities.sponsorship">Sponsorship</span>
                         </a>
                     </li>
+
                     <li >
                         <a class="dropdown-item" routerLink="promotion" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                             <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
@@ -70,6 +71,10 @@
                         </a>
                     </li>-->
                     <li *jhiHasAnyAuthority="'ROLE_ADMIN'">
+
+
+                    <li>
+
                         <a class="dropdown-item" routerLink="paypal-completed-payments" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                             <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
                             <span jhiTranslate="global.menu.entities.paypalCompletedPayments">Paypal Completed Payments</span>
