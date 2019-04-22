@@ -169,9 +169,4 @@ export class TournamentManageComponent implements OnInit {
     updateWinner(winner: number) {
         this.winner = winner;
     }
-
-    setWinner() {
-        this.isSaving = true;
-        this.subscribeToSaveResponse(this.tournamentService.closeTournamentChooseWinner(this.tournament, this.winner));
-    }
 }
