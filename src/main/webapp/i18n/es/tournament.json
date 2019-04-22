@@ -41,7 +41,8 @@
             "checkImage": "Subir imagen",
             "disqualify": "Descalificar",
             "doubleE": "Eliminación doble",
-            "singleE": "Eliminación simple"
+            "singleE": "Eliminación simple",
+            "image": "Imagen"
         }
     }
 }

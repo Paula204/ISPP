@@ -33,7 +33,7 @@ export const sponsorshipRoute: Routes = [
         path: '',
         component: SponsorshipComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_SPONSOR'],
             pageTitle: 'thorneoApp.sponsorship.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -45,7 +45,7 @@ export const sponsorshipRoute: Routes = [
             sponsorship: SponsorshipResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_SPONSOR'],
             pageTitle: 'thorneoApp.sponsorship.home.title'
         },
         canActivate: [UserRouteAccessService]

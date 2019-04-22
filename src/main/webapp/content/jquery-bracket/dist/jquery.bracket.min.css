@@ -13,8 +13,8 @@ div.jQBracket .tools span {
     padding: 3px;
     display: block;
     text-align: center;
-    width: 10%;
-    height: 10%;
+    width: 30px;
+    height: 30px;
     background-color: #666;
 }
 div.jQBracket .tools span:hover {

@@ -10,6 +10,9 @@ import { AccountService } from 'app/core';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { PromotionService } from './promotion.service';
+import * as Http from 'http';
+
+declare let $: any;
 
 @Component({
     selector: 'jhi-promotion',
