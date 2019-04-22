@@ -1,6 +1,7 @@
 package com.ispp.thorneo.web.rest;
 
 import com.ispp.thorneo.TournamentForm;
+import com.ispp.thorneo.domain.Authority;
 import com.ispp.thorneo.domain.Participation;
 import com.ispp.thorneo.domain.Tournament;
 import com.ispp.thorneo.domain.User;
@@ -84,6 +85,16 @@ public class TournamentResource {
         if (tournament.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
+
+        User currentUser = this.userService.getUserWithAuthorities().get();
+
+        Authority admin = new Authority();
+        admin.setName("ROLE_ADMIN");
+
+        if (tournament.getUser().getId() != currentUser.getId() && !currentUser.getAuthorities().contains(admin)) {
+            throw new BadRequestAlertException("Invalid user", "tournament", "notCreator");
+        }
+
         Tournament result = tournamentService.save(tournament);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, tournament.getId().toString()))
@@ -174,6 +185,18 @@ public class TournamentResource {
     @DeleteMapping("/tournaments/{id}")
     public ResponseEntity<Void> deleteTournament(@PathVariable Long id) {
         log.debug("REST request to delete Tournament : {}", id);
+
+        User currentUser = this.userService.getUserWithAuthorities().get();
+
+        Authority admin = new Authority();
+        admin.setName("ROLE_ADMIN");
+
+        Tournament tournament = this.tournamentService.findOne(id).get();
+
+        if (tournament.getUser().getId() != currentUser.getId() && !currentUser.getAuthorities().contains(admin)) {
+            throw new BadRequestAlertException("Invalid user", "tournament", "notCreator");
+        }
+
         tournamentService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
