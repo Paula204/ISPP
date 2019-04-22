@@ -425,6 +425,10 @@ public class TournamentResourceIntTest {
         // As the test used the service layer, reset the Elasticsearch mock repository
         reset(mockTournamentSearchRepository);
 
+        SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
+        securityContext.setAuthentication(new UsernamePasswordAuthenticationToken(tournament.getUser().getLogin(),
+            tournament.getUser().getPassword()));
+
         int databaseSizeBeforeUpdate = tournamentRepository.findAll().size();
 
         // Update the tournament
@@ -503,6 +507,10 @@ public class TournamentResourceIntTest {
     public void deleteTournament() throws Exception {
         // Initialize the database
         tournamentService.save(tournament);
+
+        SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
+        securityContext.setAuthentication(new UsernamePasswordAuthenticationToken(tournament.getUser().getLogin(),
+            tournament.getUser().getPassword()));
 
         int databaseSizeBeforeDelete = tournamentRepository.findAll().size();
 
