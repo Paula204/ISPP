@@ -311,4 +311,35 @@ public class TournamentServiceImpl implements TournamentService {
 
         return result;
     }
+
+    @Override
+    public Tournament closeTournamentFinalized(Tournament tournament, Long winnerId) {
+        Assert.notNull(tournament, "tournament is null");
+        Assert.notNull(winnerId, "winner is null");
+
+        Tournament result;
+        User user = userService.getUserWithAuthorities(winnerId).get();
+        Assert.notNull(user, "user is null");
+        Set<Participation> participations = tournament.getParticipations();
+        Boolean b = false;
+        Participation par = new Participation();
+        for (Participation p : participations){
+            if (p.getUser().getId() == user.getId()){
+                b = true;
+                par = p;
+                break;
+            }
+        }
+        Assert.isTrue(b, "User not inscribed in tournament");
+
+        par.setPunctuation( par.getPunctuation() + winnerPunctuation);
+        this.participationService.save(par);
+
+        tournament.getParticipations().remove(par);
+        tournament.addParticipation(par);
+
+        result = save(tournament);
+
+        return result;
+    }
 }

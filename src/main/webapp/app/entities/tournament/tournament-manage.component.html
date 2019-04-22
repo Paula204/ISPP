@@ -6,17 +6,12 @@
 
 
   <div class="form-group">
-    <label class="form-control-label" #winner jhiTranslate="thorneoApp.tournament.winner" for="field_user">User</label>
-    <select class="form-control" id="field_user" #winner (change)="updateWinner(winner.value)">
+    <label class="form-control-label" jhiTranslate="thorneoApp.tournament.winner" for="field_user">User</label>
+    <select class="form-control" id="field_user">
         <option [ngValue]="null"></option>
-        <option *ngFor="let participation of tournament.participations" value="{{participation.id}}">{{participation.user.login}}</option>
+        <option *ngFor="let participation of tournament.participations" [ngValue]="participation.user.id">{{participation.user.login}}</option>
     </select>
 </div>
-
-    <button id="save-entity" class="btn btn-primary" (click)="setWinner()">
-        <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
-    </button>
-
 </div>
 
 

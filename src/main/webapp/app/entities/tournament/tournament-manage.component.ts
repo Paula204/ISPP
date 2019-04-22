@@ -16,7 +16,7 @@ declare let $: any;
 
 @Component({
     selector: 'jhi-tournament-manage',
-    styles: [' .card{flex-direction: unset} .jh-card{flex-direction: unset}' + ''],
+    styles: [' body{background-color: #fff} .card{flex-direction: unset} .jh-card{flex-direction: unset}' + ''],
     templateUrl: './tournament-manage.component.html',
     encapsulation: ViewEncapsulation.None
 })
@@ -168,10 +168,5 @@ export class TournamentManageComponent implements OnInit {
 
     updateWinner(winner: number) {
         this.winner = winner;
-    }
-
-    setWinner() {
-        this.isSaving = true;
-        this.subscribeToSaveResponse(this.tournamentService.closeTournamentChooseWinner(this.tournament, this.winner));
     }
 }
