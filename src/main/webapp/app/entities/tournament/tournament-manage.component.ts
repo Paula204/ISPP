@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { ITournament, ITournamentForm, Tournament } from 'app/shared/model/tournament.model';
+import { IUser } from 'app/core/user/user.model';
 import { TournamentService } from '.';
 import { ParticipationService } from 'app/entities/participation';
 import { Observable } from 'rxjs';
@@ -15,14 +16,13 @@ declare let $: any;
 
 @Component({
     selector: 'jhi-tournament-manage',
-    styles: [
-        ' body{background-color: #fff} .card{flex-direction: unset} .jh-card{flex-direction: unset} @media only screen and (min-width: 660px) {.card{ display: flex; justify-content: center}}'
-    ],
+    styles: [' body{background-color: #fff} .card{flex-direction: unset} .jh-card{flex-direction: unset}' + ''],
     templateUrl: './tournament-manage.component.html',
     encapsulation: ViewEncapsulation.None
 })
 export class TournamentManageComponent implements OnInit {
     tournament: ITournamentForm;
+    winner: number;
 
     currentAccount: Account;
     currentDate: Date;
@@ -125,6 +125,11 @@ export class TournamentManageComponent implements OnInit {
         this.subscribeToSaveResponse(this.tournamentService.close(this.tournament));
     }
 
+    closeTournament(id: number) {
+        this.isSaving = true;
+        this.subscribeToSaveResponse(this.tournamentService.closeTournament(this.tournament, id));
+    }
+
     disqualify(id: number) {
         this.isSaving = true;
         this.subscribeToSaveResponse(this.participationService.disqualify(id));
@@ -133,6 +138,10 @@ export class TournamentManageComponent implements OnInit {
     win(id: number) {
         this.isSaving = true;
         this.subscribeToSaveResponse(this.participationService.win(id));
+    }
+
+    trackUserById(index: number, item: IUser) {
+        return item.id;
     }
 
     tie(id: number) {
@@ -155,5 +164,9 @@ export class TournamentManageComponent implements OnInit {
 
     protected onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    updateWinner(winner: number) {
+        this.winner = winner;
     }
 }
