@@ -22,6 +22,7 @@ declare let $: any;
 })
 export class TournamentManageComponent implements OnInit {
     tournament: ITournamentForm;
+    winner: number;
 
     currentAccount: Account;
     currentDate: Date;
@@ -163,5 +164,9 @@ export class TournamentManageComponent implements OnInit {
 
     protected onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    updateWinner(winner: number) {
+        this.winner = winner;
     }
 }

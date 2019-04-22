@@ -5,7 +5,6 @@
   </div></div>
 
 
-  <p>manolo</p>
   <div class="form-group">
     <label class="form-control-label" jhiTranslate="thorneoApp.tournament.winner" for="field_user">User</label>
     <select class="form-control" id="field_user">
@@ -13,7 +12,6 @@
         <option *ngFor="let participation of tournament.participations" [ngValue]="participation.user.id">{{participation.user.login}}</option>
     </select>
 </div>
-
 </div>
 
 

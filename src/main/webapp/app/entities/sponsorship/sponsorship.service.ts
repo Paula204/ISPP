@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared';
 import { ISponsorship } from 'app/shared/model/sponsorship.model';
+import { query } from '@angular/core/src/render3';
 
 type EntityResponseType = HttpResponse<ISponsorship>;
 type EntityArrayResponseType = HttpResponse<ISponsorship[]>;
@@ -26,6 +27,10 @@ export class SponsorshipService {
 
     find(id: number): Observable<EntityResponseType> {
         return this.http.get<ISponsorship>(`${this.resourceUrl}/${id}`, { observe: 'response' });
+    }
+
+    findRandom(): Observable<EntityResponseType> {
+        return this.http.get<ISponsorship>(`${this.resourceUrl}/takeOne`, { observe: 'response' });
     }
 
     query(req?: any): Observable<EntityArrayResponseType> {

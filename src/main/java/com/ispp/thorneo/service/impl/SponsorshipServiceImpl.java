@@ -6,12 +6,16 @@ import com.ispp.thorneo.repository.SponsorshipRepository;
 import com.ispp.thorneo.repository.search.SponsorshipSearchRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ispp.thorneo.service.UserService;
 import java.util.Optional;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
@@ -29,6 +33,8 @@ public class SponsorshipServiceImpl implements SponsorshipService {
 
     private final SponsorshipSearchRepository sponsorshipSearchRepository;
 
+    private UserService userService;
+
     public SponsorshipServiceImpl(SponsorshipRepository sponsorshipRepository, SponsorshipSearchRepository sponsorshipSearchRepository) {
         this.sponsorshipRepository = sponsorshipRepository;
         this.sponsorshipSearchRepository = sponsorshipSearchRepository;
@@ -43,6 +49,14 @@ public class SponsorshipServiceImpl implements SponsorshipService {
     @Override
     public Sponsorship save(Sponsorship sponsorship) {
         log.debug("Request to save Sponsorship : {}", sponsorship);
+        try{
+            if(sponsorship.getUser() != null) {
+                sponsorship.setUser(sponsorship.getUser());
+            }
+        }catch(NullPointerException e){
+                sponsorship.setUser(userService.getUserWithAuthorities().get());
+                System.err.println("Usuario null");
+        }
         Sponsorship result = sponsorshipRepository.save(sponsorship);
         sponsorshipSearchRepository.save(result);
         return result;
@@ -61,6 +75,21 @@ public class SponsorshipServiceImpl implements SponsorshipService {
         return sponsorshipRepository.findAll(pageable);
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<Sponsorship> giveMeARandom(){
+        int min = 0;
+        int max = sponsorshipRepository.findAll().size();
+        int random;
+        List<Long> ids = new ArrayList<Long> ();
+        for(int i=0;i<max;i++){
+           ids.add(this.sponsorshipRepository.findAll().get(i).getId());
+        }
+        random = ThreadLocalRandom.current().nextInt(0,max);
+      //  System.out.println("************* "+ids);
+      //  System.out.println("******************** "+random);
+        return this.sponsorshipRepository.findById(ids.get(random));
+    }
 
     /**
      * Get one sponsorship by id.

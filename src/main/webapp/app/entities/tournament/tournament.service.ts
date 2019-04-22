@@ -55,7 +55,6 @@ export class TournamentService {
             .put<ITournament>(this.resourceUrl + '/closeTournament', copy, { observe: 'response' })
             .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
     }
-
     find(id: number): Observable<EntityArrayResponseTypeExtra> {
         return this.http
             .get<ITournamentForm>(`${this.resourceUrl}/${id}`, { observe: 'response' })
