@@ -9,6 +9,9 @@
             "noPercentage": "Sin comisiones"
         },
         "sponsor": {
+            "cancel": "Cancelar suscripción",
+            "mensual": "Pago mensual",
+            "anual": "Pago anual",
             "benefits": "Beneficios premium",
             "announcement": "Tus anuncios en la página principal",
             "social": "Anunciar torneos en redes sociales"

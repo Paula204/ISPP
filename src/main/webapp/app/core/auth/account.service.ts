@@ -31,6 +31,10 @@ export class AccountService {
         return this.http.post(SERVER_API_URL + 'api/account/upgrade/sponsor', account, { observe: 'response' });
     }
 
+    deleteRole(account: any): Observable<HttpResponse<any>> {
+        return this.http.post(SERVER_API_URL + 'api/account/deleteRole', account, { observe: 'response' });
+    }
+
     authenticate(identity) {
         this.userIdentity = identity;
         this.authenticated = identity !== null;

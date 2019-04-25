@@ -52,7 +52,7 @@ public interface TournamentService {
      * Search for the tournament corresponding to the query.
      *
      * @param query the query of the search
-     * 
+     *
      * @param pageable the pagination information
      * @return the list of entities
      */
@@ -61,13 +61,13 @@ public interface TournamentService {
     /**
      * Assign current user as creator of the tournament and check if player's size is null
      */
-     Tournament saveTournament(Tournament tournament);
+    Tournament saveTournament(Tournament tournament);
 
     /**
-      * Add current user to the tournament
-      */
+     * Add current user to the tournament
+     */
     Tournament signOn(Tournament tournament);
-  
+
     List<Tournament> findMyTournaments();
 
     String getWinner(Long id);

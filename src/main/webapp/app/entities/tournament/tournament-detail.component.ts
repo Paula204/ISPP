@@ -7,8 +7,11 @@ import { ParticipationService } from 'app/entities/participation';
 import { Observable } from 'rxjs';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { JhiAlertService } from 'ng-jhipster';
-import { Account, AccountService } from 'app/core';
+import { Account, AccountService, User } from 'app/core';
 import { HasAnyAuthorityDirective } from 'app/shared';
+
+import { forEach } from '@angular/router/src/utils/collection';
+
 import { filter, map } from 'rxjs/operators';
 import { ISponsorship, Sponsorship } from 'app/shared/model/sponsorship.model';
 import { SponsorshipService } from 'app/entities/sponsorship';
@@ -19,12 +22,17 @@ import { SponsorshipService } from 'app/entities/sponsorship';
 })
 export class TournamentDetailComponent implements OnInit {
     tournament: ITournamentForm;
-
     currentAccount: Account;
     currentDate: Date;
+
+    nonbotton: boolean;
+
     sponsorship: ISponsorship;
 
     isSaving: boolean;
+    participa: boolean;
+    algo: any;
+    currentUser: any;
 
     constructor(
         protected jhiAlertService: JhiAlertService,
@@ -43,6 +51,14 @@ export class TournamentDetailComponent implements OnInit {
         this.accountService.identity().then(account => {
             this.currentAccount = account;
         });
+        /*
+        let participacion;
+        for (participacion of this.tournament.participations) {
+            alert(participacion.user.login );
+            if (participacion.user.login === participacion.user.login) {
+                this.nonbotton = true;
+            }
+        }*/
         this.currentDate = new Date();
         this.sponsorshipService
             .findRandom()
@@ -53,28 +69,45 @@ export class TournamentDetailComponent implements OnInit {
             .subscribe(value => (this.sponsorship = value));
     }
 
+    nonbottonn() {
+        let participacion;
+        for (participacion of this.tournament.participations) {
+            if (participacion.user.login === this.currentAccount.login) {
+                this.nonbotton = true;
+            }
+        }
+    }
+
     previousState() {
         window.history.back();
     }
 
     signOn() {
         this.isSaving = true;
-
+        let participacion;
+        for (participacion of this.tournament.participations) {
+            if (participacion.user.login === this.currentAccount.login) {
+                this.participa = true;
+            }
+        }
         if (this.tournament.participations === null) {
             this.tournament.participations = [];
         }
-
-        this.subscribeToSaveResponse(this.tournamentService.signOn(this.tournament));
+        if (this.tournament.price !== 0 && this.tournament.price !== null && !this.participa) {
+            if (this.currentAccount.authorities.includes('ROLE_USER')) {
+                if (this.currentAccount.authorities.includes('ROLE_ADMIN')) {
+                    this.subscribeToSaveResponse(this.tournamentService.signOn(this.tournament));
+                } else {
+                    this.router.navigate(['paypal-payments/inscribeTorneo/' + this.tournament.id]);
+                }
+            }
+        } else {
+            this.subscribeToSaveResponse(this.tournamentService.signOn(this.tournament));
+        }
     }
 
     signOnUser() {
         this.isSaving = true;
-
-        if (this.tournament.participations === null) {
-            this.tournament.participations = [];
-        }
-
-        this.router.navigate(['paypal-payments/inscribeTorneo' + this.tournament.id]);
     }
 
     close() {
@@ -116,5 +149,17 @@ export class TournamentDetailComponent implements OnInit {
 
     protected onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    copyAccount(account) {
+        return {
+            activated: account.activated,
+            email: account.email,
+            firstName: account.firstName,
+            langKey: account.langKey,
+            lastName: account.lastName,
+            login: account.login,
+            imageUrl: account.imageUrl
+        };
     }
 }

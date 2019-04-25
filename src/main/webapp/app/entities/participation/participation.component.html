@@ -43,7 +43,7 @@
                     <!-- <td><a [routerLink]="['/participation', participation.id, 'view' ]">{{participation.id}}</a></td>-->
                 <!-- <td>{{participation.disqualify}}</td>-->
                 <!---->
-                <td>
+                <td *ngIf="participation.user.id==currentAccount.id">
                     <div *ngIf="participation.tournament" >
                         <a [routerLink]="['../tournament', participation.tournament?.id, 'view' ]" *ngIf="participation.user.id==currentAccount.id">{{participation.tournament?.title}}</a>
                     </div>
@@ -53,7 +53,7 @@
                     </td>-->
 
                     <td *ngIf="participation.user.id==currentAccount.id">{{participation.punctuation}}</td>
-                    <td class="text-right">
+                    <td *ngIf="participation.user.id==currentAccount.id" class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button *ngIf="participation.user.id==currentAccount.id" type="submit"
                                     [routerLink]="['/participation', participation.id, 'view' ]"

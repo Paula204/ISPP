@@ -28,6 +28,9 @@ public class TournamentForm {
     private User user;
     private Game game;
     private String winner;
+    private byte[] imagen;
+    private String imagenContentType;
+    private String state;
 
     public TournamentForm(Tournament tournament, String winner) {
         this.id = tournament.getId();
@@ -47,6 +50,9 @@ public class TournamentForm {
         this.user = tournament.getUser();
         this.game = tournament.getGame();
         this.winner = winner;
+        this.imagen = tournament.getImagen();
+        this.imagenContentType = tournament.getImagenContentType();
+        this.state = tournament.getState();
     }
 
     public Long getId() {
@@ -183,5 +189,29 @@ public class TournamentForm {
 
     public void setWinner(String winner) {
         this.winner = winner;
+    }
+
+    public byte[] getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(byte[] imagen) {
+        this.imagen = imagen;
+    }
+
+    public String getImagenContentType() {
+        return imagenContentType;
+    }
+
+    public void setImagenContentType(String imagenContentType) {
+        this.imagenContentType = imagenContentType;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 }

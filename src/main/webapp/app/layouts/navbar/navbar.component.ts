@@ -59,6 +59,10 @@ export class NavbarComponent implements OnInit {
         return this.accountService.isAuthenticated();
     }
 
+    isUserRole() {
+        return !this.accountService.hasAnyAuthority(['ROLE_ADMIN', 'ROLE_SPONSOR']);
+    }
+
     login() {
         this.modalRef = this.loginModalService.open();
     }

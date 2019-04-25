@@ -13,4 +13,7 @@ export class FooterComponent implements OnInit {
     goTerms() {
         this.router.navigate(['law']);
     }
+    goCookies() {
+        this.router.navigate(['cookies']);
+    }
 }
