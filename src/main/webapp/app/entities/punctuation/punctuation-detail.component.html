@@ -1,0 +1,47 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="punctuation">
+            <h2><span jhiTranslate="thorneoApp.punctuation.detail.title">Punctuation</span> {{punctuation.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="thorneoApp.punctuation.index">Index</span></dt>
+                <dd>
+                    <span>{{punctuation.index}}</span>
+                </dd>
+                <dt><span jhiTranslate="thorneoApp.punctuation.points">Points</span></dt>
+                <dd>
+                    <span>{{punctuation.points}}</span>
+                </dd>
+                <dt><span jhiTranslate="thorneoApp.punctuation.round">Round</span></dt>
+                <dd>
+                    <span>{{punctuation.round}}</span>
+                </dd>
+                <dt><span jhiTranslate="thorneoApp.punctuation.tournament">Tournament</span></dt>
+                <dd>
+                    <div *ngIf="punctuation.tournament">
+                        <a [routerLink]="['/tournament', punctuation.tournament?.id, 'view']">{{punctuation.tournament?.id}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="thorneoApp.punctuation.participation">Participation</span></dt>
+                <dd>
+                    <div *ngIf="punctuation.participation">
+                        <a [routerLink]="['/participation', punctuation.participation?.id, 'view']">{{punctuation.participation?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/punctuation', punctuation.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
