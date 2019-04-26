@@ -107,6 +107,9 @@ public class TournamentResource {
         if (tournament.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
+        if (tournament.getParticipations().size() >= tournament.getPlayerSize()){
+            throw new BadRequestAlertException("Invalid id", "too.many.players", "too.many.players");
+        }
         Tournament result = tournamentService.signOn(tournament);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, tournament.getId().toString()))
