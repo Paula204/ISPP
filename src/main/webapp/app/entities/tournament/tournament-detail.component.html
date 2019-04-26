@@ -115,29 +115,6 @@
                 <span jhiTranslate="entity.action.close">Close tournament</span>
             </button>
 
-<!--Creado un if else para que no salgan los dos botones-->
-
-
-
-            <div *ngIf="tournament.user.login===currentAccount.login; then thenBlock else elseBlock"></div>
-            <ng-template #thenBlock>
-                <button  type="button "
-                         [routerLink]="['/tournament', tournament.id, 'manage' ]"
-                         class="btn btn-primary">
-                    <fa-icon [icon]="'wrench'"></fa-icon>
-                    <span class="d-none d-md-inline" jhiTranslate="entity.action.manage">Manage</span>
-                </button>
-
-
-            </ng-template>
-            <ng-template #elseBlock><button type="button "
-                                            [routerLink]="['/tournament', tournament.id, 'manager' ]"
-                                            class="btn btn-primary">
-                <fa-icon [icon]="'wrench'"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.manage">Manage</span>
-            </button></ng-template>
-
-
             <div *ngIf="!currentAccount.authorities.includes('ROLE_SPONSOR') && !currentAccount.authorities.includes('ROLE_ADMIN')"  class="carousel-inner" style="max-height:120px; max-width:720px" >
                 <div class="carousel-item active">
                     <img class="d-block w-100" src="{{sponsorship.targetUrl}}">
