@@ -7,9 +7,12 @@ import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 
 import { ITournament } from 'app/shared/model/tournament.model';
 import { Account, AccountService } from 'app/core';
+import { Sponsorship } from 'app/shared/model/sponsorship.model';
+import { ISponsorship } from 'app/shared/model/sponsorship.model';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { TournamentService } from './tournament.service';
+import { SponsorshipService } from 'app/entities/sponsorship';
 
 import { Type } from 'app/shared/model/tournament.model';
 
@@ -34,6 +37,7 @@ export class TournamentMyComponent implements OnInit, OnDestroy {
     reverse: any;
     type: Type;
     currentDate: Date;
+    sponsorship: ISponsorship;
 
     constructor(
         protected tournamentService: TournamentService,
@@ -42,7 +46,8 @@ export class TournamentMyComponent implements OnInit, OnDestroy {
         protected accountService: AccountService,
         protected activatedRoute: ActivatedRoute,
         protected router: Router,
-        protected eventManager: JhiEventManager
+        protected eventManager: JhiEventManager,
+        protected sponsorshipService: SponsorshipService
     ) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -140,6 +145,13 @@ export class TournamentMyComponent implements OnInit, OnDestroy {
         });
         this.registerChangeInTournaments();
         this.currentDate = new Date();
+        this.sponsorshipService
+            .findRandom()
+            .pipe(
+                filter((response: HttpResponse<Sponsorship>) => response.ok),
+                map((sponsorship: HttpResponse<Sponsorship>) => sponsorship.body)
+            )
+            .subscribe(value => (this.sponsorship = value));
     }
 
     ngOnDestroy() {
