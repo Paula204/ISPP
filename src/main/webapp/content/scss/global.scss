@@ -68,7 +68,7 @@ h4 {
 }
 
 a {
-    color: #ffba58;
+    color: #0280f0;
     line-height: 1.5em;
 }
 
@@ -144,7 +144,7 @@ Generic styles
     border-top: 1px solid rgba(0, 0, 0, 0.125);
     font-family: 'Merriweather Sans', sans-serif;
     color: #eee;
-    background-color: #5facf2;
+    background-color: #2792f2;
     position: relative;
     left: 0;
     bottom: 0;
@@ -152,8 +152,8 @@ Generic styles
 }
 
 .footer img {
-    width: 50px;
-    height: 50px;
+    width: 35px;
+    height: 35px;
     margin-left: 5px;
     margin-right: 5px;
 }
@@ -350,6 +350,10 @@ ui bootstrap tweaks
     cursor: pointer;
 }
 
+.btn {
+    color: #ffffff;
+}
+
 .datetime-picker-dropdown > li.date-picker-menu div > table .btn-default,
 .uib-datepicker-popup > li > div.uib-datepicker > table .btn-default {
     border: 0;
@@ -421,7 +425,7 @@ ui bootstrap tweaks
         left: 45px;
         height: 100%;
         width: 2px;
-        background: rgba(255, 0, 0, 0.4);
+        background: #0280f0;
     }
 
     .holes {
