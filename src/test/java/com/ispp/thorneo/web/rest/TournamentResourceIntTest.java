@@ -443,6 +443,8 @@ public class TournamentResourceIntTest {
         securityContext.setAuthentication(new UsernamePasswordAuthenticationToken(tournament.getUser().getLogin(),
             tournament.getUser().getPassword()));
 
+
+
         int databaseSizeBeforeUpdate = tournamentRepository.findAll().size();
 
         when(userService.getUserWithAuthorities()).thenReturn(Optional.of(tournament.getUser()));
