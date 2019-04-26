@@ -11,11 +11,13 @@
     <include file="config/liquibase/changelog/20190322214123_added_entity_Sponsorship.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190322214124_added_entity_Promotion.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190402150617_added_entity_PaypalCompletedPayments.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190426111450_added_entity_Punctuation.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20190322214120_added_entity_constraints_Tournament.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190322214122_added_entity_constraints_Participation.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190322214123_added_entity_constraints_Sponsorship.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190322214124_added_entity_constraints_Promotion.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190402150617_added_entity_constraints_PaypalCompletedPayments.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190426111450_added_entity_constraints_Punctuation.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>
