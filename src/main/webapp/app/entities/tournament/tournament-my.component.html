@@ -1,5 +1,16 @@
+</br>
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="!currentAccount.authorities.includes('ROLE_SPONSOR') && !currentAccount.authorities.includes('ROLE_ADMIN')"  class="carousel-inner" style="max-height:120px; max-width:720px" >
+            <div class="carousel-item active">
+                <a href="{{sponsorship.targetUrl}}"><img class="d-block w-100" src="{{sponsorship.banner}}"></a>
+            </div>
+        </div>
+    </div>
+</div>
+</br>
 <div>
-        <h2 id="page-heading">
+        <h2  id="page-heading">
             <span jhiTranslate="thorneoApp.tournament.home.title2">My Tournaments</span>
             <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-tournament" [routerLink]="['/tournament/new']">
                 <fa-icon [icon]="'plus'"></fa-icon>

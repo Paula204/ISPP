@@ -1,31 +1,53 @@
+</br>
 <div class="row justify-content-center">
-<div class="col-8">
-    <div *ngIf="game">
-        <h2>{{game.title}}</h2>
-        <hr>
-        <jhi-alert-error></jhi-alert-error>
-        <dl class="row-md jh-entity-details paper">
-            <div class="lines">
-                <div class="texto" >
-                    <p class="bold" jhiTranslate="thorneoApp.game.description"></p><p>: {{game.description}}</p>
-                </br>
-                    <p class="bold" jhiTranslate="thorneoApp.game.category"></p><p>: </p>
-                    <p jhiTranslate="thorneoApp.Category.{{game.category}}">Game category</p>
-                    </br>
-                    <p class="bold" jhiTranslate="thorneoApp.game.minAge">Min Age</p><p>: {{game.minAge}}</p>
-                </div>
+    <div class="col-8">
+        <div *ngIf="!currentAccount.authorities.includes('ROLE_SPONSOR') && !currentAccount.authorities.includes('ROLE_ADMIN')"  class="carousel-inner" style="max-height:120px; max-width:720px" >
+            <div class="carousel-item active">
+                <a href="{{sponsorship.targetUrl}}"><img class="d-block w-100" src="{{sponsorship.banner}}"></a>
             </div>
-            <div class="holes hole-top"></div>
-            <div class="holes hole-middle"></div>
-            <div class="holes hole-bottom"></div>
-        </dl>
-    </div>
-    <button type="submit" (click)="previousState()" class="btn btn-info">
-        <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
-    </button>
-    <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="button" [routerLink]="['/game', game.id, 'edit']" class="btn btn-primary">
-        <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
-    </button>
+        </div>
     </div>
 </div>
+</br>
+<div class="row justify-content-center">
+    <div class="col-12">
+        <div *ngIf="game">
+            <h2 class="text-center">{{game.title}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details paper">
+                <div class="lines">
+                    <div class="texto" >
+                        <p class="bold" jhiTranslate="thorneoApp.game.description"></p><p> {{game.description}}</p>
+                    </br>
+                        <p class="bold" jhiTranslate="thorneoApp.game.category"></p>
+                        <p jhiTranslate="thorneoApp.Category.{{game.category}}">Game category</p>
+                        </br>
+                        <p class="bold" jhiTranslate="thorneoApp.game.minAge">Min Age</p><p> {{game.minAge}}</p>
+                    </div>
+                </div>
+                <div class="holes hole-top"></div>
+                <div class="holes hole-middle"></div>
+                <div class="holes hole-bottom"></div>
+            </dl>
+        </div>
+        <button type="submit" (click)="previousState()" class="btn btn-info">
+            <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+        </button>
+        <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="button" [routerLink]="['/game', game.id, 'edit']" class="btn btn-primary">
+            <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+        </button>
+    </div>
 </div>
+</br>
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="!currentAccount.authorities.includes('ROLE_SPONSOR') && !currentAccount.authorities.includes('ROLE_ADMIN')"  class="carousel-inner" style="max-height:120px; max-width:720px" >
+            <div class="carousel-item active">
+                <a href="{{sponsorship.targetUrl}}"><img class="d-block w-100" src="{{sponsorship.banner}}"></a>
+            </div>
+        </div>
+    </div>
+</div>
+</br>
+    
