@@ -1,0 +1,107 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-puntuation-heading" jhiTranslate="thorneoApp.puntuation.home.createOrEditLabel">Create or edit a Puntuation</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!puntuation.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="puntuation.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="thorneoApp.puntuation.index" for="field_index">Index</label>
+                    <input type="number" class="form-control" name="index" id="field_index"
+                        [(ngModel)]="puntuation.index" required min="0" jhiMin="0"/>
+                    <div [hidden]="!(editForm.controls.index?.dirty && editForm.controls.index?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.index?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.index?.errors?.min" jhiTranslate="entity.validation.min" [translateValues]="{ min: 0 }">
+                            This field should be at least 0.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.index?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="thorneoApp.puntuation.points" for="field_points">Points</label>
+                    <input type="number" class="form-control" name="points" id="field_points"
+                        [(ngModel)]="puntuation.points" required min="0" jhiMin="0"/>
+                    <div [hidden]="!(editForm.controls.points?.dirty && editForm.controls.points?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.points?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.points?.errors?.min" jhiTranslate="entity.validation.min" [translateValues]="{ min: 0 }">
+                            This field should be at least 0.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.points?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="thorneoApp.puntuation.round" for="field_round">Round</label>
+                    <input type="number" class="form-control" name="round" id="field_round"
+                        [(ngModel)]="puntuation.round" required min="0" jhiMin="0"/>
+                    <div [hidden]="!(editForm.controls.round?.dirty && editForm.controls.round?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.round?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.round?.errors?.min" jhiTranslate="entity.validation.min" [translateValues]="{ min: 0 }">
+                            This field should be at least 0.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.round?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="thorneoApp.puntuation.tournament" for="field_tournament">Tournament</label>
+                    <select class="form-control" id="field_tournament" name="tournament" [(ngModel)]="puntuation.tournament"  required>
+                        <option *ngIf="!editForm.value.tournament" [ngValue]="null" selected></option>
+                        <option [ngValue]="tournamentOption.id === puntuation.tournament?.id ? puntuation.tournament : tournamentOption" *ngFor="let tournamentOption of tournaments; trackBy: trackTournamentById">{{tournamentOption.id}}</option>
+                    </select>
+                </div>
+                <div [hidden]="!(editForm.controls.tournament?.dirty && editForm.controls.tournament?.invalid)">
+                    <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.tournament?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="thorneoApp.puntuation.participation" for="field_participation">Participation</label>
+                    <select class="form-control" id="field_participation" name="participation" [(ngModel)]="puntuation.participation"  required>
+                        <option *ngIf="!editForm.value.participation" [ngValue]="null" selected></option>
+                        <option [ngValue]="participationOption.id === puntuation.participation?.id ? puntuation.participation : participationOption" *ngFor="let participationOption of participations; trackBy: trackParticipationById">{{participationOption.id}}</option>
+                    </select>
+                </div>
+                <div [hidden]="!(editForm.controls.participation?.dirty && editForm.controls.participation?.invalid)">
+                    <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.participation?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

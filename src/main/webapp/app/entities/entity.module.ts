@@ -39,6 +39,10 @@ import { RouterModule } from '@angular/router';
             {
                 path: 'tournament',
                 loadChildren: './tournament/tournament.module#ThorneoTournamentModule'
+            },
+            {
+                path: 'puntuation',
+                loadChildren: './puntuation/puntuation.module#ThorneoPuntuationModule'
             }
             /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
         ])
