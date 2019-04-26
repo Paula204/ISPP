@@ -40,11 +40,11 @@
                         <ul>
                             <li *ngFor="let participation of tournament.participations" class="mt-1">
                                 {{participation.user.login}}
-                                <button *ngIf="currentAccount.login == tournament.user.login && tournament.type == 'ELIMINATION'" type="submit"
+                               <!-- <button *ngIf="currentAccount.login == tournament.user.login && tournament.type == 'ELIMINATION'" type="submit"
                                         (click)="disqualify(participation.id)"
                                         class="btn btn-sm btn-danger">
                                     <span jhiTranslate="thorneoApp.tournament.disqualify">Disqualify</span>
-                                </button>
+                                </button> -->
                                 <button *ngIf="currentAccount.login == tournament.user.login && tournament.type == 'POINT'" type="submit"
                                         (click)="win(participation.id)"
                                         class="btn btn-sm btn-primary">
