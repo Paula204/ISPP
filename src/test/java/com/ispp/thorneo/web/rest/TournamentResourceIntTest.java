@@ -167,6 +167,8 @@ public class TournamentResourceIntTest {
             .setConversionService(createFormattingConversionService())
             .setMessageConverters(jacksonMessageConverter)
             .setValidator(validator).build();
+
+        when(userService.getUserWithAuthorities()).thenReturn(Optional.of(tournament.getUser()));
     }
 
     /**
@@ -448,8 +450,6 @@ public class TournamentResourceIntTest {
             tournament.getUser().getPassword()));
 
         int databaseSizeBeforeUpdate = tournamentRepository.findAll().size();
-
-        when(userService.getUserWithAuthorities()).thenReturn(Optional.of(tournament.getUser()));
 
         // Update the tournament
         Tournament updatedTournament = tournamentRepository.findById(tournament.getId()).get();
