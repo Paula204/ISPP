@@ -48,6 +48,7 @@ public class CacheConfiguration {
             cm.createCache(com.ispp.thorneo.domain.Sponsorship.class.getName(), jcacheConfiguration);
             cm.createCache(com.ispp.thorneo.domain.Promotion.class.getName(), jcacheConfiguration);
             cm.createCache(com.ispp.thorneo.domain.PaypalCompletedPayments.class.getName(), jcacheConfiguration);
+            cm.createCache(com.ispp.thorneo.domain.Punctuation.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

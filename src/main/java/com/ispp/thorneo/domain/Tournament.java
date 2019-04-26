@@ -95,6 +95,7 @@ public class Tournament implements Serializable {
     @JsonIgnoreProperties("tournaments")
     private User user;
 
+    @NotNull
     @ManyToOne
     @JsonIgnoreProperties("tournaments")
     private Game game;

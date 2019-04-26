@@ -1,0 +1,26 @@
+{
+    "thorneoApp": {
+        "punctuation": {
+            "home": {
+                "title": "Punctuations",
+                "createLabel": "Crear nuevo Punctuation",
+                "createOrEditLabel": "Crear o editar Punctuation",
+                "search": "Search for Punctuation"
+            },
+            "created": "Un nuevo Punctuation ha sido creado con el identificador {{ param }}",
+            "updated": "Un Punctuation ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Punctuation ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Punctuation {{ id }}?"
+            },
+            "detail": {
+                "title": "Punctuation"
+            },
+            "index": "Index",
+            "points": "Points",
+            "round": "Round",
+            "tournament": "Tournament",
+            "participation": "Participation"
+        }
+    }
+}
