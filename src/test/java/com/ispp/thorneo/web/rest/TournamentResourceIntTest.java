@@ -39,6 +39,7 @@ import org.springframework.util.Base64Utils;
 import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
+import javax.swing.text.html.Option;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalUnit;
@@ -441,6 +442,10 @@ public class TournamentResourceIntTest {
         tournamentService.save(tournament);
         // As the test used the service layer, reset the Elasticsearch mock repository
         reset(mockTournamentSearchRepository);
+
+        SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
+        securityContext.setAuthentication(new UsernamePasswordAuthenticationToken(tournament.getUser().getLogin(),
+            tournament.getUser().getPassword()));
 
         int databaseSizeBeforeUpdate = tournamentRepository.findAll().size();
 
