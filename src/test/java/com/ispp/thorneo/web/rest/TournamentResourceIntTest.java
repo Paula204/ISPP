@@ -121,6 +121,9 @@ public class TournamentResourceIntTest {
     private UserService userService;
 
     @Autowired
+    private UserService testUserService;
+
+    @Autowired
     private AuthenticationManager authenticationManager;
 
     @Autowired
@@ -439,10 +442,6 @@ public class TournamentResourceIntTest {
         // As the test used the service layer, reset the Elasticsearch mock repository
         reset(mockTournamentSearchRepository);
 
-        SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
-        securityContext.setAuthentication(new UsernamePasswordAuthenticationToken(tournament.getUser().getLogin(),
-            tournament.getUser().getPassword()));
-
         int databaseSizeBeforeUpdate = tournamentRepository.findAll().size();
 
         when(userService.getUserWithAuthorities()).thenReturn(Optional.of(tournament.getUser()));
@@ -464,8 +463,6 @@ public class TournamentResourceIntTest {
             .latitude(UPDATED_LATITUDE)
             .longitude(UPDATED_LONGITUDE)
             .type(UPDATED_TYPE)
-            .imagen(UPDATED_IMAGEN)
-            .imagenContentType(UPDATED_IMAGEN_CONTENT_TYPE)
             .state(UPDATED_STATE);
 
         restTournamentMockMvc.perform(put("/api/tournaments")
@@ -489,8 +486,6 @@ public class TournamentResourceIntTest {
         assertThat(testTournament.getLatitude()).isEqualTo(UPDATED_LATITUDE);
         assertThat(testTournament.getLongitude()).isEqualTo(UPDATED_LONGITUDE);
         assertThat(testTournament.getType()).isEqualTo(UPDATED_TYPE);
-        assertThat(testTournament.getImagen()).isEqualTo(UPDATED_IMAGEN);
-        assertThat(testTournament.getImagenContentType()).isEqualTo(UPDATED_IMAGEN_CONTENT_TYPE);
         assertThat(testTournament.getState()).isEqualTo(UPDATED_STATE);
 
         // Validate the Tournament in Elasticsearch
