@@ -12,6 +12,7 @@ import com.ispp.thorneo.service.TournamentService;
 import com.ispp.thorneo.service.UserService;
 import com.ispp.thorneo.web.rest.errors.ExceptionTranslator;
 
+import com.netflix.discovery.converters.Auto;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,7 +24,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -109,8 +112,13 @@ public class TournamentResourceIntTest {
     @Autowired
     private TournamentService tournamentService;
 
+    @Autowired TournamentResource tournamentResource;
+
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
     /**
      * This repository is mocked in the com.ispp.thorneo.repository.search test package.
@@ -425,16 +433,22 @@ public class TournamentResourceIntTest {
         // As the test used the service layer, reset the Elasticsearch mock repository
         reset(mockTournamentSearchRepository);
 
+        User currentUser = userService.getUserWithAuthoritiesByLogin("user").get();
+
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(currentUser.getLogin(),
+            "user");
+
+        Authentication authentication = this.authenticationManager.authenticate(authenticationToken);
+
         SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
-        securityContext.setAuthentication(new UsernamePasswordAuthenticationToken(tournament.getUser().getLogin(),
-            tournament.getUser().getPassword()));
+        securityContext.setAuthentication(authentication);
 
         int databaseSizeBeforeUpdate = tournamentRepository.findAll().size();
 
         // Update the tournament
         Tournament updatedTournament = tournamentRepository.findById(tournament.getId()).get();
         // Disconnect from session so that the updates on updatedTournament are not directly saved in db
-        em.detach(updatedTournament);
+//        em.detach(updatedTournament);
         updatedTournament
             .title(UPDATED_TITLE)
             .description(UPDATED_DESCRIPTION)
@@ -451,6 +465,8 @@ public class TournamentResourceIntTest {
             .imagen(UPDATED_IMAGEN)
             .imagenContentType(UPDATED_IMAGEN_CONTENT_TYPE)
             .state(UPDATED_STATE);
+
+        updatedTournament.setUser(currentUser);
 
         restTournamentMockMvc.perform(put("/api/tournaments")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -515,6 +531,10 @@ public class TournamentResourceIntTest {
         int databaseSizeBeforeDelete = tournamentRepository.findAll().size();
 
         // Delete the tournament
+        restTournamentMockMvc.perform(delete("/api/tournaments/{id}", tournament.getId())
+            .accept(TestUtil.APPLICATION_JSON_UTF8))
+            .andExpect(status().isOk());
+
         restTournamentMockMvc.perform(delete("/api/tournaments/{id}", tournament.getId())
             .accept(TestUtil.APPLICATION_JSON_UTF8))
             .andExpect(status().isOk());
