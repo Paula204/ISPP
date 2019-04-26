@@ -439,6 +439,54 @@ public class TournamentResourceIntTest {
 
     @Test
     @Transactional
+    public void updateNonExistingTournament() throws Exception {
+        int databaseSizeBeforeUpdate = tournamentRepository.findAll().size();
+
+        // Create the Tournament
+
+        // If the entity doesn't have an ID, it will throw BadRequestAlertException
+        restTournamentMockMvc.perform(put("/api/tournaments")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(tournament)))
+            .andExpect(status().isBadRequest());
+
+        // Validate the Tournament in the database
+        List<Tournament> tournamentList = tournamentRepository.findAll();
+        assertThat(tournamentList).hasSize(databaseSizeBeforeUpdate);
+
+        // Validate the Tournament in Elasticsearch
+        verify(mockTournamentSearchRepository, times(0)).save(tournament);
+    }
+
+    @Test
+    @Transactional
+    public void deleteTournament() throws Exception {
+        // Initialize the database
+        tournamentService.save(tournament);
+
+        SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
+        securityContext.setAuthentication(new UsernamePasswordAuthenticationToken(tournament.getUser().getLogin(),
+            tournament.getUser().getPassword()));
+
+        int databaseSizeBeforeDelete = tournamentRepository.findAll().size();
+
+        when(userService.getUserWithAuthorities()).thenReturn(Optional.of(tournament.getUser()));
+
+        // Delete the tournament
+        restTournamentMockMvc.perform(delete("/api/tournaments/{id}", tournament.getId())
+            .accept(TestUtil.APPLICATION_JSON_UTF8))
+            .andExpect(status().isOk());
+
+        // Validate the database is empty
+        List<Tournament> tournamentList = tournamentRepository.findAll();
+        assertThat(tournamentList).hasSize(databaseSizeBeforeDelete - 1);
+
+        // Validate the Tournament in Elasticsearch
+        verify(mockTournamentSearchRepository, times(1)).deleteById(tournament.getId());
+    }
+
+    @Test
+    @Transactional
     public void updateTournament() throws Exception {
         // Initialize the database
         tournamentService.save(tournament);
@@ -492,57 +540,6 @@ public class TournamentResourceIntTest {
         assertThat(testTournament.getLongitude()).isEqualTo(UPDATED_LONGITUDE);
         assertThat(testTournament.getType()).isEqualTo(UPDATED_TYPE);
         assertThat(testTournament.getState()).isEqualTo(UPDATED_STATE);
-
-        // Validate the Tournament in Elasticsearch
-        verify(mockTournamentSearchRepository, times(1)).save(testTournament);
-    }
-
-    @Test
-    @Transactional
-    public void updateNonExistingTournament() throws Exception {
-        int databaseSizeBeforeUpdate = tournamentRepository.findAll().size();
-
-        // Create the Tournament
-
-        // If the entity doesn't have an ID, it will throw BadRequestAlertException
-        restTournamentMockMvc.perform(put("/api/tournaments")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(tournament)))
-            .andExpect(status().isBadRequest());
-
-        // Validate the Tournament in the database
-        List<Tournament> tournamentList = tournamentRepository.findAll();
-        assertThat(tournamentList).hasSize(databaseSizeBeforeUpdate);
-
-        // Validate the Tournament in Elasticsearch
-        verify(mockTournamentSearchRepository, times(0)).save(tournament);
-    }
-
-    @Test
-    @Transactional
-    public void deleteTournament() throws Exception {
-        // Initialize the database
-        tournamentService.save(tournament);
-
-        SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
-        securityContext.setAuthentication(new UsernamePasswordAuthenticationToken(tournament.getUser().getLogin(),
-            tournament.getUser().getPassword()));
-
-        int databaseSizeBeforeDelete = tournamentRepository.findAll().size();
-
-        when(userService.getUserWithAuthorities()).thenReturn(Optional.of(tournament.getUser()));
-
-        // Delete the tournament
-        restTournamentMockMvc.perform(delete("/api/tournaments/{id}", tournament.getId())
-            .accept(TestUtil.APPLICATION_JSON_UTF8))
-            .andExpect(status().isOk());
-
-        // Validate the database is empty
-        List<Tournament> tournamentList = tournamentRepository.findAll();
-        assertThat(tournamentList).hasSize(databaseSizeBeforeDelete - 1);
-
-        // Validate the Tournament in Elasticsearch
-        verify(mockTournamentSearchRepository, times(1)).deleteById(tournament.getId());
     }
 
     @Test
