@@ -56,7 +56,7 @@ export class TournamentUpdateComponent implements OnInit {
             this.meetingDate = this.tournament.meetingDate != null ? this.tournament.meetingDate.format(DATE_TIME_FORMAT) : null;
         });
 
-        if (this.tournament.participations != undefined) {
+        if (this.tournament.participations !== undefined) {
             this.p = this.tournament.participations;
         } else {
             this.p = [];
