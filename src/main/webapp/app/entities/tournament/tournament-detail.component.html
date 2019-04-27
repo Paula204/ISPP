@@ -88,16 +88,7 @@
             </button>-->
             <!--Creado un if else para que no salgan los dos botones-->
             <div class="d-inline"  *ngIf="tournament.participations.length > 1 && tournament.meetingDate.isBefore(currentDate)">
-                    <div *ngIf="tournament.user.login===currentAccount.login; then thenBlock else elseBlock"></div>
-                        <ng-template #thenBlock>
-                            <button  type="button "
-                                     [routerLink]="['/tournament', tournament.id, 'manage' ]"
-                                     class="btn btn-primary">
-                                <fa-icon [icon]="'wrench'"></fa-icon>
-                                <span class="d-none d-md-inline" jhiTranslate="entity.action.manage">Manage</span>
-                            </button>
-                        </ng-template>
-                        <ng-template #elseBlock><button type="button "
+                        <ng-template></ng-template><button type="button "
                                                         [routerLink]="['/tournament', tournament.id, 'manager' ]"
                                                         class="btn btn-primary">
                             <fa-icon [icon]="'wrench'"></fa-icon>
