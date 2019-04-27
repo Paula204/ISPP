@@ -9,6 +9,8 @@ import { IGame } from 'app/shared/model/game.model';
 import { Account, AccountService } from 'app/core';
 import { GameService } from './game.service';
 
+import { ISponsorship, Sponsorship } from 'app/shared/model/sponsorship.model';
+import { SponsorshipService } from 'app/entities/sponsorship';
 @Component({
     selector: 'jhi-game',
     templateUrl: './game.component.html'
@@ -18,13 +20,15 @@ export class GameComponent implements OnInit, OnDestroy {
     currentAccount: Account;
     eventSubscriber: Subscription;
     currentSearch: string;
+    sponsorship: ISponsorship;
 
     constructor(
         protected gameService: GameService,
         protected jhiAlertService: JhiAlertService,
         protected eventManager: JhiEventManager,
         protected activatedRoute: ActivatedRoute,
-        protected accountService: AccountService
+        protected accountService: AccountService,
+        protected sponsorshipService: SponsorshipService
     ) {
         this.currentSearch =
             this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['search']
@@ -79,6 +83,16 @@ export class GameComponent implements OnInit, OnDestroy {
             this.currentAccount = account;
         });
         this.registerChangeInGames();
+        this.sponsorshipService
+            .findRandom()
+            .pipe(
+                filter((response: HttpResponse<Sponsorship>) => response.ok),
+                map((sponsorship: HttpResponse<Sponsorship>) => sponsorship.body)
+            )
+            .subscribe(value => (this.sponsorship = value));
+        this.accountService.identity().then(account => {
+            this.currentAccount = account;
+        });
     }
 
     ngOnDestroy() {

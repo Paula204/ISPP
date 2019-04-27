@@ -1,10 +1,16 @@
+</br>
 <div class="row justify-content-center">
     <div class="col-8">
-        <div *ngIf="!currentAccount.authorities.includes('ROLE_SPONSOR') && !currentAccount.authorities.includes('ROLE_ADMIN')"  class="carousel-inner" style="max-height:120px; max-width:720px" >
+        <div *ngIf="!currentAccount.authorities.includes('ROLE_SPONSOR') && !currentAccount.authorities.includes('ROLE_ADMIN')"  class="carousel-inner" >
             <div class="carousel-item active">
-                <img class="d-block w-100" src="{{sponsorship.targetUrl}}">
+                <a href="{{sponsorship.targetUrl}}"><img width = "100%" class="d-block img-responsive" src="{{sponsorship.banner}}"></a>
             </div>
         </div>
+    </div>
+</div>
+</br>
+<div class="row justify-content-center">
+    <div class="col-12">
         <div *ngIf="tournament">
             <h2 class="text-center">{{tournament.title}}</h2>
             <hr>
@@ -33,8 +39,9 @@
                         </br>
                         <p  class="bold"jhiTranslate="thorneoApp.tournament.game">Game</p>
                         <span *ngIf="tournament.game">
-                            <p>: </p><a [routerLink]="['/game', tournament.game?.id, 'view']">{{tournament.game?.title}}</a>
+                            <a [routerLink]="['/game', tournament.game?.id, 'view']">{{tournament.game?.title}}</a>
                         </span>
+                        </br>
                         </br>
                         <p class="bold" jhiTranslate="thorneoApp.tournament.participation">Participants</p>
                         <ul>
@@ -105,12 +112,17 @@
                     class="btn btn-primary red">
                 <span jhiTranslate="entity.action.close">Close tournament</span>
             </button>
-
-            <div *ngIf="!currentAccount.authorities.includes('ROLE_SPONSOR') && !currentAccount.authorities.includes('ROLE_ADMIN')"  class="carousel-inner" style="max-height:120px; max-width:720px" >
-                <div class="carousel-item active">
-                    <img class="d-block w-100" src="{{sponsorship.targetUrl}}">
-                </div>
+        </div>
+    </div>
+</div>
+</br>
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="!currentAccount.authorities.includes('ROLE_SPONSOR') && !currentAccount.authorities.includes('ROLE_ADMIN')"  class="carousel-inner" >
+            <div class="carousel-item active">
+                <a href="{{sponsorship.targetUrl}}"><img class="d-block w-100" src="{{sponsorship.banner}}"></a>
             </div>
         </div>
     </div>
 </div>
+</br>
