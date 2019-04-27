@@ -12,3 +12,23 @@
      <span class="d-none d-md-inline" jhiTranslate="entity.action.manage">Manage</span>
    </button>
 </div>
+<div class="row justify-content-center">
+    <div class="col-8">
+        <h2>Cronómetro</h2>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="start()">
+            <fa-icon [icon]="'clock'"></fa-icon>&nbsp;<span jhiTranslate="crono.start"></span>
+        </button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="lapso()">
+            <fa-icon [icon]="'flag'"></fa-icon>&nbsp;<span jhiTranslate="crono.lapso"></span>
+        </button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="stop()">
+            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="crono.stop"></span>
+        </button>
+        <div>
+            <p>{{hora}} : {{minuto}} : {{segundos}}</p>
+            <p *ngFor="let i of collection">
+                {{i.hora}} : {{i.minuto}} : {{i.segundos}}
+            </p>
+        </div>
+    </div>
+</div>

@@ -17,6 +17,7 @@ import { TournamentUpdateComponent } from './tournament-update.component';
 import { TournamentDeletePopupComponent } from './tournament-delete-dialog.component';
 import { ITournament } from 'app/shared/model/tournament.model';
 import { TournamentManagerComponent } from './tournament-manager.component';
+import { TournamentCronoComponent } from 'app/entities/tournament/tournament-crono.component';
 
 @Injectable({ providedIn: 'root' })
 export class TournamentResolve implements Resolve<ITournament> {
@@ -45,6 +46,18 @@ export const tournamentRoute: Routes = [
             authorities: ['ROLE_USER', 'ROLE_ADMIN'],
             defaultSort: 'id,asc',
             pageTitle: 'thorneoApp.tournament.home.title'
+        },
+        canActivate: [UserRouteAccessService]
+    },
+    {
+        path: 'crono',
+        component: TournamentCronoComponent,
+        resolve: {
+            pagingParams: JhiResolvePagingParams
+        },
+        data: {
+            authorities: ['ROLE_SPONSOR'],
+            pageTitle: 'crono.crono'
         },
         canActivate: [UserRouteAccessService]
     },

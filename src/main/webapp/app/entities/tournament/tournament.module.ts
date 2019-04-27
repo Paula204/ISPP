@@ -18,6 +18,7 @@ import {
 } from './';
 import { TournamentMyComponent } from 'app/entities/tournament/tournament-my.component';
 import { TournamentManageGroupComponent } from 'app/entities/tournament/tournament-manage-group.component';
+import { TournamentCronoComponent } from 'app/entities/tournament/tournament-crono.component';
 
 const ENTITY_STATES = [...tournamentRoute, ...tournamentPopupRoute];
 
@@ -34,7 +35,8 @@ const ENTITY_STATES = [...tournamentRoute, ...tournamentPopupRoute];
         TournamentManagerComponent,
         TournamentMyComponent,
         TournamentManageComponent,
-        TournamentManageGroupComponent
+        TournamentManageGroupComponent,
+        TournamentCronoComponent
     ],
     entryComponents: [
         TournamentComponent,
@@ -47,7 +49,8 @@ const ENTITY_STATES = [...tournamentRoute, ...tournamentPopupRoute];
         TournamentManageGroupComponent, //
         TournamentMyComponent,
         TournamentManageComponent,
-        TournamentManageGroupComponent
+        TournamentManageGroupComponent,
+        TournamentCronoComponent
     ],
     providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
