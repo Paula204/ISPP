@@ -10,6 +10,8 @@ import { JhiAlertService } from 'ng-jhipster';
 import { Account, AccountService } from 'app/core';
 import { IParticipation, Participation } from 'app/shared/model/participation.model';
 import { templateSourceUrl } from '@angular/compiler';
+import { Punctuation, IPunctuation } from 'app/shared/model/punctuation.model';
+import { PunctuationService } from 'app/entities/punctuation';
 // import * as $ from 'jquery';
 declare let $: any;
 
@@ -32,13 +34,15 @@ export class TournamentManagerComponent implements OnInit {
     i: number;
     l: number;
     participation: Participation;
+    punctuations: IPunctuation[];
 
     constructor(
         protected jhiAlertService: JhiAlertService,
         protected activatedRoute: ActivatedRoute,
         protected accountService: AccountService,
         protected tournamentService: TournamentService,
-        protected participationService: ParticipationService
+        protected participationService: ParticipationService,
+        protected punctuationService: PunctuationService
     ) {}
 
     ngOnInit() {
@@ -50,6 +54,7 @@ export class TournamentManagerComponent implements OnInit {
         });
         this.currentDate = new Date();
         this.p = this.tournament.participations;
+
         const teamsP = [];
 
         if (this.p.length % 2 !== 0) {
@@ -109,34 +114,6 @@ export class TournamentManagerComponent implements OnInit {
 
     previousState() {
         window.history.back();
-    }
-
-    signOn() {
-        this.isSaving = true;
-        if (this.tournament.participations === null) {
-            this.tournament.participations = [];
-        }
-        this.subscribeToSaveResponse(this.tournamentService.signOn(this.tournament));
-    }
-
-    close() {
-        this.isSaving = true;
-        this.subscribeToSaveResponse(this.tournamentService.close(this.tournament));
-    }
-
-    disqualify(id: number) {
-        this.isSaving = true;
-        this.subscribeToSaveResponse(this.participationService.disqualify(id));
-    }
-
-    win(id: number) {
-        this.isSaving = true;
-        this.subscribeToSaveResponse(this.participationService.win(id));
-    }
-
-    tie(id: number) {
-        this.isSaving = true;
-        this.subscribeToSaveResponse(this.participationService.tie(id));
     }
 
     protected subscribeToSaveResponse(result: Observable<HttpResponse<ITournament>>) {

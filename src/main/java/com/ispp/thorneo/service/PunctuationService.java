@@ -49,4 +49,10 @@ public interface PunctuationService {
      * @return the list of entities
      */
     List<Punctuation> search(String query);
+
+    List<Punctuation> getPunctuationsByTournament(Long tournamentId);
+
+    Integer getMaxRoundTournament(Long tournamentId);
+
+    List<Punctuation> getPuntuationsByRoundAndTournament(Integer round, Long tournamentId);
 }
