@@ -3,9 +3,11 @@ package com.ispp.thorneo.service.impl;
 import com.ispp.thorneo.TournamentForm;
 import com.ispp.thorneo.domain.Authority;
 import com.ispp.thorneo.service.ParticipationService;
+import com.ispp.thorneo.service.PunctuationService;
 import com.ispp.thorneo.service.TournamentService;
 import com.ispp.thorneo.service.UserService;
 import com.ispp.thorneo.domain.Participation;
+import com.ispp.thorneo.domain.Punctuation;
 import com.ispp.thorneo.domain.Tournament;
 import com.ispp.thorneo.domain.User;
 import com.ispp.thorneo.repository.TournamentRepository;
@@ -45,14 +47,17 @@ public class TournamentServiceImpl implements TournamentService {
 
     private final ParticipationService participationService;
 
+    private final PunctuationService punctuationService;
+
     private static final Integer winnerPunctuation = 10000;
 
     public TournamentServiceImpl(TournamentRepository tournamentRepository, TournamentSearchRepository tournamentSearchRepository,
-                                 UserService userService, ParticipationService participationService) {
+                                 UserService userService, ParticipationService participationService, PunctuationService punctuationService) {
         this.tournamentRepository = tournamentRepository;
         this.tournamentSearchRepository = tournamentSearchRepository;
         this.userService = userService;
         this.participationService = participationService;
+        this.punctuationService = punctuationService;
     }
 
     /**
@@ -186,6 +191,15 @@ public class TournamentServiceImpl implements TournamentService {
         Long userId = this.tournamentRepository.findCurrentUserParticipation(tournament.getId());
         log.debug("User id participation : {}", userId);
 
+
+
+        Punctuation punctuation = new Punctuation();
+        punctuation.setIndex(participationResult.getUser().getId().intValue());
+        punctuation.setParticipation(participationResult);
+        punctuation.setPoints(0);
+        punctuation.setRound(0);
+        punctuation.setTournament(tournament);
+
         if (userId != null) {
             throw new BadRequestAlertException("Invalid user", "tournament", "idsame");
         }
@@ -198,7 +212,7 @@ public class TournamentServiceImpl implements TournamentService {
         }
         tournament.addParticipation(participationResult);
         result = save(tournament);
-
+        this.punctuationService.save(punctuation);
         return result;
     }
 
