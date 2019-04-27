@@ -36,7 +36,7 @@ export const PAYPAL_PAYMENTS_ROUTE: Routes = [
         component: PaypalPaymentsComponent,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'paypal-payments.inscribeTorneo'
+            pageTitle: 'paypal-payments.title'
         },
         canActivate: [UserRouteAccessService]
     }

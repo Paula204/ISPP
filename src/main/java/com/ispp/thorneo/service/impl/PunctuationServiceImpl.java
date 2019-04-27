@@ -30,7 +30,8 @@ public class PunctuationServiceImpl implements PunctuationService {
 
     private final PunctuationSearchRepository punctuationSearchRepository;
 
-    public PunctuationServiceImpl(PunctuationRepository punctuationRepository, PunctuationSearchRepository punctuationSearchRepository) {
+    public PunctuationServiceImpl(PunctuationRepository punctuationRepository,
+     PunctuationSearchRepository punctuationSearchRepository) {
         this.punctuationRepository = punctuationRepository;
         this.punctuationSearchRepository = punctuationSearchRepository;
     }
@@ -100,5 +101,20 @@ public class PunctuationServiceImpl implements PunctuationService {
         return StreamSupport
             .stream(punctuationSearchRepository.search(queryStringQuery(query)).spliterator(), false)
             .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Punctuation> getPunctuationsByTournament(Long tournamentId) {
+        return punctuationRepository.getPunctuationsByTournament(tournamentId);
+    }
+
+    @Override
+    public Integer getMaxRoundTournament(Long tournamentId) {
+        return punctuationRepository.getMaxRoundTournament(tournamentId);
+    }
+
+    @Override
+    public List<Punctuation> getPuntuationsByRoundAndTournament(Integer round, Long tournamentId) {
+        return punctuationRepository.getPuntuationsByRoundAndTournament(round, tournamentId);
     }
 }
