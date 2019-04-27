@@ -69,7 +69,11 @@
                         </small>
                     </div>
                 </div>
-                <div class="form-group">
+                
+                
+                <!---->
+            <div *ngIf="display">
+                <div class="form-group" > 
                     <label class="form-control-label" jhiTranslate="thorneoApp.tournament.price" for="field_price">Price</label>
                     <input type="number" class="form-control" name="price" id="field_price"
                         [(ngModel)]="tournament.price" min="0" jhiMin="0"/>
@@ -84,6 +88,11 @@
                         </small>
                     </div>
                 </div>
+            </div>
+
+
+                <!---->
+
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="thorneoApp.tournament.playerSize" for="field_playerSize">Player Size</label>
                     <input type="number" class="form-control" name="playerSize" id="field_playerSize"
@@ -165,6 +174,8 @@
                         This field is required.
                     </small>
                 </div>
+
+            <div *ngIf="display">
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="thorneoApp.tournament.game" for="field_game">Game</label>
                     <select class="form-control" id="field_game" name="game" [(ngModel)]="tournament.game">
@@ -172,6 +183,7 @@
                         <option [ngValue]="gameOption.id === tournament.game?.id ? tournament.game : gameOption" *ngFor="let gameOption of games; trackBy: trackGameById">{{gameOption.title}}</option>
                     </select>
                 </div>
+            </div>
             <jhi-alert-error></jhi-alert-error>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
