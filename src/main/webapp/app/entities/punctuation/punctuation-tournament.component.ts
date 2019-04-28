@@ -8,7 +8,8 @@ import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 import { IPunctuation } from 'app/shared/model/punctuation.model';
 import { AccountService } from 'app/core';
 import { PunctuationService } from './punctuation.service';
-import { ITournament } from 'app/shared/model/tournament.model';
+import { ITournament, ITournamentForm } from 'app/shared/model/tournament.model';
+import { TournamentService } from 'app/entities/tournament';
 
 @Component({
     selector: 'jhi-punctuation',
@@ -19,15 +20,25 @@ export class PunctuationTournamentComponent implements OnInit, OnDestroy {
     currentAccount: any;
     eventSubscriber: Subscription;
     currentSearch: string;
-    tournament: ITournament;
+    tournament: ITournamentForm;
+    route: string;
+    idTorneo: number;
 
     constructor(
         protected punctuationService: PunctuationService,
         protected jhiAlertService: JhiAlertService,
         protected eventManager: JhiEventManager,
         protected activatedRoute: ActivatedRoute,
-        protected accountService: AccountService
-    ) {}
+        protected accountService: AccountService,
+        protected tournamenService: TournamentService
+    ) {
+        this.activatedRoute.queryParams.subscribe(params => {
+            this.idTorneo = params['idTournament'];
+        });
+        console.log('Punctuation-tournament.component');
+        const res = activatedRoute.snapshot.url.length;
+        this.route = activatedRoute.snapshot.url[res - 2].toString();
+    }
 
     loadAll() {
         if (this.currentSearch) {
@@ -57,31 +68,20 @@ export class PunctuationTournamentComponent implements OnInit, OnDestroy {
             );
     }
 
-    search(query) {
-        if (!query) {
-            return this.clear();
-        }
-        this.currentSearch = query;
-        this.loadAll();
-    }
-
-    clear() {
-        this.currentSearch = '';
-        this.loadAll();
-    }
-
     ngOnInit() {
-        this.activatedRoute.data.subscribe(({ tournament }) => {
-            this.tournament = tournament;
+        this.tournamenService.find(+this.route).subscribe((tournament: HttpResponse<ITournament>) => {
+            this.tournament = tournament.body;
         });
         this.punctuations = [];
-        this.punctuationService.getPunctuations(this.tournament.id).forEach(function(value) {
-            this.punctuations.push(value);
-        });
+        this.punctuationService
+            .getPunctuations(this.tournament.id)
+            .pipe()
+            .subscribe((punctuations: HttpResponse<IPunctuation[]>) => {
+                this.punctuations = punctuations.body;
+            });
         this.accountService.identity().then(account => {
             this.currentAccount = account;
         });
-        this.registerChangeInPunctuations();
     }
 
     ngOnDestroy() {
