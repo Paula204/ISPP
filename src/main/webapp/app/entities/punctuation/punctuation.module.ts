@@ -10,6 +10,7 @@ import {
     PunctuationUpdateComponent,
     PunctuationDeletePopupComponent,
     PunctuationDeleteDialogComponent,
+    PunctuationTournamentComponent,
     punctuationRoute,
     punctuationPopupRoute
 } from './';
@@ -23,7 +24,8 @@ const ENTITY_STATES = [...punctuationRoute, ...punctuationPopupRoute];
         PunctuationDetailComponent,
         PunctuationUpdateComponent,
         PunctuationDeleteDialogComponent,
-        PunctuationDeletePopupComponent
+        PunctuationDeletePopupComponent,
+        PunctuationTournamentComponent
     ],
     entryComponents: [PunctuationComponent, PunctuationUpdateComponent, PunctuationDeleteDialogComponent, PunctuationDeletePopupComponent],
     providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
