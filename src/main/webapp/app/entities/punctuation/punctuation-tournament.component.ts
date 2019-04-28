@@ -69,15 +69,15 @@ export class PunctuationTournamentComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.tournamenService.find(+this.route).subscribe((tournament: HttpResponse<ITournament>) => {
-            this.tournament = tournament.body;
-        });
-        this.punctuations = [];
         this.punctuationService
-            .getPunctuations(this.tournament.id)
-            .pipe()
-            .subscribe((punctuations: HttpResponse<IPunctuation[]>) => {
-                this.punctuations = punctuations.body;
+            .getPunctuations(+this.route)
+            .pipe(
+                filter((res: HttpResponse<IPunctuation[]>) => res.ok),
+                map((res: HttpResponse<IPunctuation[]>) => res.body)
+            )
+            .subscribe((res: IPunctuation[]) => {
+                this.punctuations = res;
+                this.currentSearch = '';
             });
         this.accountService.identity().then(account => {
             this.currentAccount = account;
@@ -90,6 +90,19 @@ export class PunctuationTournamentComponent implements OnInit, OnDestroy {
 
     trackId(index: number, item: IPunctuation) {
         return item.id;
+    }
+
+    clear() {
+        this.currentSearch = '';
+        this.loadAll();
+    }
+
+    search(query) {
+        if (!query) {
+            return this.clear();
+        }
+        this.currentSearch = query;
+        this.loadAll();
     }
 
     registerChangeInPunctuations() {

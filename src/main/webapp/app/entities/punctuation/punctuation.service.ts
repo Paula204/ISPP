@@ -28,7 +28,7 @@ export class PunctuationService {
         return this.http.get<IPunctuation>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }
 
-    getPunctuations(id: number): Observable<HttpResponse<any>> {
+    getPunctuations(id: number): Observable<EntityArrayResponseType> {
         return this.http.get<IPunctuation[]>(`${this.resourceUrl}/${id}/tournament`, { observe: 'response' });
     }
 
