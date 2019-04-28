@@ -1,5 +1,10 @@
 id;title;description;category;min_age
 1;Magic: The Gathering: La guerra de la chispa;La Guerra de la Chispa, la colección de cartas más ambiciosa jamás creada;CARD;4
-2;XWing;X-wing es un vertiginoso juego de combate espacial táctico ambientado en el universo de Star Wars;MINIATURES;4
-3;Catan;Catan es un juego de mesa para toda la familia que se ha convertido en un fenómeno mundial;BOARD;4
-4;Warhammer40K;Collect incredible armies of miniatures representing armies from the distant future;MINIATURES;4
+2;XWing;X-wing es un vertiginoso juego de combate espacial táctico ambientado en el universo de Star Wars;MINIATURES;8
+3;Catan;Catan es un juego de mesa para toda la familia que se ha convertido en un fenómeno mundial;BOARD;8
+4;Warhammer 40K;Collect incredible armies of miniatures representing armies from the distant future;MINIATURES;8
+5;Warhammer Fantasy Battle;Un juego de estrategia por turnos de los creadores de Warhammer;MINIATURES;8
+6;Dragones y Mazmorras (Quinta edición);La quinta edición del clásico de rol, para vivir grandes aventuras de fantasía;ROL;4
+7;Vampire: The Masquerade;Este juego te pone en la piel de un vampiro;ROL;12
+8;Yu-Gi-Oh;Un famoso juego de cartas japonés;CARD;8
+9;Risk;El famoso juego de conquista en el que luchar por la dominación mundial;BOARD;8

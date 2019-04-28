@@ -1,6 +1,7 @@
 package com.ispp.thorneo.web.rest;
 
 import com.ispp.thorneo.TournamentForm;
+import com.ispp.thorneo.domain.Authority;
 import com.ispp.thorneo.domain.Participation;
 import com.ispp.thorneo.domain.Tournament;
 import com.ispp.thorneo.domain.User;
@@ -84,6 +85,16 @@ public class TournamentResource {
         if (tournament.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
+
+        User currentUser = this.userService.getUserWithAuthorities().get();
+
+        Authority admin = new Authority();
+        admin.setName("ROLE_ADMIN");
+
+        if (tournament.getUser().getId() != currentUser.getId() && !currentUser.getAuthorities().contains(admin)) {
+            throw new BadRequestAlertException("Invalid user", "tournament", "notCreator");
+        }
+
         Tournament result = tournamentService.save(tournament);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, tournament.getId().toString()))
@@ -97,7 +108,7 @@ public class TournamentResource {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         if (tournament.getParticipations().size() >= tournament.getPlayerSize()){
-            throw new BadRequestAlertException("Invalid id", "too.many.players", "too.many.players");
+            throw new BadRequestAlertException("Too many players", "too.many.players", "too.many.players");
         }
         Tournament result = tournamentService.signOn(tournament);
         return ResponseEntity.ok()
@@ -177,6 +188,18 @@ public class TournamentResource {
     @DeleteMapping("/tournaments/{id}")
     public ResponseEntity<Void> deleteTournament(@PathVariable Long id) {
         log.debug("REST request to delete Tournament : {}", id);
+
+        User currentUser = this.userService.getUserWithAuthorities().get();
+
+        Authority admin = new Authority();
+        admin.setName("ROLE_ADMIN");
+
+        Tournament tournament = this.tournamentService.findOne(id).get();
+
+        if (tournament.getUser().getId() != currentUser.getId() && !currentUser.getAuthorities().contains(admin)) {
+            throw new BadRequestAlertException("Invalid user", "tournament", "notCreator");
+        }
+
         tournamentService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
@@ -194,6 +217,14 @@ public class TournamentResource {
         log.debug("REST request to search for a page of Tournaments for query {}", query);
         Page<Tournament> page = tournamentService.search(query, pageable);
         HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/tournaments");
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+
+    @GetMapping("/tournaments/sponsor/{login}")
+    public ResponseEntity<List<Tournament>> getTournamentsByLogin(@PathVariable String login) {
+        Page<Tournament> page = new PageImpl<>(tournamentService.findUserTournaments(login));
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/tournaments/sponsor/{id}");
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 

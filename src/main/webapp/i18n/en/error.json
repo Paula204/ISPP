@@ -19,6 +19,7 @@
         "soWinners": "Only one winner allowed",
         "currentRole": "You've this role assign",
         "notRole": "You doesn't have this role",
-        "too.many.players": "The participants has reached the tournament limit"
+        "too.many.players": "The participants has reached the tournament limit",
+        "notFound": "Not found"
     }
 }
