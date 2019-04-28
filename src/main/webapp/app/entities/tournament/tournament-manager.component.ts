@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { ITournament, ITournamentForm, Tournament } from 'app/shared/model/tournament.model';
@@ -16,12 +16,13 @@ declare let $: any;
 @Component({
     selector: 'jhi-tournament-manage2',
     styles: [
-        ' .card{flex-direction: unset} .jh-card{flex-direction: unset} div.finals.round.match {height:0px;top:0} @media only screen and (min-width: 660px) {.card{ display: flex; justify-content: center}}'
+        'body{background-color: #fff} .card{flex-direction: unset} .jh-card{flex-direction: unset}' + ''
+        // ' .card{flex-direction: unset} .jh-card{flex-direction: unset} div.finals.round.match {height:0px;top:0} @media only screen and (min-width: 660px) {.card{ display: flex; justify-content: center}}'
     ],
     templateUrl: './tournament-manager.component.html',
     encapsulation: ViewEncapsulation.None
 })
-export class TournamentManagerComponent implements OnInit {
+export class TournamentManagerComponent implements OnInit, OnDestroy {
     tournament: ITournamentForm;
 
     currentAccount: Account;
@@ -40,7 +41,9 @@ export class TournamentManagerComponent implements OnInit {
         protected tournamentService: TournamentService,
         protected participationService: ParticipationService
     ) {}
-
+    ngOnDestroy() {
+        window.location.reload();
+    }
     ngOnInit() {
         this.activatedRoute.data.subscribe(({ tournament }) => {
             this.tournament = tournament;
@@ -51,7 +54,10 @@ export class TournamentManagerComponent implements OnInit {
         this.currentDate = new Date();
         this.p = this.tournament.participations;
         const teamsP = [];
-
+        // Use this inside your document ready jQuery
+        $(window).on('popstate', function() {
+            location.reload(true);
+        });
         if (this.p.length % 2 !== 0) {
             const participationPrueba = null;
             this.p.push(participationPrueba);
