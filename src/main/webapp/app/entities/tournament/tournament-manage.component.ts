@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { ITournament, ITournamentForm, Tournament } from 'app/shared/model/tournament.model';
@@ -20,7 +20,7 @@ declare let $: any;
     templateUrl: './tournament-manage.component.html',
     encapsulation: ViewEncapsulation.None
 })
-export class TournamentManageComponent implements OnInit {
+export class TournamentManageComponent implements OnInit, OnDestroy {
     tournament: ITournamentForm;
     winner: number;
 
@@ -41,6 +41,9 @@ export class TournamentManageComponent implements OnInit {
         protected participationService: ParticipationService
     ) {}
 
+    ngOnDestroy() {
+        window.location.reload();
+    }
     ngOnInit() {
         this.activatedRoute.data.subscribe(({ tournament }) => {
             this.tournament = tournament;
@@ -51,6 +54,10 @@ export class TournamentManageComponent implements OnInit {
         this.currentDate = new Date();
         this.p = this.tournament.participations;
         const teamsP = [];
+        // Use this inside your document ready jQuery
+        $(window).on('popstate', function() {
+            location.reload(true);
+        });
 
         if (this.p.length % 2 !== 0) {
             const participationPrueba = null;
