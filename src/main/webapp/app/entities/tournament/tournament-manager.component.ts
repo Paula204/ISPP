@@ -161,7 +161,7 @@ export class TournamentManagerComponent implements OnInit {
         //  this.horaLapso = this.hora;
         //  this.minutoLapso = this.minuto;
         //  this.segundoLapso = this.segundos;
-        let obj: any = {};
+        const obj: any = {};
         obj.hora = this.hora;
         obj.minuto = this.minuto;
         obj.segundos = this.segundos;
