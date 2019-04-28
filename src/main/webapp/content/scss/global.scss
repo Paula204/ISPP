@@ -376,6 +376,82 @@ ui bootstrap tweaks
 }
 /* jhipster-needle-scss-add-global JHipster will add new css style */
 
+//CHRONO
+
+.stopwatch {
+    text-align: center;
+    border: 1px solid fuchsia;
+    padding: 2rem;
+    margin-top: 4rem;
+    box-shadow: 0 0 10px rgb(128, 0, 128);
+    position: relative;
+    &:after {
+        content: '';
+        position: absolute;
+        display: block;
+        width: 100%;
+        height: 100%;
+        top: 1rem;
+        left: 1rem;
+        z-index: -1;
+        border-bottom: 1px solid fuchsia;
+        border-right: 1px solid fuchsia;
+        box-shadow: 3px 3px 3px 0 #80008066;
+    }
+}
+
+.time {
+    font-size: 3em;
+    color: cyan;
+    text-shadow: 0 0 10px rgb(0, 128, 128);
+    margin-bottom: 0.5em;
+}
+
+.chrono_button {
+    cursor: pointer;
+    border: 1px solid cyan;
+    background: 0;
+    color: cyan;
+    padding: 0.5em 1em;
+    text-transform: uppercase;
+    margin: 0 0.5em;
+    transition: all 0.3s;
+    &.clear {
+        color: orange;
+        border: 1px solid orange;
+        position: relative;
+        &:after {
+            content: '';
+            height: 1px;
+            width: 200px;
+            position: absolute;
+            background: orange;
+            top: -1rem;
+            left: calc(50% - 100px);
+            box-shadow: 0 0 5px orange;
+        }
+        &:hover {
+            background: rgba(255, 28, 128, 0.5);
+            box-shadow: 0 0 10px rgba(255, 28, 128, 0.5);
+        }
+    }
+    &:hover {
+        background: rgba(0, 128, 128, 0.5);
+        box-shadow: 0 0 10px rgba(0, 128, 128, 0.5);
+    }
+}
+
+.laps {
+    color: orange;
+    text-shadow: 0 0 5px rgba(255, 128, 128, 1);
+    margin: 2rem 0 2rem 0;
+    padding: 0;
+    li {
+        list-style-type: decimal;
+        font-size: 1.2em;
+    }
+}
+
 //DISPLAY VIEW
 
 .paper {

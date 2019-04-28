@@ -4,31 +4,38 @@
     <div class="gestionador flex-container"></div>
   </div></div>
 </div>
-<div *ngIf="tournament.user.login == currentAccount.login"> 
+<br>
+<div *ngIf="tournament.user.login == currentAccount.login">
   <button 
     type="button" [routerLink]="['/punctuation', tournament.id, 'edit' ]"
      class="btn btn-primary">
      <fa-icon [icon]="'wrench'"></fa-icon>
      <span class="d-none d-md-inline" jhiTranslate="entity.action.manage">Manage</span>
-   </button>
+  </button>
 </div>
-<div class="row justify-content-center">
-    <div class="col-8">
-        <h2>Cronómetro</h2>
-        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="start()">
-            <fa-icon [icon]="'clock'"></fa-icon>&nbsp;<span jhiTranslate="crono.start"></span>
-        </button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="lapso()">
-            <fa-icon [icon]="'flag'"></fa-icon>&nbsp;<span jhiTranslate="crono.lapso"></span>
-        </button>
-        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="stop()">
-            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="crono.stop"></span>
-        </button>
-        <div>
-            <p>{{hora}} : {{minuto}} : {{segundos}}</p>
-            <p *ngFor="let i of collection">
-                {{i.hora}} : {{i.minuto}} : {{i.segundos}}
-            </p>
-        </div>
+<br>
+<div class="row">
+    <div class="col-12">
+      <div class="crono">
+          <h3>Cronómetro</h3>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="start()">
+              <fa-icon [icon]="'clock'"></fa-icon>&nbsp;<span class="d-none d-md-inline" jhiTranslate="crono.start"></span>
+          </button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="lapso()">
+              <fa-icon [icon]="'flag'"></fa-icon>&nbsp;<span class="d-none d-md-inline" jhiTranslate="crono.lapso"></span>
+          </button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="stop()">
+              <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span class="d-none d-md-inline" jhiTranslate="crono.stop"></span>
+          </button>
+          <div>
+            <br>
+            <ul>
+              <li><h3>{{hora}} : {{minuto}} : {{segundos}}</h3></li>
+              <li *ngFor="let i of collection">
+                <h3>{{i.hora}} : {{i.minuto}} : {{i.segundos}}</h3>
+              </li>
+            </ul>
+          </div>
+      </div>
     </div>
 </div>

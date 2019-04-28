@@ -24,9 +24,7 @@ declare let $: any;
     templateUrl: './tournament-manager.component.html',
     encapsulation: ViewEncapsulation.None
 })
-
 export class TournamentManagerComponent implements OnInit, OnDestroy {
-
     public hora: 0;
     public minuto: 0;
     public segundos: 0;
@@ -57,6 +55,9 @@ export class TournamentManagerComponent implements OnInit, OnDestroy {
         window.location.reload();
     }
     ngOnInit() {
+        this.hora = 0;
+        this.minuto = 0;
+        this.segundos = 0;
         this.activatedRoute.data.subscribe(({ tournament }) => {
             this.tournament = tournament;
         });
