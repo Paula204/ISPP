@@ -16,8 +16,9 @@ Navbar
 }
 
 .navbar {
-    background-color: #5facf2;
+    background-color: #2792f2;
     border-bottom: 5px black;
+
     .dropdown-item.active,
     .dropdown-item.active:focus,
     .dropdown-item.active:hover {
@@ -38,10 +39,10 @@ Navbar
 Logo styles
 ========================================================================== */
 .logo-img {
-    height: 50px;
-    width: 50px;
+    height: 35px;
+    width: 35px;
     display: inline-block;
     vertical-align: middle;
-    background: url('../../../content/images/logo.png') no-repeat center center;
+    background: url('../../../content/images/logo-blank.png') no-repeat center center;
     background-size: contain;
 }

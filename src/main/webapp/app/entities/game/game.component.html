@@ -1,3 +1,14 @@
+</br>
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="!currentAccount.authorities.includes('ROLE_SPONSOR') && !currentAccount.authorities.includes('ROLE_ADMIN')"  class="carousel-inner"  >
+            <div class="carousel-item active">
+                <a href="{{sponsorship.targetUrl}}"><img width = "100%" class="d-block img-responsive" src="{{sponsorship.banner}}"></a>
+            </div>
+        </div>
+    </div>
+</div>
+</br>
 <div>
     <h2 id="page-heading">
         <span jhiTranslate="thorneoApp.game.home.title">Games</span>
