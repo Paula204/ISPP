@@ -4,11 +4,38 @@
     <div class="gestionador flex-container"></div>
   </div></div>
 </div>
-<div *ngIf="tournament.user.login == currentAccount.login"> 
+<br>
+<div *ngIf="tournament.user.login == currentAccount.login">
   <button 
     type="button" [routerLink]="['/punctuation', tournament.id, 'tournament' ]"
      class="btn btn-primary">
      <fa-icon [icon]="'wrench'"></fa-icon>
      <span class="d-none d-md-inline" jhiTranslate="entity.action.manage">Manage</span>
-   </button>
+  </button>
+</div>
+<br>
+<div class="row">
+    <div class="col-12">
+      <div class="crono">
+          <h3>Cronómetro</h3>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="start()">
+              <fa-icon [icon]="'clock'"></fa-icon>&nbsp;<span class="d-none d-md-inline" jhiTranslate="crono.start"></span>
+          </button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="lapso()">
+              <fa-icon [icon]="'flag'"></fa-icon>&nbsp;<span class="d-none d-md-inline" jhiTranslate="crono.lapso"></span>
+          </button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="stop()">
+              <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span class="d-none d-md-inline" jhiTranslate="crono.stop"></span>
+          </button>
+          <div>
+            <br>
+            <ul>
+              <li><h3>{{hora}} : {{minuto}} : {{segundos}}</h3></li>
+              <li *ngFor="let i of collection">
+                <h3>{{i.hora}} : {{i.minuto}} : {{i.segundos}}</h3>
+              </li>
+            </ul>
+          </div>
+      </div>
+    </div>
 </div>
