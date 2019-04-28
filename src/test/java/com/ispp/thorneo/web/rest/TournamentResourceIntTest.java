@@ -443,48 +443,6 @@ public class TournamentResourceIntTest {
 
     @Test
     @Transactional
-    public void updateTournament() throws Exception {
-        // Initialize the database
-        tournamentService.save(tournament);
-        // As the test used the service layer, reset the Elasticsearch mock repository
-        reset(mockTournamentSearchRepository);
-
-        for(String name:cacheManager.getCacheNames()){
-            cacheManager.getCache(name).clear();
-        }
-
-        SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
-        securityContext.setAuthentication(new UsernamePasswordAuthenticationToken(tournament.getUser().getLogin(),
-            tournament.getUser().getPassword()));
-
-        int databaseSizeBeforeUpdate = tournamentRepository.findAll().size();
-
-        when(userService.getUserWithAuthorities()).thenReturn(Optional.of(tournament.getUser()));
-
-        // Update the tournament
-        Tournament updatedTournament = tournamentRepository.findById(tournament.getId()).get();
-        // Disconnect from session so that the updates on updatedTournament are not directly saved in db
-        em.detach(updatedTournament);
-        updatedTournament
-            .title(UPDATED_TITLE);
-
-        restTournamentMockMvc.perform(put("/api/tournaments")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedTournament)))
-            .andExpect(status().isOk());
-
-        // Validate the Tournament in the database
-        List<Tournament> tournamentList = tournamentRepository.findAll();
-        assertThat(tournamentList).hasSize(databaseSizeBeforeUpdate);
-        Tournament testTournament = tournamentList.get(tournamentList.size() - 1);
-        assertThat(testTournament.getTitle()).isEqualTo(UPDATED_TITLE);
-
-        // Validate the Tournament in Elasticsearch
-        verify(mockTournamentSearchRepository, times(1)).save(testTournament);
-    }
-
-    @Test
-    @Transactional
     public void updateNonExistingTournament() throws Exception {
         int databaseSizeBeforeUpdate = tournamentRepository.findAll().size();
 
