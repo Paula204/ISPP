@@ -178,7 +178,7 @@
             <div *ngIf="display">
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="thorneoApp.tournament.game" for="field_game">Game</label>
-                    <select class="form-control" id="field_game" name="game" [(ngModel)]="tournament.game">
+                    <select class="form-control" id="field_game" name="game" [(ngModel)]="tournament.game" required>
                         <option [ngValue]="null"></option>
                         <option [ngValue]="gameOption.id === tournament.game?.id ? tournament.game : gameOption" *ngFor="let gameOption of games; trackBy: trackGameById">{{gameOption.title}}</option>
                     </select>

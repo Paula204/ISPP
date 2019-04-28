@@ -26,6 +26,8 @@ import { UpgradeUserModule } from 'app/upgrade-user';
 import { ThorneoAppLawModule } from 'app/law';
 import { CookiesComponent } from './cookies/cookies.component';
 import { CookiesModule } from 'app/cookies';
+import { SponsorListComponent } from './sponsor-list/sponsor-list.component';
+import { ThorneoAppSponsorListModule } from 'app/sponsor-list';
 
 @NgModule({
     imports: [
@@ -43,6 +45,7 @@ import { CookiesModule } from 'app/cookies';
         ThorneoHomeModule,
         ThorneoAccountModule,
         ThorneoAppPaypalPaymentsModule,
+        ThorneoAppSponsorListModule,
         UpgradeUserModule,
         ThorneoAppLawModule,
         CookiesModule,
