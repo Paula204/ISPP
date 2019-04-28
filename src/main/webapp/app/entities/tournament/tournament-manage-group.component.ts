@@ -18,9 +18,9 @@ declare let $: any;
     templateUrl: './tournament-manage-group.component.html'
 })
 export class TournamentManageGroupComponent implements OnInit {
-    public hora: number = 0;
-    public minuto: number = 0;
-    public segundos: number = 0;
+    public hora: 0;
+    public minuto: 0;
+    public segundos: 0;
     public collection: Array<any> = [];
     public contador: any;
 
@@ -124,7 +124,7 @@ export class TournamentManageGroupComponent implements OnInit {
         //  this.horaLapso = this.hora;
         //  this.minutoLapso = this.minuto;
         //  this.segundoLapso = this.segundos;
-        let obj: any = {};
+        const obj: any = {};
         obj.hora = this.hora;
         obj.minuto = this.minuto;
         obj.segundos = this.segundos;
