@@ -1,10 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AccountService } from 'app/core';
+import { AccountService, User, UserService } from 'app/core';
 import { JhiAlertService, JhiParseLinks } from 'ng-jhipster';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { ITournament, Tournament } from 'app/shared/model/tournament.model';
 import { TournamentService } from 'app/entities/tournament';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
     selector: 'jhi-sponsor-list',
@@ -14,6 +15,7 @@ import { TournamentService } from 'app/entities/tournament';
 export class SponsorDetailComponent implements OnInit, OnDestroy {
     currentAccount: any;
     tournaments: Tournament[];
+    user: User;
     error: any;
     success: any;
     routeData: any;
@@ -24,9 +26,11 @@ export class SponsorDetailComponent implements OnInit, OnDestroy {
     predicate: any;
     previousPage: any;
     reverse: any;
+    login: string;
 
     constructor(
         private tournamentService: TournamentService,
+        private userService: UserService,
         private alertService: JhiAlertService,
         private accountService: AccountService,
         private parseLinks: JhiParseLinks,
@@ -46,9 +50,7 @@ export class SponsorDetailComponent implements OnInit, OnDestroy {
         this.accountService.identity().then(account => {
             this.currentAccount = account;
         });
-        this.activatedRoute.data.subscribe(({ tournaments }) => {
-            this.tournaments = tournaments;
-        });
+        this.loadAll();
     }
 
     ngOnDestroy() {
@@ -71,16 +73,36 @@ export class SponsorDetailComponent implements OnInit, OnDestroy {
     }
 
     transition() {
-        this.router.navigate(['/tournaments/sponsor/'], {
+        this.router.navigate(['/sponsor-list/' + this.login], {
             queryParams: {
-                id: this.tournaments[0].user.id,
                 page: this.page,
                 sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
             }
         });
+        this.loadAll();
     }
 
     trackId(index: number, item: ITournament) {
         return item.id;
+    }
+
+    private onSuccess(data, headers) {
+        this.links = this.parseLinks.parse(headers.get('link'));
+        this.totalItems = headers.get('X-Total-Count');
+        this.tournaments = data;
+    }
+
+    private onError(error) {
+        this.alertService.error(error.error, error.message, null);
+    }
+
+    loadAll() {
+        this.login = this.activatedRoute.snapshot.paramMap.get('login');
+        this.tournamentService
+            .tournamentsByUser(this.login)
+            .subscribe(
+                (res: HttpResponse<Tournament[]>) => this.onSuccess(res.body, res.headers),
+                (res: HttpResponse<any>) => this.onError(res.body)
+            );
     }
 }

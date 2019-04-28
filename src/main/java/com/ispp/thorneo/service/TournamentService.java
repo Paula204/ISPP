@@ -78,5 +78,5 @@ public interface TournamentService {
     Optional<TournamentForm> getTournament(Long id);
     Tournament closeTournamentChooseWinner(Tournament tournament, Long id);
 
-    List<Tournament> findUserTournaments(Long id);
+    List<Tournament> findUserTournaments(String login);
 }

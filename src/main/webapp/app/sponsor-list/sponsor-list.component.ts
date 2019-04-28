@@ -59,21 +59,6 @@ export class SponsorListComponent implements OnInit, OnDestroy {
         this.eventManager.subscribe('userListModification', response => this.loadAll());
     }
 
-    setActive(user, isActivated) {
-        user.activated = isActivated;
-
-        this.userService.update(user).subscribe(response => {
-            if (response.status === 200) {
-                this.error = null;
-                this.success = 'OK';
-                this.loadAll();
-            } else {
-                this.success = null;
-                this.error = 'ERROR';
-            }
-        });
-    }
-
     loadAll() {
         this.userService
             .sponsors()

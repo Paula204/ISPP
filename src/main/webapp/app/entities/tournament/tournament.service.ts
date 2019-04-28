@@ -79,8 +79,8 @@ export class TournamentService {
             .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
     }
 
-    tournamentsByUser(id: number): Observable<HttpResponse<IUser[]>> {
-        return this.http.get<IUser[]>(this.resourceUrl + '/sponsor/' + id, { observe: 'response' });
+    tournamentsByUser(login: string): Observable<HttpResponse<IUser[]>> {
+        return this.http.get<ITournament[]>(this.resourceUrl + '/sponsor/' + login, { observe: 'response' });
     }
 
     protected convertDateFromClient(tournament: ITournament): ITournament {

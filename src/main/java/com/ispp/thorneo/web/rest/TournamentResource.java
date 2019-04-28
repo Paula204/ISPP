@@ -221,9 +221,9 @@ public class TournamentResource {
     }
 
 
-    @GetMapping("/tournaments/sponsor/{id}")
-    public ResponseEntity<List<Tournament>> getTournamentsById(@PathVariable Long id) {
-        Page<Tournament> page = new PageImpl<>(tournamentService.findUserTournaments(id));
+    @GetMapping("/tournaments/sponsor/{login}")
+    public ResponseEntity<List<Tournament>> getTournamentsByLogin(@PathVariable String login) {
+        Page<Tournament> page = new PageImpl<>(tournamentService.findUserTournaments(login));
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/tournaments/sponsor/{id}");
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }

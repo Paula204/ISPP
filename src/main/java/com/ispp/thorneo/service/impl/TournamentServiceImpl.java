@@ -358,10 +358,10 @@ public class TournamentServiceImpl implements TournamentService {
     }
 
     @Override
-    public List<Tournament> findUserTournaments(Long id) {
+    public List<Tournament> findUserTournaments(String login) {
         List<Tournament> result;
 
-        result = tournamentRepository.findUserTournaments(id);
+        result = tournamentRepository.findUserTournaments(login);
 
         if (result == null) {
             throw new BadRequestAlertException("Invalid user", "tournament", "notFound");

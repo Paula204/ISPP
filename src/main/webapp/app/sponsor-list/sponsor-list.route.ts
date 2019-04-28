@@ -37,20 +37,20 @@ export const SPONSOR_LIST_ROUTE: Routes = [
         data: {
             authorities: ['ROLE_USER', 'ROLE_ADMIN'],
             defaultSort: 'id,asc',
-            pageTitle: 'thorneoApp.tournament.home.title'
+            pageTitle: 'userManagement.home.title'
         },
         canActivate: [UserRouteAccessService]
     },
     {
-        path: 'sponsor-list/:id',
+        path: 'sponsor-list/:login',
         component: SponsorDetailComponent,
         resolve: {
-            tournaments: SponsorListResolve
+            pagingParams: JhiResolvePagingParams
         },
         data: {
             authorities: ['ROLE_USER', 'ROLE_ADMIN'],
             defaultSort: 'id,asc',
-            pageTitle: 'thorneoApp.tournament.home.title2'
+            pageTitle: 'thorneoApp.tournament.home.title'
         },
         canActivate: [UserRouteAccessService]
     }
