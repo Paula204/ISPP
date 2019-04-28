@@ -24,9 +24,9 @@ declare let $: any;
     encapsulation: ViewEncapsulation.None
 })
 export class TournamentManagerComponent implements OnInit {
-    public hora: number = 0;
-    public minuto: number = 0;
-    public segundos: number = 0;
+    public hora: 0;
+    public minuto: 0;
+    public segundos: 0;
     public collection: Array<any> = [];
     public contador: any;
 
