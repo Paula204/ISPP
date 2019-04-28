@@ -3,14 +3,17 @@ package com.ispp.thorneo.web.rest;
 import com.ispp.thorneo.ThorneoApp;
 
 import com.ispp.thorneo.domain.Sponsorship;
+import com.ispp.thorneo.domain.User;
 import com.ispp.thorneo.repository.SponsorshipRepository;
 import com.ispp.thorneo.repository.search.SponsorshipSearchRepository;
 import com.ispp.thorneo.service.SponsorshipService;
+import com.ispp.thorneo.service.UserService;
 import com.ispp.thorneo.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,6 +22,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -28,6 +34,7 @@ import org.springframework.validation.Validator;
 import javax.persistence.EntityManager;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 
 import static com.ispp.thorneo.web.rest.TestUtil.createFormattingConversionService;
@@ -59,6 +66,9 @@ public class SponsorshipResourceIntTest {
     @Autowired
     private SponsorshipService sponsorshipService;
 
+    @Mock
+    private UserService userService;
+
     /**
      * This repository is mocked in the com.ispp.thorneo.repository.search test package.
      *
@@ -89,13 +99,16 @@ public class SponsorshipResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final SponsorshipResource sponsorshipResource = new SponsorshipResource(sponsorshipService);
+        final SponsorshipResource sponsorshipResource = new SponsorshipResource(sponsorshipService, userService);
         this.restSponsorshipMockMvc = MockMvcBuilders.standaloneSetup(sponsorshipResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
             .setConversionService(createFormattingConversionService())
             .setMessageConverters(jacksonMessageConverter)
             .setValidator(validator).build();
+
+        when(userService.getUserWithAuthorities()).thenReturn(Optional.of(sponsorship.getUser()));
+
     }
 
     /**
@@ -108,6 +121,10 @@ public class SponsorshipResourceIntTest {
         Sponsorship sponsorship = new Sponsorship()
             .banner(DEFAULT_BANNER)
             .targetUrl(DEFAULT_TARGET_URL);
+        User user = UserResourceIntTest.createEntity(em);
+        em.persist(user);
+        sponsorship.setUser(user);
+
         return sponsorship;
     }
 
@@ -239,6 +256,13 @@ public class SponsorshipResourceIntTest {
     public void updateSponsorship() throws Exception {
         // Initialize the database
         sponsorshipService.save(sponsorship);
+
+        SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
+        securityContext.setAuthentication(new UsernamePasswordAuthenticationToken(sponsorship.getUser().getLogin(),
+            sponsorship.getUser().getPassword()));
+
+        when(userService.getUserWithAuthorities()).thenReturn(Optional.of(sponsorship.getUser()));
+
         // As the test used the service layer, reset the Elasticsearch mock repository
         reset(mockSponsorshipSearchRepository);
 
@@ -295,7 +319,13 @@ public class SponsorshipResourceIntTest {
         // Initialize the database
         sponsorshipService.save(sponsorship);
 
+        SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
+        securityContext.setAuthentication(new UsernamePasswordAuthenticationToken(sponsorship.getUser().getLogin(),
+            sponsorship.getUser().getPassword()));
+
         int databaseSizeBeforeDelete = sponsorshipRepository.findAll().size();
+
+        when(userService.getUserWithAuthorities()).thenReturn(Optional.of(sponsorship.getUser()));
 
         // Delete the sponsorship
         restSponsorshipMockMvc.perform(delete("/api/sponsorships/{id}", sponsorship.getId())
