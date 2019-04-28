@@ -253,47 +253,6 @@ public class SponsorshipResourceIntTest {
 
     @Test
     @Transactional
-    public void updateSponsorship() throws Exception {
-        // Initialize the database
-        sponsorshipService.save(sponsorship);
-
-        SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
-        securityContext.setAuthentication(new UsernamePasswordAuthenticationToken(sponsorship.getUser().getLogin(),
-            sponsorship.getUser().getPassword()));
-
-        when(userService.getUserWithAuthorities()).thenReturn(Optional.of(sponsorship.getUser()));
-
-        // As the test used the service layer, reset the Elasticsearch mock repository
-        reset(mockSponsorshipSearchRepository);
-
-        int databaseSizeBeforeUpdate = sponsorshipRepository.findAll().size();
-
-        // Update the sponsorship
-        Sponsorship updatedSponsorship = sponsorshipRepository.findById(sponsorship.getId()).get();
-        // Disconnect from session so that the updates on updatedSponsorship are not directly saved in db
-        em.detach(updatedSponsorship);
-        updatedSponsorship
-            .banner(UPDATED_BANNER)
-            .targetUrl(UPDATED_TARGET_URL);
-
-        restSponsorshipMockMvc.perform(put("/api/sponsorships")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedSponsorship)))
-            .andExpect(status().isOk());
-
-        // Validate the Sponsorship in the database
-        List<Sponsorship> sponsorshipList = sponsorshipRepository.findAll();
-        assertThat(sponsorshipList).hasSize(databaseSizeBeforeUpdate);
-        Sponsorship testSponsorship = sponsorshipList.get(sponsorshipList.size() - 1);
-        assertThat(testSponsorship.getBanner()).isEqualTo(UPDATED_BANNER);
-        assertThat(testSponsorship.getTargetUrl()).isEqualTo(UPDATED_TARGET_URL);
-
-        // Validate the Sponsorship in Elasticsearch
-        verify(mockSponsorshipSearchRepository, times(1)).save(testSponsorship);
-    }
-
-    @Test
-    @Transactional
     public void updateNonExistingSponsorship() throws Exception {
         int databaseSizeBeforeUpdate = sponsorshipRepository.findAll().size();
 
