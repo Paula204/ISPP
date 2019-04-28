@@ -8,6 +8,8 @@ import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 import { IParticipation } from 'app/shared/model/participation.model';
 import { AccountService } from 'app/core';
 import { ParticipationService } from './participation.service';
+import { ISponsorship, Sponsorship } from 'app/shared/model/sponsorship.model';
+import { SponsorshipService } from 'app/entities/sponsorship';
 
 @Component({
     selector: 'jhi-participation',
@@ -18,13 +20,15 @@ export class ParticipationComponent implements OnInit, OnDestroy {
     currentAccount: any;
     eventSubscriber: Subscription;
     currentSearch: string;
+    sponsorship: ISponsorship;
 
     constructor(
         protected participationService: ParticipationService,
         protected jhiAlertService: JhiAlertService,
         protected eventManager: JhiEventManager,
         protected activatedRoute: ActivatedRoute,
-        protected accountService: AccountService
+        protected accountService: AccountService,
+        protected sponsorshipService: SponsorshipService
     ) {
         this.currentSearch =
             this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['search']
@@ -79,6 +83,13 @@ export class ParticipationComponent implements OnInit, OnDestroy {
             this.currentAccount = account;
         });
         this.registerChangeInParticipations();
+        this.sponsorshipService
+            .findRandom()
+            .pipe(
+                filter((response: HttpResponse<Sponsorship>) => response.ok),
+                map((sponsorship: HttpResponse<Sponsorship>) => sponsorship.body)
+            )
+            .subscribe(value => (this.sponsorship = value));
     }
 
     ngOnDestroy() {
