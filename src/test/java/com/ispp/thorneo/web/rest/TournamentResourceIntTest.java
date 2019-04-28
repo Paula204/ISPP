@@ -466,19 +466,7 @@ public class TournamentResourceIntTest {
         // Disconnect from session so that the updates on updatedTournament are not directly saved in db
         em.detach(updatedTournament);
         updatedTournament
-            .title(UPDATED_TITLE)
-            .description(UPDATED_DESCRIPTION)
-            .meetingDate(UPDATED_MEETING_DATE)
-            .meetingPoint(UPDATED_MEETING_POINT)
-            .city(UPDATED_CITY)
-            .price(UPDATED_PRICE)
-            .playerSize(UPDATED_PLAYER_SIZE)
-            .rewards(UPDATED_REWARDS)
-            .imageUrl(UPDATED_IMAGE_URL)
-            .latitude(UPDATED_LATITUDE)
-            .longitude(UPDATED_LONGITUDE)
-            .type(UPDATED_TYPE)
-            .state(UPDATED_STATE);
+            .title(UPDATED_TITLE);
 
         restTournamentMockMvc.perform(put("/api/tournaments")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -490,18 +478,6 @@ public class TournamentResourceIntTest {
         assertThat(tournamentList).hasSize(databaseSizeBeforeUpdate);
         Tournament testTournament = tournamentList.get(tournamentList.size() - 1);
         assertThat(testTournament.getTitle()).isEqualTo(UPDATED_TITLE);
-        assertThat(testTournament.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
-        assertThat(testTournament.getMeetingDate()).isEqualTo(UPDATED_MEETING_DATE);
-        assertThat(testTournament.getMeetingPoint()).isEqualTo(UPDATED_MEETING_POINT);
-        assertThat(testTournament.getCity()).isEqualTo(UPDATED_CITY);
-        assertThat(testTournament.getPrice()).isEqualTo(UPDATED_PRICE);
-        assertThat(testTournament.getPlayerSize()).isEqualTo(UPDATED_PLAYER_SIZE);
-        assertThat(testTournament.getRewards()).isEqualTo(UPDATED_REWARDS);
-        assertThat(testTournament.getImageUrl()).isEqualTo(UPDATED_IMAGE_URL);
-        assertThat(testTournament.getLatitude()).isEqualTo(UPDATED_LATITUDE);
-        assertThat(testTournament.getLongitude()).isEqualTo(UPDATED_LONGITUDE);
-        assertThat(testTournament.getType()).isEqualTo(UPDATED_TYPE);
-        assertThat(testTournament.getState()).isEqualTo(UPDATED_STATE);
 
         // Validate the Tournament in Elasticsearch
         verify(mockTournamentSearchRepository, times(1)).save(testTournament);

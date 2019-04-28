@@ -79,6 +79,10 @@ export class TournamentService {
             .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
     }
 
+    tournamentsByUser(id: number): Observable<HttpResponse<IUser[]>> {
+        return this.http.get<IUser[]>(this.resourceUrl + '/sponsor/' + id, { observe: 'response' });
+    }
+
     protected convertDateFromClient(tournament: ITournament): ITournament {
         const copy: ITournament = Object.assign({}, tournament, {
             meetingDate: tournament.meetingDate != null && tournament.meetingDate.isValid() ? tournament.meetingDate.toJSON() : null

@@ -3,15 +3,14 @@ import { RouterModule } from '@angular/router';
 
 import { ThorneoSharedModule } from '../shared';
 
-import { SPONSOR_LIST_ROUTE, SponsorListComponent } from './';
-import { CommonModule } from '@angular/common';
+import { SPONSOR_LIST_ROUTE, SponsorDetailComponent, SponsorListComponent } from './';
 import { JhiLanguageService } from 'ng-jhipster';
 import { JhiLanguageHelper } from 'app/core';
 
 @NgModule({
-    declarations: [SponsorListComponent],
-    imports: [ThorneoSharedModule, CommonModule, RouterModule.forChild(SPONSOR_LIST_ROUTE)],
-    entryComponents: [SponsorListComponent],
+    imports: [ThorneoSharedModule, RouterModule.forChild(SPONSOR_LIST_ROUTE)],
+    declarations: [SponsorListComponent, SponsorDetailComponent],
+    entryComponents: [SponsorListComponent, SponsorDetailComponent],
     providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

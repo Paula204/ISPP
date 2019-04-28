@@ -5,7 +5,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { HttpResponse } from '@angular/common/http';
-import { UserMgmtDeleteDialogComponent } from 'app/admin';
 
 @Component({
     selector: 'jhi-sponsor-list',
@@ -33,8 +32,7 @@ export class SponsorListComponent implements OnInit, OnDestroy {
         private parseLinks: JhiParseLinks,
         private activatedRoute: ActivatedRoute,
         private router: Router,
-        private eventManager: JhiEventManager,
-        private modalService: NgbModal
+        private eventManager: JhiEventManager
     ) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -77,7 +75,6 @@ export class SponsorListComponent implements OnInit, OnDestroy {
     }
 
     loadAll() {
-        this.userService.sponsors();
         this.userService
             .sponsors()
             .subscribe(
@@ -106,7 +103,7 @@ export class SponsorListComponent implements OnInit, OnDestroy {
     }
 
     transition() {
-        this.router.navigate(['/admin/user-management'], {
+        this.router.navigate(['/sponsor-list'], {
             queryParams: {
                 page: this.page,
                 sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
