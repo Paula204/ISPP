@@ -16,26 +16,33 @@
 <br>
 <div class="row">
     <div class="col-12">
-      <div class="crono">
-          <h3>Cronómetro</h3>
-          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="start()">
-              <fa-icon [icon]="'clock'"></fa-icon>&nbsp;<span class="d-none d-md-inline" jhiTranslate="crono.start"></span>
-          </button>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="lapso()">
-              <fa-icon [icon]="'flag'"></fa-icon>&nbsp;<span class="d-none d-md-inline" jhiTranslate="crono.lapso"></span>
-          </button>
-          <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="stop()">
-              <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span class="d-none d-md-inline" jhiTranslate="crono.stop"></span>
-          </button>
-          <div>
-            <br>
-            <ul>
-              <li><h3>{{hora}} : {{minuto}} : {{segundos}}</h3></li>
-              <li *ngFor="let i of collection">
-                <h3>{{i.hora}} : {{i.minuto}} : {{i.segundos}}</h3>
-              </li>
-            </ul>
-          </div>
+      <div class="chrono">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>
+                <span jhiTranslate="crono.crono"></span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{hora}} : {{minuto}} : {{segundos}}</td>
+            </tr>
+            <tr *ngFor="let i of collection">
+                <td>{{i.hora}} : {{i.minuto}} : {{i.segundos}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="start()">
+            <fa-icon [icon]="'clock'"></fa-icon>&nbsp;<span class="d-none d-md-inline" jhiTranslate="crono.start"></span>
+        </button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="lapso()">
+            <fa-icon [icon]="'flag'"></fa-icon>&nbsp;<span class="d-none d-md-inline" jhiTranslate="crono.lapso"></span>
+        </button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="stop()">
+            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span class="d-none d-md-inline" jhiTranslate="crono.stop"></span>
+        </button>
       </div>
     </div>
 </div>
