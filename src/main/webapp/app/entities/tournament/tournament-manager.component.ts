@@ -24,7 +24,15 @@ declare let $: any;
     templateUrl: './tournament-manager.component.html',
     encapsulation: ViewEncapsulation.None
 })
+
 export class TournamentManagerComponent implements OnInit, OnDestroy {
+
+    public hora: 0;
+    public minuto: 0;
+    public segundos: 0;
+    public collection: Array<any> = [];
+    public contador: any;
+
     tournament: ITournamentForm;
 
     currentAccount: Account;
@@ -137,5 +145,41 @@ export class TournamentManagerComponent implements OnInit, OnDestroy {
 
     protected onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    start() {
+        if (this.contador === null || this.contador === undefined) {
+            this.contador = setInterval(() => {
+                this.segundos += 1;
+                if (this.segundos === 60) {
+                    this.minuto += 1;
+                    this.segundos = 0;
+                    if (this.minuto === 60) {
+                        this.hora += 1;
+                        this.minuto = 0;
+                        if (this.hora === 24) {
+                            this.hora = 0;
+                        }
+                    }
+                }
+            }, 1000);
+        }
+    }
+    lapso() {
+        //  this.horaLapso = this.hora;
+        //  this.minutoLapso = this.minuto;
+        //  this.segundoLapso = this.segundos;
+        const obj: any = {};
+        obj.hora = this.hora;
+        obj.minuto = this.minuto;
+        obj.segundos = this.segundos;
+        this.collection.push(obj);
+    }
+    stop() {
+        clearInterval(this.contador);
+        this.hora = 0;
+        this.minuto = 0;
+        this.segundos = 0;
+        this.contador = null;
     }
 }
