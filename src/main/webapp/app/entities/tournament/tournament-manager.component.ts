@@ -57,6 +57,11 @@ export class TournamentManagerComponent implements OnInit {
         this.currentDate = new Date();
         this.p = this.tournament.participations;
 
+        // Use this inside your document ready jQuery
+        $(window).on('popstate', function() {
+            location.reload(true);
+        });
+
         // ....
         // Metodo completo para JQuery. Empieza a partir de aquí:
         if (this.punctuations === undefined) {
