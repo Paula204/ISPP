@@ -21,7 +21,8 @@
             "true": "Yes",
             "punctuation": "Puntuación",
             "tournament": "Torneo",
-            "user": "Usuario"
+            "user": "Usuario",
+            "admin": "Administrador"
         }
     }
 }

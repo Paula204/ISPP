@@ -19,7 +19,8 @@
             "disqualify": "Disqualified",
             "punctuation": "Punctuation",
             "tournament": "Tournament",
-            "user": "User"
+            "user": "User",
+            "admin": "Administrator"
         }
     }
 }
