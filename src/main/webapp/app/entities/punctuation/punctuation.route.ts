@@ -11,7 +11,7 @@ import { PunctuationDetailComponent } from './punctuation-detail.component';
 import { PunctuationUpdateComponent } from './punctuation-update.component';
 import { PunctuationDeletePopupComponent } from './punctuation-delete-dialog.component';
 import { IPunctuation } from 'app/shared/model/punctuation.model';
-import { PunctuationTournamentComponent } from './punctuation-tournament.component';
+import { PunctuationTournamentComponent } from '../tournament/punctuation-tournament.component';
 
 @Injectable({ providedIn: 'root' })
 export class PunctuationResolve implements Resolve<IPunctuation> {
@@ -66,18 +66,6 @@ export const punctuationRoute: Routes = [
     {
         path: ':id/edit',
         component: PunctuationUpdateComponent,
-        resolve: {
-            punctuation: PunctuationResolve
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'thorneoApp.punctuation.home.title'
-        },
-        canActivate: [UserRouteAccessService]
-    },
-    {
-        path: ':id/test',
-        component: PunctuationTournamentComponent,
         resolve: {
             punctuation: PunctuationResolve
         },

@@ -7,7 +7,7 @@ import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 
 import { IPunctuation } from 'app/shared/model/punctuation.model';
 import { AccountService } from 'app/core';
-import { PunctuationService } from './punctuation.service';
+import { PunctuationService } from '../punctuation/punctuation.service';
 import { ITournament, ITournamentForm } from 'app/shared/model/tournament.model';
 import { TournamentService } from 'app/entities/tournament';
 
@@ -31,7 +31,7 @@ export class PunctuationTournamentComponent implements OnInit, OnDestroy {
         protected eventManager: JhiEventManager,
         protected activatedRoute: ActivatedRoute,
         protected accountService: AccountService,
-        protected tournamenService: TournamentService
+        protected tournamentService: TournamentService
     ) {
         this.activatedRoute.queryParams.subscribe(params => {
             this.idTorneo = params['idTournament'];
@@ -39,7 +39,7 @@ export class PunctuationTournamentComponent implements OnInit, OnDestroy {
         console.log('Punctuation-tournament.component');
         const res = activatedRoute.snapshot.url.length;
         this.route = activatedRoute.snapshot.url[res - 2].toString();
-        this.tournamenService.find(+this.route).subscribe(tournament => {
+        this.tournamentService.find(+this.route).subscribe(tournament => {
             this.tournament = tournament.body;
         });
     }
@@ -65,7 +65,7 @@ export class PunctuationTournamentComponent implements OnInit, OnDestroy {
             )
             .subscribe(
                 (res: IPunctuation[]) => {
-                    this.temp = res;
+                    this.punctuations = res;
                     this.currentSearch = '';
                 },
                 (res: HttpErrorResponse) => this.onError(res.message)
@@ -74,12 +74,6 @@ export class PunctuationTournamentComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.loadAll();
-        this.punctuations = [];
-        for (const i of this.temp) {
-            if (i.tournament.id === this.tournament.id) {
-                this.punctuations.push(i);
-            }
-        }
         this.accountService.identity().then(account => {
             this.currentAccount = account;
         });

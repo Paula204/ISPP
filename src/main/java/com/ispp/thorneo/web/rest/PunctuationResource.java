@@ -126,11 +126,4 @@ public class PunctuationResource {
         return punctuationService.search(query);
     }
 
-    @GetMapping("/{tournamentId}/tournament")
-    public List<Punctuation> getPunctuationsByTournaments(@RequestParam Long tournamentId){
-        log.debug("Busqueda de puntuaciones de torneo");
-        Integer round = this.punctuationService.getMaxRoundTournament(tournamentId);
-        return punctuationService.getPuntuationsByRoundAndTournament(round, tournamentId);
-    }
-
 }
