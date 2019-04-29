@@ -61,18 +61,6 @@ export const participationRoute: Routes = [
             pageTitle: 'thorneoApp.participation.home.title'
         },
         canActivate: [UserRouteAccessService]
-    },
-    {
-        path: ':id/edit',
-        component: ParticipationUpdateComponent,
-        resolve: {
-            participation: ParticipationResolve
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'thorneoApp.participation.home.title'
-        },
-        canActivate: [UserRouteAccessService]
     }
 ];
 

@@ -61,18 +61,6 @@ export const paypalCompletedPaymentsRoute: Routes = [
             pageTitle: 'thorneoApp.paypalCompletedPayments.home.title'
         },
         canActivate: [UserRouteAccessService]
-    },
-    {
-        path: ':id/edit',
-        component: PaypalCompletedPaymentsUpdateComponent,
-        resolve: {
-            paypalCompletedPayments: PaypalCompletedPaymentsResolve
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'thorneoApp.paypalCompletedPayments.home.title'
-        },
-        canActivate: [UserRouteAccessService]
     }
 ];
 

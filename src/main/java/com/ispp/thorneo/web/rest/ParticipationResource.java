@@ -1,6 +1,9 @@
 package com.ispp.thorneo.web.rest;
+import com.ispp.thorneo.domain.Authority;
 import com.ispp.thorneo.domain.Participation;
+import com.ispp.thorneo.domain.User;
 import com.ispp.thorneo.service.ParticipationService;
+import com.ispp.thorneo.service.UserService;
 import com.ispp.thorneo.web.rest.errors.BadRequestAlertException;
 import com.ispp.thorneo.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -13,6 +16,7 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.StreamSupport;
@@ -32,8 +36,11 @@ public class ParticipationResource {
 
     private final ParticipationService participationService;
 
-    public ParticipationResource(ParticipationService participationService) {
+    private UserService userService;
+
+    public ParticipationResource(ParticipationService participationService, UserService userService) {
         this.participationService = participationService;
+        this.userService = userService;
     }
 
     /**
@@ -52,27 +59,6 @@ public class ParticipationResource {
         Participation result = participationService.save(participation);
         return ResponseEntity.created(new URI("/api/participations/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
-            .body(result);
-    }
-
-    /**
-     * PUT  /participations : Updates an existing participation.
-     *
-     * @param participation the participation to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated participation,
-     * or with status 400 (Bad Request) if the participation is not valid,
-     * or with status 500 (Internal Server Error) if the participation couldn't be updated
-     * @throws URISyntaxException if the Location URI syntax is incorrect
-     */
-    @PutMapping("/participations")
-    public ResponseEntity<Participation> updateParticipation(@Valid @RequestBody Participation participation) throws URISyntaxException {
-        log.debug("REST request to update Participation : {}", participation);
-        if (participation.getId() == null) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
-        }
-        Participation result = participationService.updateParticipation(participation);
-        return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, participation.getId().toString()))
             .body(result);
     }
 
@@ -109,7 +95,22 @@ public class ParticipationResource {
     @DeleteMapping("/participations/{id}")
     public ResponseEntity<Void> deleteParticipation(@PathVariable Long id) {
         log.debug("REST request to delete Participation : {}", id);
-        participationService.deleteParticipation(id);
+
+        Participation participation = participationService.findOne(id).get();
+
+        User currentUser = this.userService.getUserWithAuthorities().get();
+
+        Authority admin = new Authority();
+        admin.setName("ROLE_ADMIN");
+
+        if (participation.getUser().getId() != currentUser.getId() && !currentUser.getAuthorities().contains(admin)) {
+            throw new BadRequestAlertException("Invalid user", "participation", "notCreator");
+        }
+        if (Instant.now().isAfter(participation.getTournament().getMeetingDate())) {
+            throw new BadRequestAlertException("Invalid user", "participation", "dateAfter");
+        }
+
+        participationService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 
