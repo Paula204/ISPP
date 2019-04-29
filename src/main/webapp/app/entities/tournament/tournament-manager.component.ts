@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { ITournament, ITournamentForm, Tournament } from 'app/shared/model/tournament.model';
@@ -20,12 +20,19 @@ declare let $: any;
 @Component({
     selector: 'jhi-tournament-manage2',
     styles: [
-        ' .card{flex-direction: unset} .jh-card{flex-direction: unset} div.finals.round.match {height:0px;top:0} @media only screen and (min-width: 660px) {.card{ display: flex; justify-content: center}}'
+        'body{background-color: #fff} .card{flex-direction: unset} .jh-card{flex-direction: unset}' + ''
+        // ' .card{flex-direction: unset} .jh-card{flex-direction: unset} div.finals.round.match {height:0px;top:0} @media only screen and (min-width: 660px) {.card{ display: flex; justify-content: center}}'
     ],
     templateUrl: './tournament-manager.component.html',
     encapsulation: ViewEncapsulation.None
 })
-export class TournamentManagerComponent implements OnInit {
+export class TournamentManagerComponent implements OnInit, OnDestroy {
+    public hora: 0;
+    public minuto: 0;
+    public segundos: 0;
+    public collection: Array<any> = [];
+    public contador: any;
+
     tournament: ITournamentForm;
 
     currentAccount: Account;
@@ -46,8 +53,13 @@ export class TournamentManagerComponent implements OnInit {
         protected participationService: ParticipationService,
         protected punctuationService: PunctuationService
     ) {}
-
+    ngOnDestroy() {
+        window.location.reload();
+    }
     ngOnInit() {
+        this.hora = 0;
+        this.minuto = 0;
+        this.segundos = 0;
         this.activatedRoute.data.subscribe(({ tournament }) => {
             this.tournament = tournament;
         });
@@ -108,7 +120,6 @@ export class TournamentManagerComponent implements OnInit {
 
         // Creamos el array a mostrar por JQuery
         const teamsP = [];
-
         // Usuarios de la ronda
         let userRonda = [];
         let ronda = 0;
@@ -214,5 +225,41 @@ export class TournamentManagerComponent implements OnInit {
 
     protected onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    start() {
+        if (this.contador === null || this.contador === undefined) {
+            this.contador = setInterval(() => {
+                this.segundos += 1;
+                if (this.segundos === 60) {
+                    this.minuto += 1;
+                    this.segundos = 0;
+                    if (this.minuto === 60) {
+                        this.hora += 1;
+                        this.minuto = 0;
+                        if (this.hora === 24) {
+                            this.hora = 0;
+                        }
+                    }
+                }
+            }, 1000);
+        }
+    }
+    lapso() {
+        //  this.horaLapso = this.hora;
+        //  this.minutoLapso = this.minuto;
+        //  this.segundoLapso = this.segundos;
+        const obj: any = {};
+        obj.hora = this.hora;
+        obj.minuto = this.minuto;
+        obj.segundos = this.segundos;
+        this.collection.push(obj);
+    }
+    stop() {
+        clearInterval(this.contador);
+        this.hora = 0;
+        this.minuto = 0;
+        this.segundos = 0;
+        this.contador = null;
     }
 }
