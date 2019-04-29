@@ -376,6 +376,62 @@ ui bootstrap tweaks
 }
 /* jhipster-needle-scss-add-global JHipster will add new css style */
 
+//CHRONO
+.chrono {
+}
+
+@font-face {
+    font-family: 'Digital';
+    src: url('digital-7.ttf'); /* IE9 Compat Modes */
+}
+
+.chrono table {
+    text-align: center;
+    line-height: 10px;
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+    border: 2px solid #2792f2;
+    margin: 25px auto;
+    border-radius: 0.25rem;
+    flex-wrap: wrap;
+}
+
+@media only screen and (max-width: 725px) {
+    .chrono table {
+        width: 320px;
+        margin: 10px 0px 10px 0px;
+    }
+    .chrono td {
+        font-size: 25px;
+    }
+}
+.chrono tbody {
+    box-sizing: border-box;
+    flex-grow: 1;
+}
+
+.chrono thead tr:first-child {
+    background: #2792f2;
+    color: #fff;
+}
+
+.chrono th {
+    font-weight: 500;
+    border-top: 0px;
+}
+
+.chrono td {
+    font-family: Digital, sans-serif;
+    font-size: 50px;
+    line-height: 30px;
+}
+
+.chrono tbody tr:hover {
+    background-color: #f2f2f2;
+    cursor: default;
+}
+
 //DISPLAY VIEW
 
 .paper {
@@ -513,6 +569,14 @@ div.jQBracket .round {
     position: relative;
     background: linear-gradient(to right, #2792f2, #ff9500);
     padding: 5px;
+}
+@media only screen and (max-width: 725px) {
+    // FLEX ORDER
+
+    // jQBraquet (tools, finals, braquet, loser braquet
+    .module-border-wrap {
+        background: #fff;
+    }
 }
 
 .module {
