@@ -12,7 +12,6 @@ import { PunctuationUpdateComponent } from './punctuation-update.component';
 import { PunctuationDeletePopupComponent } from './punctuation-delete-dialog.component';
 import { IPunctuation } from 'app/shared/model/punctuation.model';
 
-
 @Injectable({ providedIn: 'root' })
 export class PunctuationResolve implements Resolve<IPunctuation> {
     constructor(private service: PunctuationService) {}
