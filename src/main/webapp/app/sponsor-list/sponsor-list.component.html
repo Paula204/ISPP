@@ -1,6 +1,6 @@
 <div>
     <h2>
-        <span id="user-management-page-heading" jhiTranslate="userManagement.home.title">Users</span>
+        <span id="user-management-page-heading" jhiTranslate="global.menu.entities.sponsors">Sponsors</span>
         <!--
         <button class="btn btn-primary float-right jh-create-entity" [routerLink]="['./new']">
             <fa-icon [icon]="'plus'"></fa-icon> <span jhiTranslate="userManagement.home.createLabel">Create a new User</span>
@@ -12,7 +12,7 @@
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-                <th jhiSortBy="login"><span jhiTranslate="userManagement.login">Login</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="login"><span jhiTranslate="global.form.username">Username</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th jhiSortBy="email"><span jhiTranslate="userManagement.email">Email</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th></th>
             </tr>
@@ -27,7 +27,7 @@
                                 [routerLink]="['/sponsor-list', user.login]"
                                 class="btn btn-info btn-sm">
                             <fa-icon [icon]="'eye'"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                            <span class="d-none d-md-inline" jhiTranslate="global.menu.entities.tournament">Torneos</span>
                         </button>
                     </div>
                 </td>

@@ -12,7 +12,7 @@
                 "tournamentmy": "Mis Torneos",
                 "game": "Juegos",
                 "participation": "Mis Participaciones",
-                "sponsorship": "Patrocinadores",
+                "sponsorship": "Patrocinios",
                 "promotion": "Promociones",
                 "paypalCompletedPayments": "Pagos",
                 "sponsors": "Patrocinadores",
@@ -214,5 +214,11 @@
         "cookie13": "Actualización",
         "cookie14": "Esta política se actualizará, por lo que dichas actualizaciones se publicarán en el sitio web. A partir de que pongamos en su conocimiento las nuevas condiciones mediante la publicación de las mismas en el sitio web se asume que se sustituyen por las publicadas anteriormente, por lo que es su responsabilidad acceder periódicamente a estas condiciones pulbicadas en el sitio web para conocer en todo momento la última versión."
     },
-    "contact": "Contacto"
+    "contact": "Contacto",
+    "crono": {
+        "crono": "Cronómetro",
+        "start": "Empezar",
+        "lapso": "Marca",
+        "stop": "Parar"
+    }
 }

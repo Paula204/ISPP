@@ -1,9 +1,10 @@
 </br>
 <div class="row justify-content-center">
-    <div class="col-8">
-        <div *ngIf="!currentAccount.authorities.includes('ROLE_SPONSOR') && !currentAccount.authorities.includes('ROLE_ADMIN')"  class="carousel-inner" >
+    <div class="col-12">
+        <div *ngIf="!currentAccount.authorities.includes('ROLE_SPONSOR') && !currentAccount.authorities.includes('ROLE_ADMIN')"  class="carousel-inner" 
+                style="max-height:120px; max-width: 720px">
             <div class="carousel-item active">
-                <a href="{{sponsorship.targetUrl}}"><img width = "100%" class="d-block img-responsive" src="{{sponsorship.banner}}"></a>
+                <a href="{{sponsorship.targetUrl}}"><img width="100%" class="d-block img-responsive" src="{{sponsorship.banner}}"></a>
             </div>
         </div>
     </div>
@@ -114,7 +115,7 @@
                             </button>
                             <div class="d-inline"  *ngIf="tournament.participations.length > 1 && tournament.meetingDate.isBefore(currentDate)">
                                 <button *ngIf="tournament.user.login==currentAccount.login && tournament.type === 'ELIMINATION' || currentAccount.authorities.includes('ROLE_ADMIN') && tournament.type === 'ELIMINATION'" type="submit"
-                                    [routerLink]="['/tournament', tournament.id, 'manage' ]"
+                                    [routerLink]="['/tournament', tournament.id, 'manager' ]"
                                     class="btn btn-info btn-sm">
                                     <fa-icon [icon]="'wrench'"></fa-icon>
                                     <span class="d-none d-md-inline" jhiTranslate="entity.action.manage">Manage</span>

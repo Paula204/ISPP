@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { ITournament, ITournamentForm, Tournament } from 'app/shared/model/tournament.model';
@@ -11,19 +11,28 @@ import { Account, AccountService } from 'app/core';
 import { IParticipation, Participation } from 'app/shared/model/participation.model';
 import { templateSourceUrl } from '@angular/compiler';
 import { Punctuation, IPunctuation } from 'app/shared/model/punctuation.model';
-import { PunctuationService } from 'app/entities/punctuation';
+import { PunctuationService, PunctuationTournamentComponent } from 'app/entities/punctuation';
+import { filter, map } from 'rxjs/operators';
+import { Sponsorship } from 'app/shared/model/sponsorship.model';
 // import * as $ from 'jquery';
 declare let $: any;
 
 @Component({
     selector: 'jhi-tournament-manage2',
     styles: [
-        ' .card{flex-direction: unset} .jh-card{flex-direction: unset} div.finals.round.match {height:0px;top:0} @media only screen and (min-width: 660px) {.card{ display: flex; justify-content: center}}'
+        'body{background-color: #fff} .card{flex-direction: unset} .jh-card{flex-direction: unset}' + ''
+        // ' .card{flex-direction: unset} .jh-card{flex-direction: unset} div.finals.round.match {height:0px;top:0} @media only screen and (min-width: 660px) {.card{ display: flex; justify-content: center}}'
     ],
     templateUrl: './tournament-manager.component.html',
     encapsulation: ViewEncapsulation.None
 })
-export class TournamentManagerComponent implements OnInit {
+export class TournamentManagerComponent implements OnInit, OnDestroy {
+    public hora: 0;
+    public minuto: 0;
+    public segundos: 0;
+    public collection: Array<any> = [];
+    public contador: any;
+
     tournament: ITournamentForm;
 
     currentAccount: Account;
@@ -44,8 +53,13 @@ export class TournamentManagerComponent implements OnInit {
         protected participationService: ParticipationService,
         protected punctuationService: PunctuationService
     ) {}
-
+    ngOnDestroy() {
+        window.location.reload();
+    }
     ngOnInit() {
+        this.hora = 0;
+        this.minuto = 0;
+        this.segundos = 0;
         this.activatedRoute.data.subscribe(({ tournament }) => {
             this.tournament = tournament;
         });
@@ -55,8 +69,87 @@ export class TournamentManagerComponent implements OnInit {
         this.currentDate = new Date();
         this.p = this.tournament.participations;
 
-        const teamsP = [];
+        // Use this inside your document ready jQuery
+        $(window).on('popstate', function() {
+            location.reload(true);
+        });
 
+        // ....
+        // Metodo completo para JQuery. Empieza a partir de aquí:
+        if (this.punctuations === undefined) {
+            this.punctuations = [];
+        }
+        // Obtenemos las puntuaciones
+        this.punctuationService
+            .getPunctuations(this.tournament.id)
+            .pipe(
+                filter((response: HttpResponse<IPunctuation[]>) => response.ok),
+                map((punctuation: HttpResponse<IPunctuation[]>) => punctuation.body)
+            )
+            .subscribe(value => (this.punctuations = value));
+        alert(this.punctuations.filter(x => x.points === 0).length);
+
+        // Vemos en que ronda está el torneo
+        let i = 0;
+        for (const punctuu of this.punctuations) {
+            if (punctuu.round > i) {
+                i = punctuu.round;
+            }
+        }
+
+        // Sacamos las puntuaciones de la última ronda
+        const nuevasPuntuaciones = [];
+        for (const necesario of this.punctuations) {
+            if (necesario.round === i) {
+                nuevasPuntuaciones.push(necesario);
+            }
+        }
+
+        // Ordenamos el array por su ronda y luego por índice
+        this.punctuations.sort(function(a, b) {
+            const aRound = a.round;
+            const bRound = b.round;
+            const aIndex = a.index;
+            const bIndex = b.index;
+            if (aRound === bRound) {
+                return aIndex > bIndex ? -1 : aIndex < bIndex ? 1 : 0;
+            } else {
+                return aRound < bRound ? -1 : 1;
+            }
+        });
+
+        // Creamos el array a mostrar por JQuery
+        const teamsP = [];
+        // Usuarios de la ronda
+        let userRonda = [];
+        let ronda = 0;
+        const indexT = 0;
+        // Aquí almacenaremos la ronda completa
+        let rondaCompleta = [];
+        while (ronda <= i) {
+            userRonda = [];
+            // Sacamos los user de la ronda
+            while (this.punctuations[indexT].round === ronda) {
+                userRonda.push(this.punctuations[indexT]);
+            }
+            ronda++;
+            const indice2 = 0;
+            rondaCompleta = [];
+            // Los agrupampos de dos en dos y lo metemos en ronda completa
+            while (indice2 < userRonda.length) {
+                if (indice2 === userRonda.length - 1) {
+                    rondaCompleta.push([this.punctuations[indice2], null]);
+                } else {
+                    rondaCompleta.push([this.punctuations[indice2], this.punctuations[indice2 + 1]]);
+                }
+            }
+            // Metemos la ronda completa en el array final que muestra JQuery
+            teamsP.push([rondaCompleta]);
+            ronda++;
+        }
+
+        // ANTIGUO METODO
+        /*
         if (this.p.length % 2 !== 0) {
             const participationPrueba = null;
             this.p.push(participationPrueba);
@@ -79,6 +172,7 @@ export class TournamentManagerComponent implements OnInit {
                 }
             }
         }
+        */
         const saveData = {
             teams: teamsP,
             results: []
@@ -131,5 +225,41 @@ export class TournamentManagerComponent implements OnInit {
 
     protected onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    start() {
+        if (this.contador === null || this.contador === undefined) {
+            this.contador = setInterval(() => {
+                this.segundos += 1;
+                if (this.segundos === 60) {
+                    this.minuto += 1;
+                    this.segundos = 0;
+                    if (this.minuto === 60) {
+                        this.hora += 1;
+                        this.minuto = 0;
+                        if (this.hora === 24) {
+                            this.hora = 0;
+                        }
+                    }
+                }
+            }, 1000);
+        }
+    }
+    lapso() {
+        //  this.horaLapso = this.hora;
+        //  this.minutoLapso = this.minuto;
+        //  this.segundoLapso = this.segundos;
+        const obj: any = {};
+        obj.hora = this.hora;
+        obj.minuto = this.minuto;
+        obj.segundos = this.segundos;
+        this.collection.push(obj);
+    }
+    stop() {
+        clearInterval(this.contador);
+        this.hora = 0;
+        this.minuto = 0;
+        this.segundos = 0;
+        this.contador = null;
     }
 }

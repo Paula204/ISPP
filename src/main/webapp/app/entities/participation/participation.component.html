@@ -1,3 +1,15 @@
+</br>
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="!currentAccount.authorities.includes('ROLE_SPONSOR') && !currentAccount.authorities.includes('ROLE_ADMIN')"  class="carousel-inner" 
+                style="max-height:120px; max-width: 720px">
+            <div class="carousel-item active">
+                <a href="{{sponsorship.targetUrl}}"><img width="100%" class="d-block img-responsive" src="{{sponsorship.banner}}"></a>
+            </div>
+        </div>
+    </div>
+</div>
+</br>
 <div>
     <h2 id="page-heading">
         <span jhiTranslate="thorneoApp.participation.home.title">Participations</span>
@@ -26,7 +38,7 @@
     </div>-->
     <br/>
     <div class="table-responsive" *ngIf="participations">
-        <table class="table table-striped">
+        <table class="table">
             <thead>
             <tr>
             <!--<th><span jhiTranslate="global.field.id">ID</span></th>-->
@@ -34,51 +46,25 @@
                 -->
                 <th><span jhiTranslate="thorneoApp.participation.tournament">Tournament</span></th>
                 <!--<th><span jhiTranslate="thorneoApp.participation.user">User</span></th>-->
-                <th><span jhiTranslate="thorneoApp.participation.punctuation">Punctuation</span></th>
-                <th></th>
-                </tr>
-                </thead>
-                <tbody>
+                <th><span jhiTranslate="thorneoApp.participation.admin">Administrator</span></th>
+                <th><span jhiTranslate="thorneoApp.tournament.meetingDate">Date</span></th>
+                <th><span jhiTranslate="thorneoApp.tournament.meetingPoint">Meeting point</span></th>
+            </tr>
+            </thead>
+            <tbody>
                 <tr *ngFor="let participation of participations ;trackBy: trackId">
-                    <!-- <td><a [routerLink]="['/participation', participation.id, 'view' ]">{{participation.id}}</a></td>-->
-                <!-- <td>{{participation.disqualify}}</td>-->
-                <!---->
-                <td *ngIf="participation.user.id==currentAccount.id">
-                    <div *ngIf="participation.tournament" >
-                        <a [routerLink]="['../tournament', participation.tournament?.id, 'view' ]" *ngIf="participation.user.id==currentAccount.id">{{participation.tournament?.title}}</a>
-                    </div>
-                </td>
-                    <!--<td>
-                        {{participation.user?.id}}
-                    </td>-->
-
-                    <td *ngIf="participation.user.id==currentAccount.id">{{participation.punctuation}}</td>
-                    <td *ngIf="participation.user.id==currentAccount.id" class="text-right">
-                        <div class="btn-group flex-btn-group-container">
-                            <button *ngIf="participation.user.id==currentAccount.id" type="submit"
-                                    [routerLink]="['/participation', participation.id, 'view' ]"
-                                    class="btn btn-info btn-sm">
-                                <fa-icon [icon]="'eye'"></fa-icon>
-                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
-                            </button>
-                            <!--<button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="submit"
-                                    [routerLink]="['/participation', participation.id, 'edit']"
-                                    class="btn btn-primary btn-sm">
-                                <fa-icon [icon]="'pencil-alt'"></fa-icon>
-                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
-                            </button>
-                            <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="submit"
-                                    [routerLink]="['/', 'participation', { outlets: { popup: participation.id + '/delete'} }]"
-                                    replaceUrl="true"
-                                    queryParamsHandling="merge"
-                                    class="btn btn-danger btn-sm">
-                                <fa-icon [icon]="'times'"></fa-icon>
-                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
-                            </button>-->
+                    <td *ngIf="participation.user.id==currentAccount.id">
+                        <div *ngIf="participation.tournament" >
+                            <a [routerLink]="['../tournament', participation.tournament?.id, 'view' ]" *ngIf="participation.user.id==currentAccount.id">{{participation.tournament?.title}}</a>
                         </div>
                     </td>
+                        <td *ngIf="participation.user.id==currentAccount.id">{{participation.tournament?.user.login}}</td>
+                        <td *ngIf="participation.user.id==currentAccount.id">{{participation.tournament?.meetingDate | date:'dd MM, yyyy'}}</td>
+                        <td *ngIf="participation.user.id==currentAccount.id">{{participation.tournament?.meetingPoint}}</td>
+                    </td>
                 </tr>
-                </tbody>
+            </tbody>
             </table>
         </div>
     </div>
+</div>
