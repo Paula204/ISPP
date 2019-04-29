@@ -1,24 +1,28 @@
 <div class="row justify-content-center">
-    <div class="col-8">
-        <div *ngIf="sponsorship">
-            <h2 class="text-center" ><h2 class=" d-inline" jhiTranslate="thorneoApp.sponsorship.detail.title"></h2><h2 class="d-inline"> {{sponsorship.id}}</h2></h2>
-            <hr>
-            <jhi-alert-error></jhi-alert-error>
-            <img class="img-fluid mx-auto d-block" width="200" height="auto" src="{{sponsorship.targetUrl}}"/>
-            <dl class="row-md jh-entity-details paper">
-                <div class="lines">
-                    <div class="texto" >
-                    <p class="bold" jhiTranslate="thorneoApp.sponsorship.banner">Banner</p><p>: <a href="{{sponsorship.banner}}">{{sponsorship.banner}}"</a></p>
-                    </br>             
-                    <p class="bold" jhiTranslate="thorneoApp.sponsorship.targetUrl">Target Url</p><p>: <a href="{{sponsorship.targetUrl}}">{{sponsorship.targetUrl}}</a></p>
-                    </br>
-                    </div>
-                </div>
-                <div class="holes hole-top"></div>
-                <div class="holes hole-middle"></div>
-                <div class="holes hole-bottom"></div>
-            </dl>
-
+        <div class="col-12">
+            <div *ngIf="sponsorship">
+                <jhi-alert-error></jhi-alert-error>
+                <table class="table detailTable" style="border: 2px solid #2792f2; margin: 25px auto; border-radius: 0.25rem;
+                border-collapse: separate;
+                border-spacing: 0;">
+                    <thead>
+                    <tr>
+                        <th colspan="2">
+                            <h2 class="text-center" ><h2 class=" d-inline" jhiTranslate="thorneoApp.sponsorship.detail.title"></h2><h2 class="d-inline"> {{sponsorship.id}}</h2></h2>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><p class="bold" jhiTranslate="thorneoApp.sponsorship.banner">Banner</p></td>
+                        <td><a href="{{sponsorship.banner}}">{{sponsorship.banner}}"</a></td>
+                    </tr>
+                    <tr>
+                        <td><p class="bold" jhiTranslate="thorneoApp.sponsorship.targetUrl">Target Url</p></td>
+                        <td><a href="{{sponsorship.targetUrl}}">{{sponsorship.targetUrl}}</a></td>
+                    </tr>
+                </tbody>
+            </table>
             <button type="submit"
                     (click)="previousState()"
                     class="btn btn-info">

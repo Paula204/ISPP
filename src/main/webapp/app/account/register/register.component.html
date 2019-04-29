@@ -1,10 +1,7 @@
 <div class="container">
     <div class="row">
-        <div class="col-md-5">
+        <div class="col-md-12">
             <h1 jhiTranslate="register.title" class="center">Registration</h1>
-            <div class="row">
-			<img class="img-user" src="/../../content/images/User_Avatar-512.png">		
-			</div>	
             <div class="alert alert-success" *ngIf="success" jhiTranslate="register.messages.success">
                 <strong>Registration saved!</strong> Please check your email for confirmation.
             </div>
@@ -24,8 +21,6 @@
             <div class="alert alert-danger" *ngIf="doNotMatch" jhiTranslate="global.messages.error.dontmatch">
                 The password and its confirmation do not match!
             </div>
-        </div>
-		<div class="col-md-5">
 			<form name="form" role="form" (ngSubmit)="register()" #registerForm="ngForm" *ngIf="!success">
                 <div class="form-group">
                     <label class="form-control-label" for="login" jhiTranslate="global.form.username">Username</label>
@@ -111,11 +106,8 @@
                         </small>
                     </div>
                 </div>
-
                 <button type="submit" [disabled]="registerForm.form.invalid" class="btn btn-primary" jhiTranslate="register.form.button">Register</button>
             </form>
 		</div>
-		<div class="col-md-2"></div>
-
     </div>
 </div>
