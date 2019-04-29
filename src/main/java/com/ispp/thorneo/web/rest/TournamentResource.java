@@ -3,8 +3,10 @@ package com.ispp.thorneo.web.rest;
 import com.ispp.thorneo.TournamentForm;
 import com.ispp.thorneo.domain.Authority;
 import com.ispp.thorneo.domain.Participation;
+import com.ispp.thorneo.domain.Punctuation;
 import com.ispp.thorneo.domain.Tournament;
 import com.ispp.thorneo.domain.User;
+import com.ispp.thorneo.service.PunctuationService;
 import com.ispp.thorneo.service.TournamentService;
 import com.ispp.thorneo.service.UserService;
 import com.ispp.thorneo.web.rest.errors.BadRequestAlertException;
@@ -44,6 +46,8 @@ public class TournamentResource {
     private final TournamentService tournamentService;
     
     private final UserService userService;
+
+    private PunctuationService punctuationService;
 
     public TournamentResource(TournamentService tournamentService, UserService userService){
         this.tournamentService = tournamentService;
@@ -228,4 +232,11 @@ public class TournamentResource {
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
+    
+    @GetMapping("/tournament/{id}/punctuation")
+    public List<Punctuation> getPunctuationsByTournaments(@RequestParam Long id){
+        log.debug("Busqueda de puntuaciones de torneo");
+        Integer round = this.punctuationService.getMaxRoundTournament(id);
+        return punctuationService.getPuntuationsByRoundAndTournament(round, id);
+    }
 }
