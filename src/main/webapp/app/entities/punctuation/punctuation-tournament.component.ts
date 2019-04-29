@@ -13,7 +13,7 @@ import { TournamentService } from 'app/entities/tournament';
 
 @Component({
     selector: 'jhi-punctuation',
-    templateUrl: './punctuation.component.html'
+    templateUrl: './punctuation-tournament.component.html'
 })
 export class PunctuationTournamentComponent implements OnInit, OnDestroy {
     punctuations: IPunctuation[];
@@ -23,6 +23,7 @@ export class PunctuationTournamentComponent implements OnInit, OnDestroy {
     tournament: ITournamentForm;
     route: string;
     idTorneo: number;
+    temp: IPunctuation[];
 
     constructor(
         protected punctuationService: PunctuationService,
@@ -38,6 +39,9 @@ export class PunctuationTournamentComponent implements OnInit, OnDestroy {
         console.log('Punctuation-tournament.component');
         const res = activatedRoute.snapshot.url.length;
         this.route = activatedRoute.snapshot.url[res - 2].toString();
+        this.tournamenService.find(+this.route).subscribe(tournament => {
+            this.tournament = tournament.body;
+        });
     }
 
     loadAll() {
@@ -61,7 +65,7 @@ export class PunctuationTournamentComponent implements OnInit, OnDestroy {
             )
             .subscribe(
                 (res: IPunctuation[]) => {
-                    this.punctuations = res;
+                    this.temp = res;
                     this.currentSearch = '';
                 },
                 (res: HttpErrorResponse) => this.onError(res.message)
@@ -69,16 +73,13 @@ export class PunctuationTournamentComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.punctuationService
-            .getPunctuations(+this.route)
-            .pipe(
-                filter((res: HttpResponse<IPunctuation[]>) => res.ok),
-                map((res: HttpResponse<IPunctuation[]>) => res.body)
-            )
-            .subscribe((res: IPunctuation[]) => {
-                this.punctuations = res;
-                this.currentSearch = '';
-            });
+        this.loadAll();
+        this.punctuations = [];
+        for (const i of this.temp) {
+            if (i.tournament.id === this.tournament.id) {
+                this.punctuations.push(i);
+            }
+        }
         this.accountService.identity().then(account => {
             this.currentAccount = account;
         });

@@ -76,7 +76,7 @@ export const punctuationRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: ':id/tournament',
+        path: ':id/test',
         component: PunctuationTournamentComponent,
         resolve: {
             punctuation: PunctuationResolve
