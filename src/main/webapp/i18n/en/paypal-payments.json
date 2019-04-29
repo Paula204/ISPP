@@ -1,6 +1,8 @@
 {
     "paypal-payments": {
         "title": "Inscription",
-        "premium": "Premium"
+        "premium": "Premium",
+        "refresh": "Paypal button is loading (if it's too long, refresh (F5))",
+        "completed": "Transaction completed"
     }
 }
