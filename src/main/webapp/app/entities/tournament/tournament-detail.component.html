@@ -1,9 +1,10 @@
 </br>
 <div class="row justify-content-center">
-    <div class="col-8">
-        <div *ngIf="!currentAccount.authorities.includes('ROLE_SPONSOR') && !currentAccount.authorities.includes('ROLE_ADMIN')"  class="carousel-inner" >
+    <div class="col-12">
+        <div *ngIf="!currentAccount.authorities.includes('ROLE_SPONSOR') && !currentAccount.authorities.includes('ROLE_ADMIN')"  class="carousel-inner" 
+                style="max-height:120px; max-width: 720px">
             <div class="carousel-item active">
-                <a href="{{sponsorship.targetUrl}}"><img width = "100%" class="d-block img-responsive" src="{{sponsorship.banner}}"></a>
+                <a href="{{sponsorship.targetUrl}}"><img width="100%" class="d-block img-responsive" src="{{sponsorship.banner}}"></a>
             </div>
         </div>
     </div>
@@ -75,7 +76,7 @@
                 <div class="holes hole-middle"></div>
                 <div class="holes hole-bottom"></div>
             </dl>
-
+            <jhi-alert-error></jhi-alert-error>
             <button type="submit"
                     (click)="previousState()"
                     class="btn btn-info">
@@ -102,7 +103,7 @@
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.manage">Manage</span>
                         </button></ng-template>
                 </div>
-            <button *ngIf="tournament.winner == null && tournament.user.login != currentAccount.login && tournament.participations.length < tournament.playerSize" type="submit"
+            <button *ngIf="tournament.winner == null && tournament.user.login != currentAccount.login && tournament.participations.length < tournament.playerSize && estaEn!=false" type="submit"
                     (click)="signOn()"
                     class="btn btn-primary green-background">
                 <fa-icon [icon]="'arrow-right'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.signOn"> Sign On</span>
@@ -117,10 +118,11 @@
 </div>
 </br>
 <div class="row justify-content-center">
-    <div class="col-8">
-        <div *ngIf="!currentAccount.authorities.includes('ROLE_SPONSOR') && !currentAccount.authorities.includes('ROLE_ADMIN')"  class="carousel-inner" >
+    <div class="col-12">
+        <div *ngIf="!currentAccount.authorities.includes('ROLE_SPONSOR') && !currentAccount.authorities.includes('ROLE_ADMIN')"  class="carousel-inner" 
+                style="max-height:120px; max-width: 720px">
             <div class="carousel-item active">
-                <a href="{{sponsorship.targetUrl}}"><img class="d-block w-100" src="{{sponsorship.banner}}"></a>
+                <a href="{{sponsorship.targetUrl}}"><img width="100%" class="d-block img-responsive" src="{{sponsorship.banner}}"></a>
             </div>
         </div>
     </div>
