@@ -74,18 +74,6 @@ export const punctuationRoute: Routes = [
             pageTitle: 'thorneoApp.punctuation.home.title'
         },
         canActivate: [UserRouteAccessService]
-    },
-    {
-        path: ':id/tournament',
-        component: PunctuationTournamentComponent,
-        resolve: {
-            punctuation: PunctuationResolve
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'thorneoApp.punctuation.home.title'
-        },
-        canActivate: [UserRouteAccessService]
     }
 ];
 
