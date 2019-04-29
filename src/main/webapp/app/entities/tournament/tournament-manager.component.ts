@@ -11,7 +11,9 @@ import { Account, AccountService } from 'app/core';
 import { IParticipation, Participation } from 'app/shared/model/participation.model';
 import { templateSourceUrl } from '@angular/compiler';
 import { Punctuation, IPunctuation } from 'app/shared/model/punctuation.model';
-import { PunctuationService } from 'app/entities/punctuation';
+import { PunctuationService, PunctuationTournamentComponent } from 'app/entities/punctuation';
+import { filter, map } from 'rxjs/operators';
+import { Sponsorship } from 'app/shared/model/sponsorship.model';
 // import * as $ from 'jquery';
 declare let $: any;
 
@@ -67,11 +69,87 @@ export class TournamentManagerComponent implements OnInit, OnDestroy {
         this.currentDate = new Date();
         this.p = this.tournament.participations;
 
-        const teamsP = [];
         // Use this inside your document ready jQuery
         $(window).on('popstate', function() {
             location.reload(true);
         });
+
+        // ....
+        // Metodo completo para JQuery. Empieza a partir de aquí:
+        if (this.punctuations === undefined) {
+            this.punctuations = [];
+        }
+        // Obtenemos las puntuaciones
+        this.punctuationService
+            .getPunctuations(this.tournament.id)
+            .pipe(
+                filter((response: HttpResponse<IPunctuation[]>) => response.ok),
+                map((punctuation: HttpResponse<IPunctuation[]>) => punctuation.body)
+            )
+            .subscribe(value => (this.punctuations = value));
+        alert(this.punctuations.filter(x => x.points === 0).length);
+
+        // Vemos en que ronda está el torneo
+        let i = 0;
+        for (const punctuu of this.punctuations) {
+            if (punctuu.round > i) {
+                i = punctuu.round;
+            }
+        }
+
+        // Sacamos las puntuaciones de la última ronda
+        const nuevasPuntuaciones = [];
+        for (const necesario of this.punctuations) {
+            if (necesario.round === i) {
+                nuevasPuntuaciones.push(necesario);
+            }
+        }
+
+        // Ordenamos el array por su ronda y luego por índice
+        this.punctuations.sort(function(a, b) {
+            const aRound = a.round;
+            const bRound = b.round;
+            const aIndex = a.index;
+            const bIndex = b.index;
+            if (aRound === bRound) {
+                return aIndex > bIndex ? -1 : aIndex < bIndex ? 1 : 0;
+            } else {
+                return aRound < bRound ? -1 : 1;
+            }
+        });
+
+        // Creamos el array a mostrar por JQuery
+        const teamsP = [];
+        // Usuarios de la ronda
+        let userRonda = [];
+        let ronda = 0;
+        const indexT = 0;
+        // Aquí almacenaremos la ronda completa
+        let rondaCompleta = [];
+        while (ronda <= i) {
+            userRonda = [];
+            // Sacamos los user de la ronda
+            while (this.punctuations[indexT].round === ronda) {
+                userRonda.push(this.punctuations[indexT]);
+            }
+            ronda++;
+            const indice2 = 0;
+            rondaCompleta = [];
+            // Los agrupampos de dos en dos y lo metemos en ronda completa
+            while (indice2 < userRonda.length) {
+                if (indice2 === userRonda.length - 1) {
+                    rondaCompleta.push([this.punctuations[indice2], null]);
+                } else {
+                    rondaCompleta.push([this.punctuations[indice2], this.punctuations[indice2 + 1]]);
+                }
+            }
+            // Metemos la ronda completa en el array final que muestra JQuery
+            teamsP.push([rondaCompleta]);
+            ronda++;
+        }
+
+        // ANTIGUO METODO
+        /*
         if (this.p.length % 2 !== 0) {
             const participationPrueba = null;
             this.p.push(participationPrueba);
@@ -94,6 +172,7 @@ export class TournamentManagerComponent implements OnInit, OnDestroy {
                 }
             }
         }
+        */
         const saveData = {
             teams: teamsP,
             results: []
