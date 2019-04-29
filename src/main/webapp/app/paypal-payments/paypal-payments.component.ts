@@ -10,6 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
 import { TournamentService } from 'app/entities/tournament';
 import { ITournament, Tournament } from 'app/shared/model/tournament.model';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 
 declare let paypal: any;
 
@@ -39,7 +40,8 @@ export class PaypalPaymentsComponent implements OnInit, AfterViewChecked {
         protected accountService: AccountService,
         protected activatedRoute: ActivatedRoute,
         protected tournamentService: TournamentService,
-        private router: Router
+        private router: Router,
+        protected translateService: TranslateService
     ) {
         this.activatedRoute.queryParams.subscribe(params => {
             this.idTorneo = params['idTorneo'];
@@ -117,7 +119,8 @@ export class PaypalPaymentsComponent implements OnInit, AfterViewChecked {
                             // Capture the funds from the transaction
                             actions.order.capture().then(function(details) {
                                 // Show a success message to your buyer
-                                alert('Transaction completed');
+                                // alert('Transaction completed');
+
                                 // by ' + details.payer.name.given_name
                                 _this.isSaving = true;
                                 _this.paypalPayment.date = moment();
@@ -147,6 +150,7 @@ export class PaypalPaymentsComponent implements OnInit, AfterViewChecked {
                                     this.pagoTorneo = true;
                                 }
                             });
+                            this.router.navigate(['./law']);
                         }
                     })
                     .render('#paypal-checkout-btn');
