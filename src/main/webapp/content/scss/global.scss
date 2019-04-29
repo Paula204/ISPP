@@ -376,6 +376,44 @@ ui bootstrap tweaks
 }
 /* jhipster-needle-scss-add-global JHipster will add new css style */
 
+//Details table
+
+.detailTable table {
+    text-align: center;
+    line-height: 10px;
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+    border: 2px solid #2792f2;
+    margin: 25px auto;
+    border-radius: 0.25rem;
+    flex-wrap: wrap;
+}
+
+.detailTable tbody {
+    box-sizing: border-box;
+    flex-grow: 1;
+}
+
+.detailTable thead tr:first-child {
+    background: #2792f2;
+    color: #fff;
+}
+
+.detailTable th {
+    font-weight: 500;
+    border-top: 0px;
+}
+
+.detailTable td {
+    line-height: 30px;
+}
+
+.detailTable tbody tr:hover {
+    background-color: #f2f2f2;
+    cursor: default;
+}
+
 //CHRONO
 .chrono {
 }
