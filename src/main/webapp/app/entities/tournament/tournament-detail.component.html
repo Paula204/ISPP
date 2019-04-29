@@ -13,69 +13,109 @@
 <div class="row justify-content-center">
     <div class="col-12">
         <div *ngIf="tournament">
-            <h2 class="text-center">{{tournament.title}}</h2>
-            <hr>
             <jhi-alert-error></jhi-alert-error>
             <img class="img-fluid mx-auto d-block" width="200" height="auto" src="{{tournament.imageUrl}}"/>
-            <dl class="row-md jh-entity-details paper">
-                <div class="lines">
-                    <div class="texto" >
-                        <p class="bold" jhiTranslate="thorneoApp.tournament.description">Description</p><p> {{tournament.description}}</p>
-                        </br>
-                        <p class="bold" jhiTranslate="thorneoApp.tournament.meetingDate">Meeting Date</p><p> {{tournament.meetingDate}}</p>
-                        </br>
-                        <p class="bold" jhiTranslate="thorneoApp.tournament.meetingPoint">Meeting Point</p><p> {{tournament.meetingPoint}}</p>
-                        </br>
-                        <p class="bold" jhiTranslate="thorneoApp.tournament.city">City</p><p> {{tournament.city}}</p>
-                        </br>
-                        <p class="bold"jhiTranslate="thorneoApp.tournament.price">Price</p><p> {{tournament.price}}</p><!-- Habria que poner un if notnull se muestra -->
-                        </br>
-                        <p class="bold" jhiTranslate="thorneoApp.tournament.playerSize">Player Size</p><p> {{tournament.playerSize}}</p>
-                        </br>
-                        <p class="bold" jhiTranslate="thorneoApp.tournament.rewards">Rewards</p><p> {{tournament.rewards}}</p>
-                        </br>
-                        <p class="bold"jhiTranslate="thorneoApp.tournament.type">Type</p><p jhiTranslate="{{'thorneoApp.Type.' + tournament.type}}">{{tournament.type}}</p>
-                        </br>
-                        <p  class="bold"jhiTranslate="thorneoApp.tournament.user">User</p><p>{{tournament.user?.login}}</p>
-                        </br>
-                        <p  class="bold"jhiTranslate="thorneoApp.tournament.game">Game</p>
-                        <span *ngIf="tournament.game">
-                            <a [routerLink]="['/game', tournament.game?.id, 'view']">{{tournament.game?.title}}</a>
-                        </span>
-                        </br>
-                        </br>
-                        <p class="bold" jhiTranslate="thorneoApp.tournament.participation">Participants</p>
-                        <ul>
-                            <li *ngFor="let participation of tournament.participations" class="mt-1">
-                                {{participation.user.login}}
-                               <!-- <button *ngIf="currentAccount.login == tournament.user.login && tournament.type == 'ELIMINATION'" type="submit"
-                                        (click)="disqualify(participation.id)"
-                                        class="btn btn-sm btn-danger">
-                                    <span jhiTranslate="thorneoApp.tournament.disqualify">Disqualify</span>
-                                </button> -->
-                                <button *ngIf="currentAccount.login == tournament.user.login && tournament.type == 'POINT'" type="submit"
-                                        (click)="win(participation.id)"
-                                        class="btn btn-sm btn-primary">
-                                    <span jhiTranslate="thorneoApp.tournament.win">Win</span>
-                                </button>
-                                <button *ngIf="currentAccount.login == tournament.user.login && tournament.type == 'POINT'" type="submit"
-                                        (click)="tie(participation.id)"
-                                        class="btn btn-sm btn-danger">
-                                    <span jhiTranslate="thorneoApp.tournament.tie">Tie</span>
-                                </button>
-                            </li>
-                        </ul>
-                        <!--
-                        <qrcode qrdata="http://localhost:9000/#/tournament/24/view" size="256" level="M"></qrcode>
-                        -->
-                        <span *ngIf="tournament.winner != null"><p class="bold" jhiTranslate="thorneoApp.tournament.winner"><p>: </p> Winner</span>
-                        <span *ngIf="tournament.winner != null"><p>{{tournament.winner}}</p></span>
-                    </div>
-                </div>
-                <div class="holes hole-top"></div>
-                <div class="holes hole-middle"></div>
-                <div class="holes hole-bottom"></div>
-            </dl>
+
+            <div class="row-md jh-entity-details">
+                <table class="table detailTable" style="border: 2px solid #2792f2; margin: 25px auto; border-radius: 0.25rem;
+                border-collapse: separate;
+                border-spacing: 0;">
+                  <thead>
+                    <tr>
+                      <th colspan="2">
+                        <h2 class="text-center">{{tournament.title}}</h2>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                        <td><p class="bold" jhiTranslate="thorneoApp.tournament.description">Description</p></td>
+                        <td><p> {{tournament.description}}</p></td>
+                    </tr>
+                    <tr>
+                        <td><p class="bold" jhiTranslate="thorneoApp.tournament.meetingDate">Meeting Date</p></td>
+                        <td><p> {{tournament.meetingDate}}</p></td>
+                    </tr>
+                    <tr>
+                        <td><p class="bold" jhiTranslate="thorneoApp.tournament.meetingPoint">Meeting Point</p></td>
+                        <td><p> {{tournament.meetingPoint}}</p></td>
+                    </tr>
+                    <tr>
+                        <td><p class="bold" jhiTranslate="thorneoApp.tournament.city">City</p></td>
+                        <td><p> {{tournament.city}}</p> </td>
+                    </tr>
+                    <tr>
+                        <td><p class="bold"jhiTranslate="thorneoApp.tournament.price">Price</p></td>
+                        <td><p> {{tournament.price}}</p></td>
+                    </tr>
+                    <tr>
+                        <td><p class="bold" jhiTranslate="thorneoApp.tournament.playerSize">Player Size</p></td>
+                        <td><p>{{tournament.playerSize}}</p></td>
+                    </tr>
+                    <tr>
+                        <td><p class="bold" jhiTranslate="thorneoApp.tournament.rewards">Rewards</p></td>
+                        <td><p> {{tournament.rewards}}</p></td>
+                    </tr>
+                    <tr>
+                        <td><p class="bold"jhiTranslate="thorneoApp.tournament.type">Type</p></td>
+                        <td><p jhiTranslate="{{'thorneoApp.Type.' + tournament.type}}">{{tournament.type}}</p></td>
+                    </tr>
+                    <tr>
+                        <td><p  class="bold"jhiTranslate="thorneoApp.tournament.user">User</p></td>
+                        <td><p>{{tournament.user?.login}}</p></td>
+                    </tr>
+                    <tr>
+                        <td><p  class="bold"jhiTranslate="thorneoApp.tournament.game">Game</p></td>
+                        <td>
+                            <span *ngIf="tournament.game">
+                                <a [routerLink]="['/game', tournament.game?.id, 'view']">{{tournament.game?.title}}</a>
+                            </span>
+                        </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <table class="table detailTable" style="border: 2px solid #2792f2; margin: 25px auto; border-radius: 0.25rem;
+                border-collapse: separate;
+                border-spacing: 0;">
+                <thead>
+                    <tr>
+                        <th colspan="3"><h2 class="text-center" jhiTranslate="thorneoApp.tournament.participation">Participants</h2></th>
+                    </tr>
+                </thead>
+                    <tr *ngFor="let participation of tournament.participations">
+                        <td>{{participation.user.login}}</td>
+                        <td>{{participation.user.firstName}}</td>
+                        <td>{{participation.user.lastName}}</td>
+                    </tr>
+                    <tr>
+                        <td><span class="bold" jhiTranslate="thorneoApp.tournament.winner">Winner</span></td>
+                        <td><span>{{tournament.winner}}</span></td>
+                    </tr>
+                </table>
+                <!--
+                <ul>
+                    <li *ngFor="let participation of tournament.participations" class="mt-1">
+                        {{participation.user.login}}
+                        <button *ngIf="currentAccount.login == tournament.user.login && tournament.type == 'ELIMINATION'" type="submit"
+                                (click)="disqualify(participation.id)"
+                                class="btn btn-sm btn-danger">
+                            <span jhiTranslate="thorneoApp.tournament.disqualify">Disqualify</span>
+                        </button> 
+                        <button *ngIf="currentAccount.login == tournament.user.login && tournament.type == 'POINT'" type="submit"
+                                (click)="win(participation.id)"
+                                class="btn btn-sm btn-primary">
+                            <span jhiTranslate="thorneoApp.tournament.win">Win</span>
+                        </button>
+                        <button *ngIf="currentAccount.login == tournament.user.login && tournament.type == 'POINT'" type="submit"
+                                (click)="tie(participation.id)"
+                                class="btn btn-sm btn-danger">
+                            <span jhiTranslate="thorneoApp.tournament.tie">Tie</span>
+                        </button>
+                    </li>
+                </ul>
+                
+                <qrcode qrdata="http://localhost:9000/#/tournament/24/view" size="256" level="M"></qrcode>
+                -->
             <jhi-alert-error></jhi-alert-error>
             <button type="submit"
                     (click)="previousState()"
@@ -103,7 +143,7 @@
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.manage">Manage</span>
                         </button></ng-template>
                 </div>
-            <button *ngIf="tournament.winner == null && tournament.user.login != currentAccount.login && tournament.participations.length < tournament.playerSize" type="submit"
+            <button *ngIf="tournament.winner == null && tournament.user.login != currentAccount.login && tournament.participations.length < tournament.playerSize && estaEn!=false" type="submit"
                     (click)="signOn()"
                     class="btn btn-primary green-background">
                 <fa-icon [icon]="'arrow-right'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.signOn"> Sign On</span>

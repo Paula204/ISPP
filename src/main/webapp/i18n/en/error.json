@@ -20,6 +20,7 @@
         "currentRole": "You've this role assign",
         "notRole": "You doesn't have this role",
         "too.many.players": "The participants has reached the tournament limit",
-        "notFound": "Not found"
+        "notFound": "Not found",
+        "dateAfter": "You cannot unsuscribe to this tournament before meeting date"
     }
 }

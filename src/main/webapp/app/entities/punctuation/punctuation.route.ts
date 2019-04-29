@@ -11,7 +11,6 @@ import { PunctuationDetailComponent } from './punctuation-detail.component';
 import { PunctuationUpdateComponent } from './punctuation-update.component';
 import { PunctuationDeletePopupComponent } from './punctuation-delete-dialog.component';
 import { IPunctuation } from 'app/shared/model/punctuation.model';
-import { PunctuationTournamentComponent } from '../tournament/punctuation-tournament.component';
 
 @Injectable({ providedIn: 'root' })
 export class PunctuationResolve implements Resolve<IPunctuation> {
