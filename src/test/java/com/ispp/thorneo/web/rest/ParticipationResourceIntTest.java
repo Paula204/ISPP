@@ -7,6 +7,7 @@ import com.ispp.thorneo.domain.User;
 import com.ispp.thorneo.repository.ParticipationRepository;
 import com.ispp.thorneo.repository.search.ParticipationSearchRepository;
 import com.ispp.thorneo.service.ParticipationService;
+import com.ispp.thorneo.service.UserService;
 import com.ispp.thorneo.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -61,6 +62,9 @@ public class ParticipationResourceIntTest {
     @Autowired
     private ParticipationService participationService;
 
+    @Autowired
+    private UserService userService;
+
     /**
      * This repository is mocked in the com.ispp.thorneo.repository.search test package.
      *
@@ -91,7 +95,7 @@ public class ParticipationResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final ParticipationResource participationResource = new ParticipationResource(participationService);
+        final ParticipationResource participationResource = new ParticipationResource(participationService, userService);
         this.restParticipationMockMvc = MockMvcBuilders.standaloneSetup(participationResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -203,61 +207,6 @@ public class ParticipationResourceIntTest {
         // Get the participation
         restParticipationMockMvc.perform(get("/api/participations/{id}", Long.MAX_VALUE))
             .andExpect(status().isNotFound());
-    }
-
-    @Test
-    @Transactional
-    public void updateParticipation() throws Exception {
-        // Initialize the database
-        participationService.save(participation);
-        // As the test used the service layer, reset the Elasticsearch mock repository
-        reset(mockParticipationSearchRepository);
-
-        int databaseSizeBeforeUpdate = participationRepository.findAll().size();
-
-        // Update the participation
-        Participation updatedParticipation = participationRepository.findById(participation.getId()).get();
-        // Disconnect from session so that the updates on updatedParticipation are not directly saved in db
-        em.detach(updatedParticipation);
-        updatedParticipation
-            .disqualify(UPDATED_DISQUALIFY)
-            .punctuation(UPDATED_PUNCTUATION);
-        User user = participation.getUser();
-        SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
-        securityContext.setAuthentication(new UsernamePasswordAuthenticationToken(user.getLogin(), user.getPassword()));
-        SecurityContextHolder.setContext(securityContext);
-        this.participationService.updateParticipation(updatedParticipation);
-
-        // Validate the Participation in the database
-        List<Participation> participationList = participationRepository.findAll();
-        assertThat(participationList).hasSize(databaseSizeBeforeUpdate);
-        Participation testParticipation = participationList.get(participationList.size() - 1);
-        assertThat(testParticipation.isDisqualify()).isEqualTo(UPDATED_DISQUALIFY);
-        assertThat(testParticipation.getPunctuation()).isEqualTo(UPDATED_PUNCTUATION);
-
-        // Validate the Participation in Elasticsearch
-        verify(mockParticipationSearchRepository, times(1)).save(testParticipation);
-    }
-
-    @Test
-    @Transactional
-    public void updateNonExistingParticipation() throws Exception {
-        int databaseSizeBeforeUpdate = participationRepository.findAll().size();
-
-        // Create the Participation
-
-        // If the entity doesn't have an ID, it will throw BadRequestAlertException
-        restParticipationMockMvc.perform(put("/api/participations")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(participation)))
-            .andExpect(status().isBadRequest());
-
-        // Validate the Participation in the database
-        List<Participation> participationList = participationRepository.findAll();
-        assertThat(participationList).hasSize(databaseSizeBeforeUpdate);
-
-        // Validate the Participation in Elasticsearch
-        verify(mockParticipationSearchRepository, times(0)).save(participation);
     }
 
     @Test
