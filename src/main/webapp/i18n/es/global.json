@@ -217,8 +217,9 @@
     "contact": "Contacto",
     "crono": {
         "crono": "Cronómetro",
-        "start": "Empezar",
+        "start": "Empezar/Continuar",
         "lapso": "Marca",
-        "stop": "Parar"
+        "stop": "Parar",
+        "pause": "Pausar"
     }
 }

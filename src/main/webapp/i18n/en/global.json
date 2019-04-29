@@ -174,8 +174,9 @@
     "contact": "Contact",
     "crono": {
         "crono": "Chronometer",
-        "start": "Start",
+        "start": "Start/Continue",
         "lapso": "Lapso",
-        "stop": "Stop"
+        "stop": "Stop",
+        "pause": "Pause"
     }
 }

@@ -32,6 +32,7 @@ export class TournamentManagerComponent implements OnInit, OnDestroy {
     public segundos: 0;
     public collection: Array<any> = [];
     public contador: any;
+    public reinicio: Array<any> = [];
 
     tournament: ITournamentForm;
 
@@ -228,6 +229,29 @@ export class TournamentManagerComponent implements OnInit, OnDestroy {
     }
 
     start() {
+        if (this.reinicio !== null) {
+            if (this.reinicio.length === 3) {
+                this.hora = this.reinicio[0];
+                this.minuto = this.reinicio[1];
+                this.segundos = this.reinicio[2];
+
+                this.contador = setInterval(() => {
+                    this.segundos += 1;
+                    if (this.segundos === 60) {
+                        this.minuto += 1;
+                        this.segundos = 0;
+                        if (this.minuto === 60) {
+                            this.hora += 1;
+                            this.minuto = 0;
+                            if (this.hora === 24) {
+                                this.hora = 0;
+                            }
+                        }
+                    }
+                }, 1000);
+                this.reinicio = [];
+            }
+        }
         if (this.contador === null || this.contador === undefined) {
             this.contador = setInterval(() => {
                 this.segundos += 1;
@@ -261,5 +285,13 @@ export class TournamentManagerComponent implements OnInit, OnDestroy {
         this.minuto = 0;
         this.segundos = 0;
         this.contador = null;
+    }
+
+    pause() {
+        this.reinicio = [];
+        this.reinicio[0] = this.hora;
+        this.reinicio[1] = this.minuto;
+        this.reinicio[2] = this.segundos;
+        clearInterval(this.contador);
     }
 }
