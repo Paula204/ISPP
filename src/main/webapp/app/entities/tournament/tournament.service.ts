@@ -90,6 +90,12 @@ export class TournamentService {
         return res;
     }
 
+    getAllPunctuations(id: number): Observable<HttpResponse<IPunctuation[]>> {
+        const res = this.http.get<IPunctuation[]>(this.resourceUrl + '/' + id + '/manager', { observe: 'response' });
+        console.log(res);
+        return res;
+    }
+
     protected convertDateFromClient(tournament: ITournament): ITournament {
         const copy: ITournament = Object.assign({}, tournament, {
             meetingDate: tournament.meetingDate != null && tournament.meetingDate.isValid() ? tournament.meetingDate.toJSON() : null

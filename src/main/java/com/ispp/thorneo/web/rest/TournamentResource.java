@@ -242,4 +242,12 @@ public class TournamentResource {
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "api/tournament/{id}/punctuation");
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
+
+    @GetMapping("/tournaments/{id}/manager")
+    public ResponseEntity<List<Punctuation>> getAllPunctuationsByTournament(@PathVariable Long id){
+        log.debug("Busqueda de puntuaciones de torneo");
+        Page<Punctuation> page = new PageImpl<>(punctuationService.getPunctuationsByTournament(id));
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "api/tournament/{id}/manager");
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
 }

@@ -44,6 +44,7 @@ export class TournamentManagerComponent implements OnInit, OnDestroy {
     l: number;
     participation: Participation;
     punctuations: IPunctuation[];
+    route: string;
 
     constructor(
         protected jhiAlertService: JhiAlertService,
@@ -52,7 +53,13 @@ export class TournamentManagerComponent implements OnInit, OnDestroy {
         protected tournamentService: TournamentService,
         protected participationService: ParticipationService,
         protected punctuationService: PunctuationService
-    ) {}
+    ) {
+        const res = activatedRoute.snapshot.url.length;
+        this.route = activatedRoute.snapshot.url[res - 2].toString();
+        this.tournamentService.find(+this.route).subscribe(tournament => {
+            this.tournament = tournament.body;
+        });
+    }
     ngOnDestroy() {
         window.location.reload();
     }
@@ -80,14 +87,10 @@ export class TournamentManagerComponent implements OnInit, OnDestroy {
             this.punctuations = [];
         }
         // Obtenemos las puntuaciones
-        this.punctuationService
-            .getPunctuations(this.tournament.id)
-            .pipe(
-                filter((response: HttpResponse<IPunctuation[]>) => response.ok),
-                map((punctuation: HttpResponse<IPunctuation[]>) => punctuation.body)
-            )
-            .subscribe(value => (this.punctuations = value));
-        alert(this.punctuations.filter(x => x.points === 0).length);
+        this.tournamentService.getAllPunctuations(+this.route).subscribe(punctuations => {
+            this.punctuations = punctuations.body;
+        });
+        alert(this.punctuations.length);
 
         // Vemos en que ronda está el torneo
         let i = 0;
