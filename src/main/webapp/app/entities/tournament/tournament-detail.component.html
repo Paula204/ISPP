@@ -13,8 +13,6 @@
 <div class="row justify-content-center">
     <div class="col-12">
         <div *ngIf="tournament">
-            
-            <hr>
             <jhi-alert-error></jhi-alert-error>
             <img class="img-fluid mx-auto d-block" width="200" height="auto" src="{{tournament.imageUrl}}"/>
 
@@ -84,15 +82,23 @@
                         <th colspan="3"><h2 class="text-center" jhiTranslate="thorneoApp.tournament.participation">Participants</h2></th>
                     </tr>
                 </thead>
+                <tbody>
                     <tr *ngFor="let participation of tournament.participations">
                         <td>{{participation.user.login}}</td>
                         <td>{{participation.user.firstName}}</td>
                         <td>{{participation.user.lastName}}</td>
                     </tr>
+                </tbody>
+                    <thead>
+                        <tr>
+                            <th colspan="3"> <h2 class="text-center" jhiTranslate="thorneoApp.tournament.winner">Winner</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                     <tr>
-                        <td><span class="bold" jhiTranslate="thorneoApp.tournament.winner">Winner</span></td>
                         <td><span>{{tournament.winner}}</span></td>
                     </tr>
+                    </tbody>
                 </table>
                 <!--
                 <ul>
@@ -145,7 +151,7 @@
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.manage">Manage</span>
                         </button></ng-template>
                 </div>
-            <button *ngIf="tournament.winner == null && tournament.user.login != currentAccount.login && tournament.participations.length < tournament.playerSize" type="submit"
+            <button *ngIf="tournament.winner == null && tournament.user.login != currentAccount.login && tournament.participations.length < tournament.playerSize && estaEn!=false" type="submit"
                     (click)="signOn()"
                     class="btn btn-primary green-background">
                 <fa-icon [icon]="'arrow-right'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.signOn"> Sign On</span>

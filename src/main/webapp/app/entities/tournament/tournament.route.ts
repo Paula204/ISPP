@@ -12,6 +12,7 @@ import { TournamentMyComponent } from './tournament-my.component';
 import { TournamentDetailComponent } from './tournament-detail.component';
 import { TournamentManageComponent } from './tournament-manage.component';
 import { TournamentManageGroupComponent } from './tournament-manage-group.component';
+import { PunctuationTournamentComponent } from './punctuation-tournament.component';
 
 import { TournamentUpdateComponent } from './tournament-update.component';
 import { TournamentDeletePopupComponent } from './tournament-delete-dialog.component';
@@ -130,6 +131,18 @@ export const tournamentRoute: Routes = [
         data: {
             authorities: ['ROLE_USER', 'ROLE_ADMIN'],
             pageTitle: 'thorneoApp.tournament.home.title'
+        },
+        canActivate: [UserRouteAccessService]
+    },
+    {
+        path: ':id/punctuation',
+        component: PunctuationTournamentComponent,
+        resolve: {
+            punctuation: TournamentResolve
+        },
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'thorneoApp.punctuation.home.title'
         },
         canActivate: [UserRouteAccessService]
     }

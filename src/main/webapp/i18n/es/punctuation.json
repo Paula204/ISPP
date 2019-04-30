@@ -2,25 +2,25 @@
     "thorneoApp": {
         "punctuation": {
             "home": {
-                "title": "Punctuations",
-                "createLabel": "Crear nuevo Punctuation",
-                "createOrEditLabel": "Crear o editar Punctuation",
-                "search": "Search for Punctuation"
+                "title": "Puntuaciones",
+                "createLabel": "Crear nuevo puntuación",
+                "createOrEditLabel": "Crear o editar puntuación",
+                "search": "Buscar puntuaciones"
             },
-            "created": "Un nuevo Punctuation ha sido creado con el identificador {{ param }}",
-            "updated": "Un Punctuation ha sido actualizado con el identificador {{ param }}",
-            "deleted": "Un Punctuation ha sido eliminado con el identificador {{ param }}",
+            "created": "Una nueva puntuación ha sido creada con el identificador {{ param }}",
+            "updated": "Una puntuación ha sido actualizada con el identificador {{ param }}",
+            "deleted": "Una puntuación ha sido eliminada con el identificador {{ param }}",
             "delete": {
-                "question": "¿Seguro que quiere eliminar Punctuation {{ id }}?"
+                "question": "¿Seguro que quiere eliminar puntuación {{ id }}?"
             },
             "detail": {
-                "title": "Punctuation"
+                "title": "Puntuación"
             },
-            "index": "Index",
-            "points": "Points",
-            "round": "Round",
-            "tournament": "Tournament",
-            "participation": "Participation"
+            "player": "Jugador",
+            "points": "Puntos",
+            "round": "Rondas",
+            "tournament": "Torneo",
+            "participation": "Participación"
         }
     }
 }

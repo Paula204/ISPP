@@ -24,11 +24,14 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
+
+import com.ispp.thorneo.service.PunctuationService;
 
 /**
  * Service Implementation for managing Tournament.
@@ -123,6 +126,19 @@ public class TournamentServiceImpl implements TournamentService {
     @Override
     public void delete(Long id) {
         log.debug("Request to delete Tournament : {}", id);
+        List<Punctuation> x = this.punctuationService.getPunctuationsByTournament(id);
+        Tournament t = this.tournamentRepository.findById(id).get();
+        Set<Participation> y = t.getParticipations();
+        if (!x.isEmpty() && x != null){
+        for(Punctuation p: x){
+            this.punctuationService.delete(p.getId());
+        }}
+        if (!t.getParticipations().isEmpty()){
+        for(Participation p: y){
+            this.participationService.delete(p.getId());
+        }}
+
+        
         tournamentRepository.deleteById(id);
         tournamentSearchRepository.deleteById(id);
     }

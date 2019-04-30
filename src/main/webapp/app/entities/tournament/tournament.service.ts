@@ -9,6 +9,7 @@ import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared';
 import { ITournament, ITournamentForm } from 'app/shared/model/tournament.model';
 import { IUser } from 'app/core/user/user.model';
+import { IPunctuation } from 'app/shared/model/punctuation.model';
 
 type EntityResponseType = HttpResponse<ITournament>;
 type EntityArrayResponseType = HttpResponse<ITournament[]>;
@@ -81,6 +82,12 @@ export class TournamentService {
 
     tournamentsByUser(login: string): Observable<HttpResponse<IUser[]>> {
         return this.http.get<ITournament[]>(this.resourceUrl + '/sponsor/' + login, { observe: 'response' });
+    }
+
+    getPunctuations(id: number): Observable<HttpResponse<IPunctuation[]>> {
+        const res = this.http.get<IPunctuation[]>(this.resourceUrl + '/' + id + '/punctuation', { observe: 'response' });
+        console.log(res);
+        return res;
     }
 
     protected convertDateFromClient(tournament: ITournament): ITournament {

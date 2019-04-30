@@ -3,8 +3,10 @@ package com.ispp.thorneo.web.rest;
 import com.ispp.thorneo.TournamentForm;
 import com.ispp.thorneo.domain.Authority;
 import com.ispp.thorneo.domain.Participation;
+import com.ispp.thorneo.domain.Punctuation;
 import com.ispp.thorneo.domain.Tournament;
 import com.ispp.thorneo.domain.User;
+import com.ispp.thorneo.service.PunctuationService;
 import com.ispp.thorneo.service.TournamentService;
 import com.ispp.thorneo.service.UserService;
 import com.ispp.thorneo.web.rest.errors.BadRequestAlertException;
@@ -45,9 +47,12 @@ public class TournamentResource {
     
     private final UserService userService;
 
-    public TournamentResource(TournamentService tournamentService, UserService userService){
+    private PunctuationService punctuationService;
+
+    public TournamentResource(TournamentService tournamentService, UserService userService, PunctuationService puntuationService){
         this.tournamentService = tournamentService;
         this.userService = userService;
+        this.punctuationService = puntuationService;
     }
 
     /**
@@ -228,4 +233,13 @@ public class TournamentResource {
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
+    
+    @GetMapping("/tournaments/{id}/punctuation")
+    public ResponseEntity<List<Punctuation>> getPunctuationsByTournaments(@PathVariable Long id){
+        log.debug("Busqueda de puntuaciones de torneo");
+        Integer round = this.punctuationService.getMaxRoundTournament(id);
+        Page<Punctuation> page = new PageImpl<>(punctuationService.getPuntuationsByRoundAndTournament(round, id));
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "api/tournament/{id}/punctuation");
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
 }
