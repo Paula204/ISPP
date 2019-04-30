@@ -58,21 +58,6 @@ export class SettingsComponent implements OnInit {
         );
     }
 
-    remove() {
-        this.userService.delete(this.currentUser.login).subscribe(
-            () => {
-                this.error = null;
-                this.success = 'OK';
-                this.loginService.logout();
-                this.router.navigate(['']);
-            },
-            () => {
-                this.success = null;
-                this.error = 'ERROR';
-            }
-        );
-    }
-
     deleteUser() {
         const modalRef = this.modalService.open(SettingsDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
         modalRef.componentInstance.user = this.currentUser;
@@ -84,11 +69,6 @@ export class SettingsComponent implements OnInit {
                 // Left blank intentionally, nothing to do here
             }
         );
-    }
-
-    logout() {
-        this.loginService.logout();
-        this.router.navigate(['']);
     }
 
     copyAccount(account) {

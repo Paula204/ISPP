@@ -335,7 +335,9 @@ public class UserService {
         user.setFirstName(null);
         user.setLastName(null);
 
-        userRepository.save(user);
+        User result = userRepository.save(user);
+
+        Objects.requireNonNull(cacheManager.getCache(UserRepository.USERS_BY_LOGIN_CACHE)).evict(result.getLogin());
     }
 
     private void clearUserCaches(User user) {
