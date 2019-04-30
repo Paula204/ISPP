@@ -86,6 +86,7 @@ export class TournamentService {
 
     getPunctuations(id: number): Observable<HttpResponse<IPunctuation[]>> {
         const res = this.http.get<IPunctuation[]>(this.resourceUrl + '/' + id + '/punctuation', { observe: 'response' });
+        console.log(res);
         return res;
     }
 
