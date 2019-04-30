@@ -73,7 +73,9 @@ export class PunctuationTournamentComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.loadAll();
+        this.tournamentService.getPunctuations(+this.route).subscribe(punctuations => {
+            this.punctuations = punctuations.body;
+        });
         this.accountService.identity().then(account => {
             this.currentAccount = account;
         });

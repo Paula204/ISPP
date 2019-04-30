@@ -233,10 +233,12 @@ public class TournamentResource {
     }
 
     
-    @GetMapping("/tournament/{id}/punctuation")
-    public List<Punctuation> getPunctuationsByTournaments(@RequestParam Long id){
+    @GetMapping("/tournaments/{id}/punctuation")
+    public ResponseEntity<List<Punctuation>> getPunctuationsByTournaments(@RequestParam Long id){
         log.debug("Busqueda de puntuaciones de torneo");
         Integer round = this.punctuationService.getMaxRoundTournament(id);
-        return punctuationService.getPuntuationsByRoundAndTournament(round, id);
+        Page<Punctuation> page = new PageImpl<>(punctuationService.getPuntuationsByRoundAndTournament(round, id));
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "api/tournament/{id}/punctuation");
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 }

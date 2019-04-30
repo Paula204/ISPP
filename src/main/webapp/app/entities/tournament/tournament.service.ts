@@ -85,7 +85,8 @@ export class TournamentService {
     }
 
     getPunctuations(id: number): Observable<HttpResponse<IPunctuation[]>> {
-        return this.http.get<IPunctuation[]>(`${this.resourceUrl}/${id}/punctuation`, { observe: 'response' });
+        const res = this.http.get<IPunctuation[]>(this.resourceUrl + '/' + id + '/punctuation', { observe: 'response' });
+        return res;
     }
 
     protected convertDateFromClient(tournament: ITournament): ITournament {
