@@ -9,6 +9,7 @@ import com.ispp.thorneo.domain.User;
 import com.ispp.thorneo.repository.TournamentRepository;
 import com.ispp.thorneo.repository.search.TournamentSearchRepository;
 import com.ispp.thorneo.security.jwt.TokenProvider;
+import com.ispp.thorneo.service.PunctuationService;
 import com.ispp.thorneo.service.TournamentService;
 import com.ispp.thorneo.service.UserService;
 import com.ispp.thorneo.web.rest.errors.ExceptionTranslator;
@@ -119,6 +120,9 @@ public class TournamentResourceIntTest {
 
     @Autowired TournamentResource tournamentResource;
 
+    @Autowired
+    private PunctuationService punctuationService;
+
     @Mock
     private UserService userService;
 
@@ -164,7 +168,7 @@ public class TournamentResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final TournamentResource tournamentResource = new TournamentResource(tournamentService, userService);
+        final TournamentResource tournamentResource = new TournamentResource(tournamentService, userService, punctuationService);
         this.restTournamentMockMvc = MockMvcBuilders.standaloneSetup(tournamentResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
