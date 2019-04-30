@@ -360,69 +360,6 @@ public class PaypalCompletedPaymentsResourceIntTest {
 
     @Test
     @Transactional
-    public void updatePaypalCompletedPayments() throws Exception {
-        // Initialize the database
-        paypalCompletedPaymentsRepository.saveAndFlush(paypalCompletedPayments);
-
-        int databaseSizeBeforeUpdate = paypalCompletedPaymentsRepository.findAll().size();
-
-        // Update the paypalCompletedPayments
-        PaypalCompletedPayments updatedPaypalCompletedPayments = paypalCompletedPaymentsRepository.findById(paypalCompletedPayments.getId()).get();
-        // Disconnect from session so that the updates on updatedPaypalCompletedPayments are not directly saved in db
-        em.detach(updatedPaypalCompletedPayments);
-        updatedPaypalCompletedPayments
-            .date(UPDATED_DATE)
-            .idPayment(UPDATED_ID_PAYMENT)
-            .currency(UPDATED_CURRENCY)
-            .amount(UPDATED_AMOUNT)
-            .email(UPDATED_EMAIL)
-            .name(UPDATED_NAME)
-            .status(UPDATED_STATUS);
-
-        restPaypalCompletedPaymentsMockMvc.perform(put("/api/paypal-completed-payments")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedPaypalCompletedPayments)))
-            .andExpect(status().isOk());
-
-        // Validate the PaypalCompletedPayments in the database
-        List<PaypalCompletedPayments> paypalCompletedPaymentsList = paypalCompletedPaymentsRepository.findAll();
-        assertThat(paypalCompletedPaymentsList).hasSize(databaseSizeBeforeUpdate);
-        PaypalCompletedPayments testPaypalCompletedPayments = paypalCompletedPaymentsList.get(paypalCompletedPaymentsList.size() - 1);
-        assertThat(testPaypalCompletedPayments.getDate()).isEqualTo(UPDATED_DATE);
-        assertThat(testPaypalCompletedPayments.getIdPayment()).isEqualTo(UPDATED_ID_PAYMENT);
-        assertThat(testPaypalCompletedPayments.getCurrency()).isEqualTo(UPDATED_CURRENCY);
-        assertThat(testPaypalCompletedPayments.getAmount()).isEqualTo(UPDATED_AMOUNT);
-        assertThat(testPaypalCompletedPayments.getEmail()).isEqualTo(UPDATED_EMAIL);
-        assertThat(testPaypalCompletedPayments.getName()).isEqualTo(UPDATED_NAME);
-        assertThat(testPaypalCompletedPayments.getStatus()).isEqualTo(UPDATED_STATUS);
-
-        // Validate the PaypalCompletedPayments in Elasticsearch
-        verify(mockPaypalCompletedPaymentsSearchRepository, times(1)).save(testPaypalCompletedPayments);
-    }
-
-    @Test
-    @Transactional
-    public void updateNonExistingPaypalCompletedPayments() throws Exception {
-        int databaseSizeBeforeUpdate = paypalCompletedPaymentsRepository.findAll().size();
-
-        // Create the PaypalCompletedPayments
-
-        // If the entity doesn't have an ID, it will throw BadRequestAlertException
-        restPaypalCompletedPaymentsMockMvc.perform(put("/api/paypal-completed-payments")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(paypalCompletedPayments)))
-            .andExpect(status().isBadRequest());
-
-        // Validate the PaypalCompletedPayments in the database
-        List<PaypalCompletedPayments> paypalCompletedPaymentsList = paypalCompletedPaymentsRepository.findAll();
-        assertThat(paypalCompletedPaymentsList).hasSize(databaseSizeBeforeUpdate);
-
-        // Validate the PaypalCompletedPayments in Elasticsearch
-        verify(mockPaypalCompletedPaymentsSearchRepository, times(0)).save(paypalCompletedPayments);
-    }
-
-    @Test
-    @Transactional
     public void deletePaypalCompletedPayments() throws Exception {
         // Initialize the database
         paypalCompletedPaymentsRepository.saveAndFlush(paypalCompletedPayments);

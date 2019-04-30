@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ITournament, ITournamentForm, Tournament } from 'app/shared/model/tournament.model';
@@ -11,10 +11,12 @@ import { Account, AccountService, User } from 'app/core';
 import { HasAnyAuthorityDirective } from 'app/shared';
 
 import { forEach } from '@angular/router/src/utils/collection';
-
 import { filter, map } from 'rxjs/operators';
 import { ISponsorship, Sponsorship } from 'app/shared/model/sponsorship.model';
 import { SponsorshipService } from 'app/entities/sponsorship';
+import { TSObjectKeyword } from '@babel/types';
+import { IParticipation, Participation } from 'app/shared/model/participation.model';
+import * as os from 'os';
 
 @Component({
     selector: 'jhi-tournament-detail',
@@ -24,14 +26,12 @@ export class TournamentDetailComponent implements OnInit {
     tournament: ITournamentForm;
     currentAccount: Account;
     currentDate: Date;
-
+    abc = location.href;
     nonbotton: boolean;
-
     sponsorship: ISponsorship;
-
     isSaving: boolean;
     participa: boolean;
-    algo: any;
+    estaEn: boolean;
     currentUser: any;
 
     constructor(
@@ -51,14 +51,7 @@ export class TournamentDetailComponent implements OnInit {
         this.accountService.identity().then(account => {
             this.currentAccount = account;
         });
-        /*
-        let participacion;
-        for (participacion of this.tournament.participations) {
-            alert(participacion.user.login );
-            if (participacion.user.login === participacion.user.login) {
-                this.nonbotton = true;
-            }
-        }*/
+
         this.currentDate = new Date();
         this.sponsorshipService
             .findRandom()
@@ -70,10 +63,12 @@ export class TournamentDetailComponent implements OnInit {
     }
 
     nonbottonn() {
+        alert(this.estaEn);
         let participacion;
         for (participacion of this.tournament.participations) {
             if (participacion.user.login === this.currentAccount.login) {
-                this.nonbotton = true;
+                this.estaEn = true;
+                alert(this.estaEn);
             }
         }
     }
@@ -88,6 +83,7 @@ export class TournamentDetailComponent implements OnInit {
         for (participacion of this.tournament.participations) {
             if (participacion.user.login === this.currentAccount.login) {
                 this.participa = true;
+                this.estaEn = false;
             }
         }
         if (this.tournament.participations === null) {

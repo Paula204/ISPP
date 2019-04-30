@@ -2,15 +2,15 @@ id;login;password_hash;first_name;last_name;email;image_url;activated;lang_key;c
 1;system;$2a$10$mE.qmcV0mFU5NcKh73TZx.z4ueI/.bDWbj0T1BYyqP481kGGarKLG;System;System;system@localhost;;true;es;system;system
 2;anonymoususer;$2a$10$j8S5d7Sr7.8VTOYNviDPOeWX8KcYILUVJBsYV83Y5NtECayypx9lO;Anonymous;User;anonymous@localhost;;true;es;system;system
 3;admin;$2a$10$gSAhZrxMllrbgj/kkK9UceBPpChGWJA7SYIb1Mqo.n5aNLq1/oRrC;Administrator;Administrator;admin@localhost;;true;es;system;system
-4;user;$2a$10$VEjxo0jq2YG9Rbk2HmX9S.k1uZBGYUHdUcid3g/vfiEl7lwWgOH/K;User;User;user@localhost;;true;es;system;system
-5;user2;$2a$10$q/tOzSWfHiC9kw69PzZ6Q.KZYb2bkTl3D8e6xzXFg92ZUs/MiID5i;User2;User2;user2@localhost;;true;es;system;system
-6;user3;$2a$10$WuDSwrApTVAx.l.vNUjcA.bSKK.HB2a7a7D4F4OoqF0cmo/eKEoMu;User3;User3;user3@localhost;;true;es;system;system
-7;user4;$2a$10$4FYFUzxbMHw8bC7lOFBJ9eygw4hcQQmmKTafEuZQA4OapZrQrKsZC;User4;User4;user4@localhost;;true;es;system;system
-8;user5;$2a$10$nEunGX.dyuL5xvVNTf0huulde2uOirVbk2qVTVPUoDXtsKRlGN2ku;User5;User5;user5@localhost;;true;es;system;system
-9;user6;$2a$10$Lu8X2bWRQR6u6gaAFE.IMexNI6OWbB3As/6.mddvJr40UHqN54gre;User6;User6;user6@localhost;;true;es;system;system
-10;sponsor;$2a$10$AkgAzgd52lCJ6ahnw8nrgeXE2ueFExH0eqqWVXvVe.92sjIm.CKSK;Sponsor;Sponsor;sponsor@localhost;;true;es;system;system
-11;sponsor2;$2a$10$/g816HjWhMDq6o9GltKnZe7FeaFMBEtfTUZTcBrJ/Cd.pUWIRctrG;Sponsor2;Sponsor2;sponsor2@localhost;;true;es;system;system
-12;sponsor3;$2a$10$vISIZvbgxTqodghmiC9wwePHpF4nn1HVQUZlAV62rRaEtoM7HJC.u;Sponsor3;Sponsor3;sponsor3@localhost;;true;es;system;system
-13;sponsor4;$2a$10$wr/jXilkLLK1Q83pfVY6cezQ1VkfAl1upSC3BU.S3KmOzQAesthCu;Sponsor4;Sponsor4;sponsor4@localhost;;true;es;system;system
-14;sponsor5;$2a$10$NXuDOW0aaeTZgeBVouN7wex9mX8wUfVXKUBdsCcG69L80V6n7O30i;Sponsor5;Sponsor5;sponsor5@localhost;;true;es;system;system
+4;Sorcen;$2a$10$VEjxo0jq2YG9Rbk2HmX9S.k1uZBGYUHdUcid3g/vfiEl7lwWgOH/K;Sergio;Fernandez Jimenez;user@localhost;;true;es;system;system
+5;Andras;$2a$10$q/tOzSWfHiC9kw69PzZ6Q.KZYb2bkTl3D8e6xzXFg92ZUs/MiID5i;Paula;Balsera Martinez;user2@localhost;;true;es;system;system
+6;Harkon;$2a$10$WuDSwrApTVAx.l.vNUjcA.bSKK.HB2a7a7D4F4OoqF0cmo/eKEoMu;Suriel;Aido Teruel;user3@localhost;;true;es;system;system
+7;Horus;$2a$10$4FYFUzxbMHw8bC7lOFBJ9eygw4hcQQmmKTafEuZQA4OapZrQrKsZC;Luis;Gil Guerrero;user4@localhost;;true;es;system;system
+8;Guilliman;$2a$10$nEunGX.dyuL5xvVNTf0huulde2uOirVbk2qVTVPUoDXtsKRlGN2ku;Jesús;García Sierra;user5@localhost;;true;es;system;system
+9;Konrad;$2a$10$Lu8X2bWRQR6u6gaAFE.IMexNI6OWbB3As/6.mddvJr40UHqN54gre;Jhosue Ider;Intriago Ponce;user6@localhost;;true;es;system;system
+10;Zacatrus;$2a$10$AkgAzgd52lCJ6ahnw8nrgeXE2ueFExH0eqqWVXvVe.92sjIm.CKSK;Zacatrus;Zacatrus;sponsor@localhost;;true;es;system;system
+11;Empire Games;$2a$10$/g816HjWhMDq6o9GltKnZe7FeaFMBEtfTUZTcBrJ/Cd.pUWIRctrG;Empire;Games;sponsor2@localhost;;true;es;system;system
+12;Games Workshop;$2a$10$vISIZvbgxTqodghmiC9wwePHpF4nn1HVQUZlAV62rRaEtoM7HJC.u;Games;Workshop;sponsor3@localhost;;true;es;system;system
+13;Jugamos Una;$2a$10$wr/jXilkLLK1Q83pfVY6cezQ1VkfAl1upSC3BU.S3KmOzQAesthCu;Jugamos;Una;sponsor4@localhost;;true;es;system;system
+14;Kame House;$2a$10$NXuDOW0aaeTZgeBVouN7wex9mX8wUfVXKUBdsCcG69L80V6n7O30i;Kame;House;sponsor5@localhost;;true;es;system;system
 15;sponsor6;$2a$10$GRmRcLBFzkFJPTBSWNEBv.STdoEpJu66daGl74xH4swC7uFE43I/C;Sponsor6;Sponsor6;sponsor6@localhost;;true;es;system;system
