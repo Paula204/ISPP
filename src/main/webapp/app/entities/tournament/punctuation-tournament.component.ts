@@ -82,7 +82,11 @@ export class PunctuationTournamentComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        this.eventManager.destroy(this.eventSubscriber);
+        window.location.reload();
+    }
+
+    previousState() {
+        window.history.back();
     }
 
     trackId(index: number, item: IPunctuation) {
