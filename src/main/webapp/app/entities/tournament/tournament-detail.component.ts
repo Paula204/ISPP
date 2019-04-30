@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ITournament, ITournamentForm, Tournament } from 'app/shared/model/tournament.model';
@@ -11,7 +11,6 @@ import { Account, AccountService, User } from 'app/core';
 import { HasAnyAuthorityDirective } from 'app/shared';
 
 import { forEach } from '@angular/router/src/utils/collection';
-
 import { filter, map } from 'rxjs/operators';
 import { ISponsorship, Sponsorship } from 'app/shared/model/sponsorship.model';
 import { SponsorshipService } from 'app/entities/sponsorship';
@@ -27,7 +26,7 @@ export class TournamentDetailComponent implements OnInit {
     tournament: ITournamentForm;
     currentAccount: Account;
     currentDate: Date;
-
+    abc = location.href;
     nonbotton: boolean;
     sponsorship: ISponsorship;
     isSaving: boolean;
