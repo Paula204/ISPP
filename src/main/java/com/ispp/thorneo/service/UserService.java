@@ -321,6 +321,8 @@ public class UserService {
     public void deleteUserFromSystem(User user) {
         this.clearUserCaches(user);
 
+        cacheManager.getCacheNames().forEach(cache -> cacheManager.getCache(cache).clear());
+
         user.setEmail(null);
         user.setActivated(false);
         user.setImageUrl(null);
@@ -329,7 +331,7 @@ public class UserService {
 
         userRepository.save(user);
 
-        cacheManager.getCacheNames().forEach(cache -> cacheManager.getCache(cache).;
+        cacheManager.getCacheNames().forEach(cache -> cacheManager.getCache(cache).clear());
     }
 
     private void clearUserCaches(User user) {
