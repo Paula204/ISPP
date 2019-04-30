@@ -11,6 +11,7 @@ import {
     PasswordResetInitComponent,
     PasswordResetFinishComponent,
     SettingsComponent,
+    SettingsDeleteDialogComponent,
     accountState
 } from './';
 
@@ -23,8 +24,10 @@ import {
         PasswordStrengthBarComponent,
         PasswordResetInitComponent,
         PasswordResetFinishComponent,
-        SettingsComponent
+        SettingsComponent,
+        SettingsDeleteDialogComponent
     ],
+    entryComponents: [SettingsDeleteDialogComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ThorneoAccountModule {}

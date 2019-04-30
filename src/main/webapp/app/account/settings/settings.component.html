@@ -79,6 +79,10 @@
                     </select>
                 </div>
                 <button type="submit" [disabled]="settingsForm.form.invalid" class="btn btn-primary" jhiTranslate="settings.form.button">Save</button>
+                <button type="submit" [disabled]="settingsForm.form.invalid" class="btn btn-danger" (click)="deleteUser()">
+                    <fa-icon [icon]="'times'"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="settings.form.remove">Delete</span>
+                </button>
             </form>
         </div>
     </div>

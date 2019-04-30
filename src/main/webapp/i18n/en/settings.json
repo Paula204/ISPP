@@ -7,7 +7,8 @@
             "lastname": "Last Name",
             "lastname.placeholder": "Your last name",
             "language": "Language",
-            "button": "Save"
+            "button": "Save",
+            "remove": "Remove account"
         },
         "messages": {
             "error": {

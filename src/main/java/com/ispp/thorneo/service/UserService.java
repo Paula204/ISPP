@@ -318,6 +318,20 @@ public class UserService {
         return result;
     }
 
+    public void deleteUserFromSystem(User user) {
+        this.clearUserCaches(user);
+
+        user.setEmail(null);
+        user.setActivated(false);
+        user.setImageUrl(null);
+        user.setFirstName(null);
+        user.setLastName(null);
+
+        userRepository.save(user);
+
+        cacheManager.getCacheNames().forEach(cache -> cacheManager.getCache(cache).;
+    }
+
     private void clearUserCaches(User user) {
         Objects.requireNonNull(cacheManager.getCache(UserRepository.USERS_BY_LOGIN_CACHE)).evict(user.getLogin());
         Objects.requireNonNull(cacheManager.getCache(UserRepository.USERS_BY_EMAIL_CACHE)).evict(user.getEmail());
