@@ -7,7 +7,7 @@
 <br>
 <div *ngIf="tournament.user.login == currentAccount.login">
   <button 
-    type="button" [routerLink]="['/punctuation', tournament.id, 'edit' ]"
+    type="button" [routerLink]="['/tournament', tournament.id, 'punctuation' ]"
      class="btn btn-primary">
      <fa-icon [icon]="'wrench'"></fa-icon>
      <span class="d-none d-md-inline" jhiTranslate="entity.action.manage">Manage</span>

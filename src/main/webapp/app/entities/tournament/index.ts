@@ -6,3 +6,4 @@ export * from './tournament-manage.component';
 export * from './tournament-manager.component';
 export * from './tournament.component';
 export * from './tournament.route';
+export * from './punctuation-tournament.component';

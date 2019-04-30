@@ -62,28 +62,6 @@ public class PaypalCompletedPaymentsResource {
     }
 
     /**
-     * PUT  /paypal-completed-payments : Updates an existing paypalCompletedPayments.
-     *
-     * @param paypalCompletedPayments the paypalCompletedPayments to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated paypalCompletedPayments,
-     * or with status 400 (Bad Request) if the paypalCompletedPayments is not valid,
-     * or with status 500 (Internal Server Error) if the paypalCompletedPayments couldn't be updated
-     * @throws URISyntaxException if the Location URI syntax is incorrect
-     */
-    @PutMapping("/paypal-completed-payments")
-    public ResponseEntity<PaypalCompletedPayments> updatePaypalCompletedPayments(@Valid @RequestBody PaypalCompletedPayments paypalCompletedPayments) throws URISyntaxException {
-        log.debug("REST request to update PaypalCompletedPayments : {}", paypalCompletedPayments);
-        if (paypalCompletedPayments.getId() == null) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
-        }
-        PaypalCompletedPayments result = paypalCompletedPaymentsRepository.save(paypalCompletedPayments);
-        paypalCompletedPaymentsSearchRepository.save(result);
-        return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, paypalCompletedPayments.getId().toString()))
-            .body(result);
-    }
-
-    /**
      * GET  /paypal-completed-payments : get all the paypalCompletedPayments.
      *
      * @return the ResponseEntity with status 200 (OK) and the list of paypalCompletedPayments in body

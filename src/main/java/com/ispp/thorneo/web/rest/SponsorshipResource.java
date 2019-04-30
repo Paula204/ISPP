@@ -1,6 +1,9 @@
 package com.ispp.thorneo.web.rest;
+import com.ispp.thorneo.domain.Authority;
 import com.ispp.thorneo.domain.Sponsorship;
+import com.ispp.thorneo.domain.User;
 import com.ispp.thorneo.service.SponsorshipService;
+import com.ispp.thorneo.service.UserService;
 import com.ispp.thorneo.web.rest.errors.BadRequestAlertException;
 import com.ispp.thorneo.web.rest.util.HeaderUtil;
 import com.ispp.thorneo.web.rest.util.PaginationUtil;
@@ -37,8 +40,11 @@ public class SponsorshipResource {
 
     private final SponsorshipService sponsorshipService;
 
-    public SponsorshipResource(SponsorshipService sponsorshipService) {
+    private final UserService userService;
+
+    public SponsorshipResource(SponsorshipService sponsorshipService, UserService userService) {
         this.sponsorshipService = sponsorshipService;
+        this.userService = userService;
     }
 
     /**
@@ -75,6 +81,16 @@ public class SponsorshipResource {
         if (sponsorship.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
+
+        User currentUser = this.userService.getUserWithAuthorities().get();
+
+        Authority admin = new Authority();
+        admin.setName("ROLE_ADMIN");
+
+        if (sponsorship.getUser().getId() != currentUser.getId() && !currentUser.getAuthorities().contains(admin)) {
+            throw new BadRequestAlertException("Invalid user", "sponsor", "notCreator");
+        }
+
         Sponsorship result = sponsorshipService.save(sponsorship);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, sponsorship.getId().toString()))
@@ -129,6 +145,18 @@ public class SponsorshipResource {
     @DeleteMapping("/sponsorships/{id}")
     public ResponseEntity<Void> deleteSponsorship(@PathVariable Long id) {
         log.debug("REST request to delete Sponsorship : {}", id);
+
+        Sponsorship sponsorship = this.sponsorshipService.findOne(id).get();
+
+        User currentUser = this.userService.getUserWithAuthorities().get();
+
+        Authority admin = new Authority();
+        admin.setName("ROLE_ADMIN");
+
+        if (sponsorship.getUser().getId() != currentUser.getId() && !currentUser.getAuthorities().contains(admin)) {
+            throw new BadRequestAlertException("Invalid user", "sponsor", "notCreator");
+        }
+
         sponsorshipService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
