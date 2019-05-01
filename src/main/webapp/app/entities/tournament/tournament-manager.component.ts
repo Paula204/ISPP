@@ -84,8 +84,76 @@ export class TournamentManagerComponent implements OnInit, OnDestroy {
         // ....
         // Metodo completo para JQuery. Empieza a partir de aquí:
         // Obtenemos las puntuaciones
+        const teamsP = [];
+        const resultsP = [];
         this.tournamentService.getAllPunctuations(+this.route).subscribe((punctuations: HttpResponse<IPunctuation[]>) => {
             this.punctuations = punctuations.body;
+            // Vemos en que ronda está el torneo
+            let i = 0;
+            for (const punctuu of punctuations.body) {
+                if (punctuu.round > i) {
+                    i = punctuu.round;
+                }
+            }
+
+            // Sacamos las puntuaciones de la última ronda
+            const nuevasPuntuaciones = [];
+            for (const necesario of punctuations.body) {
+                if (necesario.round === i) {
+                    nuevasPuntuaciones.push(necesario);
+                }
+            }
+
+            // Ordenamos el array por su ronda y luego por índice
+            punctuations.body.sort(function(a, b) {
+                const aRound = a.round;
+                const bRound = b.round;
+                const aIndex = a.index;
+                const bIndex = b.index;
+                if (aRound === bRound) {
+                    return aIndex > bIndex ? -1 : aIndex < bIndex ? 1 : 0;
+                } else {
+                    return aRound < bRound ? -1 : 1;
+                }
+            });
+
+            // Creamos el array a mostrar por JQuery
+
+            // Usuarios de la ronda
+            let userRonda = [];
+            let ronda = 0;
+            const indexT = 0;
+            // Aquí almacenaremos la ronda completa
+            let rondaCompleta = [];
+            while (ronda <= i) {
+                userRonda = [];
+                // Sacamos los user de la ronda
+                for (const pp of punctuations.body) {
+                    if (pp.round === ronda) {
+                        userRonda.push(punctuations.body[indexT]);
+                    }
+                }
+                let indice2 = 0;
+                rondaCompleta = [];
+                // Los agrupampos de dos en dos y lo metemos en ronda completa
+                while (indice2 < userRonda.length) {
+                    if (indice2 === userRonda.length - 1) {
+                        teamsP.push([punctuations.body[indice2].participation.user.login, null]);
+                        resultsP.push([punctuations.body[indice2].points]);
+                    } else {
+                        teamsP.push([
+                            punctuations.body[indice2].participation.user.login,
+                            punctuations.body[indice2 + 1].participation.user.login
+                        ]);
+                        resultsP.push([punctuations.body[indice2].points, punctuations.body[indice2 + 1].points]);
+                    }
+                    indice2 = indice2 + 2;
+                }
+                // Metemos la ronda completa en el array final que muestra JQuery
+                // teamsP.push(rondaCompleta);
+                ronda++;
+                alert(teamsP);
+            }
         });
         /*this.tournamentService.getAllPunctuations(+this.route).forEach(function(value) {
             this.punctuations.push(value);
@@ -98,65 +166,6 @@ export class TournamentManagerComponent implements OnInit, OnDestroy {
             }
              alert(punctuation.body.length);
         });*/
-        // Vemos en que ronda está el torneo
-        let i = 0;
-        for (const punctuu of this.punctuations) {
-            if (punctuu.round > i) {
-                i = punctuu.round;
-            }
-        }
-
-        // Sacamos las puntuaciones de la última ronda
-        const nuevasPuntuaciones = [];
-        for (const necesario of this.punctuations) {
-            if (necesario.round === i) {
-                nuevasPuntuaciones.push(necesario);
-            }
-        }
-
-        // Ordenamos el array por su ronda y luego por índice
-        this.punctuations.sort(function(a, b) {
-            const aRound = a.round;
-            const bRound = b.round;
-            const aIndex = a.index;
-            const bIndex = b.index;
-            if (aRound === bRound) {
-                return aIndex > bIndex ? -1 : aIndex < bIndex ? 1 : 0;
-            } else {
-                return aRound < bRound ? -1 : 1;
-            }
-        });
-
-        // Creamos el array a mostrar por JQuery
-        const teamsP = [];
-        // Usuarios de la ronda
-        let userRonda = [];
-        let ronda = 0;
-        const indexT = 0;
-        // Aquí almacenaremos la ronda completa
-        let rondaCompleta = [];
-        while (ronda <= i) {
-            userRonda = [];
-            // Sacamos los user de la ronda
-            while (this.punctuations[indexT].round === ronda) {
-                userRonda.push(this.punctuations[indexT]);
-            }
-            ronda++;
-            const indice2 = 0;
-            rondaCompleta = [];
-            // Los agrupampos de dos en dos y lo metemos en ronda completa
-            while (indice2 < userRonda.length) {
-                if (indice2 === userRonda.length - 1) {
-                    rondaCompleta.push([this.punctuations[indice2], null]);
-                } else {
-                    rondaCompleta.push([this.punctuations[indice2], this.punctuations[indice2 + 1]]);
-                }
-            }
-            // Metemos la ronda completa en el array final que muestra JQuery
-            teamsP.push([rondaCompleta]);
-            ronda++;
-        }
-
         // ANTIGUO METODO
         /*
         if (this.p.length % 2 !== 0) {
@@ -184,7 +193,7 @@ export class TournamentManagerComponent implements OnInit, OnDestroy {
         */
         const saveData = {
             teams: teamsP,
-            results: []
+            results: resultsP
         };
         /* Called whenever bracket is modified
          *
