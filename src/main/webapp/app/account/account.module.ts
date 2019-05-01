@@ -14,10 +14,10 @@ import {
     SettingsDeleteDialogComponent,
     accountState
 } from './';
-import { AccountService } from 'app/core';
+import { JhiLanguageService } from 'ng-jhipster';
 
 @NgModule({
-    imports: [ThorneoSharedModule, AccountService, RouterModule.forChild(accountState)],
+    imports: [ThorneoSharedModule, RouterModule.forChild(accountState)],
     declarations: [
         ActivateComponent,
         RegisterComponent,
@@ -29,7 +29,7 @@ import { AccountService } from 'app/core';
         SettingsDeleteDialogComponent
     ],
     entryComponents: [SettingsDeleteDialogComponent],
-    providers: [AccountService],
+    providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ThorneoAccountModule {}
