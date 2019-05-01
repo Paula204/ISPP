@@ -29,12 +29,9 @@
         <table class="table table-striped">
             <thead>
             <tr>
-            <th><span jhiTranslate="global.field.id">ID</span></th>
             <th><span jhiTranslate="thorneoApp.punctuation.index">Index</span></th>
             <th><span jhiTranslate="thorneoApp.punctuation.points">Points</span></th>
             <th><span jhiTranslate="thorneoApp.punctuation.round">Round</span></th>
-            <th><span jhiTranslate="thorneoApp.punctuation.tournament">Tournament</span></th>
-            <th><span jhiTranslate="thorneoApp.punctuation.participation">Participation</span></th>
             <th></th>
             </tr>
             </thead>
@@ -44,16 +41,6 @@
                 <td>{{punctuation.index}}</td>
                 <td>{{punctuation.points}}</td>
                 <td>{{punctuation.round}}</td>
-                <td>
-                    <div *ngIf="punctuation.tournament">
-                        <a [routerLink]="['../tournament', punctuation.tournament?.id, 'view' ]" >{{punctuation.tournament?.id}}</a>
-                    </div>
-                </td>
-                <td>
-                    <div *ngIf="punctuation.participation">
-                        <a [routerLink]="['../participation', punctuation.participation?.id, 'view' ]" >{{punctuation.participation?.id}}</a>
-                    </div>
-                </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

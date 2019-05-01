@@ -33,6 +33,9 @@ export class TournamentDetailComponent implements OnInit {
     participa: boolean;
     estaEn: boolean;
     currentUser: any;
+    winner: IParticipation;
+    i: number;
+    p: IParticipation;
 
     constructor(
         protected jhiAlertService: JhiAlertService,
@@ -60,6 +63,13 @@ export class TournamentDetailComponent implements OnInit {
                 map((sponsorship: HttpResponse<Sponsorship>) => sponsorship.body)
             )
             .subscribe(value => (this.sponsorship = value));
+        for (this.i = 0; this.i < this.tournament.participations.length - 1; this.i++) {
+            this.p = this.tournament.participations[this.i];
+            if (this.p.punctuation === 10000) {
+                this.winner = this.p;
+                break;
+            }
+        }
     }
 
     nonbottonn() {
