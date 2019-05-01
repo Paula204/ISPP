@@ -91,8 +91,8 @@ export class TournamentService {
     }
 
     //
-    advanceRound(id: number): Observable<HttpResponse<IPunctuation[]>> {
-        const res = this.http.get<IPunctuation[]>(this.resourceUrl + '/' + id + '/advanceRound', { observe: 'response' });
+    advanceRound(id: number): Observable<IPunctuation[]> {
+        const res = this.http.put<IPunctuation[]>(this.resourceUrl + '/' + id + '/puntuation', { observe: 'response' });
         console.log(res);
         return res;
     }

@@ -394,7 +394,7 @@ public class TournamentServiceImpl implements TournamentService {
         for(int i=0 ; i<lista.size() ; i++){
             Punctuation p3 = new Punctuation();
             if(i%2==0){
-                if(i+1 <= lista.size()){
+                if(i+1 < lista.size()){
                     //avance ronda max puntuacion. Crear nueva puntuacion
                     Punctuation p1 = lista.get(i);
                     Punctuation p2 = lista.get(i+1);

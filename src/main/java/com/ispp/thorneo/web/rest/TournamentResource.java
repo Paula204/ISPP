@@ -244,7 +244,7 @@ public class TournamentResource {
     }
 
 
-    @PutMapping("/tournaments/{id}/advanceRound")
+    @PutMapping("/tournaments/{id}/puntuation")
     public ResponseEntity<List<Punctuation>> advanceRound(@PathVariable Long id){
         log.debug("boton avance de ronda");
         this.tournamentService.advanceRound(id);
