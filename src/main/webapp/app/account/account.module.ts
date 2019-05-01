@@ -17,7 +17,7 @@ import {
 import { AccountService } from 'app/core';
 
 @NgModule({
-    imports: [ThorneoSharedModule, RouterModule.forChild(accountState)],
+    imports: [ThorneoSharedModule, AccountService, RouterModule.forChild(accountState)],
     declarations: [
         ActivateComponent,
         RegisterComponent,
