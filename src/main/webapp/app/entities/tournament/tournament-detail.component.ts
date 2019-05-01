@@ -112,17 +112,6 @@ export class TournamentDetailComponent implements OnInit {
         }
     }
 
-    //Para desincribir
-    signRefuse() {
-        let participacion;
-        for (participacion of this.tournament.participations) {
-            if (participacion.user.login === this.currentAccount.login) {
-                this.tournament.participations.splice(participacion, 1);
-                this.subscribeToSaveResponse(this.tournamentService.signOn(this.tournament));
-            }
-        }
-    }
-
     signOnUser() {
         this.isSaving = true;
     }
