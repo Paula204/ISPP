@@ -75,12 +75,6 @@ export class TournamentManagerComponent implements OnInit, OnDestroy {
         });
         this.currentDate = new Date();
         this.p = this.tournament.participations;
-
-        // Use this inside your document ready jQuery
-        $(window).on('popstate', function() {
-            location.reload(true);
-        });
-
         // ....
         // Metodo completo para JQuery. Empieza a partir de aquí:
         // Obtenemos las puntuaciones
@@ -149,23 +143,46 @@ export class TournamentManagerComponent implements OnInit, OnDestroy {
                     }
                     indice2 = indice2 + 2;
                 }
-                // Metemos la ronda completa en el array final que muestra JQuery
-                // teamsP.push(rondaCompleta);
                 ronda++;
-                alert(teamsP);
             }
+
+            const saveData = {
+                teams: teamsP,
+                results: resultsP
+            };
+
+            // Use this inside your document ready jQuery
+            $(window).on('popstate', function() {
+                location.reload(true);
+            });
+            /* Called whenever bracket is modified
+             *
+             * data:     changed bracket object in format given to init
+             * userData: optional data given when bracket is created.
+             */
+            function saveFn(data, userData) {
+                const json = $.toJSON(data);
+                $('#saveOutput').text('POST ' + userData + ' ' + json);
+                /* You probably want to do something like this
+                    jQuery.ajax("rest/"+userData, {contentType: 'application/json',
+                                                  dataType: 'json',
+                                                  type: 'post',
+                                                  data: json})
+                    */
+            }
+
+            $(function() {
+                const container = $('.gestionador');
+                container.bracket({
+                    init: saveData,
+                    userData: 'http://myapi'
+                });
+                /* You can also inquiry the current data */
+                const data = container.bracket('data');
+
+                $('#dataOutput').text($.toJSON(data));
+            });
         });
-        /*this.tournamentService.getAllPunctuations(+this.route).forEach(function(value) {
-            this.punctuations.push(value);
-        });*/
-        /*let punc = null;
-        this.tournamentService.getAllPunctuations(+this.route).toPromise().then(punctuation => {
-            for (punc of punctuation.body) {
-                this.punctuations.push(punc);
-                alert(punc.toString());
-            }
-             alert(punctuation.body.length);
-        });*/
         // ANTIGUO METODO
         /*
         if (this.p.length % 2 !== 0) {
@@ -191,37 +208,6 @@ export class TournamentManagerComponent implements OnInit, OnDestroy {
             }
         }
         */
-        const saveData = {
-            teams: teamsP,
-            results: resultsP
-        };
-        /* Called whenever bracket is modified
-         *
-         * data:     changed bracket object in format given to init
-         * userData: optional data given when bracket is created.
-         */
-        function saveFn(data, userData) {
-            const json = $.toJSON(data);
-            $('#saveOutput').text('POST ' + userData + ' ' + json);
-            /* You probably want to do something like this
-                jQuery.ajax("rest/"+userData, {contentType: 'application/json',
-                                              dataType: 'json',
-                                              type: 'post',
-                                              data: json})
-                */
-        }
-
-        $(function() {
-            const container = $('.gestionador');
-            container.bracket({
-                init: saveData,
-                userData: 'http://myapi'
-            });
-            /* You can also inquiry the current data */
-            const data = container.bracket('data');
-
-            $('#dataOutput').text($.toJSON(data));
-        });
     }
 
     previousState() {
