@@ -83,15 +83,21 @@ export class TournamentManagerComponent implements OnInit, OnDestroy {
 
         // ....
         // Metodo completo para JQuery. Empieza a partir de aquí:
-        if (this.punctuations === undefined) {
-            this.punctuations = [];
-        }
         // Obtenemos las puntuaciones
-        this.tournamentService.getAllPunctuations(+this.route).subscribe(punctuations => {
+        this.tournamentService.getAllPunctuations(+this.route).subscribe((punctuations: HttpResponse<IPunctuation[]>) => {
             this.punctuations = punctuations.body;
         });
-        alert(this.punctuations.length);
-
+        /*this.tournamentService.getAllPunctuations(+this.route).forEach(function(value) {
+            this.punctuations.push(value);
+        });*/
+        /*let punc = null;
+        this.tournamentService.getAllPunctuations(+this.route).toPromise().then(punctuation => {
+            for (punc of punctuation.body) {
+                this.punctuations.push(punc);
+                alert(punc.toString());
+            }
+             alert(punctuation.body.length);
+        });*/
         // Vemos en que ronda está el torneo
         let i = 0;
         for (const punctuu of this.punctuations) {
