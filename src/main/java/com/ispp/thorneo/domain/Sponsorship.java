@@ -39,6 +39,10 @@ public class Sponsorship implements Serializable {
     @JsonIgnoreProperties("sponsorships")
     private User user;
 
+    @ManyToOne
+    @JsonIgnoreProperties("sponsorships")
+    private Tournament tournament;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -87,7 +91,18 @@ public class Sponsorship implements Serializable {
         this.user = user;
     }
 
-   
+    public Tournament getTournament() {
+        return tournament;
+    }
+
+    public Sponsorship tournament(Tournament tournament) {
+        this.tournament = tournament;
+        return this;
+    }
+
+    public void setTournament(Tournament tournament) {
+        this.tournament = tournament;
+    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override

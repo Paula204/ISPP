@@ -52,7 +52,7 @@ export class SponsorListComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        window.location.reload();
+        this.routeData.unsubscribe();
     }
 
     registerChangeInUsers() {

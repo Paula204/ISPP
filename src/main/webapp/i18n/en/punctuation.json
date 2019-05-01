@@ -4,7 +4,7 @@
             "home": {
                 "title": "Punctuations",
                 "createLabel": "Create a new Punctuation",
-                "createOrEditLabel": "Edit a Punctuation",
+                "createOrEditLabel": "Create or edit a Punctuation",
                 "search": "Search for Punctuation"
             },
             "created": "A new Punctuation is created with identifier {{ param }}",
@@ -16,7 +16,7 @@
             "detail": {
                 "title": "Punctuation"
             },
-            "player": "Player",
+            "index": "Index",
             "points": "Points",
             "round": "Round",
             "tournament": "Tournament",

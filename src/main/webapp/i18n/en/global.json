@@ -117,8 +117,7 @@
             "view": "View",
             "signOn": "Sign On",
             "close": "Close",
-            "manage": "Manage",
-            "round": "Advance round"
+            "manage": "Manage"
         },
         "detail": {
             "field": "Field",

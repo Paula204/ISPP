@@ -90,14 +90,6 @@ export class TournamentService {
         return res;
     }
 
-    //
-    advanceRound(id: number): Observable<IPunctuation[]> {
-        const res = this.http.put<IPunctuation[]>(this.resourceUrl + '/' + id + '/puntuation', { observe: 'response' });
-        console.log(res);
-        return res;
-    }
-    //
-
     protected convertDateFromClient(tournament: ITournament): ITournament {
         const copy: ITournament = Object.assign({}, tournament, {
             meetingDate: tournament.meetingDate != null && tournament.meetingDate.isValid() ? tournament.meetingDate.toJSON() : null

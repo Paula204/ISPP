@@ -79,6 +79,4 @@ public interface TournamentService {
     Tournament closeTournamentChooseWinner(Tournament tournament, Long id);
 
     List<Tournament> findUserTournaments(String login);
-
-    void advanceRound(Long tournamentId);
 }

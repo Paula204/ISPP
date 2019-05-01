@@ -117,8 +117,7 @@
             "view": "Vista",
             "signOn": "Registrar",
             "close": "Cerrar",
-            "manage": "Gestionar",
-            "round": "Avanzar ronda"
+            "manage": "Gestionar"
         },
         "detail": {
             "field": "Campo",

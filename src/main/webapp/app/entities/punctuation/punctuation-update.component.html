@@ -4,15 +4,15 @@
             <h2 id="jhi-punctuation-heading" jhiTranslate="thorneoApp.punctuation.home.createOrEditLabel">Create or edit a Punctuation</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
-                <div class="form-group" hidden>
+                <div class="form-group" [hidden]="!punctuation.id">
                     <label for="id" jhiTranslate="global.field.id">ID</label>
                     <input type="text" class="form-control" id="id" name="id"
                         [(ngModel)]="punctuation.id" readonly />
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="thorneoApp.punctuation.player" for="field_index">Index</label>
-                    <input type="text" class="form-control" name="index" id="field_index"
-                        [(ngModel)]="punctuation.participation.user.login" required min="0" jhiMin="0" readonly/>
+                    <label class="form-control-label" jhiTranslate="thorneoApp.punctuation.index" for="field_index">Index</label>
+                    <input type="number" class="form-control" name="index" id="field_index"
+                        [(ngModel)]="punctuation.index" required min="0" jhiMin="0"/>
                     <div [hidden]="!(editForm.controls.index?.dirty && editForm.controls.index?.invalid)">
                         <small class="form-text text-danger"
                         [hidden]="!editForm.controls.index?.errors?.required" jhiTranslate="entity.validation.required">
@@ -50,7 +50,7 @@
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="thorneoApp.punctuation.round" for="field_round">Round</label>
                     <input type="number" class="form-control" name="round" id="field_round"
-                        [(ngModel)]="punctuation.round" required min="0" jhiMin="0" readonly/>
+                        [(ngModel)]="punctuation.round" required min="0" jhiMin="0"/>
                     <div [hidden]="!(editForm.controls.round?.dirty && editForm.controls.round?.invalid)">
                         <small class="form-text text-danger"
                         [hidden]="!editForm.controls.round?.errors?.required" jhiTranslate="entity.validation.required">
@@ -69,7 +69,10 @@
 
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="thorneoApp.punctuation.tournament" for="field_tournament">Tournament</label>
-                    <input type="text" class="form-control" id="field_tournament" name="tournament" [(ngModel)]="punctuation.tournament.title"  required readonly>
+                    <select class="form-control" id="field_tournament" name="tournament" [(ngModel)]="punctuation.tournament"  required>
+                        <option *ngIf="!editForm.value.tournament" [ngValue]="null" selected></option>
+                        <option [ngValue]="tournamentOption.id === punctuation.tournament?.id ? punctuation.tournament : tournamentOption" *ngFor="let tournamentOption of tournaments; trackBy: trackTournamentById">{{tournamentOption.id}}</option>
+                    </select>
                 </div>
                 <div [hidden]="!(editForm.controls.tournament?.dirty && editForm.controls.tournament?.invalid)">
                     <small class="form-text text-danger"
@@ -77,9 +80,12 @@
                         This field is required.
                     </small>
                 </div>
-                <div class="form-group"  hidden>
+                <div class="form-group">
                     <label class="form-control-label" jhiTranslate="thorneoApp.punctuation.participation" for="field_participation">Participation</label>
-                    <input type="text" class="form-control" id="field_participation" name="participation" [(ngModel)]="punctuation.participation"  required readonly>
+                    <select class="form-control" id="field_participation" name="participation" [(ngModel)]="punctuation.participation"  required>
+                        <option *ngIf="!editForm.value.participation" [ngValue]="null" selected></option>
+                        <option [ngValue]="participationOption.id === punctuation.participation?.id ? punctuation.participation : participationOption" *ngFor="let participationOption of participations; trackBy: trackParticipationById">{{participationOption.id}}</option>
+                    </select>
                 </div>
                 <div [hidden]="!(editForm.controls.participation?.dirty && editForm.controls.participation?.invalid)">
                     <small class="form-text text-danger"

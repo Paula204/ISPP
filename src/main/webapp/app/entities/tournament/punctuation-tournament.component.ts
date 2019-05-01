@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription, Observable } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 
@@ -10,7 +10,6 @@ import { AccountService } from 'app/core';
 import { PunctuationService } from '../punctuation/punctuation.service';
 import { ITournament, ITournamentForm } from 'app/shared/model/tournament.model';
 import { TournamentService } from 'app/entities/tournament';
-import { TournamentManageComponent } from './tournament-manage.component';
 
 @Component({
     selector: 'jhi-punctuation',
@@ -80,17 +79,10 @@ export class PunctuationTournamentComponent implements OnInit, OnDestroy {
         this.accountService.identity().then(account => {
             this.currentAccount = account;
         });
-        this.tournamentService.find(+this.route).subscribe(tournamet => {
-            this.tournament = tournamet.body;
-        });
     }
 
     ngOnDestroy() {
-        window.location.reload();
-    }
-
-    previousState() {
-        window.location.reload();
+        this.eventManager.destroy(this.eventSubscriber);
     }
 
     trackId(index: number, item: IPunctuation) {
@@ -117,18 +109,4 @@ export class PunctuationTournamentComponent implements OnInit, OnDestroy {
     protected onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
     }
-
-    avanzarRonda() {
-        this.subscribeToSaveResponse(this.tournamentService.advanceRound(+this.route));
-    }
-
-    protected subscribeToSaveResponse(result: Observable<IPunctuation[]>) {
-        result.subscribe((res: IPunctuation[]) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
-    }
-
-    protected onSaveSuccess() {
-        this.ngOnInit();
-    }
-
-    protected onSaveError() {}
 }
