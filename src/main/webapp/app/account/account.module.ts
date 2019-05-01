@@ -11,8 +11,10 @@ import {
     PasswordResetInitComponent,
     PasswordResetFinishComponent,
     SettingsComponent,
+    SettingsDeleteDialogComponent,
     accountState
 } from './';
+import { JhiLanguageService } from 'ng-jhipster';
 
 @NgModule({
     imports: [ThorneoSharedModule, RouterModule.forChild(accountState)],
@@ -23,8 +25,11 @@ import {
         PasswordStrengthBarComponent,
         PasswordResetInitComponent,
         PasswordResetFinishComponent,
-        SettingsComponent
+        SettingsComponent,
+        SettingsDeleteDialogComponent
     ],
+    entryComponents: [SettingsDeleteDialogComponent],
+    providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ThorneoAccountModule {}

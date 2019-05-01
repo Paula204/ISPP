@@ -8,20 +8,27 @@ import com.ispp.thorneo.repository.UserRepository;
 import com.ispp.thorneo.repository.search.UserSearchRepository;
 import com.ispp.thorneo.security.AuthoritiesConstants;
 import com.ispp.thorneo.security.SecurityUtils;
+import com.ispp.thorneo.security.SpringSecurityAuditorAware;
 import com.ispp.thorneo.service.dto.UserDTO;
 import com.ispp.thorneo.service.util.RandomUtil;
 import com.ispp.thorneo.web.rest.errors.*;
 
+import io.github.jhipster.config.JHipsterProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.autoconfigure.security.servlet.SpringBootWebSecurityConfiguration;
+import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.cache.CacheManager;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.security.core.SpringSecurityCoreVersion;
+import org.springframework.security.core.SpringSecurityMessageSource;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.net.HttpCookie;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
@@ -316,6 +323,21 @@ public class UserService {
         }
 
         return result;
+    }
+
+    public void deleteUserFromSystem(User user) {
+        this.userSearchRepository.delete(user);
+        this.clearUserCaches(user);
+
+        user.setEmail(null);
+        user.setActivated(false);
+        user.setImageUrl(null);
+        user.setFirstName(null);
+        user.setLastName(null);
+
+        User result = userRepository.save(user);
+
+        Objects.requireNonNull(cacheManager.getCache(UserRepository.USERS_BY_LOGIN_CACHE)).evict(result.getLogin());
     }
 
     private void clearUserCaches(User user) {

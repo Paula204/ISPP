@@ -9,7 +9,8 @@
         "updated": "El usuario con el identificador {{ param }} se ha actualizado",
         "deleted": "El usuario con el identificador {{ param }} se ha eliminado",
         "delete": {
-            "question": "¿Seguro que quieres eliminar el usuario {{ login }}?"
+            "question": "¿Seguro que quieres eliminar el usuario {{ login }}?",
+            "info": "ADVERTENCIA: Tu información estará en el sistema durante 5 minutos."
         },
         "detail": {
             "title": "Usuario"
