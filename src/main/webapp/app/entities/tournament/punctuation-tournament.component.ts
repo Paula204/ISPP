@@ -10,6 +10,7 @@ import { AccountService } from 'app/core';
 import { PunctuationService } from '../punctuation/punctuation.service';
 import { ITournament, ITournamentForm } from 'app/shared/model/tournament.model';
 import { TournamentService } from 'app/entities/tournament';
+import { TournamentManageComponent } from './tournament-manage.component';
 
 @Component({
     selector: 'jhi-punctuation',

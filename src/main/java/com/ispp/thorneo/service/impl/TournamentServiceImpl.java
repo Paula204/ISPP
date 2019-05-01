@@ -318,7 +318,7 @@ public class TournamentServiceImpl implements TournamentService {
         Integer punctuation = participant.getPunctuation() + winnerPunctuation;
         participant.setPunctuation(punctuation);
         tournament.addParticipation(participant);
-
+        this.participationService.save(participant);
         result = save(tournament);
 
         return result;
@@ -431,6 +431,9 @@ public class TournamentServiceImpl implements TournamentService {
             //hacer algo con la lista de rondas
             for(Punctuation p:res){
                 punctuationService.save(p);
+            }
+            if(res.size()==1){
+                this.closeTournamentChooseWinner(res.get(0).getTournament(), res.get(0).getParticipation().getId());
             }
         }
     }

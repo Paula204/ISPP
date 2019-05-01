@@ -4,7 +4,7 @@
             "home": {
                 "title": "Puntuaciones",
                 "createLabel": "Crear nuevo puntuación",
-                "createOrEditLabel": "Crear o editar puntuación",
+                "createOrEditLabel": "Editar puntuación",
                 "search": "Buscar puntuaciones"
             },
             "created": "Una nueva puntuación ha sido creada con el identificador {{ param }}",
