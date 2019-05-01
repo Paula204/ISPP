@@ -90,13 +90,17 @@ export class TournamentService {
         return res;
     }
 
-    //
     advanceRound(id: number): Observable<IPunctuation[]> {
         const res = this.http.put<IPunctuation[]>(this.resourceUrl + '/' + id + '/puntuation', { observe: 'response' });
         console.log(res);
         return res;
     }
-    //
+   
+    getAllPunctuations(id: number): Observable<EntityArrayResponseType> {
+        const res = this.http.get<IPunctuation[]>(this.resourceUrl + '/' + id + '/manager', { observe: 'response' });
+        console.log(res);
+        return res;
+    }
 
     protected convertDateFromClient(tournament: ITournament): ITournament {
         const copy: ITournament = Object.assign({}, tournament, {
