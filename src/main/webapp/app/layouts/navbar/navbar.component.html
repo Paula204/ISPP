@@ -63,17 +63,7 @@
                             <span jhiTranslate="global.menu.entities.sponsorship">Sponsorship</span>
                         </a>
                        </li>
-                    <!--
-                    <li >
-                        <a class="dropdown-item" routerLink="promotion" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                            
-                            <span jhiTranslate="global.menu.entities.promotion">Promotion</span>
-                        </a>
-                    </li>
-                    -->
                     <li *jhiHasAnyAuthority="'ROLE_ADMIN'">
-
-
                     <li>
                         <a class="dropdown-item" routerLink="paypal-completed-payments" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                             
