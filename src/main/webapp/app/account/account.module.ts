@@ -14,6 +14,7 @@ import {
     SettingsDeleteDialogComponent,
     accountState
 } from './';
+import { AccountService } from 'app/core';
 
 @NgModule({
     imports: [ThorneoSharedModule, RouterModule.forChild(accountState)],
@@ -28,6 +29,7 @@ import {
         SettingsDeleteDialogComponent
     ],
     entryComponents: [SettingsDeleteDialogComponent],
+    providers: [AccountService],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ThorneoAccountModule {}
