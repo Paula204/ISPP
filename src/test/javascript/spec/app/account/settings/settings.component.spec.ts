@@ -13,7 +13,7 @@ describe('Component Tests', () => {
 
         beforeEach(async(() => {
             TestBed.configureTestingModule({
-                imports: [ThorneoTestModule],
+                imports: [ThorneoTestModule, AccountService],
                 declarations: [SettingsComponent],
                 providers: []
             })
