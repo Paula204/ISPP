@@ -2,9 +2,7 @@ import { Component, AfterViewInit, Input } from '@angular/core';
 
 @Component({
     selector: 'jhi-tweet',
-    template: `
-        <a href="https://twitter.com/share" [attr.data-text]="text" [attr.data-url]="url" class="twitter-share-button"></a>
-    `
+    template: '<a href="https://twitter.com/share" [attr.data-text]="text" [attr.data-url]="url" class="twitter-share-button"></a>'
 })
 export class TweetComponent implements AfterViewInit {
     @Input() url = location.href;
