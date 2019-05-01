@@ -6,12 +6,39 @@ import { of } from 'rxjs';
 import { ThorneoTestModule } from '../../../test.module';
 import { TournamentDetailComponent } from 'app/entities/tournament/tournament-detail.component';
 import { Tournament } from 'app/shared/model/tournament.model';
+import { Participation, IParticipation } from 'app/shared/model/participation.model';
 
 describe('Component Tests', () => {
     describe('Tournament Management Detail Component', () => {
         let comp: TournamentDetailComponent;
         let fixture: ComponentFixture<TournamentDetailComponent>;
-        const route = ({ data: of({ tournament: new Tournament(123) }) } as any) as ActivatedRoute;
+        let participations: IParticipation[];
+        participations = [];
+        const route = ({
+            data: of({
+                tournament: new Tournament(
+                    123,
+                    'test',
+                    'test',
+                    null,
+                    'test',
+                    'test',
+                    0,
+                    2,
+                    'test',
+                    null,
+                    0,
+                    0,
+                    null,
+                    'test',
+                    null,
+                    'test',
+                    participations,
+                    null,
+                    null
+                )
+            })
+        } as any) as ActivatedRoute;
 
         beforeEach(() => {
             TestBed.configureTestingModule({
