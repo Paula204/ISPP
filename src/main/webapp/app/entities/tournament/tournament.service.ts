@@ -95,7 +95,7 @@ export class TournamentService {
         console.log(res);
         return res;
     }
-   
+
     getAllPunctuations(id: number): Observable<EntityArrayResponseType> {
         const res = this.http.get<IPunctuation[]>(this.resourceUrl + '/' + id + '/manager', { observe: 'response' });
         console.log(res);
