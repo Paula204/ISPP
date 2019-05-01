@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 import { JhiLanguageService } from 'ng-jhipster';
 import { JhiLanguageHelper } from 'app/core';
 import { QRCodeModule } from 'angularx-qrcode';
+import { JwSocialButtonsModule } from 'jw-angular-social-buttons';
 
 import { ThorneoSharedModule } from 'app/shared';
 import {
@@ -19,11 +20,12 @@ import {
 } from './';
 import { TournamentMyComponent } from 'app/entities/tournament/tournament-my.component';
 import { TournamentManageGroupComponent } from 'app/entities/tournament/tournament-manage-group.component';
+import { TweetComponent } from 'app/entities/tournament/Tweet.component';
 
 const ENTITY_STATES = [...tournamentRoute, ...tournamentPopupRoute];
 
 @NgModule({
-    imports: [ThorneoSharedModule, RouterModule.forChild(ENTITY_STATES), QRCodeModule],
+    imports: [ThorneoSharedModule, RouterModule.forChild(ENTITY_STATES), QRCodeModule, JwSocialButtonsModule],
     declarations: [
         TournamentComponent,
         TournamentMyComponent,
@@ -36,7 +38,8 @@ const ENTITY_STATES = [...tournamentRoute, ...tournamentPopupRoute];
         TournamentMyComponent,
         TournamentManageComponent,
         TournamentManageGroupComponent,
-        PunctuationTournamentComponent
+        PunctuationTournamentComponent,
+        TweetComponent
     ],
     entryComponents: [
         TournamentComponent,

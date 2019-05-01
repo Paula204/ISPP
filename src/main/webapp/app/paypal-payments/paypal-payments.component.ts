@@ -10,6 +10,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
 import { TournamentService } from 'app/entities/tournament';
 import { ITournament, Tournament } from 'app/shared/model/tournament.model';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import { JhiLanguageService } from 'ng-jhipster';
 
 declare let paypal: any;
 
@@ -34,12 +36,15 @@ export class PaypalPaymentsComponent implements OnInit, AfterViewChecked {
     pagoTorneo: boolean;
     isUser: any;
     isSponsor: any;
+
     constructor(
         protected paypalCompletedPaymentsService: PaypalCompletedPaymentsService,
         protected accountService: AccountService,
         protected activatedRoute: ActivatedRoute,
         protected tournamentService: TournamentService,
-        private router: Router
+        private router: Router,
+        protected translateService: TranslateService,
+        private lang: JhiLanguageService
     ) {
         this.activatedRoute.queryParams.subscribe(params => {
             this.idTorneo = params['idTorneo'];
@@ -49,7 +54,6 @@ export class PaypalPaymentsComponent implements OnInit, AfterViewChecked {
         const res = activatedRoute.snapshot.url.length;
         this.route = activatedRoute.snapshot.url[res - 1].toString();
     }
-
     ngOnInit() {
         this.accountService.identity().then(account => {
             this.currentUser = account;
@@ -117,7 +121,13 @@ export class PaypalPaymentsComponent implements OnInit, AfterViewChecked {
                             // Capture the funds from the transaction
                             actions.order.capture().then(function(details) {
                                 // Show a success message to your buyer
-                                alert('Transaction completed');
+                                if (_this.lang.currentLang === 'es') {
+                                    alert('Transaccion completada');
+                                } else {
+                                    alert('Transaction completed');
+                                }
+                                // redirigir
+                                _this.router.navigate(['/tournament/']);
                                 // by ' + details.payer.name.given_name
                                 _this.isSaving = true;
                                 _this.paypalPayment.date = moment();

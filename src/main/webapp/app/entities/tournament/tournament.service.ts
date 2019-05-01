@@ -85,8 +85,18 @@ export class TournamentService {
     }
 
     getPunctuations(id: number): Observable<HttpResponse<IPunctuation[]>> {
-        return this.http.get<IPunctuation[]>(`${this.resourceUrl}/${id}/punctuation`, { observe: 'response' });
+        const res = this.http.get<IPunctuation[]>(this.resourceUrl + '/' + id + '/punctuation', { observe: 'response' });
+        console.log(res);
+        return res;
     }
+
+    //
+    advanceRound(id: number): Observable<IPunctuation[]> {
+        const res = this.http.put<IPunctuation[]>(this.resourceUrl + '/' + id + '/puntuation', { observe: 'response' });
+        console.log(res);
+        return res;
+    }
+    //
 
     protected convertDateFromClient(tournament: ITournament): ITournament {
         const copy: ITournament = Object.assign({}, tournament, {
