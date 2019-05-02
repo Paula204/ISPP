@@ -2,7 +2,6 @@
   <h2 class="text-center">{{tournament.title}}</h2>
   <div class="module-border-wrap"><div class="module">
     <div class="gestionador flex-container"></div>
-  </div></div>
 </div>
 <br>
 <div *ngIf="tournament.user.login == currentAccount.login">
@@ -12,6 +11,11 @@
      <fa-icon [icon]="'wrench'"></fa-icon>
      <span class="d-none d-md-inline" jhiTranslate="entity.action.manage">Manage</span>
   </button>
+
+  <button type="submit" [routerLink]="['/tournament', route, 'view']" class="btn btn-primary">
+    <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+</button>
+
 </div>
 <br>
 <div class="row">
@@ -21,7 +25,7 @@
           <thead>
             <tr>
               <th>
-                <span jhiTranslate="crono.crono"></span>
+                <span jhiTranslate="global.crono.crono"></span>
               </th>
             </tr>
           </thead>
@@ -35,14 +39,22 @@
           </tbody>
         </table>
         <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="start()">
-            <fa-icon [icon]="'clock'"></fa-icon>&nbsp;<span class="d-none d-md-inline" jhiTranslate="crono.start"></span>
+            <fa-icon [icon]="'clock'"></fa-icon>&nbsp;<span class="d-none d-md-inline" jhiTranslate="global.crono.start"></span>
         </button>
+
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="pause()">
+            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span class="d-none d-md-inline" jhiTranslate="global.crono.stop"></span>
+        </button>
+
+        
         <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="lapso()">
-            <fa-icon [icon]="'flag'"></fa-icon>&nbsp;<span class="d-none d-md-inline" jhiTranslate="crono.lapso"></span>
+            <fa-icon [icon]="'flag'"></fa-icon>&nbsp;<span class="d-none d-md-inline" jhiTranslate="global.crono.lapso"></span>
         </button>
+        
         <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="stop()">
-            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span class="d-none d-md-inline" jhiTranslate="crono.stop"></span>
+            <fa-icon [icon]="'asterisk'"></fa-icon>&nbsp;<span class="d-none d-md-inline" jhiTranslate="global.crono.reset"></span>
         </button>
+        
       </div>
     </div>
 </div>

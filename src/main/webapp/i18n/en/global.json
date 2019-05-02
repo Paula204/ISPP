@@ -1,8 +1,10 @@
 {
     "global": {
+        "crono.crono": "Chronometer",
         "crono.start": "Start",
         "crono.lapso": "Lapso",
         "crono.stop": "Stop",
+        "crono.reset": "Reset",
         "payment": "Paypal Payments",
         "title": "Thorneo",
         "browsehappy": "You are using an <strong>outdated</strong> browser. Please <a href=\"http://browsehappy.com/?locale=en\">upgrade your browser</a> to improve your experience.",
@@ -175,11 +177,5 @@
         "cookie13": "Upgrade",
         "cookie14": "This policy will be updated, so these updates will be posted on the website. As soon as we inform you of the new conditions by publishing them on the website, it is assumed that they will be replaced by those previously published, so it is your responsibility to periodically access these conditions published on the website to learn about them. all the time the latest version."
     },
-    "contact": "Contact",
-    "crono": {
-        "crono": "Chronometer",
-        "start": "Start",
-        "lapso": "Lapso",
-        "stop": "Stop"
-    }
+    "contact": "Contact"
 }
