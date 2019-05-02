@@ -385,7 +385,6 @@ public class TournamentServiceImpl implements TournamentService {
         return result;
     }
 
-
     public void advanceRound(Long tournamentId){
         Integer alta = punctuationService.getMaxRoundTournament(tournamentId);
         List<Punctuation> lista = punctuationService.getPuntuationsByRoundAndTournament(alta, tournamentId);
