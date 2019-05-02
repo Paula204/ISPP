@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { JhiLanguageService } from 'ng-jhipster';
 
-import { AccountService, JhiLanguageHelper, User } from 'app/core';
+import { AccountService, JhiLanguageHelper, LoginService, User, UserService } from 'app/core';
+import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { SettingsDeleteDialogComponent } from 'app/account';
 
 @Component({
     selector: 'jhi-settings',
@@ -15,9 +18,13 @@ export class SettingsComponent implements OnInit {
     currentUser: User;
 
     constructor(
+        private loginService: LoginService,
         private accountService: AccountService,
         private languageService: JhiLanguageService,
-        private languageHelper: JhiLanguageHelper
+        private languageHelper: JhiLanguageHelper,
+        private userService: UserService,
+        private router: Router,
+        private modalService: NgbModal
     ) {}
 
     ngOnInit() {
@@ -47,6 +54,19 @@ export class SettingsComponent implements OnInit {
             () => {
                 this.success = null;
                 this.error = 'ERROR';
+            }
+        );
+    }
+
+    deleteUser() {
+        const modalRef = this.modalService.open(SettingsDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
+        modalRef.componentInstance.user = this.currentUser;
+        modalRef.result.then(
+            result => {
+                // Left blank intentionally, nothing to do here
+            },
+            reason => {
+                // Left blank intentionally, nothing to do here
             }
         );
     }

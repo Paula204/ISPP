@@ -233,8 +233,8 @@ public class TournamentResource {
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
-    
-    @GetMapping("/tournaments/{id}/punctuation")
+
+    @GetMapping("/tournaments/{id}/punctuationtorneo")
     public ResponseEntity<List<Punctuation>> getPunctuationsByTournaments(@PathVariable Long id){
         log.debug("Busqueda de puntuaciones de torneo");
         Integer round = this.punctuationService.getMaxRoundTournament(id);
@@ -243,7 +243,8 @@ public class TournamentResource {
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
-    @PutMapping("/tournaments/{id}/puntuationtorneo")
+
+    @PutMapping("/tournaments/{id}/puntuation")
     public ResponseEntity<List<Punctuation>> advanceRound(@PathVariable Long id){
         log.debug("boton avance de ronda");
         this.tournamentService.advanceRound(id);
@@ -252,6 +253,7 @@ public class TournamentResource {
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "api/tournament/{id}/punctuation");
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
+
 
     @GetMapping("/tournaments/{id}/manager")
     public ResponseEntity<List<Punctuation>> getAllPunctuationsByTournament(@PathVariable Long id){

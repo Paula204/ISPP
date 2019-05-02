@@ -145,6 +145,18 @@ export const tournamentRoute: Routes = [
             pageTitle: 'thorneoApp.punctuation.home.title'
         },
         canActivate: [UserRouteAccessService]
+    },
+    {
+        path: ':id/advanceRound',
+        component: PunctuationTournamentComponent,
+        resolve: {
+            punctuation: TournamentResolve
+        },
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'thorneoApp.punctuation.home.title'
+        },
+        canActivate: [UserRouteAccessService]
     }
 ];
 

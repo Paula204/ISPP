@@ -214,4 +214,22 @@ public class UserResource {
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/search/sponsors");
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
+
+    @DeleteMapping("/users/delete/{login}")
+    public ResponseEntity<Void> deleteUserSystem(@PathVariable String login) {
+        log.debug("REST request to delete User: {}", login);
+
+        User user = userService.getUserWithAuthoritiesByLogin(login).get();
+        User currentUser = userService.getUserWithAuthorities().get();
+
+        Authority admin = new Authority();
+        admin.setName("ROLE_ADMIN");
+
+        if (user.getId() != currentUser.getId() && !currentUser.getAuthorities().contains(admin)) {
+            throw new BadRequestAlertException("Invalid user", "participation", "notCreator");
+        }
+
+        userService.deleteUserFromSystem(user);
+        return ResponseEntity.ok().headers(HeaderUtil.createAlert( "userManagement.deleted", login)).build();
+    }
 }

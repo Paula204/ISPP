@@ -4,7 +4,7 @@
             "home": {
                 "title": "Punctuations",
                 "createLabel": "Create a new Punctuation",
-                "createOrEditLabel": "Create or edit a Punctuation",
+                "createOrEditLabel": "Edit a Punctuation",
                 "search": "Search for Punctuation"
             },
             "created": "A new Punctuation is created with identifier {{ param }}",

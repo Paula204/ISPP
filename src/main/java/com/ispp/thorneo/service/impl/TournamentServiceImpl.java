@@ -318,7 +318,7 @@ public class TournamentServiceImpl implements TournamentService {
         Integer punctuation = participant.getPunctuation() + winnerPunctuation;
         participant.setPunctuation(punctuation);
         tournament.addParticipation(participant);
-
+        this.participationService.save(participant);
         result = save(tournament);
 
         return result;
@@ -384,6 +384,7 @@ public class TournamentServiceImpl implements TournamentService {
         }
         return result;
     }
+
 
     public void advanceRound(Long tournamentId){
         Integer alta = punctuationService.getMaxRoundTournament(tournamentId);

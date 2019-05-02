@@ -96,7 +96,7 @@
                     </thead>
                     <tbody>
                     <tr>
-                        <td><span>{{tournament.winner}}</span></td>
+                        <td><span>{{winner.user.login}}</span></td>
                     </tr>
                     </tbody>
                 </table>
@@ -164,6 +164,9 @@
         </div>
     </div>
 </div>
+    <div class="col">
+        <jhi-tweet url={{abc}} text={{tournament.title}}></jhi-tweet>
+    </div>
 </br>
 <div class="row justify-content-center">
     <div class="col-12">
