@@ -33,9 +33,11 @@ export class TournamentDetailComponent implements OnInit {
     participa: boolean;
     estaEn: boolean;
     currentUser: any;
-    winner: IParticipation;
+    winner: any;
     i: number;
     p: IParticipation;
+    parti: boolean;
+    x: IParticipation[];
 
     constructor(
         protected jhiAlertService: JhiAlertService,
@@ -69,6 +71,25 @@ export class TournamentDetailComponent implements OnInit {
                 this.winner = this.p;
                 break;
             }
+        }
+        for (let i = 0; this.tournament.participations.length; i++) {
+            if (this.tournament.participations[i].punctuation === 10000) {
+                this.winner = this.tournament.participations[i];
+                break;
+            } else {
+                this.winner = null;
+            }
+        }
+
+        if (this.tournament.participations !== undefined) {
+            this.x = this.tournament.participations;
+        } else {
+            this.x = [];
+        }
+
+        this.parti = true;
+        if (this.tournament.participations.length === 0) {
+            this.parti = false;
         }
     }
 

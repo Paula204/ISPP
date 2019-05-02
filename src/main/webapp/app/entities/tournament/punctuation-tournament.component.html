@@ -1,62 +1,52 @@
 <div>
     <h2 id="page-heading">
         <span jhiTranslate="thorneoApp.punctuation.home.title">Punctuations</span>
-        
+
     </h2>
-    <jhi-alert></jhi-alert>
-    
-    <br/>
+
+    <br />
     <div class="table-responsive" *ngIf="punctuations">
         <table class="table table-striped">
             <thead>
-            <tr>
-            <th><span jhiTranslate="thorneoApp.punctuation.player">Player</span></th>
-            <th><span jhiTranslate="thorneoApp.punctuation.points">Points</span></th>
-            <th><span jhiTranslate="thorneoApp.punctuation.round">Round</span></th>
-        
-            </tr>
+                <tr>
+                    <th><span jhiTranslate="thorneoApp.punctuation.player">Player</span></th>
+                    <th><span jhiTranslate="thorneoApp.punctuation.points">Points</span></th>
+                    <th><span jhiTranslate="thorneoApp.punctuation.round">Round</span></th>
+
+                </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let punctuation of punctuations ;trackBy: trackId">
-               
-                <td>{{punctuation.participation.user.login}}</td>
-                <td>{{punctuation.points}}</td>
-                <td>{{punctuation.round}}</td>
-                <td class="text-right">
-                    <div class="btn-group flex-btn-group-container">
-                        
-                        <button type="submit"
-                                [routerLink]="['/punctuation', punctuation.id, 'edit']"
+                <tr *ngFor="let punctuation of punctuations ;trackBy: trackId">
+
+                    <td>{{punctuation.participation.user.login}}</td>
+                    <td>{{punctuation.points}}</td>
+                    <td>{{punctuation.round}}</td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+
+                            <button type="submit" [routerLink]="['/punctuation', punctuation.id, 'edit']"
                                 class="btn btn-primary btn-sm">
-                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
-                        </button>
-                        
-                    </div>
-                </td>
-            </tr>
+                                <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                            </button>
+
+                        </div>
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>
 
-    <div *ngIf="punctuations.length > 1">
-        <button type="submit"
-            class="btn btn-primary btn-sm"
-            (click)="avanzarRonda()">
+    <div>
+        <button type="submit" [routerLink]="['/tournament', route, 'manager']" class="btn btn-primary ">
+            <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+        </button>
+    </div>
+    
+    <div class="d-md-inline" *ngIf="punctuations.length > 1">
+        <button type="submit" class="btn btn-primary" (click)="avanzarRonda()">
             <fa-icon [icon]="'clock'"></fa-icon>
             <span class="d-none d-md-inline" jhiTranslate="entity.action.round">roundAdvance</span>
         </button>
     </div>
-
-    <div>
-            <button type="submit"
-            [routerLink]="['/tournament', route, 'manager']"
-            class="btn btn-info">
-            <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
-    </button>
-
-
-    </div>
-
-
 </div>
