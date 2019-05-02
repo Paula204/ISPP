@@ -384,4 +384,56 @@ public class TournamentServiceImpl implements TournamentService {
         }
         return result;
     }
+
+    public void advanceRound(Long tournamentId){
+        Integer alta = punctuationService.getMaxRoundTournament(tournamentId);
+        List<Punctuation> lista = punctuationService.getPuntuationsByRoundAndTournament(alta, tournamentId);
+        List<Punctuation> res = new ArrayList<Punctuation>();
+        boolean hayEmpate = false;
+        for(int i=0 ; i<lista.size() ; i++){
+            Punctuation p3 = new Punctuation();
+            if(i%2==0){
+                if(i+1 < lista.size()){
+                    //avance ronda max puntuacion. Crear nueva puntuacion
+                    Punctuation p1 = lista.get(i);
+                    Punctuation p2 = lista.get(i+1);
+                    if(p1.getPoints() > p2.getPoints()){
+                        p3.setIndex(p1.getIndex());
+                        p3.setParticipation(p1.getParticipation());
+                        p3.setPoints(0);
+                        p3.setRound(p1.getRound()+1);
+                        p3.setTournament(p1.getTournament());
+                    }else if(p1.getPoints() < p2.getPoints()){
+                        p3.setIndex(p2.getIndex());
+                        p3.setParticipation(p2.getParticipation());
+                        p3.setPoints(0);
+                        p3.setRound(p2.getRound()+1);
+                        p3.setTournament(p2.getTournament());
+                    }else{
+                        //no se puede empatar
+                        hayEmpate = true;
+                        break;
+                    }
+                    res.add(p3);
+                }else{
+                    //avance ronda por descarte
+                    p3.setIndex(lista.get(i).getIndex());
+                    p3.setParticipation(lista.get(i).getParticipation());
+                    p3.setPoints(0);
+                    p3.setRound(lista.get(i).getRound()+1);
+                    p3.setTournament(lista.get(i).getTournament());
+                    res.add(p3);
+                }
+            }
+        }
+        if (!hayEmpate){
+            //hacer algo con la lista de rondas
+            for(Punctuation p:res){
+                punctuationService.save(p);
+            }
+            if(res.size()==1){
+                this.closeTournamentChooseWinner(res.get(0).getTournament(), res.get(0).getParticipation().getId());
+            }
+        }
+    }
 }
