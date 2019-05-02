@@ -85,7 +85,7 @@ export class TournamentService {
     }
 
     getPunctuations(id: number): Observable<HttpResponse<IPunctuation[]>> {
-        const res = this.http.get<IPunctuation[]>(this.resourceUrl + '/' + id + '/punctuation', { observe: 'response' });
+        const res = this.http.get<IPunctuation[]>(this.resourceUrl + '/' + id + '/punctuationtorneo', { observe: 'response' });
         console.log(res);
         return res;
     }
@@ -98,6 +98,12 @@ export class TournamentService {
 
     getAllPunctuations(id: number): Observable<EntityArrayResponseType> {
         const res = this.http.get<IPunctuation[]>(this.resourceUrl + '/' + id + '/manager', { observe: 'response' });
+        console.log(res);
+        return res;
+    }
+
+    advanceRound(id: number): Observable<IPunctuation[]> {
+        const res = this.http.put<IPunctuation[]>(this.resourceUrl + '/' + id + '/puntuation', { observe: 'response' });
         console.log(res);
         return res;
     }

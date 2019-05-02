@@ -243,7 +243,8 @@ public class TournamentResource {
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
-    @PutMapping("/tournaments/{id}/puntuation")
+
+    @PutMapping("/tournaments/{id}/puntuationtorneo")
     public ResponseEntity<List<Punctuation>> advanceRound(@PathVariable Long id){
         log.debug("boton avance de ronda");
         this.tournamentService.advanceRound(id);
@@ -252,7 +253,7 @@ public class TournamentResource {
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "api/tournament/{id}/punctuation");
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
-  
+
     @GetMapping("/tournaments/{id}/manager")
     public ResponseEntity<List<Punctuation>> getAllPunctuationsByTournament(@PathVariable Long id){
         log.debug("Busqueda de puntuaciones de torneo");
