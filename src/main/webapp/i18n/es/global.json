@@ -1,8 +1,10 @@
 {
     "global": {
+        "crono.crono": "Cronómetro",
         "crono.start": "Iniciar",
         "crono.lapso": "Vuelta",
         "crono.stop": "Parar",
+        "crono.reset": "Reiniciar",
         "payment": "Pago con Paypal",
         "title": "Thorneo",
         "browsehappy": "Está usando un navegador <strong>no actualizado</strong>. Por favor, <a href=\"http://browsehappy.com/?locale=en\">actualice su navegador</a> para mejorar su experiencia.",
@@ -117,7 +119,8 @@
             "view": "Vista",
             "signOn": "Registrar",
             "close": "Cerrar",
-            "manage": "Gestionar"
+            "manage": "Gestionar",
+            "round": "Avanzar ronda"
         },
         "detail": {
             "field": "Campo",

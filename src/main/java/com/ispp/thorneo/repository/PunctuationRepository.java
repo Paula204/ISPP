@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PunctuationRepository extends JpaRepository<Punctuation, Long> {
 
-    @Query("select p from Participation p where p.tournament.id = ?1")
+    @Query("select p from Punctuation p where p.tournament.id = ?1")
     List<Punctuation> getPunctuationsByTournament(Long tournamentId);
 
     @Query("select max(p.round) from Punctuation p where p.tournament.id = ?1")

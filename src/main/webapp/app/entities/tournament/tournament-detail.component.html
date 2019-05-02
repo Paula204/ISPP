@@ -74,9 +74,11 @@
                     </tr>
                   </tbody>
                 </table>
+                
+            
                 <table class="table detailTable" style="border: 2px solid #2792f2; margin: 25px auto; border-radius: 0.25rem;
                 border-collapse: separate;
-                border-spacing: 0;">
+                border-spacing: 0;"  *ngIf="parti != false"> 
                 <thead>
                     <tr>
                         <th colspan="3"><h2 class="text-center" jhiTranslate="thorneoApp.tournament.participation">Participants</h2></th>
@@ -88,42 +90,19 @@
                         <td>{{participation.user.firstName}}</td>
                         <td>{{participation.user.lastName}}</td>
                     </tr>
-                </tbody>
-                    <thead>
-                        <tr>
-                            <th colspan="3"> <h2 class="text-center" jhiTranslate="thorneoApp.tournament.winner">Winner</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td><span>{{tournament.winner}}</span></td>
+            
+                    <tr class="gold" *ngIf="winner != null">
+                        <td>
+                            <p class="bold" jhiTranslate="thorneoApp.tournament.winner"> Winner>
+                        </td>
+                        <td colspan="2">{{winner.user.login}}</td>
                     </tr>
-                    </tbody>
+                </tbody>                
                 </table>
-                <!--
-                <ul>
-                    <li *ngFor="let participation of tournament.participations" class="mt-1">
-                        {{participation.user.login}}
-                        <button *ngIf="currentAccount.login == tournament.user.login && tournament.type == 'ELIMINATION'" type="submit"
-                                (click)="disqualify(participation.id)"
-                                class="btn btn-sm btn-danger">
-                            <span jhiTranslate="thorneoApp.tournament.disqualify">Disqualify</span>
-                        </button> 
-                        <button *ngIf="currentAccount.login == tournament.user.login && tournament.type == 'POINT'" type="submit"
-                                (click)="win(participation.id)"
-                                class="btn btn-sm btn-primary">
-                            <span jhiTranslate="thorneoApp.tournament.win">Win</span>
-                        </button>
-                        <button *ngIf="currentAccount.login == tournament.user.login && tournament.type == 'POINT'" type="submit"
-                                (click)="tie(participation.id)"
-                                class="btn btn-sm btn-danger">
-                            <span jhiTranslate="thorneoApp.tournament.tie">Tie</span>
-                        </button>
-                    </li>
-                </ul>
+        
+
+            </ng-template>
                 
-                <qrcode qrdata="http://localhost:9000/#/tournament/24/view" size="256" level="M"></qrcode>
-                -->
             <jhi-alert-error></jhi-alert-error>
             <button type="submit"
                     (click)="previousState()"
@@ -136,13 +115,7 @@
                     class="btn btn-primary">
                 <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span class="d-none d-md-inline" jhiTranslate="entity.action.edit"> Edit</span>
             </button>
-            <!--
-            <button *ngIf="tournament.user.login==currentAccount.login && tournament.type === 'POINT' || currentAccount.authorities.includes('ROLE_ADMIN') && tournament.type === 'POINT'" type="submit"
-                [routerLink]="['/tournament', tournament.id, 'manage-group' ]"
-                class="btn btn-primary">
-                <fa-icon [icon]="'wrench'"></fa-icon>&nbsp;<span class="d-none d-md-inline" jhiTranslate="entity.action.manage">Manage</span>
-            </button>-->
-            <!--Creado un if else para que no salgan los dos botones-->
+           
             <div class="d-inline"  *ngIf="tournament.participations.length > 1 && tournament.meetingDate.isBefore(currentDate)">
                         <ng-template></ng-template><button type="button "
                                                         [routerLink]="['/tournament', tournament.id, 'manager' ]"
@@ -156,15 +129,15 @@
                     class="btn btn-primary green-background">
                 <fa-icon [icon]="'arrow-right'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.signOn"> Sign On</span>
             </button>
-            <button *ngIf="tournament.winner == null && tournament.user.login == currentAccount.login && tournament.meetingDate.isBefore(currentDate)" type="submit"
-                    (click)="close()"
-                    class="btn btn-primary red">
-                <span jhiTranslate="entity.action.close">Close tournament</span>
-            </button>
         </div>
     </div>
 </div>
+    
+<div class="col">
+        <jhi-tweet url={{abc}} text={{tournament.title}}></jhi-tweet>
+</div>
 </br>
+
 <div class="row justify-content-center">
     <div class="col-12">
         <div *ngIf="!currentAccount.authorities.includes('ROLE_SPONSOR') && !currentAccount.authorities.includes('ROLE_ADMIN')"  class="carousel-inner" 

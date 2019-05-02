@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ITournament, ITournamentForm, Tournament } from 'app/shared/model/tournament.model';
@@ -11,7 +11,6 @@ import { Account, AccountService, User } from 'app/core';
 import { HasAnyAuthorityDirective } from 'app/shared';
 
 import { forEach } from '@angular/router/src/utils/collection';
-
 import { filter, map } from 'rxjs/operators';
 import { ISponsorship, Sponsorship } from 'app/shared/model/sponsorship.model';
 import { SponsorshipService } from 'app/entities/sponsorship';
@@ -27,13 +26,18 @@ export class TournamentDetailComponent implements OnInit {
     tournament: ITournamentForm;
     currentAccount: Account;
     currentDate: Date;
-
+    abc = location.href;
     nonbotton: boolean;
     sponsorship: ISponsorship;
     isSaving: boolean;
     participa: boolean;
     estaEn: boolean;
     currentUser: any;
+    winner: any;
+    i: number;
+    p: IParticipation;
+    parti: boolean;
+    x: IParticipation[];
 
     constructor(
         protected jhiAlertService: JhiAlertService,
@@ -61,6 +65,32 @@ export class TournamentDetailComponent implements OnInit {
                 map((sponsorship: HttpResponse<Sponsorship>) => sponsorship.body)
             )
             .subscribe(value => (this.sponsorship = value));
+        for (this.i = 0; this.i < this.tournament.participations.length - 1; this.i++) {
+            this.p = this.tournament.participations[this.i];
+            if (this.p.punctuation === 10000) {
+                this.winner = this.p;
+                break;
+            }
+        }
+        for (let i = 0; this.tournament.participations.length; i++) {
+            if (this.tournament.participations[i].punctuation === 10000) {
+                this.winner = this.tournament.participations[i];
+                break;
+            } else {
+                this.winner = null;
+            }
+        }
+
+        if (this.tournament.participations !== undefined) {
+            this.x = this.tournament.participations;
+        } else {
+            this.x = [];
+        }
+
+        this.parti = true;
+        if (this.tournament.participations.length === 0) {
+            this.parti = false;
+        }
     }
 
     nonbottonn() {

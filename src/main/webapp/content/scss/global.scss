@@ -390,6 +390,14 @@ ui bootstrap tweaks
     flex-wrap: wrap;
 }
 
+.detailTable tr.gold {
+    background-color: #ffd59a;
+}
+
+.detailTable tr.gold:hover {
+    background-color: #ffba58;
+}
+
 .detailTable tbody {
     box-sizing: border-box;
     flex-grow: 1;
