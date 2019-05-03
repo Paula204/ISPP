@@ -7,11 +7,11 @@
                 "createOrEditLabel": "Editar puntuación",
                 "search": "Buscar puntuaciones"
             },
-            "created": "Una nueva puntuación ha sido creada con el identificador {{ param }}",
-            "updated": "Una puntuación ha sido actualizada con el identificador {{ param }}",
-            "deleted": "Una puntuación ha sido eliminada con el identificador {{ param }}",
+            "created": "Una nueva puntuación ha sido creada",
+            "updated": "La puntuación ha sido actualizada",
+            "deleted": "La puntuación ha sido eliminada",
             "delete": {
-                "question": "¿Seguro que quiere eliminar puntuación {{ id }}?"
+                "question": "¿Seguro que quiere eliminar la puntuación?"
             },
             "detail": {
                 "title": "Puntuación"

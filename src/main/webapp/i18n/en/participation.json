@@ -7,11 +7,11 @@
                 "createOrEditLabel": "Create or edit a Participation",
                 "search": "Search for Participation"
             },
-            "created": "A new Participation is created with identifier {{ param }}",
-            "updated": "A Participation is updated with identifier {{ param }}",
-            "deleted": "A Participation is deleted with identifier {{ param }}",
+            "created": "A new participation has been created",
+            "updated": "The participation has been updated",
+            "deleted": "The participation has been deleted",
             "delete": {
-                "question": "Are you sure you want to delete Participation {{ id }}?"
+                "question": "Are you sure you want to delete this participation?"
             },
             "detail": {
                 "title": "Participation"
