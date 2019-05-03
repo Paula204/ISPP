@@ -29,6 +29,7 @@
             "imagen": "Imagen",
             "latitude": "Latitud",
             "longitude": "Longitud",
+            "ediciontorneo": "No puedes avanzar de ronda si hay empate en un enfrentamiento",
             "type": "Tipo de torneo",
             "participation": "Participantes",
             "user": "Administrador",

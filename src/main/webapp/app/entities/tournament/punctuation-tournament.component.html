@@ -4,6 +4,9 @@
 
     </h2>
 
+    <div class="alert alert-danger" *ngIf="nopuedes" jhiTranslate="thorneoApp.tournament.ediciontorneo">
+    </div>
+
     <br />
     <div class="table-responsive" *ngIf="punctuations">
         <table class="table table-striped">
@@ -37,16 +40,20 @@
         </table>
     </div>
 
-    <div>
-        <button type="submit" [routerLink]="['/tournament', route, 'manager']" class="btn btn-primary ">
-            <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
-        </button>
-    </div>
-    
     <div class="d-md-inline" *ngIf="!hayGanador">
         <button type="submit" class="btn btn-primary" (click)="avanzarRonda()">
             <fa-icon [icon]="'clock'"></fa-icon>
             <span class="d-none d-md-inline" jhiTranslate="entity.action.round">roundAdvance</span>
         </button>
     </div>
+
+    <br><br>
+
+    <div>
+        <button type="submit" [routerLink]="['/tournament', route, 'manager']" class="btn btn-primary ">
+            <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+        </button>
+    </div>
+    
+
 </div>

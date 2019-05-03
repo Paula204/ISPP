@@ -6,6 +6,7 @@ import { JhiLanguageService } from 'ng-jhipster';
 import { EMAIL_ALREADY_USED_TYPE, LOGIN_ALREADY_USED_TYPE } from 'app/shared';
 import { LoginModalService } from 'app/core';
 import { Register } from './register.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'jhi-register',
@@ -27,7 +28,8 @@ export class RegisterComponent implements OnInit, AfterViewInit {
         private loginModalService: LoginModalService,
         private registerService: Register,
         private elementRef: ElementRef,
-        private renderer: Renderer
+        private renderer: Renderer,
+        private router: Router
     ) {}
 
     ngOnInit() {
@@ -53,6 +55,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
                 this.registerService.save(this.registerAccount).subscribe(
                     () => {
                         this.success = true;
+                        this.router.navigate([''], { queryParams: { success: 'true' } });
                     },
                     response => this.processError(response)
                 );
