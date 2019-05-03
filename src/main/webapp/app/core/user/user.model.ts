@@ -12,6 +12,9 @@ export interface IUser {
     lastModifiedBy?: string;
     lastModifiedDate?: Date;
     password?: string;
+    twitter?: string;
+    facebook?: string;
+    instagram?: string;
 }
 
 export class User implements IUser {
@@ -28,7 +31,10 @@ export class User implements IUser {
         public createdDate?: Date,
         public lastModifiedBy?: string,
         public lastModifiedDate?: Date,
-        public password?: string
+        public password?: string,
+        public twitter?: string,
+        public facebook?: string,
+        public instagram?: string
     ) {
         this.id = id ? id : null;
         this.login = login ? login : null;
@@ -43,5 +49,8 @@ export class User implements IUser {
         this.lastModifiedBy = lastModifiedBy ? lastModifiedBy : null;
         this.lastModifiedDate = lastModifiedDate ? lastModifiedDate : null;
         this.password = password ? password : null;
+        this.twitter = twitter ? twitter : null;
+        this.facebook = facebook ? facebook : null;
+        this.instagram = instagram ? instagram : null;
     }
 }

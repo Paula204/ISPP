@@ -40,8 +40,6 @@ export class TournamentManagerComponent implements OnInit, OnDestroy {
     currentDate: Date;
 
     isSaving: boolean;
-    p: IParticipation[];
-    i: number;
     l: number;
     participation: Participation;
     punctuations: IPunctuation[];
@@ -75,7 +73,6 @@ export class TournamentManagerComponent implements OnInit, OnDestroy {
             this.currentAccount = account;
         });
         this.currentDate = new Date();
-        this.p = this.tournament.participations;
         // ....
         // Metodo completo para JQuery. Empieza a partir de aquí:
         // Obtenemos las puntuaciones
@@ -90,63 +87,49 @@ export class TournamentManagerComponent implements OnInit, OnDestroy {
                     i = punctuu.round;
                 }
             }
-
-            // Sacamos las puntuaciones de la última ronda
-            const nuevasPuntuaciones = [];
-            for (const necesario of punctuations.body) {
-                if (necesario.round === i) {
-                    nuevasPuntuaciones.push(necesario);
+            const puntuaciones0 = [];
+            for (const p of this.punctuations) {
+                if (p.round === 0) {
+                    puntuaciones0.push(p);
+                }
+            }
+            // Comprobamos el número de puntuaciones y lo ajustamos para que cuadre con teamsP
+            if (puntuaciones0.length % 2 !== 0) {
+                puntuaciones0.push(null);
+            }
+            if (puntuaciones0.length > 4) {
+                while (puntuaciones0.length % 8 !== 0) {
+                    puntuaciones0.push(null);
                 }
             }
 
-            // Ordenamos el array por su ronda y luego por índice
-            punctuations.body.sort(function(a, b) {
-                const aRound = a.round;
-                const bRound = b.round;
-                const aIndex = a.index;
-                const bIndex = b.index;
-                if (aRound === bRound) {
-                    return aIndex > bIndex ? -1 : aIndex < bIndex ? 1 : 0;
-                } else {
-                    return aRound < bRound ? -1 : 1;
+            // Rellenamos teamsP con las puntuaciones iniciales OK
+            for (let y = 0; y < puntuaciones0.length - 1; y++) {
+                if (y % 2 === 0) {
+                    if (puntuaciones0[i] === null) {
+                        teamsP.push([null, null]);
+                    } else if (puntuaciones0[y + 1] === null) {
+                        teamsP.push([puntuaciones0[y].participation.user.login, null]);
+                    } else {
+                        teamsP.push([puntuaciones0[y].participation.user.login, puntuaciones0[y + 1].participation.user.login]);
+                    }
                 }
-            });
+            }
+
+            // Rellenamos results con los puntos de las puntuaciones que tocan
+            for (let roundTemp = 0; roundTemp <= i; roundTemp++) {
+                resultsP.push([]); // Añadimos un conjunto para cada ronda
+                let puntuacionesDeRoundTemp = [];
+                for (const puntuacionTemp of this.punctuations) {
+                    // Con el conjunto de arriba y este for, nos quedamos con las puntuaciones de cada ronda
+                    if (puntuacionTemp.round === roundTemp) {
+                        puntuacionesDeRoundTemp.push(puntuacionTemp);
+                    }
+                }
+                // Nos recorremos las
+            }
 
             // Creamos el array a mostrar por JQuery
-
-            // Usuarios de la ronda
-            let userRonda = [];
-            let ronda = 0;
-            const indexT = 0;
-            // Aquí almacenaremos la ronda completa
-            let rondaCompleta = [];
-            while (ronda <= i) {
-                userRonda = [];
-                // Sacamos los user de la ronda
-                for (const pp of punctuations.body) {
-                    if (pp.round === ronda) {
-                        userRonda.push(punctuations.body[indexT]);
-                    }
-                }
-                let indice2 = 0;
-                rondaCompleta = [];
-                // Los agrupampos de dos en dos y lo metemos en ronda completa
-                while (indice2 < userRonda.length) {
-                    if (indice2 === userRonda.length - 1) {
-                        teamsP.push([punctuations.body[indice2].participation.user.login, null]);
-                        resultsP.push([punctuations.body[indice2].points]);
-                    } else {
-                        teamsP.push([
-                            punctuations.body[indice2].participation.user.login,
-                            punctuations.body[indice2 + 1].participation.user.login
-                        ]);
-                        resultsP.push([punctuations.body[indice2].points, punctuations.body[indice2 + 1].points]);
-                    }
-                    indice2 = indice2 + 2;
-                }
-                ronda++;
-            }
-
             const saveData = {
                 teams: teamsP,
                 results: resultsP

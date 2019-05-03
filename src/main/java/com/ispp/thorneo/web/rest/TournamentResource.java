@@ -262,4 +262,22 @@ public class TournamentResource {
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "api/tournament/{id}/manager");
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
+
+    @GetMapping("/tournaments/{id}/round")
+    public ResponseEntity<List<Integer>> getMaxRound(@PathVariable Long id){
+        log.debug("Obtener maxima ronda");
+        List<Integer> lista = new ArrayList<Integer>();
+        lista.add(punctuationService.getMaxRoundTournament(id));
+        Page<Integer> page = new PageImpl<>(lista);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "api/tournament/{id}/round");
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    @GetMapping("/tournaments/{tournamentId}/{round}/punctuationsRound")
+    public ResponseEntity<List<Punctuation>> getPunctuationsByRound(@PathVariable Long id, @PathVariable Integer round){
+        log.debug("Busqueda de puntuaciones de torneo");
+        Page<Punctuation> page = new PageImpl<>(punctuationService.getPuntuationsByRoundAndTournament(round, id));
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "api/tournament/{id}/manager");
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
 }
