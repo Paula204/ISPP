@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { from as fromPromise, Observable, of, Subscription } from 'rxjs';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 
 import { Sponsorship } from 'app/shared/model/sponsorship.model';
@@ -14,15 +14,18 @@ import { TournamentService } from './tournament.service';
 import { SponsorshipService } from 'app/entities/sponsorship';
 
 import * as Http from 'http';
-import { filter, map } from 'rxjs/operators';
+import { filter, map, switchMap, tap } from 'rxjs/operators';
 
 declare let $: any;
 
 import { Type } from 'app/shared/model/tournament.model';
+import { MapsAPILoader } from '@agm/core';
+declare var google: any;
 
 @Component({
     selector: 'jhi-tournament',
-    templateUrl: './tournament.component.html'
+    templateUrl: './tournament.component.html',
+    styleUrls: ['tournament-maps.component.css']
 })
 export class TournamentComponent implements OnInit, OnDestroy {
     currentAccount: Account;
@@ -42,6 +45,18 @@ export class TournamentComponent implements OnInit, OnDestroy {
     sponsorship: ISponsorship;
     type: Type;
     currentDate: Date;
+    lat: any;
+    lng: any;
+    label: any;
+    list: any;
+    markers: Marker[];
+    mark: Marker;
+    address: string;
+    location: Location;
+    loading: boolean;
+    geocoder: any;
+    entry: any;
+    title: string;
     constructor(
         protected tournamentService: TournamentService,
         protected sponsorshipService: SponsorshipService,
@@ -50,6 +65,7 @@ export class TournamentComponent implements OnInit, OnDestroy {
         protected accountService: AccountService,
         protected activatedRoute: ActivatedRoute,
         protected router: Router,
+        private mapLoader: MapsAPILoader,
         protected eventManager: JhiEventManager
     ) {
         this.itemsPerPage = ITEMS_PER_PAGE;
@@ -181,11 +197,80 @@ export class TournamentComponent implements OnInit, OnDestroy {
         this.links = this.parseLinks.parse(headers.get('link'));
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
         this.tournaments = data;
+        this.markers = [];
+        for (let i = 0; i < this.tournaments.length; i++) {
+            this.entry = this.tournaments[i];
+            this.address = this.entry.meetingPoint + ' ' + this.entry.city;
+            const aux = this.entry.title;
+            this.loading = true;
+            this.geocodeAddress(this.address).subscribe((location: Location) => {
+                this.location = location;
+                this.loading = false;
+                this.mark = {
+                    lng: location.lng,
+                    lat: location.lat,
+                    label: aux,
+                    draggable: false
+                };
+                this.markers.push(this.mark);
+            });
+        }
     }
 
     protected onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
     }
+
+    private initGeocoder() {
+        console.log('Init geocoder!');
+        this.geocoder = new google.maps.Geocoder();
+    }
+
+    private waitForMapsToLoad(): Observable<boolean> {
+        if (!this.geocoder) {
+            return fromPromise(this.mapLoader.load()).pipe(
+                tap(() => this.initGeocoder()),
+                map(() => true)
+            );
+        }
+        return of(true);
+    }
+
+    geocodeAddress(location: string): Observable<Location> {
+        console.log('Start geocoding!');
+        return this.waitForMapsToLoad().pipe(
+            // filter(loaded => loaded),
+            switchMap(() => {
+                return new Observable(observer => {
+                    this.geocoder.geocode({ address: location }, (results, status) => {
+                        if (status === google.maps.GeocoderStatus.OK) {
+                            console.log('Geocoding complete!');
+                            observer.next({
+                                lat: results[0].geometry.location.lat(),
+                                lng: results[0].geometry.location.lng()
+                            });
+                        } else {
+                            console.log('Error - ', results, ' & Status - ', status);
+                            observer.next({ lat: 0, lng: 0 });
+                        }
+                        observer.complete();
+                    });
+                });
+            })
+        );
+    }
+}
+
+export interface Marker {
+    lat: number;
+    lng: number;
+    label?: string;
+    draggable: boolean;
+}
+
+export interface Location {
+    lat: number;
+    lng: number;
 }
 
 /**
