@@ -40,6 +40,7 @@ export class TournamentDetailComponent implements OnInit {
     x: IParticipation[];
     mayor: boolean;
     soyMayor: boolean;
+    minAgeTorneo: number;
 
     constructor(
         protected jhiAlertService: JhiAlertService,
@@ -96,6 +97,7 @@ export class TournamentDetailComponent implements OnInit {
 
         this.soyMayor = false;
         this.mayor = false;
+        this.minAgeTorneo = this.tournament.game.minAge;
         if (this.tournament.game.minAge >= 18) {
             this.mayor = true;
         }
