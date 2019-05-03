@@ -4,6 +4,7 @@
             <h1 jhiTranslate="register.title" class="center">Registration</h1>
             <div class="alert alert-success" *ngIf="success" jhiTranslate="register.messages.success">
                 <strong>Registration saved!</strong> Please check your email for confirmation.
+            
             </div>
 
             <div class="alert alert-danger" *ngIf="error" jhiTranslate="register.messages.error.fail">
@@ -47,7 +48,7 @@
                 <div class="form-group">
                     <label class="form-control-label" for="email" jhiTranslate="global.form.email">Email</label>
                     <input type="email" class="form-control" id="email" name="email" #email="ngModel" placeholder="{{'global.form.email.placeholder' | translate}}"
-                            [(ngModel)]="registerAccount.email" minlength=5 maxlength=254 email required>
+                            [(ngModel)]="registerAccount.email" minlength=5 maxlength=100 email required>
                     <div *ngIf="email.dirty && email.invalid">
                         <small class="form-text text-danger" *ngIf="email.errors.required"
                                 jhiTranslate="global.messages.validate.email.required">
@@ -106,8 +107,19 @@
                         </small>
                     </div>
                 </div>
-                <button type="submit" [disabled]="registerForm.form.invalid" class="btn btn-primary" jhiTranslate="register.form.button">Register</button>
-            </form>
+
+            <div>
+                <input type="checkbox" (click)="terms()"> 
+                <label jhiTranslate="global.messages.info.register.terminos"></label>
+            </div>
+                <!-- hacer banner con "aceptas terminos bla bla-->
+                <button type="submit" [disabled]="registerForm.form.invalid || !terminos" class="btn btn-primary" jhiTranslate="register.form.button">Register</button>
+            
+
+                
+            </div>
+            
+        </form>
 		</div>
     </div>
 </div>

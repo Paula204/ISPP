@@ -7,11 +7,11 @@
                 "createOrEditLabel": "Crear o editar patrocinio",
                 "search": "Buscar patrocinio"
             },
-            "created": "Un nuevo patrocinio ha sido creado con el identificador {{ param }}",
-            "updated": "Un patrocinio ha sido actualizado con el identificador {{ param }}",
-            "deleted": "Un patrocinio con el identificador {{ param }} ha sido eliminado",
+            "created": "Un nuevo patrocinio ha sido creado",
+            "updated": "El patrocinio ha sido actualizado",
+            "deleted": "El patrocinio ha sido eliminado",
             "delete": {
-                "question": "¿Seguro que quiere eliminar el patrocinio {{ id }}?"
+                "question": "¿Seguro que quiere eliminar el patrocinio?"
             },
             "detail": {
                 "title": "Patrocinio"

@@ -3,16 +3,16 @@
         "tournament": {
             "home": {
                 "title2": "Mis Torneos",
-                "title": "Torneo",
+                "title": "Torneos",
                 "createLabel": "Crear nuevo Torneo",
                 "createOrEditLabel": "Crear o editar un torneo",
                 "search": "Busca un torneo"
             },
-            "created": "Un nuevo torneo ha sido creado con el identificador {{ param }}",
-            "updated": "Un torneo ha sido actualizado con el identificador {{ param }}",
-            "deleted": "Un torneo ha sido eliminado con el identificador {{ param }}",
+            "created": "Un nuevo torneo ha sido creado",
+            "updated": "El torneo ha sido actualizado",
+            "deleted": "El torneo ha sido eliminado",
             "delete": {
-                "question": "¿Seguro que quiere eliminar torneo {{ id }}?"
+                "question": "¿Seguro que quiere eliminar el torneo?"
             },
             "detail": {
                 "title": "Torneo"
