@@ -26,6 +26,9 @@
         "createdBy": "Created by",
         "createdDate": "Created date",
         "lastModifiedBy": "Modified by",
-        "lastModifiedDate": "Modified date"
+        "lastModifiedDate": "Modified date",
+        "facebook": "Facebook",
+        "twitter": "Twitter",
+        "instagram": "Instagram"
     }
 }
