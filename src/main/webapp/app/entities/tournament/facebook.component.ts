@@ -1,7 +1,7 @@
 import { Component, ElementRef, AfterViewInit, Input } from '@angular/core';
 
 @Component({
-    selector: 'fb-like',
+    selector: 'jhi-like',
     template:
         '<div class="fb-like" [attr.data-href]="url" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>'
 })
@@ -32,6 +32,6 @@ export class FbLikeComponent implements AfterViewInit {
 
     ngAfterViewInit(): void {
         // render facebook button
-        window['FB'] && window['FB'].XFBML.parse();
+        const b = window['FB'] && window['FB'].XFBML.parse();
     }
 }
