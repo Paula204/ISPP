@@ -2,7 +2,7 @@
     "paypal-payments": {
         "title": "Inscripcion",
         "premium": "Premium",
-        "refresh": "El botón de paypal está cargando (Si espera demasiado, pulse F5)",
+        "refresh": "El botón de paypal está cargando (Si la espera se prolonga, pulse F5)",
         "completed": "Transaccion completada"
     }
 }

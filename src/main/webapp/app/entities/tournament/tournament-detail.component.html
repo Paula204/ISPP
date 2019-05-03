@@ -1,4 +1,3 @@
-</br>
 <div class="row justify-content-center">
     <div class="col-12">
         <div *ngIf="!currentAccount.authorities.includes('ROLE_SPONSOR') && !currentAccount.authorities.includes('ROLE_ADMIN')"  class="carousel-inner" 
@@ -10,6 +9,14 @@
     </div>
 </div>
 </br>
+<div class="row justify-content-between">
+    <div  style="margin-top:10px; margin-left:15px">
+            <jhi-tweet url={{abc}} text={{tournament.title}}></jhi-tweet>
+    </div>
+    <div style="margin-top:6px;margin-right:15px">
+        <jhi-like url={{abc}}></jhi-like>
+    </div>
+</div>
 <div class="row justify-content-center">
     <div class="col-12">
         <div *ngIf="tournament">
@@ -62,8 +69,13 @@
                     </tr>
                     <tr>
                         <td><p  class="bold"jhiTranslate="thorneoApp.tournament.user">User</p></td>
-                        <td><p>{{tournament.user?.login}}</p></td>
-                    </tr>
+                        <td><p>{{tournament.user?.login}}</p>
+                        <span *ngIf="isSponsor != false">
+                            <a *ngIf="tournament.user.facebook != ''" href={{tournament.user.facebook}}><img class="img-tabla" src="../../../content/images/facebook.png" /></a>
+                            <a *ngIf="tournament.user.twitter != ''" href={{tournament.user.twitter}}><img class="img-tabla" src="../../../content/images/twitter.png" /></a>
+                            <a *ngIf="tournament.user.instagram != ''" href={{tournament.user.instagram}}><img class="img-tabla" src="../../../content/images/instagram.png" /></a>
+                        </span></td>
+                        </tr>
                     <tr>
                         <td><p  class="bold"jhiTranslate="thorneoApp.tournament.game">Game</p></td>
                         <td>
@@ -99,10 +111,8 @@
                     </tr>
                 </tbody>                
                 </table>
-        
+            </div>
 
-            </ng-template>
-                
             <jhi-alert-error></jhi-alert-error>
             <button type="submit"
                     (click)="previousState()"
@@ -123,7 +133,7 @@
                             <fa-icon [icon]="'wrench'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.manage">Manage</span>
                         </button></ng-template>
-                </div>
+            </div>
             <button *ngIf="tournament.winner == null && tournament.user.login != currentAccount.login && tournament.participations.length < tournament.playerSize && estaEn!=false" type="submit"
                     (click)="signOn()"
                     class="btn btn-primary green-background">
@@ -132,11 +142,6 @@
         </div>
     </div>
 </div>
-    
-<div class="col">
-        <jhi-tweet url={{abc}} text={{tournament.title}}></jhi-tweet>
-</div>
-</br>
 
 <div class="row justify-content-center">
     <div class="col-12">
@@ -148,4 +153,4 @@
         </div>
     </div>
 </div>
-</br>
+

@@ -28,7 +28,7 @@ export class TournamentComponent implements OnInit, OnDestroy {
     currentAccount: Account;
     tournaments: ITournament[];
     error: any;
-    success: any;
+    success: boolean;
     eventSubscriber: Subscription;
     currentSearch: string;
     routeData: any;

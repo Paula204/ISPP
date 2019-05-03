@@ -153,6 +153,9 @@ public class UserService {
         user.setLastName(userDTO.getLastName());
         user.setEmail(userDTO.getEmail().toLowerCase());
         user.setImageUrl(userDTO.getImageUrl());
+        user.setTwitter(userDTO.getTwitter());
+        user.setInstagram(userDTO.getInstagram());
+        user.setFacebook(userDTO.getFacebook());
         if (userDTO.getLangKey() == null) {
             user.setLangKey(Constants.DEFAULT_LANGUAGE); // default language
         } else {
@@ -222,6 +225,9 @@ public class UserService {
                 user.setImageUrl(userDTO.getImageUrl());
                 user.setActivated(userDTO.isActivated());
                 user.setLangKey(userDTO.getLangKey());
+                user.setFacebook(userDTO.getFacebook());
+                user.setInstagram(userDTO.getInstagram());
+                user.setTwitter(userDTO.getTwitter());
                 Set<Authority> managedAuthorities = user.getAuthorities();
                 managedAuthorities.clear();
                 userDTO.getAuthorities().stream()

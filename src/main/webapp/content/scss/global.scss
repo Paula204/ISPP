@@ -80,6 +80,11 @@ a:hover {
     cursor: pointer;
 }
 
+.twit {
+    position: relative;
+    margin-top: 60px;
+}
+
 /* ==========================================================================
 Browser Upgrade Prompt
 ========================================================================== */
@@ -994,4 +999,12 @@ div.jQBracket .round {
         transform: translateZ(0);
         opacity: 1;
     }
+}
+// Iconos en la tabla de sponsors
+
+.img-tabla {
+    width: 55px;
+    height: 55px;
+    margin-left: 5px;
+    margin-right: 5px;
 }

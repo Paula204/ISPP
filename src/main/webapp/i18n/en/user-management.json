@@ -5,11 +5,11 @@
             "createLabel": "Create a new user",
             "createOrEditLabel": "Create or edit a user"
         },
-        "created": "A new user is created with identifier {{ param }}",
-        "updated": "An user is updated with identifier {{ param }}",
-        "deleted": "An user is deleted with identifier {{ param }}",
+        "created": "A new user has been created",
+        "updated": "The user has been updated",
+        "deleted": "The user has been deleted",
         "delete": {
-            "question": "Are you sure you want to delete user {{ login }}?",
+            "question": "Are you sure you want to delete this user?",
             "info": "WARNING: Your information will be in cache during 5 minutes"
         },
         "detail": {
@@ -26,6 +26,9 @@
         "createdBy": "Created by",
         "createdDate": "Created date",
         "lastModifiedBy": "Modified by",
-        "lastModifiedDate": "Modified date"
+        "lastModifiedDate": "Modified date",
+        "facebook": "Facebook",
+        "twitter": "Twitter",
+        "instagram": "Instagram"
     }
 }
