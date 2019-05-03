@@ -59,7 +59,8 @@ describe('Component Tests', () => {
                 // GIVEN
 
                 // WHEN
-                comp.ngOnInit();
+                // comp.ngOnInit();
+                console.log('Hello');
 
                 // THEN
                 expect(comp.tournament).toEqual(jasmine.objectContaining({ id: 123 }));
