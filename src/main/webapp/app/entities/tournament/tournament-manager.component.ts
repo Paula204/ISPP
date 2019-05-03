@@ -106,7 +106,7 @@ export class TournamentManagerComponent implements OnInit, OnDestroy {
             // Rellenamos teamsP con las puntuaciones iniciales OK
             for (let y = 0; y < puntuaciones0.length - 1; y++) {
                 if (y % 2 === 0) {
-                    if (puntuaciones0[i] === null) {
+                    if (puntuaciones0[y] === null) {
                         teamsP.push([null, null]);
                     } else if (puntuaciones0[y + 1] === null) {
                         teamsP.push([puntuaciones0[y].participation.user.login, null]);
@@ -133,7 +133,11 @@ export class TournamentManagerComponent implements OnInit, OnDestroy {
                 // Nos recorremos las puntuaciones de cada ronda
                 for (let z = 0; z < puntuacionesDeRoundTemp.length - 1; z++) {
                     if (z % 2 === 0) {
-                        if (puntuacionesDeRoundTemp[z] !== null) {
+                        if (puntuacionesDeRoundTemp[z] === null) {
+                            resultsP[roundTemp].push([null, null]);
+                        } else if (puntuacionesDeRoundTemp[z + 1] === null) {
+                            resultsP[roundTemp].push([puntuacionesDeRoundTemp[z].points, null]);
+                        } else {
                             resultsP[roundTemp].push([puntuacionesDeRoundTemp[z].points, puntuacionesDeRoundTemp[z + 1].points]);
                         }
                     }
