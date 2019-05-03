@@ -143,7 +143,7 @@ jhipster:
                 token-validity-in-seconds-for-remember-me: 2592000
     mail: # specific JHipster mail property, for standard properties see MailProperties
         from: thorneodevs@gmail.com
-        base-url: https://thorneo-sprint-2.herokuapp.com # Modify according to your server's URL
+        base-url: https://thorneo-sprint-3.herokuapp.com # Modify according to your server's URL
     metrics:
         logs: # Reports metrics in the logs
             enabled: false
