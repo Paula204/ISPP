@@ -99,7 +99,7 @@ export class TournamentDetailComponent implements OnInit {
         this.mayor = false;
         this.minAgeTorneo = this.tournament.game.minAge;
 
-        if (this.minAgeTorneo >= 18) {
+        if (this.tournament.game.minAge >= 18) {
             this.mayor = true;
         }
     }
