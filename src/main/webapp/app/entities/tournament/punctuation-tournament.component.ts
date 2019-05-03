@@ -25,6 +25,7 @@ export class PunctuationTournamentComponent implements OnInit, OnDestroy {
     route: string;
     idTorneo: number;
     temp: IPunctuation[];
+    hayGanador: boolean;
 
     constructor(
         protected punctuationService: PunctuationService,
@@ -74,8 +75,14 @@ export class PunctuationTournamentComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        this.hayGanador = false;
         this.tournamentService.getPunctuations(+this.route).subscribe(punctuations => {
             this.punctuations = punctuations.body;
+            for (const p of this.punctuations) {
+                if (p.participation.punctuation === 10000) {
+                    this.hayGanador = true;
+                }
+            }
         });
         this.accountService.identity().then(account => {
             this.currentAccount = account;
