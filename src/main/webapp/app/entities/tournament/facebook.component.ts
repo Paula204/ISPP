@@ -24,7 +24,7 @@ export class FbLikeComponent implements AfterViewInit {
         // load facebook sdk if required
         const url = 'https://connect.facebook.net/en_US/sdk.js';
         if (!document.querySelector(`script[src='${url}']`)) {
-            let script = document.createElement('script');
+            const script = document.createElement('script');
             script.src = url;
             document.body.appendChild(script);
         }
