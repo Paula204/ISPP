@@ -38,7 +38,7 @@ export class UserService {
     }
 
     delete(login: string): Observable<HttpResponse<any>> {
-        return this.http.delete(`${this.resourceUrl}/${login}`, { observe: 'response' });
+        return this.http.delete(this.resourceUrl + '/delete/' + login, { observe: 'response' });
     }
 
     authorities(): Observable<string[]> {

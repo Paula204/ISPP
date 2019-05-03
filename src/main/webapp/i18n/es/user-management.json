@@ -9,7 +9,8 @@
         "updated": "El usuario se ha actualizado",
         "deleted": "El usuario se ha eliminado",
         "delete": {
-            "question": "¿Seguro que quieres eliminar el usuario?"
+            "question": "¿Seguro que quieres eliminar este usuario?",
+            "info": "ADVERTENCIA: Tu información estará en el sistema durante 5 minutos."
         },
         "detail": {
             "title": "Usuario"

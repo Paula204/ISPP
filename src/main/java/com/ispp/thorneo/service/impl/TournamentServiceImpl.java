@@ -391,6 +391,7 @@ public class TournamentServiceImpl implements TournamentService {
         List<Punctuation> lista = punctuationService.getPuntuationsByRoundAndTournament(alta, tournamentId);
         List<Punctuation> res = new ArrayList<Punctuation>();
         boolean hayEmpate = false;
+        if (lista.size() > 2){
         for(int i=0 ; i<lista.size() ; i++){
             Punctuation p3 = new Punctuation();
             if(i%2==0){
@@ -436,5 +437,16 @@ public class TournamentServiceImpl implements TournamentService {
                 this.closeTournamentChooseWinner(res.get(0).getTournament(), res.get(0).getParticipation().getId());
             }
         }
+    } else {
+            Punctuation p1 = lista.get(0);
+            Punctuation p2 = lista.get(1);
+            if (p1.getPoints() > p2.getPoints()){
+                p1.getParticipation().setPunctuation(10000);
+                this.participationService.save(p1.getParticipation());
+            } else if (p2.getPoints() > p1.getPoints()){
+                p2.getParticipation().setPunctuation(10000);
+                this.participationService.save(p2.getParticipation());
+            }
     }
+}
 }

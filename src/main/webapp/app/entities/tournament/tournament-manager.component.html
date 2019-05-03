@@ -2,20 +2,22 @@
   <h2 class="text-center">{{tournament.title}}</h2>
   <div class="module-border-wrap"><div class="module">
     <div class="gestionador flex-container"></div>
+  </div></div>
 </div>
 <br>
-<div *ngIf="tournament.user.login == currentAccount.login">
+<div *ngIf="tournament.user.login == currentAccount.login && !hayGanador">
   <button 
     type="button" [routerLink]="['/tournament', tournament.id, 'punctuation' ]"
      class="btn btn-primary">
      <fa-icon [icon]="'wrench'"></fa-icon>
      <span class="d-none d-md-inline" jhiTranslate="entity.action.manage">Manage</span>
   </button>
+</div>
 
-  <button type="submit" [routerLink]="['/tournament', route, 'view']" class="btn btn-primary">
+<div>
+<button type="submit" [routerLink]="['/tournament', route, 'view']" class="btn btn-primary">
     <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
 </button>
- 
 </div>
 <br>
 <div class="row">
