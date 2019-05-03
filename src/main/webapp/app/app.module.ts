@@ -28,7 +28,6 @@ import { CookiesComponent } from './cookies/cookies.component';
 import { CookiesModule } from 'app/cookies';
 import { SponsorListComponent } from './sponsor-list/sponsor-list.component';
 import { ThorneoAppSponsorListModule } from 'app/sponsor-list';
-import { AgmCoreModule } from '@agm/core';
 
 @NgModule({
     imports: [
@@ -40,9 +39,6 @@ import { AgmCoreModule } from '@agm/core';
             alertTimeout: 5000,
             i18nEnabled: true,
             defaultI18nLang: 'es'
-        }),
-        AgmCoreModule.forRoot({
-            apiKey: 'AIzaSyDFxPztSfXaUNv1WgazDCUcbhqJMorFuWY'
         }),
         ThorneoSharedModule.forRoot(),
         ThorneoCoreModule,
