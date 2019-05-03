@@ -72,7 +72,8 @@
                 },
                 "register": {
                     "noaccount": "¿No tienes una cuenta todavía?",
-                    "link": "Crea una cuenta"
+                    "link": "Crea una cuenta",
+                    "terminos": "Acepto los términos y condiciones de uso de este sitio web"
                 }
             },
             "error": {
