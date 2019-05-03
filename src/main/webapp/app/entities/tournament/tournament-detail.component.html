@@ -62,8 +62,13 @@
                     </tr>
                     <tr>
                         <td><p  class="bold"jhiTranslate="thorneoApp.tournament.user">User</p></td>
-                        <td><p>{{tournament.user?.login}}</p></td>
-                    </tr>
+                        <td><p>{{tournament.user?.login}}</p>
+                        <span *ngIf="isSponsor != false">
+                            <a *ngIf="tournament.user.facebook != ''" href={{tournament.user.facebook}}><img class="img-tabla" src="../../../content/images/facebook.png" /></a>
+                            <a *ngIf="tournament.user.twitter != ''" href={{tournament.user.twitter}}><img class="img-tabla" src="../../../content/images/twitter.png" /></a>
+                            <a *ngIf="tournament.user.instagram != ''" href={{tournament.user.instagram}}><img class="img-tabla" src="../../../content/images/instagram.png" /></a>
+                        </span></td>
+                        </tr>
                     <tr>
                         <td><p  class="bold"jhiTranslate="thorneoApp.tournament.game">Game</p></td>
                         <td>
