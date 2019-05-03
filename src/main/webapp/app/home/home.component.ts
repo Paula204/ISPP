@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager } from 'ng-jhipster';
 
@@ -9,7 +9,7 @@ import { LoginModalService, AccountService, Account } from 'app/core';
     templateUrl: './home.component.html',
     styleUrls: ['home.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, AfterViewInit {
     account: Account;
     modalRef: NgbModalRef;
 
@@ -24,6 +24,36 @@ export class HomeComponent implements OnInit {
             this.account = account;
         });
         this.registerAuthenticationSuccess();
+        function twitter(d, s, id) {
+            let js: any;
+            const fjs = d.getElementsByTagName(s)[0];
+            const p = 'https';
+            if (!d.getElementById(id)) {
+                js = d.createElement(s);
+                js.id = id;
+                js.src = p + '://platform.twitter.com/widgets.js';
+                fjs.parentNode.insertBefore(js, fjs);
+            }
+        }
+
+        $(window).on('popstate', function() {
+            location.reload(true);
+        });
+    }
+
+    ngAfterViewInit() {
+        function twitter(d, s, id) {
+            let js: any;
+            const fjs = d.getElementsByTagName(s)[0];
+            const p = 'https';
+            if (!d.getElementById(id)) {
+                js = d.createElement(s);
+                js.id = id;
+                js.src = p + '://platform.twitter.com/widgets.js';
+                fjs.parentNode.insertBefore(js, fjs);
+            }
+        }
+        twitter(document, 'script', 'twitter-wjs');
     }
 
     registerAuthenticationSuccess() {
