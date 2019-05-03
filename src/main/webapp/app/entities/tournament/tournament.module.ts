@@ -21,6 +21,7 @@ import {
 import { TournamentMyComponent } from 'app/entities/tournament/tournament-my.component';
 import { TournamentManageGroupComponent } from 'app/entities/tournament/tournament-manage-group.component';
 import { TweetComponent } from 'app/entities/tournament/Tweet.component';
+import { FbLikeComponent } from 'app/entities/tournament/facebook.component';
 
 const ENTITY_STATES = [...tournamentRoute, ...tournamentPopupRoute];
 
@@ -39,7 +40,8 @@ const ENTITY_STATES = [...tournamentRoute, ...tournamentPopupRoute];
         TournamentManageComponent,
         TournamentManageGroupComponent,
         PunctuationTournamentComponent,
-        TweetComponent
+        TweetComponent,
+        FbLikeComponent
     ],
     entryComponents: [
         TournamentComponent,
