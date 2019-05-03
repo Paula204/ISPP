@@ -1,5 +1,6 @@
 {
     "upgradeUser": {
+        "title": "Upgrade Account",
         "free": {
             "ads": "Ads on your tournaments",
             "percentage": "9% commission per inscription"
