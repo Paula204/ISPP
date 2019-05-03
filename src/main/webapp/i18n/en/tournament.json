@@ -26,6 +26,7 @@
             "playerSize": "Player Size",
             "rewards": "Rewards",
             "imageUrl": "Image Url",
+            "ediciontorneo": "You can't advance round with a draw match",
             "latitude": "Latitude",
             "longitude": "Longitude",
             "type": "Type",
