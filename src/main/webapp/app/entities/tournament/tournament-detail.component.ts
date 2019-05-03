@@ -38,7 +38,6 @@ export class TournamentDetailComponent implements OnInit {
     p: IParticipation;
     parti: boolean;
     x: IParticipation[];
-    isSponsor: boolean;
 
     constructor(
         protected jhiAlertService: JhiAlertService,
@@ -53,11 +52,6 @@ export class TournamentDetailComponent implements OnInit {
     ngOnInit() {
         this.activatedRoute.data.subscribe(({ tournament }) => {
             this.tournament = tournament;
-            if (this.tournament.user.authorities.lastIndexOf('ROLE_SPONSOR') > -1) {
-                this.isSponsor = true;
-            } else {
-                this.isSponsor = false;
-            }
         });
         this.accountService.identity().then(account => {
             this.currentAccount = account;
