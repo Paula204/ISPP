@@ -73,7 +73,8 @@
                 "register": {
                     "noaccount": "¿No tienes una cuenta todavía?",
                     "link": "Crea una cuenta",
-                    "terminos": "Acepto los términos y condiciones de uso de este sitio web"
+                    "terminos": "Acepto los términos y condiciones de uso de este sitio web",
+                    "mayor": "Debes tener al menos 18 años para apuntarte a este torneo"
                 }
             },
             "error": {
