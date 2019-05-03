@@ -98,9 +98,8 @@ export class TournamentManagerComponent implements OnInit, OnDestroy {
                     nuevasPuntuaciones.push(necesario);
                 }
             }
-
             // Ordenamos el array por su ronda y luego por índice
-            punctuations.body.sort(function(a, b) {
+            /* punctuations.body.sort(function(a, b) {
                 const aRound = a.round;
                 const bRound = b.round;
                 const aIndex = a.index;
@@ -110,7 +109,7 @@ export class TournamentManagerComponent implements OnInit, OnDestroy {
                 } else {
                     return aRound < bRound ? -1 : 1;
                 }
-            });
+            });*/
 
             // Creamos el array a mostrar por JQuery
 
@@ -119,8 +118,8 @@ export class TournamentManagerComponent implements OnInit, OnDestroy {
             let ronda = 0;
             const indexT = 0;
             // Aquí almacenaremos la ronda completa
-            let rondaCompleta = [];
-            while (ronda <= i) {
+            const rondaCompleta = [];
+            while (ronda < i) {
                 userRonda = [];
                 // Sacamos los user de la ronda
                 for (const pp of punctuations.body) {
@@ -129,22 +128,35 @@ export class TournamentManagerComponent implements OnInit, OnDestroy {
                     }
                 }
                 let indice2 = 0;
-                rondaCompleta = [];
                 // Los agrupampos de dos en dos y lo metemos en ronda completa
-                while (indice2 < userRonda.length) {
+                let indice3 = 2;
+                while (userRonda.length > indice3) {
+                    indice3 = indice3 * 2;
+                }
+                while (indice2 < indice3) {
                     if (indice2 === userRonda.length - 1) {
-                        teamsP.push([punctuations.body[indice2].participation.user.login, null]);
-                        resultsP.push([punctuations.body[indice2].points]);
+                        if (ronda === 0) {
+                            teamsP.push([punctuations.body[indice2].participation.user.login, null]);
+                        }
+                        rondaCompleta.push([punctuations.body[indice2].points]);
+                    } else if (indice2 > userRonda.length) {
+                        if (ronda === 0) {
+                            teamsP.push([null, null]);
+                        }
+                        rondaCompleta.push([null, null]);
                     } else {
-                        teamsP.push([
-                            punctuations.body[indice2].participation.user.login,
-                            punctuations.body[indice2 + 1].participation.user.login
-                        ]);
-                        resultsP.push([punctuations.body[indice2].points, punctuations.body[indice2 + 1].points]);
+                        if (ronda === 0) {
+                            teamsP.push([
+                                punctuations.body[indice2].participation.user.login,
+                                punctuations.body[indice2 + 1].participation.user.login
+                            ]);
+                        }
+                        rondaCompleta.push([punctuations.body[indice2].points, punctuations.body[indice2 + 1].points]);
                     }
                     indice2 = indice2 + 2;
                 }
                 ronda++;
+                resultsP.push(rondaCompleta);
             }
 
             const saveData = {
