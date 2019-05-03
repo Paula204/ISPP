@@ -7,6 +7,7 @@ import { ThorneoTestModule } from '../../../test.module';
 import { TournamentDetailComponent } from 'app/entities/tournament/tournament-detail.component';
 import { Tournament } from 'app/shared/model/tournament.model';
 import { Participation, IParticipation } from 'app/shared/model/participation.model';
+import { Game } from 'app/shared/model/game.model';
 
 describe('Component Tests', () => {
     describe('Tournament Management Detail Component', () => {
@@ -16,6 +17,7 @@ describe('Component Tests', () => {
         participations = [];
         const route = ({
             data: of({
+                game: new Game(1234, 'test', 'test', null, 6),
                 tournament: new Tournament(
                     123,
                     'test',
@@ -35,7 +37,7 @@ describe('Component Tests', () => {
                     'test',
                     participations,
                     null,
-                    null
+                    this.game
                 )
             })
         } as any) as ActivatedRoute;
