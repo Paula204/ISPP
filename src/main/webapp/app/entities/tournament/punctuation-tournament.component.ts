@@ -26,6 +26,7 @@ export class PunctuationTournamentComponent implements OnInit, OnDestroy {
     idTorneo: number;
     temp: IPunctuation[];
     hayGanador: boolean;
+    nopuedes: boolean;
 
     constructor(
         protected punctuationService: PunctuationService,
@@ -135,6 +136,7 @@ export class PunctuationTournamentComponent implements OnInit, OnDestroy {
 
     protected onSaveSuccess() {
         this.ngOnInit();
+        this.nopuedes = true;
     }
 
     protected onSaveError() {}

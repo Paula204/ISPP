@@ -9,7 +9,7 @@ export const UPGRADE_USER_ROUTE: Routes = [
         component: UpgradeUserComponent,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'upgrade-user.title'
+            pageTitle: 'upgradeUser.title'
         },
         canActivate: [UserRouteAccessService]
     }
