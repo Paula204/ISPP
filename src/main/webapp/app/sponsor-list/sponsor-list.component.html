@@ -14,6 +14,9 @@
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
                 <th jhiSortBy="login"><span jhiTranslate="global.form.username">Username</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th jhiSortBy="email"><span jhiTranslate="userManagement.email">Email</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th><span jhiTranslate="userManagement.facebook">Facebook</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th><span jhiTranslate="userManagement.twitter">Twitter</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th><span jhiTranslate="userManagement.instagram">Instagram</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th></th>
             </tr>
             </thead>
@@ -21,6 +24,9 @@
             <tr *ngFor="let user of users; trackBy: trackIdentity">
                 <td>{{user.login}}</td>
                 <td>{{user.email}}</td>
+                <td><a *ngIf="user.facebook != ''" href={{user.facebook}}><img class="img-tabla" src="../../content/images/facebook.png" /></a></td>
+                <td><a *ngIf="user.twitter != ''" href={{user.twitter}}><img class="img-tabla" src="../../content/images/twitter.png" /></a></td>
+                <td><a *ngIf="user.instagram != ''" href={{user.instagram}}><img class="img-tabla" src="../../content/images/instagram.png" /></a></td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"
