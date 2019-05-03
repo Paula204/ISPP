@@ -17,6 +17,9 @@
         "noParticipants": "No puedes cerrar este torneo porque no tiene participantes",
         "closeTournament": "Torneo cerrado",
         "soWinners": "Solo puede haber un ganador",
-        "currentRole": "Ya tienes este rol asignado"
+        "currentRole": "Ya tienes este rol asignado",
+        "too.many.players": "Se ha alcanzado el límite de jugadores",
+        "notFound": "No encontrado",
+        "dateAfter": "No puedes desuscribirte del torneo después de la fecha del encuentro"
     }
 }

@@ -1,5 +1,10 @@
 {
     "global": {
+        "crono.crono": "Chronometer",
+        "crono.start": "Start",
+        "crono.lapso": "Lapso",
+        "crono.stop": "Stop",
+        "crono.reset": "Reset",
         "payment": "Paypal Payments",
         "title": "Thorneo",
         "browsehappy": "You are using an <strong>outdated</strong> browser. Please <a href=\"http://browsehappy.com/?locale=en\">upgrade your browser</a> to improve your experience.",
@@ -14,7 +19,9 @@
                 "participation": "My Participations",
                 "sponsorship": "Sponsorship",
                 "promotion": "Promotion",
-                "paypalCompletedPayments": "Paypal Completed Payments",
+                "paypalCompletedPayments": "Payments",
+                "sponsors": "Sponsors",
+                "punctuation": "Punctuation",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)",
                 "sponsor": "Upgrade to Sponsor",
                 "premium": "Upgrade to Premium"
@@ -65,7 +72,9 @@
                 },
                 "register": {
                     "noaccount": "You don't have an account yet?",
-                    "link": "Register a new account"
+                    "link": "Register a new account",
+                    "terminos": "Accept the terms and conditions of this website",
+                    "mayor": "You must be over 18 to submint this tournament"
                 }
             },
             "error": {
@@ -112,7 +121,8 @@
             "view": "View",
             "signOn": "Sign On",
             "close": "Close",
-            "manage": "Manage"
+            "manage": "Manage",
+            "round": "Advance round"
         },
         "detail": {
             "field": "Field",

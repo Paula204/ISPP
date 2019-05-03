@@ -68,7 +68,7 @@ h4 {
 }
 
 a {
-    color: #ffba58;
+    color: #0280f0;
     line-height: 1.5em;
 }
 
@@ -78,6 +78,11 @@ a:hover {
     line-height: 1.5em;
     /* make sure browsers use the pointer cursor for anchors, even with no href */
     cursor: pointer;
+}
+
+.twit {
+    position: relative;
+    margin-top: 60px;
 }
 
 /* ==========================================================================
@@ -144,7 +149,7 @@ Generic styles
     border-top: 1px solid rgba(0, 0, 0, 0.125);
     font-family: 'Merriweather Sans', sans-serif;
     color: #eee;
-    background-color: #5facf2;
+    background-color: #2792f2;
     position: relative;
     left: 0;
     bottom: 0;
@@ -152,8 +157,8 @@ Generic styles
 }
 
 .footer img {
-    width: 50px;
-    height: 50px;
+    width: 35px;
+    height: 35px;
     margin-left: 5px;
     margin-right: 5px;
 }
@@ -350,6 +355,10 @@ ui bootstrap tweaks
     cursor: pointer;
 }
 
+.btn {
+    color: #ffffff;
+}
+
 .datetime-picker-dropdown > li.date-picker-menu div > table .btn-default,
 .uib-datepicker-popup > li > div.uib-datepicker > table .btn-default {
     border: 0;
@@ -367,7 +376,112 @@ ui bootstrap tweaks
     white-space: nowrap;
 }
 
+.carousel-inner {
+    margin: auto;
+}
 /* jhipster-needle-scss-add-global JHipster will add new css style */
+
+//Details table
+
+.detailTable table {
+    text-align: center;
+    line-height: 10px;
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+    border: 2px solid #2792f2;
+    margin: 25px auto;
+    border-radius: 0.25rem;
+    flex-wrap: wrap;
+}
+
+.detailTable tr.gold {
+    background-color: #ffd59a;
+}
+
+.detailTable tr.gold:hover {
+    background-color: #ffba58;
+}
+
+.detailTable tbody {
+    box-sizing: border-box;
+    flex-grow: 1;
+}
+
+.detailTable thead tr:first-child {
+    background: #2792f2;
+    color: #fff;
+}
+
+.detailTable th {
+    font-weight: 500;
+    border-top: 0px;
+}
+
+.detailTable td {
+    line-height: 30px;
+}
+
+.detailTable tbody tr:hover {
+    background-color: #f2f2f2;
+    cursor: default;
+}
+
+//CHRONO
+.chrono {
+}
+
+@font-face {
+    font-family: 'Digital';
+    src: url('digital-7.ttf'); /* IE9 Compat Modes */
+}
+
+.chrono table {
+    text-align: center;
+    line-height: 10px;
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+    border: 2px solid #2792f2;
+    margin: 25px auto;
+    border-radius: 0.25rem;
+    flex-wrap: wrap;
+}
+
+@media only screen and (max-width: 725px) {
+    .chrono table {
+        width: 320px;
+        margin: 10px 0px 10px 0px;
+    }
+    .chrono td {
+        font-size: 25px;
+    }
+}
+.chrono tbody {
+    box-sizing: border-box;
+    flex-grow: 1;
+}
+
+.chrono thead tr:first-child {
+    background: #2792f2;
+    color: #fff;
+}
+
+.chrono th {
+    font-weight: 500;
+    border-top: 0px;
+}
+
+.chrono td {
+    font-family: Digital, sans-serif;
+    font-size: 50px;
+    line-height: 30px;
+}
+
+.chrono tbody tr:hover {
+    background-color: #f2f2f2;
+    cursor: default;
+}
 
 //DISPLAY VIEW
 
@@ -421,7 +535,7 @@ ui bootstrap tweaks
         left: 45px;
         height: 100%;
         width: 2px;
-        background: rgba(255, 0, 0, 0.4);
+        background: #0280f0;
     }
 
     .holes {
@@ -506,6 +620,14 @@ div.jQBracket .round {
     position: relative;
     background: linear-gradient(to right, #2792f2, #ff9500);
     padding: 5px;
+}
+@media only screen and (max-width: 725px) {
+    // FLEX ORDER
+
+    // jQBraquet (tools, finals, braquet, loser braquet
+    .module-border-wrap {
+        background: #fff;
+    }
 }
 
 .module {

@@ -1,5 +1,10 @@
 {
     "global": {
+        "crono.crono": "Cronómetro",
+        "crono.start": "Iniciar",
+        "crono.lapso": "Vuelta",
+        "crono.stop": "Parar",
+        "crono.reset": "Reiniciar",
         "payment": "Pago con Paypal",
         "title": "Thorneo",
         "browsehappy": "Está usando un navegador <strong>no actualizado</strong>. Por favor, <a href=\"http://browsehappy.com/?locale=en\">actualice su navegador</a> para mejorar su experiencia.",
@@ -12,9 +17,11 @@
                 "tournamentmy": "Mis Torneos",
                 "game": "Juegos",
                 "participation": "Mis Participaciones",
-                "sponsorship": "Patrocinadores",
+                "sponsorship": "Patrocinios",
                 "promotion": "Promociones",
-                "paypalCompletedPayments": "Pago Completado con PayPal",
+                "paypalCompletedPayments": "Pagos",
+                "sponsors": "Patrocinadores",
+                "punctuation": "Punctuation",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)",
                 "sponsor": "Actualizar a Patrocinador",
                 "premium": "Actualizar a Premium"
@@ -65,7 +72,9 @@
                 },
                 "register": {
                     "noaccount": "¿No tienes una cuenta todavía?",
-                    "link": "Crea una cuenta"
+                    "link": "Crea una cuenta",
+                    "terminos": "Acepto los términos y condiciones de uso de este sitio web",
+                    "mayor": "Debes tener al menos 18 años para apuntarte a este torneo"
                 }
             },
             "error": {
@@ -112,7 +121,8 @@
             "view": "Vista",
             "signOn": "Registrar",
             "close": "Cerrar",
-            "manage": "Gestionar"
+            "manage": "Gestionar",
+            "round": "Avanzar ronda"
         },
         "detail": {
             "field": "Campo",

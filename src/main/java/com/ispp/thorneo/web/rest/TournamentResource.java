@@ -1,9 +1,14 @@
 package com.ispp.thorneo.web.rest;
 
 import com.ispp.thorneo.TournamentForm;
+import com.ispp.thorneo.domain.Authority;
 import com.ispp.thorneo.domain.Participation;
+import com.ispp.thorneo.domain.Punctuation;
 import com.ispp.thorneo.domain.Tournament;
+import com.ispp.thorneo.domain.User;
+import com.ispp.thorneo.service.PunctuationService;
 import com.ispp.thorneo.service.TournamentService;
+import com.ispp.thorneo.service.UserService;
 import com.ispp.thorneo.web.rest.errors.BadRequestAlertException;
 import com.ispp.thorneo.web.rest.util.HeaderUtil;
 import com.ispp.thorneo.web.rest.util.PaginationUtil;
@@ -39,9 +44,15 @@ public class TournamentResource {
     private static final String ENTITY_NAME = "tournament";
 
     private final TournamentService tournamentService;
+    
+    private final UserService userService;
 
-    public TournamentResource(TournamentService tournamentService) {
+    private PunctuationService punctuationService;
+
+    public TournamentResource(TournamentService tournamentService, UserService userService, PunctuationService puntuationService){
         this.tournamentService = tournamentService;
+        this.userService = userService;
+        this.punctuationService = puntuationService;
     }
 
     /**
@@ -79,6 +90,16 @@ public class TournamentResource {
         if (tournament.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
+
+        User currentUser = this.userService.getUserWithAuthorities().get();
+
+        Authority admin = new Authority();
+        admin.setName("ROLE_ADMIN");
+
+        if (tournament.getUser().getId() != currentUser.getId() && !currentUser.getAuthorities().contains(admin)) {
+            throw new BadRequestAlertException("Invalid user", "tournament", "notCreator");
+        }
+
         Tournament result = tournamentService.save(tournament);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, tournament.getId().toString()))
@@ -90,6 +111,9 @@ public class TournamentResource {
         log.debug("REST request to sign on Tournament: {}", tournament);
         if (tournament.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+        }
+        if (tournament.getParticipations().size() >= tournament.getPlayerSize()){
+            throw new BadRequestAlertException("Too many players", "too.many.players", "too.many.players");
         }
         Tournament result = tournamentService.signOn(tournament);
         return ResponseEntity.ok()
@@ -109,6 +133,21 @@ public class TournamentResource {
             .body(result);
     }
 
+    @PutMapping("/tournaments/closeTournament")
+    public ResponseEntity<Tournament> closeFinalizedTournament(@Valid @RequestBody Tournament tournament,
+     @Valid @RequestBody Long winnerId) throws URISyntaxException {
+        log.debug("REST request to close Tournament finalized: {}", tournament);
+        if (tournament.getId() == null) {
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+        }
+        if (winnerId == null){
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+        }
+        Tournament res = this.tournamentService.closeTournamentFinalized(tournament, winnerId);
+        return ResponseEntity.ok()
+        .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, tournament.getId().toString()))
+        .body(res);
+    }
     /**
      * GET  /tournaments : get all the tournaments.
      *
@@ -154,6 +193,18 @@ public class TournamentResource {
     @DeleteMapping("/tournaments/{id}")
     public ResponseEntity<Void> deleteTournament(@PathVariable Long id) {
         log.debug("REST request to delete Tournament : {}", id);
+
+        User currentUser = this.userService.getUserWithAuthorities().get();
+
+        Authority admin = new Authority();
+        admin.setName("ROLE_ADMIN");
+
+        Tournament tournament = this.tournamentService.findOne(id).get();
+
+        if (tournament.getUser().getId() != currentUser.getId() && !currentUser.getAuthorities().contains(admin)) {
+            throw new BadRequestAlertException("Invalid user", "tournament", "notCreator");
+        }
+
         tournamentService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
@@ -174,4 +225,59 @@ public class TournamentResource {
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
+
+    @GetMapping("/tournaments/sponsor/{login}")
+    public ResponseEntity<List<Tournament>> getTournamentsByLogin(@PathVariable String login) {
+        Page<Tournament> page = new PageImpl<>(tournamentService.findUserTournaments(login));
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/tournaments/sponsor/{id}");
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+
+    @GetMapping("/tournaments/{id}/punctuationtorneo")
+    public ResponseEntity<List<Punctuation>> getPunctuationsByTournaments(@PathVariable Long id){
+        log.debug("Busqueda de puntuaciones de torneo");
+        Integer round = this.punctuationService.getMaxRoundTournament(id);
+        Page<Punctuation> page = new PageImpl<>(punctuationService.getPuntuationsByRoundAndTournament(round, id));
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "api/tournament/{id}/punctuation");
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+
+    @PutMapping("/tournaments/{id}/puntuation")
+    public ResponseEntity<List<Punctuation>> advanceRound(@PathVariable Long id){
+        log.debug("boton avance de ronda");
+        this.tournamentService.advanceRound(id);
+        Integer round = this.punctuationService.getMaxRoundTournament(id);
+        Page<Punctuation> page = new PageImpl<>(punctuationService.getPuntuationsByRoundAndTournament(round, id));
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "api/tournament/{id}/punctuation");
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+
+    @GetMapping("/tournaments/{id}/manager")
+    public ResponseEntity<List<Punctuation>> getAllPunctuationsByTournament(@PathVariable Long id){
+        log.debug("Busqueda de puntuaciones de torneo");
+        Page<Punctuation> page = new PageImpl<>(punctuationService.getPunctuationsByTournament(id));
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "api/tournament/{id}/manager");
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    @GetMapping("/tournaments/{id}/round")
+    public ResponseEntity<List<Integer>> getMaxRound(@PathVariable Long id){
+        log.debug("Obtener maxima ronda");
+        List<Integer> lista = new ArrayList<Integer>();
+        lista.add(punctuationService.getMaxRoundTournament(id));
+        Page<Integer> page = new PageImpl<>(lista);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "api/tournament/{id}/round");
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    @GetMapping("/tournaments/{tournamentId}/{round}/punctuationsRound")
+    public ResponseEntity<List<Punctuation>> getPunctuationsByRound(@PathVariable Long id, @PathVariable Integer round){
+        log.debug("Busqueda de puntuaciones de torneo");
+        Page<Punctuation> page = new PageImpl<>(punctuationService.getPuntuationsByRoundAndTournament(round, id));
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "api/tournament/{id}/manager");
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
 }

@@ -8,21 +8,29 @@ import com.ispp.thorneo.domain.Participation;
 import com.ispp.thorneo.domain.User;
 import com.ispp.thorneo.repository.TournamentRepository;
 import com.ispp.thorneo.repository.search.TournamentSearchRepository;
+import com.ispp.thorneo.security.jwt.TokenProvider;
+import com.ispp.thorneo.service.PunctuationService;
 import com.ispp.thorneo.service.TournamentService;
+import com.ispp.thorneo.service.UserService;
 import com.ispp.thorneo.web.rest.errors.ExceptionTranslator;
 
+import com.netflix.discovery.converters.Auto;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.cache.CacheManager;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -33,11 +41,13 @@ import org.springframework.util.Base64Utils;
 import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
+import javax.swing.text.html.Option;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalUnit;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 
 import static com.ispp.thorneo.web.rest.TestUtil.createFormattingConversionService;
@@ -108,6 +118,26 @@ public class TournamentResourceIntTest {
     @Autowired
     private TournamentService tournamentService;
 
+    @Autowired TournamentResource tournamentResource;
+
+    @Autowired
+    private PunctuationService punctuationService;
+
+    @Mock
+    private UserService userService;
+
+    @Autowired
+    private UserService testUserService;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private TokenProvider tokenProvider;
+
+    @Autowired
+    private CacheManager cacheManager;
+
     /**
      * This repository is mocked in the com.ispp.thorneo.repository.search test package.
      *
@@ -138,13 +168,15 @@ public class TournamentResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final TournamentResource tournamentResource = new TournamentResource(tournamentService);
+        final TournamentResource tournamentResource = new TournamentResource(tournamentService, userService, punctuationService);
         this.restTournamentMockMvc = MockMvcBuilders.standaloneSetup(tournamentResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
             .setConversionService(createFormattingConversionService())
             .setMessageConverters(jacksonMessageConverter)
             .setValidator(validator).build();
+
+        when(userService.getUserWithAuthorities()).thenReturn(Optional.of(tournament.getUser()));
     }
 
     /**
@@ -415,66 +447,6 @@ public class TournamentResourceIntTest {
 
     @Test
     @Transactional
-    public void updateTournament() throws Exception {
-        // Initialize the database
-        tournamentService.save(tournament);
-        // As the test used the service layer, reset the Elasticsearch mock repository
-        reset(mockTournamentSearchRepository);
-
-        int databaseSizeBeforeUpdate = tournamentRepository.findAll().size();
-
-        // Update the tournament
-        Tournament updatedTournament = tournamentRepository.findById(tournament.getId()).get();
-        // Disconnect from session so that the updates on updatedTournament are not directly saved in db
-        em.detach(updatedTournament);
-        updatedTournament
-            .title(UPDATED_TITLE)
-            .description(UPDATED_DESCRIPTION)
-            .meetingDate(UPDATED_MEETING_DATE)
-            .meetingPoint(UPDATED_MEETING_POINT)
-            .city(UPDATED_CITY)
-            .price(UPDATED_PRICE)
-            .playerSize(UPDATED_PLAYER_SIZE)
-            .rewards(UPDATED_REWARDS)
-            .imageUrl(UPDATED_IMAGE_URL)
-            .latitude(UPDATED_LATITUDE)
-            .longitude(UPDATED_LONGITUDE)
-            .type(UPDATED_TYPE)
-            .imagen(UPDATED_IMAGEN)
-            .imagenContentType(UPDATED_IMAGEN_CONTENT_TYPE)
-            .state(UPDATED_STATE);
-
-        restTournamentMockMvc.perform(put("/api/tournaments")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedTournament)))
-            .andExpect(status().isOk());
-
-        // Validate the Tournament in the database
-        List<Tournament> tournamentList = tournamentRepository.findAll();
-        assertThat(tournamentList).hasSize(databaseSizeBeforeUpdate);
-        Tournament testTournament = tournamentList.get(tournamentList.size() - 1);
-        assertThat(testTournament.getTitle()).isEqualTo(UPDATED_TITLE);
-        assertThat(testTournament.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
-        assertThat(testTournament.getMeetingDate()).isEqualTo(UPDATED_MEETING_DATE);
-        assertThat(testTournament.getMeetingPoint()).isEqualTo(UPDATED_MEETING_POINT);
-        assertThat(testTournament.getCity()).isEqualTo(UPDATED_CITY);
-        assertThat(testTournament.getPrice()).isEqualTo(UPDATED_PRICE);
-        assertThat(testTournament.getPlayerSize()).isEqualTo(UPDATED_PLAYER_SIZE);
-        assertThat(testTournament.getRewards()).isEqualTo(UPDATED_REWARDS);
-        assertThat(testTournament.getImageUrl()).isEqualTo(UPDATED_IMAGE_URL);
-        assertThat(testTournament.getLatitude()).isEqualTo(UPDATED_LATITUDE);
-        assertThat(testTournament.getLongitude()).isEqualTo(UPDATED_LONGITUDE);
-        assertThat(testTournament.getType()).isEqualTo(UPDATED_TYPE);
-        assertThat(testTournament.getImagen()).isEqualTo(UPDATED_IMAGEN);
-        assertThat(testTournament.getImagenContentType()).isEqualTo(UPDATED_IMAGEN_CONTENT_TYPE);
-        assertThat(testTournament.getState()).isEqualTo(UPDATED_STATE);
-
-        // Validate the Tournament in Elasticsearch
-        verify(mockTournamentSearchRepository, times(1)).save(testTournament);
-    }
-
-    @Test
-    @Transactional
     public void updateNonExistingTournament() throws Exception {
         int databaseSizeBeforeUpdate = tournamentRepository.findAll().size();
 
@@ -500,7 +472,13 @@ public class TournamentResourceIntTest {
         // Initialize the database
         tournamentService.save(tournament);
 
+        SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
+        securityContext.setAuthentication(new UsernamePasswordAuthenticationToken(tournament.getUser().getLogin(),
+            tournament.getUser().getPassword()));
+
         int databaseSizeBeforeDelete = tournamentRepository.findAll().size();
+
+        when(userService.getUserWithAuthorities()).thenReturn(Optional.of(tournament.getUser()));
 
         // Delete the tournament
         restTournamentMockMvc.perform(delete("/api/tournaments/{id}", tournament.getId())

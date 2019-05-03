@@ -7,11 +7,11 @@
                 "createOrEditLabel": "Crear o editar participación",
                 "search": "Buscar participación"
             },
-            "created": "Una nueva participación ha sido creada con el identificador {{ param }}",
-            "updated": "Una nueva participación ha sido actualizado con el identificador {{ param }}",
-            "deleted": "La participación con el identificador {{ param }} ha sido eliminada",
+            "created": "Una nueva participación ha sido creada",
+            "updated": "La participación ha sido actualizada",
+            "deleted": "La participación ha sido eliminada",
             "delete": {
-                "question": "¿Seguro que quiere eliminar la participación {{ id }}?"
+                "question": "¿Seguro que quiere eliminar la participación?"
             },
             "detail": {
                 "title": "Participación"
@@ -21,7 +21,8 @@
             "true": "Yes",
             "punctuation": "Puntuación",
             "tournament": "Torneo",
-            "user": "Usuario"
+            "user": "Usuario",
+            "admin": "Administrador"
         }
     }
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, from } from 'rxjs';
 import * as moment from 'moment';
 import { DATE_FORMAT } from 'app/shared/constants/input.constants';
 import { map } from 'rxjs/operators';
@@ -8,6 +8,8 @@ import { map } from 'rxjs/operators';
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared';
 import { ITournament, ITournamentForm } from 'app/shared/model/tournament.model';
+import { IUser } from 'app/core/user/user.model';
+import { IPunctuation } from 'app/shared/model/punctuation.model';
 
 type EntityResponseType = HttpResponse<ITournament>;
 type EntityArrayResponseType = HttpResponse<ITournament[]>;
@@ -48,6 +50,12 @@ export class TournamentService {
             .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
     }
 
+    closeTournament(tournament: ITournament, id: number): Observable<EntityResponseType> {
+        const copy = this.convertDateFromClient(tournament);
+        return this.http
+            .put<ITournament>(this.resourceUrl + '/closeTournament', copy, { observe: 'response' })
+            .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+    }
     find(id: number): Observable<EntityArrayResponseTypeExtra> {
         return this.http
             .get<ITournamentForm>(`${this.resourceUrl}/${id}`, { observe: 'response' })
@@ -70,6 +78,28 @@ export class TournamentService {
         return this.http
             .get<ITournament[]>(this.resourceSearchUrl, { params: options, observe: 'response' })
             .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
+    }
+
+    tournamentsByUser(login: string): Observable<HttpResponse<IUser[]>> {
+        return this.http.get<ITournament[]>(this.resourceUrl + '/sponsor/' + login, { observe: 'response' });
+    }
+
+    getPunctuations(id: number): Observable<HttpResponse<IPunctuation[]>> {
+        const res = this.http.get<IPunctuation[]>(this.resourceUrl + '/' + id + '/punctuationtorneo', { observe: 'response' });
+        console.log(res);
+        return res;
+    }
+
+    getAllPunctuations(id: number): Observable<EntityArrayResponseType> {
+        const res = this.http.get<IPunctuation[]>(this.resourceUrl + '/' + id + '/manager', { observe: 'response' });
+        console.log(res);
+        return res;
+    }
+
+    advanceRound(id: number): Observable<IPunctuation[]> {
+        const res = this.http.put<IPunctuation[]>(this.resourceUrl + '/' + id + '/puntuation', { observe: 'response' });
+        console.log(res);
+        return res;
     }
 
     protected convertDateFromClient(tournament: ITournament): ITournament {

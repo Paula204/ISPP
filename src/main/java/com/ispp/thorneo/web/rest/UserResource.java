@@ -1,6 +1,7 @@
 package com.ispp.thorneo.web.rest;
 
 import com.ispp.thorneo.config.Constants;
+import com.ispp.thorneo.domain.Authority;
 import com.ispp.thorneo.domain.User;
 import com.ispp.thorneo.repository.UserRepository;
 import com.ispp.thorneo.repository.search.UserSearchRepository;
@@ -18,6 +19,7 @@ import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -201,5 +203,33 @@ public class UserResource {
         return StreamSupport
             .stream(userSearchRepository.search(queryStringQuery(query)).spliterator(), false)
             .collect(Collectors.toList());
+    }
+
+    /**
+     * SEARCH /search/sponsors
+     */
+    @GetMapping("/search/sponsors")
+    public ResponseEntity<List<User>> searchSponsors() {
+        Page<User> page = new PageImpl<>(userService.getUsersByAuthority("ROLE_SPONSOR"));
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/search/sponsors");
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    @DeleteMapping("/users/delete/{login}")
+    public ResponseEntity<Void> deleteUserSystem(@PathVariable String login) {
+        log.debug("REST request to delete User: {}", login);
+
+        User user = userService.getUserWithAuthoritiesByLogin(login).get();
+        User currentUser = userService.getUserWithAuthorities().get();
+
+        Authority admin = new Authority();
+        admin.setName("ROLE_ADMIN");
+
+        if (user.getId() != currentUser.getId() && !currentUser.getAuthorities().contains(admin)) {
+            throw new BadRequestAlertException("Invalid user", "participation", "notCreator");
+        }
+
+        userService.deleteUserFromSystem(user);
+        return ResponseEntity.ok().headers(HeaderUtil.createAlert( "userManagement.deleted", login)).build();
     }
 }

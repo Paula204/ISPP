@@ -12,7 +12,7 @@
         "law9": "Las imágenes de personas, lugares y demás contenido mostrado en este sitio web son usados con permiso, son propiedad de la empresa o se han recogido de un medio público.",
         "law10": "El usuario queda infomado de todo lo que vea o lea en este sitio web está sujeto a derechos de autor de la empresa o de terceros.",
         "law11": "Usted tiene permiso para ver y usar las imágenes y el contenido para su uso personal y no comercial como parte de este sitio web. Cualquier otro uso de estas imágenes queda prohibido a menos que esté permitido por algún lugar de este sitio web. El uso no autorizado de las imágenes puede infringir las leyes de derecho de autor, marca comercial, privacidad e intimidad y honor de publicidad así como otras regulaciones.",
-        "law12": "No se garatiza qe el uso que usted haga de los materiales del sitio web no infringirá el derecho de terceros.",
+        "law12": "No se garatiza que el uso que usted haga de los materiales del sitio web no infringirá el derecho de terceros.",
         "law13": "El uso no autorizado del sitio o los contenidos del mismo puede ocasionar daños en determinadas jurisdicciones, así como otras sanciones penales o civiles.",
         "law14": "Contenidos que usted comparte con nuestra empresa",
         "law15": "Nosotros podemos incluir características en este sitio web que le permitan compartir sus contenidos con nosotros y otro usuarios del mismo sitio web.",
@@ -42,6 +42,8 @@
         "law41": "Indemnización",
         "law42": "Usted es responsable del incumplimiento de sus obligaciones conforme a la presente política de uso y de las consecuencias que se deriven de dicha infracción. Reconociendo que la empresa tiene derecho a reclamarle una compensación por las pérdidas causadas por alguna acción ilegal incluidas en los términos de uso.",
         "law43": "Legislación aplicable",
-        "law44": "Esta política de uso se rige e interpreta conforme a la legislación de España, independientemente de la elección que adopten de las disposiciones legales."
+        "law44": "Esta política de uso se rige e interpreta conforme a la legislación de España, independientemente de la elección que adopten de las disposiciones legales.",
+        "law45": "Derecho a ser olvidado",
+        "law46": "El derecho a ser olvidado implica que usted podrá borrar del sistema cualquier dato que pueda ser utilizado para rastrear a su usuario, en nuestro caso esto conlleva: Nombre, apellidos, email y la cuenta quedará deshabilitada."
     }
 }

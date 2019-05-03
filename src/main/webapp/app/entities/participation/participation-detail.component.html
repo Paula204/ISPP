@@ -1,5 +1,17 @@
+</br>
 <div class="row justify-content-center">
-    <div class="col-8">
+    <div class="col-12">
+        <div *ngIf="!currentAccount.authorities.includes('ROLE_SPONSOR') && !currentAccount.authorities.includes('ROLE_ADMIN')"  class="carousel-inner" 
+                style="max-height:120px; max-width: 720px">
+            <div class="carousel-item active">
+                <a href="{{sponsorship.targetUrl}}"><img width="100%" class="d-block img-responsive" src="{{sponsorship.banner}}"></a>
+            </div>
+        </div>
+    </div>
+</div>
+</br>
+<div class="row justify-content-center">
+    <div class="col-12">
         <div *ngIf="participation">
                 <h2 class="text-center" jhiTranslate="thorneoApp.participation.detail.title" > </h2>
             <hr>
@@ -7,14 +19,14 @@
             <dl class="row-md jh-entity-details paper">
                 <div class="lines">
                     <div class="texto" >
-                        <p class="bold" jhiTranslate="thorneoApp.participation.punctuation">Punctuation</p><p>: {{participation.punctuation}}</p>
+                        <p class="bold" jhiTranslate="thorneoApp.participation.punctuation">Punctuation</p><p>{{participation.punctuation}}</p>
                         </br>
-                        <p class="bold" jhiTranslate="thorneoApp.participation.tournament">Tournament</p><p>: </p>
+                        <p class="bold" jhiTranslate="thorneoApp.participation.tournament">Tournament</p>
                         <p><a [routerLink]="['/tournament', participation.tournament?.id, 'view']">{{participation.tournament?.title}}</a></p>
                         </br>
-                        <p class="bold" jhiTranslate="thorneoApp.participation.user">User</p><p>: {{participation.user?.firstName}} {{participation.user?.lastName}}</p>
+                        <p class="bold" jhiTranslate="thorneoApp.participation.user">User</p><p>{{participation.user?.firstName}} {{participation.user?.lastName}}</p>
                         </br>
-                        <p class="bold" jhiTranslate="thorneoApp.participation.disqualify">Disqualify</p><p>: </p><p jhiTranslate="thorneoApp.participation.{{participation.disqualify}}">{{participation.disqualify}}</p>
+                        <p class="bold" jhiTranslate="thorneoApp.participation.disqualify">Disqualify</p><p jhiTranslate="thorneoApp.participation.{{participation.disqualify}}">{{participation.disqualify}}</p>
                     </div>
                 </div>
                 <div class="holes hole-top"></div>
@@ -36,3 +48,15 @@
         </div>
     </div>
 </div>
+</br>
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="!currentAccount.authorities.includes('ROLE_SPONSOR') && !currentAccount.authorities.includes('ROLE_ADMIN')"  class="carousel-inner" 
+                style="max-height:120px; max-width: 720px">
+            <div class="carousel-item active">
+                <a href="{{sponsorship.targetUrl}}"><img width="100%" class="d-block img-responsive" src="{{sponsorship.banner}}"></a>
+            </div>
+        </div>
+    </div>
+</div>
+</br>

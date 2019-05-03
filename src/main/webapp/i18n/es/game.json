@@ -7,11 +7,11 @@
                 "createOrEditLabel": "Crear o editar juego",
                 "search": "Buscar un juego"
             },
-            "created": "Un nuevo juego ha sido creado con el identificador {{ param }}",
-            "updated": "Un juego ha sido actualizado con el identificador {{ param }}",
-            "deleted": "Un juego ha sido eliminado con el identificador {{ param }}",
+            "created": "Un nuevo juego ha sido creado",
+            "updated": "El juego ha sido actualizado",
+            "deleted": "El juego ha sido eliminado",
             "delete": {
-                "question": "¿Seguro que quiere eliminar juego {{ id }}?"
+                "question": "¿Seguro que quiere eliminar el juego?"
             },
             "detail": {
                 "title": "Juego"

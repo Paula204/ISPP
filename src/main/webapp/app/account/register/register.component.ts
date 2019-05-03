@@ -20,6 +20,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     registerAccount: any;
     success: boolean;
     modalRef: NgbModalRef;
+    terminos: boolean;
 
     constructor(
         private languageService: JhiLanguageService,
@@ -30,6 +31,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     ) {}
 
     ngOnInit() {
+        this.terminos = false;
         this.success = false;
         this.registerAccount = {};
     }
@@ -70,6 +72,14 @@ export class RegisterComponent implements OnInit, AfterViewInit {
             this.errorEmailExists = 'ERROR';
         } else {
             this.error = 'ERROR';
+        }
+    }
+
+    terms() {
+        if (this.terminos === false) {
+            this.terminos = true;
+        } else {
+            this.terminos = false;
         }
     }
 }

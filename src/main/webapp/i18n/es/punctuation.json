@@ -1,0 +1,26 @@
+{
+    "thorneoApp": {
+        "punctuation": {
+            "home": {
+                "title": "Puntuaciones",
+                "createLabel": "Crear nuevo puntuación",
+                "createOrEditLabel": "Editar puntuación",
+                "search": "Buscar puntuaciones"
+            },
+            "created": "Una nueva puntuación ha sido creada",
+            "updated": "La puntuación ha sido actualizada",
+            "deleted": "La puntuación ha sido eliminada",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar la puntuación?"
+            },
+            "detail": {
+                "title": "Puntuación"
+            },
+            "player": "Jugador",
+            "points": "Puntos",
+            "round": "Rondas",
+            "tournament": "Torneo",
+            "participation": "Participación"
+        }
+    }
+}
