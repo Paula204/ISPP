@@ -119,14 +119,25 @@ export class TournamentManagerComponent implements OnInit, OnDestroy {
             // Rellenamos results con los puntos de las puntuaciones que tocan
             for (let roundTemp = 0; roundTemp <= i; roundTemp++) {
                 resultsP.push([]); // Añadimos un conjunto para cada ronda
-                let puntuacionesDeRoundTemp = [];
+                const puntuacionesDeRoundTemp = [];
                 for (const puntuacionTemp of this.punctuations) {
                     // Con el conjunto de arriba y este for, nos quedamos con las puntuaciones de cada ronda
                     if (puntuacionTemp.round === roundTemp) {
-                        puntuacionesDeRoundTemp.push(puntuacionTemp);
+                        puntuacionesDeRoundTemp.push(puntuacionTemp); // Vamos añadiendo las puntuaciones de cada ronda
                     }
                 }
-                // Nos recorremos las
+                // Nos aseguramos que puntuacionesDeRoundTemp es par
+                if (puntuacionesDeRoundTemp.length % 2 !== 0) {
+                    puntuacionesDeRoundTemp.push(null);
+                }
+                // Nos recorremos las puntuaciones de cada ronda
+                for (let z = 0; z < puntuacionesDeRoundTemp.length - 1; z++) {
+                    if (z % 2 === 0) {
+                        if (puntuacionesDeRoundTemp[z] !== null) {
+                            resultsP[roundTemp].push([puntuacionesDeRoundTemp[z].points, puntuacionesDeRoundTemp[z + 1].points]);
+                        }
+                    }
+                }
             }
 
             // Creamos el array a mostrar por JQuery
