@@ -1,5 +1,5 @@
 <nav class="navbar navbar-dark navbar-expand-md" style="padding-bottom: 1px; padding-top: 1px">
-    <a class="navbar-brand logo" routerLink="/" (click)="collapseNavbar()">
+    <a class="navbar-brand logo" routerLink="/" (click)="collapseNavbar();recargar()">
         <span class="logo-img"></span>
         <!--<span jhiTranslate="global.title" class="navbar-title">Thorneo</span> -->
         <!--<span class="navbar-version">{{version}}</span>-->
@@ -10,7 +10,7 @@
     <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed" [ngSwitch]="isAuthenticated()">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
+                <a class="nav-link" routerLink="/" (click)="collapseNavbar();recargar()">
                     <span>
                         <fa-icon icon="home"></fa-icon>
                         <span jhiTranslate="global.menu.home">Home</span>
@@ -74,7 +74,7 @@
                     <li *jhiHasAnyAuthority="'ROLE_ADMIN'">
 
 
-                    <li>
+                    <li *jhiHasAnyAuthority="'ROLE_ADMIN'">
                         <a class="dropdown-item" routerLink="paypal-completed-payments" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                             
                             <span jhiTranslate="global.menu.entities.paypalCompletedPayments">Paypal Completed Payments</span>
@@ -112,7 +112,6 @@
                             <span jhiTranslate="global.menu.admin.userManagement">User management</span>
                         </a>
                     </li>
-                    <!--  Metricas
                         <li>
                         <a class="dropdown-item" routerLink="admin/jhi-metrics" routerLinkActive="active" (click)="collapseNavbar()">
                             <fa-icon icon="tachometer-alt" fixedWidth="true"></fa-icon>
@@ -125,7 +124,6 @@
                             <span jhiTranslate="global.menu.admin.health">Health</span>
                         </a>
                     </li>
-                    -->
                     <li>
                         <a class="dropdown-item" routerLink="admin/jhi-configuration" routerLinkActive="active" (click)="collapseNavbar()">
                             <fa-icon icon="list" fixedWidth="true"></fa-icon>
