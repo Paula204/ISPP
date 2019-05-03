@@ -38,6 +38,8 @@ export class TournamentDetailComponent implements OnInit {
     p: IParticipation;
     parti: boolean;
     x: IParticipation[];
+    mayor: boolean;
+    soyMayor: boolean;
 
     constructor(
         protected jhiAlertService: JhiAlertService,
@@ -90,6 +92,12 @@ export class TournamentDetailComponent implements OnInit {
         this.parti = true;
         if (this.tournament.participations.length === 0) {
             this.parti = false;
+        }
+
+        this.soyMayor = false;
+        this.mayor = false;
+        if (this.tournament.game.minAge >= 18) {
+            this.mayor = true;
         }
     }
 
@@ -188,5 +196,13 @@ export class TournamentDetailComponent implements OnInit {
             login: account.login,
             imageUrl: account.imageUrl
         };
+    }
+
+    setMayor() {
+        if (this.soyMayor === false) {
+            this.soyMayor = true;
+        } else {
+            this.soyMayor = false;
+        }
     }
 }

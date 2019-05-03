@@ -152,26 +152,13 @@
                     <input type="hidden" class="form-control" name="imagenContentType" id="field_imagenContentType"
                            [(ngModel)]="tournament.imagenContentType" />
                 </div>
-                <!--
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="thorneoApp.tournament.latitude" for="field_latitude">Latitude</label>
-                    <input type="number" class="form-control" name="latitude" id="field_latitude"
-                        [(ngModel)]="tournament.latitude" />
-                </div>                -->
-                <!--<div class="form-group">
-                     <label class="form-control-label" jhiTranslate="thorneoApp.tournament.longitude" for="field_longitude">Longitude</label>
-                     <input type="number" class="form-control" name="longitude" id="field_longitude"
-                         [(ngModel)]="tournament.longitude" />
-                 </div>-->
-
+                
                  <div>
                      <br>
                     <label class="form-control-label" jhiTranslate="thorneoApp.tournament.type" for="field_type">Type</label>
                     <select class="form-control" name="type" [(ngModel)]="tournament.type" id="field_type" required>
                         <option value="ELIMINATION">{{'thorneoApp.Type.ELIMINATION' | translate}}</option>
-                       <!-- 
-                            <option value="POINT">{{'thorneoApp.Type.POINT' | translate}}</option>
-                       --> 
+                      
                     </select>
                 </div>
 
