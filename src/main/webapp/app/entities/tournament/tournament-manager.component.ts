@@ -44,6 +44,7 @@ export class TournamentManagerComponent implements OnInit, OnDestroy {
     participation: Participation;
     punctuations: IPunctuation[];
     route: string;
+    hayGanador: boolean;
 
     constructor(
         protected jhiAlertService: JhiAlertService,
@@ -63,11 +64,17 @@ export class TournamentManagerComponent implements OnInit, OnDestroy {
         window.location.reload();
     }
     ngOnInit() {
+        this.hayGanador = false;
         this.hora = 0;
         this.minuto = 0;
         this.segundos = 0;
         this.activatedRoute.data.subscribe(({ tournament }) => {
             this.tournament = tournament;
+            for (const p of this.tournament.participations) {
+                if (p.punctuation === 10000) {
+                    this.hayGanador = true;
+                }
+            }
         });
         this.accountService.identity().then(account => {
             this.currentAccount = account;
