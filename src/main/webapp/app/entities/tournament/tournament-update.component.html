@@ -79,7 +79,7 @@
                         [(ngModel)]="tournament.price" min="0" jhiMin="0"/>
                     <div [hidden]="!(editForm.controls.price?.dirty && editForm.controls.price?.invalid)">
                         <small class="form-text text-danger"
-                               [hidden]="!editForm.controls.price?.errors?.min" jhiTranslate="entity.validation.min" [translateValues]="{ min: 0 }">
+                               [hidden]="!editForm.controls.price?.errors?.min" jhiTranslate="entity.validation.min" [translateValues]="{ min: -1 }">
                             This field should be at least 0.
                         </small>
                         <small class="form-text text-danger"
@@ -99,7 +99,7 @@
                         [(ngModel)]="tournament.playerSize" min="0" jhiMin="0"/>
                     <div [hidden]="!(editForm.controls.playerSize?.dirty && editForm.controls.playerSize?.invalid)">
                         <small class="form-text text-danger"
-                               [hidden]="!editForm.controls.playerSize?.errors?.min" jhiTranslate="entity.validation.min" [translateValues]="{ min: 0 }">
+                               [hidden]="!editForm.controls.playerSize?.errors?.min" jhiTranslate="entity.validation.min" [translateValues]="{ min: 1 }">
                             This field should be at least 0.
                         </small>
                         <small class="form-text text-danger"

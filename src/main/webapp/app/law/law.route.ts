@@ -8,7 +8,7 @@ export const LAW_ROUTE: Routes = [
         path: 'law',
         component: LawComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: [],
             pageTitle: 'law.title'
         },
         canActivate: [UserRouteAccessService]

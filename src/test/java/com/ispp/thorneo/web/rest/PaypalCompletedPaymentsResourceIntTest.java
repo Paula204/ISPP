@@ -5,6 +5,7 @@ import com.ispp.thorneo.ThorneoApp;
 import com.ispp.thorneo.domain.PaypalCompletedPayments;
 import com.ispp.thorneo.repository.PaypalCompletedPaymentsRepository;
 import com.ispp.thorneo.repository.search.PaypalCompletedPaymentsSearchRepository;
+import com.ispp.thorneo.service.UserService;
 import com.ispp.thorneo.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -100,10 +101,12 @@ public class PaypalCompletedPaymentsResourceIntTest {
 
     private PaypalCompletedPayments paypalCompletedPayments;
 
+    private UserService userService;
+
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final PaypalCompletedPaymentsResource paypalCompletedPaymentsResource = new PaypalCompletedPaymentsResource(paypalCompletedPaymentsRepository, mockPaypalCompletedPaymentsSearchRepository);
+        final PaypalCompletedPaymentsResource paypalCompletedPaymentsResource = new PaypalCompletedPaymentsResource(paypalCompletedPaymentsRepository, mockPaypalCompletedPaymentsSearchRepository, userService);
         this.restPaypalCompletedPaymentsMockMvc = MockMvcBuilders.standaloneSetup(paypalCompletedPaymentsResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
