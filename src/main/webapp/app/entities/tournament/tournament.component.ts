@@ -24,8 +24,8 @@ import { MapsAPILoader } from '@agm/core';
 
 @Component({
     selector: 'jhi-tournament',
-    templateUrl: './tournament.component.html',
-    styleUrls: ['tournament-maps.component.css']
+    templateUrl: './tournament.component.html'
+    // styleUrls: ['tournament-maps.component.css']
 })
 export class TournamentComponent implements OnInit, OnDestroy {
     currentAccount: Account;

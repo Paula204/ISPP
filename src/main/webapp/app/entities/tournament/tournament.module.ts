@@ -22,26 +22,12 @@ import { TournamentMyComponent } from 'app/entities/tournament/tournament-my.com
 import { TournamentManageGroupComponent } from 'app/entities/tournament/tournament-manage-group.component';
 import { TweetComponent } from 'app/entities/tournament/Tweet.component';
 import { FbLikeComponent } from 'app/entities/tournament/facebook.component';
-
-import { AgmCoreModule, GoogleMapsAPIWrapper, MapsAPILoader } from '@agm/core';
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { TournamentService } from 'app/entities/tournament/tournament.service';
+import { TournamentService } from './tournament.service';
 
 const ENTITY_STATES = [...tournamentRoute, ...tournamentPopupRoute];
 
 @NgModule({
-    imports: [
-        ThorneoSharedModule,
-        RouterModule.forChild(ENTITY_STATES),
-        QRCodeModule,
-        JwSocialButtonsModule,
-        AgmCoreModule.forRoot({
-            apiKey: 'AIzaSyDFxPztSfXaUNv1WgazDCUcbhqJMorFuWY'
-        }),
-        CommonModule,
-        FormsModule
-    ],
+    imports: [ThorneoSharedModule, RouterModule.forChild(ENTITY_STATES), QRCodeModule, JwSocialButtonsModule],
     declarations: [
         TournamentComponent,
         TournamentMyComponent,
