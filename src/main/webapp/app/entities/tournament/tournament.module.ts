@@ -27,6 +27,7 @@ import { AgmCoreModule, GoogleMapsAPIWrapper, MapsAPILoader } from '@agm/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { TournamentService } from 'app/entities/tournament/tournament.service';
+import { Tournament } from 'app/shared/model/tournament.model';
 
 const ENTITY_STATES = [...tournamentRoute, ...tournamentPopupRoute];
 
@@ -72,7 +73,7 @@ const ENTITY_STATES = [...tournamentRoute, ...tournamentPopupRoute];
         TournamentManageGroupComponent,
         PunctuationTournamentComponent
     ],
-    providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }, TournamentService, GoogleMapsAPIWrapper],
+    providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }, TournamentComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ThorneoTournamentModule {
