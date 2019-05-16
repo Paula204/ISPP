@@ -74,7 +74,9 @@ const ENTITY_STATES = [...tournamentRoute, ...tournamentPopupRoute];
     ],
     providers: [
         { provide: JhiLanguageService, useClass: JhiLanguageService },
-        { provide: MapsAPILoader, useValue: { load: jest.fn().mockReturnValue(new Promise(resolve => resolve(true))) } }
+        TournamentComponent,
+        TournamentService,
+        GoogleMapsAPIWrapper
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
