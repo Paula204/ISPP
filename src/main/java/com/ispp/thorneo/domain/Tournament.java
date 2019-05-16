@@ -57,7 +57,7 @@ public class Tournament implements Serializable {
     @Column(name = "price")
     private Integer price;
 
-    @Min(value = 0)
+    @Min(value = 1)
     @Column(name = "player_size")
     private Integer playerSize;
 

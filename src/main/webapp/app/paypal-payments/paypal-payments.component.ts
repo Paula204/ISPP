@@ -127,7 +127,11 @@ export class PaypalPaymentsComponent implements OnInit, AfterViewChecked {
                                     alert('Transaction completed');
                                 }
                                 // redirigir
-                                _this.router.navigate(['/tournament/']);
+                                if (_this.route === 'sponsor') {
+                                    _this.router.navigate(['']);
+                                } else {
+                                    _this.router.navigate(['/tournament/']);
+                                }
                                 // by ' + details.payer.name.given_name
                                 _this.isSaving = true;
                                 _this.paypalPayment.date = moment();

@@ -33,7 +33,7 @@ export const paypalCompletedPaymentsRoute: Routes = [
         path: '',
         component: PaypalCompletedPaymentsComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'thorneoApp.paypalCompletedPayments.home.title'
         },
         canActivate: [UserRouteAccessService]
