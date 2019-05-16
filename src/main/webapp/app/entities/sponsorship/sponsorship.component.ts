@@ -6,7 +6,7 @@ import { filter, map } from 'rxjs/operators';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 
 import { ISponsorship } from 'app/shared/model/sponsorship.model';
-import { AccountService } from 'app/core';
+import { Account, AccountService } from 'app/core';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { SponsorshipService } from './sponsorship.service';
@@ -17,7 +17,7 @@ import { SponsorshipService } from './sponsorship.service';
 })
 export class SponsorshipComponent implements OnInit, OnDestroy {
     sponsorships: ISponsorship[];
-    currentAccount: any;
+    currentAccount: Account;
     eventSubscriber: Subscription;
     itemsPerPage: number;
     links: any;
