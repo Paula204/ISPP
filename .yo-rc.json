@@ -78,6 +78,8 @@
         ],
         "enableTranslation": true,
         "nativeLanguage": "es",
-        "languages": ["es", "en"]
+        "languages": ["es", "en"],
+        "herokuAppName": "thorneo-final",
+        "herokuDeployType": "git"
     }
 }
