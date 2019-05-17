@@ -22,7 +22,9 @@
         <div *ngIf="tournament">
             <jhi-alert-error></jhi-alert-error>
             <img class="img-fluid mx-auto d-block" width="200" height="auto" src="{{tournament.imageUrl}}"/>
-
+            <div *ngIf="tournament.imagen">
+            <img class="img-fluid mx-auto d-block" width="200" height="auto" src="{{'data:image/jpg;base64,' + tournament.imagen}}"/>
+            </div>
             <div class="row-md jh-entity-details">
                 <table class="table detailTable" style="border: 2px solid #2792f2; margin: 25px auto; border-radius: 0.25rem;
                 border-collapse: separate;
