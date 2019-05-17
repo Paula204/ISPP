@@ -25,10 +25,6 @@ import { RouterModule } from '@angular/router';
                 loadChildren: './sponsorship/sponsorship.module#ThorneoSponsorshipModule'
             },
             {
-                path: 'promotion',
-                loadChildren: './promotion/promotion.module#ThorneoPromotionModule'
-            },
-            {
                 path: 'paypal-completed-payments',
                 loadChildren: './paypal-completed-payments/paypal-completed-payments.module#ThorneoPaypalCompletedPaymentsModule'
             },

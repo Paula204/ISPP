@@ -78,8 +78,6 @@
         ],
         "enableTranslation": true,
         "nativeLanguage": "es",
-        "languages": ["es", "en"],
-        "herokuAppName": "thorneo-sprint-3",
-        "herokuDeployType": "git"
+        "languages": ["es", "en"]
     }
 }
