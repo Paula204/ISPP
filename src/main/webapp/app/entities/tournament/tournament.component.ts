@@ -22,8 +22,6 @@ declare var google: any;
 import { Type } from 'app/shared/model/tournament.model';
 import { MapsAPILoader, GoogleMapsAPIWrapper } from '@agm/core';
 
-declare var google: any;
-
 @Component({
     selector: 'jhi-tournament',
     templateUrl: './tournament.component.html',
@@ -85,12 +83,10 @@ export class TournamentComponent implements OnInit, OnDestroy, AfterViewInit {
                 : '';
     }
 
-    ngAfterViewInit(): void {
-        debugger;
-        this.apiWrapper.getNativeMap().then(map => {
-            debugger;
-        });
-    }
+    //    ngAfterViewInit(): void {
+    //        this.apiWrapper.getNativeMap().then(map => {
+    //        });
+    //    }
 
     loadAll() {
         if (this.currentSearch) {
