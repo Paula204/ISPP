@@ -23,6 +23,7 @@
         "@ngx-translate/core": "11.0.1",
         "@ngx-translate/http-loader": "4.0.0",
         "@types/jquery": "^3.3.29",
+        "angular2-google-maps": "^0.17.0",
         "angularx-qrcode": "^1.5.3",
         "bootstrap": "4.2.1",
         "braintree-web": "^3.44.1",

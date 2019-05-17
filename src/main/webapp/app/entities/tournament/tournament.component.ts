@@ -20,7 +20,8 @@ declare let $: any;
 declare var google: any;
 
 import { Type } from 'app/shared/model/tournament.model';
-import { MapsAPILoader, GoogleMapsAPIWrapper } from '@agm/core';
+import { GoogleMapsAPIWrapper } from 'angular2-google-maps/core/services/google-maps-api-wrapper';
+import { MapsAPILoader } from 'angular2-google-maps/core';
 
 @Component({
     selector: 'jhi-tournament',
@@ -246,7 +247,7 @@ export class TournamentComponent implements OnInit, OnDestroy {
     geocodeAddress(location: string): Observable<Location> {
         console.log('Start geocoding!');
         return this.waitForMapsToLoad().pipe(
-            filter(loaded => loaded),
+            // filter(loaded => loaded),
             switchMap(() => {
                 return new Observable(observer => {
                     this.geocoder.geocode({ address: location }, (results, status) => {
