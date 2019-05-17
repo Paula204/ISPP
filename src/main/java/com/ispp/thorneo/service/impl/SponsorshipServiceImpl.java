@@ -50,8 +50,12 @@ public class SponsorshipServiceImpl implements SponsorshipService {
     @Override
     public Sponsorship save(Sponsorship sponsorship) {
         log.debug("Request to save Sponsorship : {}", sponsorship);
-        if(sponsorship.getId() == null){
-            sponsorship.setUser(this.userService.getUserWithAuthorities().get());
+        try {
+            if (sponsorship.getId() == null){
+                sponsorship.setUser(userService.getUserWithAuthorities().get());
+            }
+        }catch (NullPointerException e){
+            sponsorship.setUser(userService.getUserWithAuthorities().get());
         }
         Sponsorship result = sponsorshipRepository.save(sponsorship);
         sponsorshipSearchRepository.save(result);

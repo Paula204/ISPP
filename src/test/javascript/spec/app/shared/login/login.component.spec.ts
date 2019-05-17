@@ -76,7 +76,7 @@ describe('Component Tests', () => {
                 expect(mockLoginService.loginSpy).toHaveBeenCalledWith(credentials);
                 expect(mockStateStorageService.getUrlSpy).toHaveBeenCalledTimes(1);
                 expect(mockStateStorageService.storeUrlSpy).toHaveBeenCalledWith(null);
-                //expect(mockRouter.navigateSpy).toHaveBeenCalledWith([{ redirect: 'dummy' }]);
+                // expect(mockRouter.navigateSpy).toHaveBeenCalledWith([{ redirect: 'dummy' }]);
             })
         ));
 
