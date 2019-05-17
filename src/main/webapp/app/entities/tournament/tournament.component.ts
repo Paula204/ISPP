@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { from as fromPromise, Observable, of, Subscription } from 'rxjs';
@@ -20,14 +20,16 @@ declare let $: any;
 declare var google: any;
 
 import { Type } from 'app/shared/model/tournament.model';
-import { MapsAPILoader } from '@agm/core';
+import { MapsAPILoader, GoogleMapsAPIWrapper } from '@agm/core';
+
+declare var google: any;
 
 @Component({
     selector: 'jhi-tournament',
-    templateUrl: './tournament.component.html'
-    // styleUrls: ['tournament-maps.component.css']
+    templateUrl: './tournament.component.html',
+    styleUrls: ['tournament-maps.component.css']
 })
-export class TournamentComponent implements OnInit, OnDestroy {
+export class TournamentComponent implements OnInit, OnDestroy, AfterViewInit {
     currentAccount: Account;
     tournaments: ITournament[];
     error: any;
@@ -67,6 +69,7 @@ export class TournamentComponent implements OnInit, OnDestroy {
         protected activatedRoute: ActivatedRoute,
         protected router: Router,
         protected mapLoader: MapsAPILoader,
+        protected apiWrapper: GoogleMapsAPIWrapper,
         protected eventManager: JhiEventManager
     ) {
         this.itemsPerPage = ITEMS_PER_PAGE;
@@ -80,6 +83,13 @@ export class TournamentComponent implements OnInit, OnDestroy {
             this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['search']
                 ? this.activatedRoute.snapshot.params['search']
                 : '';
+    }
+
+    ngAfterViewInit(): void {
+        debugger;
+        this.apiWrapper.getNativeMap().then(map => {
+            debugger;
+        });
     }
 
     loadAll() {

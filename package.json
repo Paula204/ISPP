@@ -48,6 +48,9 @@
     "devDependencies": {
         "@angular/cli": "7.2.3",
         "@angular/compiler-cli": "^7.2.10",
+        "@babel/cli": "^7.4.4",
+        "@babel/core": "^7.4.4",
+        "@babel/preset-env": "^7.4.4",
         "@ngtools/webpack": "7.2.3",
         "@types/jest": "23.3.13",
         "@types/node": "10.12.18",
@@ -132,6 +135,7 @@
         "start": "npm run webpack:dev",
         "start-tls": "npm run webpack:dev -- --env.tls",
         "serve": "npm run start",
+        "compile_@agm_core": "babel node_modules/@agm/core -d node_modules/@agm/core --presets @babel/preset-env",
         "build": "npm run webpack:prod",
         "test": "npm run lint && jest --coverage --logHeapUsage -w=2 --config src/test/javascript/jest.conf.js",
         "test:watch": "npm run test -- --watch",
@@ -143,6 +147,7 @@
         "webpack:prod": "npm run cleanup && npm run webpack:prod:main && npm run clean-www",
         "webpack:test": "npm run test",
         "webpack-dev-server": "node --max_old_space_size=4096 node_modules/webpack-dev-server/bin/webpack-dev-server.js",
+        "postinstall": "npm run compile_@agm_core",
         "webpack": "node --max_old_space_size=4096 node_modules/webpack/bin/webpack.js"
     },
     "jestSonar": {
