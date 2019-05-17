@@ -27,7 +27,7 @@ import { MapsAPILoader, GoogleMapsAPIWrapper } from '@agm/core';
     templateUrl: './tournament.component.html',
     styleUrls: ['tournament-maps.component.css']
 })
-export class TournamentComponent implements OnInit, OnDestroy, AfterViewInit {
+export class TournamentComponent implements OnInit, OnDestroy {
     currentAccount: Account;
     tournaments: ITournament[];
     error: any;
@@ -246,7 +246,7 @@ export class TournamentComponent implements OnInit, OnDestroy, AfterViewInit {
     geocodeAddress(location: string): Observable<Location> {
         console.log('Start geocoding!');
         return this.waitForMapsToLoad().pipe(
-            // filter(loaded => loaded),
+            filter(loaded => loaded),
             switchMap(() => {
                 return new Observable(observer => {
                     this.geocoder.geocode({ address: location }, (results, status) => {
