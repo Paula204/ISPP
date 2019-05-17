@@ -28,6 +28,7 @@ import { GoogleMapsAPIWrapper } from 'angular2-google-maps/core/services/google-
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { TournamentService } from 'app/entities/tournament/tournament.service';
+import { MapsAPILoader, LazyMapsAPILoader } from 'angular2-google-maps/core';
 
 const ENTITY_STATES = [...tournamentRoute, ...tournamentPopupRoute];
 
@@ -74,12 +75,7 @@ const ENTITY_STATES = [...tournamentRoute, ...tournamentPopupRoute];
         PunctuationTournamentComponent
     ],
 
-    providers: [
-        { provide: JhiLanguageService, useClass: JhiLanguageService },
-        TournamentComponent,
-        TournamentService,
-        GoogleMapsAPIWrapper
-    ],
+    providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }, TournamentComponent, TournamentService, LazyMapsAPILoader],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ThorneoTournamentModule {
