@@ -186,6 +186,7 @@ export class TournamentComponent implements OnInit, OnDestroy, AfterViewInit {
             )
             .subscribe(value => (this.sponsorship = value));
         this.currentDate = new Date();
+        this.mapita = google.maps.Map(document.getElementById('map'));
     }
 
     ngOnDestroy() {
