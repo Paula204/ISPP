@@ -23,7 +23,6 @@ import { Type } from 'app/shared/model/tournament.model';
 // import { GoogleMapsAPIWrapper } from 'angular2-google-maps/core/services/google-maps-api-wrapper';
 // import { MapsAPILoader,  } from 'angular2-google-maps/core';
 import { MapsAPILoader, GoogleMapsAPIWrapper } from '@agm/core';
-7;
 
 @Component({
     selector: 'jhi-tournament',
