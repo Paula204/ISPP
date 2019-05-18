@@ -31,7 +31,7 @@ import { MapsAPILoader, GoogleMapsAPIWrapper } from '@agm/core';
 })
 
 // extends GoogleMapsAPIWrapper
-export class TournamentComponent implements OnInit, OnDestroy, AfterViewInit {
+export class TournamentComponent implements OnInit, OnDestroy {
     currentAccount: Account;
     tournaments: ITournament[];
     error: any;
