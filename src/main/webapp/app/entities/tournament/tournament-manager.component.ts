@@ -294,6 +294,7 @@ export class TournamentManagerComponent implements OnInit, OnDestroy {
         this.minuto = 0;
         this.segundos = 0;
         this.contador = null;
+        this.reinicio = [];
     }
 
     pause() {

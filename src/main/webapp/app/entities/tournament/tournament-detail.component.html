@@ -126,7 +126,7 @@
             <div class="d-inline"  *ngIf="tournament.participations.length > 1 && tournament.meetingDate.isBefore(currentDate)">
                         <ng-template></ng-template><button type="button "
                                                         [routerLink]="['/tournament', tournament.id, 'manager' ]"
-                                                        class="btn btn-primary btn-sm">
+                                                        class="btn btn-primary">
                             <fa-icon [icon]="'wrench'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.manage">Manage</span>
                         </button></ng-template>
