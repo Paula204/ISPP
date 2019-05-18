@@ -73,7 +73,7 @@ const ENTITY_STATES = [...tournamentRoute, ...tournamentPopupRoute];
         PunctuationTournamentComponent
     ],
 
-    providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }, TournamentComponent, GMapsService],
+    providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }, GoogleMapsAPIWrapper],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ThorneoTournamentModule {
