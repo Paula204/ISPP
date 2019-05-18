@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable, from } from 'rxjs';
 import * as moment from 'moment';
@@ -10,6 +10,7 @@ import { createRequestOption } from 'app/shared';
 import { ITournament, ITournamentForm } from 'app/shared/model/tournament.model';
 import { IUser } from 'app/core/user/user.model';
 import { IPunctuation } from 'app/shared/model/punctuation.model';
+import { GoogleMapsAPIWrapper, MapsAPILoader } from '@agm/core';
 
 type EntityResponseType = HttpResponse<ITournament>;
 type EntityArrayResponseType = HttpResponse<ITournament[]>;
@@ -123,5 +124,12 @@ export class TournamentService {
             });
         }
         return res;
+    }
+}
+
+@Injectable()
+export class GMapsService extends GoogleMapsAPIWrapper {
+    constructor(private __loader: MapsAPILoader, private __zone: NgZone) {
+        super(__loader, __zone);
     }
 }

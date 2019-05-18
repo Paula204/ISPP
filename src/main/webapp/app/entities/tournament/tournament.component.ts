@@ -10,7 +10,7 @@ import { ITournament } from 'app/shared/model/tournament.model';
 import { Account, AccountService } from 'app/core';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
-import { TournamentService } from './tournament.service';
+import { TournamentService, GMapsService } from './tournament.service';
 import { SponsorshipService } from 'app/entities/sponsorship';
 
 import * as Http from 'http';
@@ -23,6 +23,7 @@ import { Type } from 'app/shared/model/tournament.model';
 // import { GoogleMapsAPIWrapper } from 'angular2-google-maps/core/services/google-maps-api-wrapper';
 // import { MapsAPILoader,  } from 'angular2-google-maps/core';
 import { MapsAPILoader, GoogleMapsAPIWrapper } from '@agm/core';
+7;
 
 @Component({
     selector: 'jhi-tournament',
@@ -71,6 +72,7 @@ export class TournamentComponent implements OnInit, OnDestroy {
         protected activatedRoute: ActivatedRoute,
         protected router: Router,
         protected mapLoader: MapsAPILoader,
+        protected mapsService: GMapsService,
         // private __loader = MapsAPILoader,
         // private __zone = NgZone,
         protected eventManager: JhiEventManager
@@ -184,7 +186,6 @@ export class TournamentComponent implements OnInit, OnDestroy {
             )
             .subscribe(value => (this.sponsorship = value));
         this.currentDate = new Date();
-        this.mapLoader.load;
     }
 
     ngOnDestroy() {

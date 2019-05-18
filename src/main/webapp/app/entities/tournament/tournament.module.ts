@@ -26,7 +26,7 @@ import { FbLikeComponent } from 'app/entities/tournament/facebook.component';
 import { AgmCoreModule, GoogleMapsAPIWrapper, MapsAPILoader } from '@agm/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { TournamentService } from 'app/entities/tournament/tournament.service';
+import { GMapsService } from 'app/entities/tournament/tournament.service';
 
 const ENTITY_STATES = [...tournamentRoute, ...tournamentPopupRoute];
 
@@ -73,12 +73,7 @@ const ENTITY_STATES = [...tournamentRoute, ...tournamentPopupRoute];
         PunctuationTournamentComponent
     ],
 
-    providers: [
-        { provide: JhiLanguageService, useClass: JhiLanguageService },
-        TournamentComponent,
-        TournamentService,
-        GoogleMapsAPIWrapper
-    ],
+    providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }, TournamentComponent, GMapsService],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ThorneoTournamentModule {
