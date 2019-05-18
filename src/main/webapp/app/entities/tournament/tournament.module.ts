@@ -23,12 +23,12 @@ import { TournamentManageGroupComponent } from 'app/entities/tournament/tourname
 import { TweetComponent } from 'app/entities/tournament/Tweet.component';
 import { FbLikeComponent } from 'app/entities/tournament/facebook.component';
 
-import { AgmCoreModule } from '@agm/core';
-import { GoogleMapsAPIWrapper } from 'angular2-google-maps/core/services/google-maps-api-wrapper';
+import { AgmCoreModule, GoogleMapsAPIWrapper, MapsAPILoader } from '@agm/core';
+// import { GoogleMapsAPIWrapper } from 'angular2-google-maps/core/services/google-maps-api-wrapper';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { TournamentService } from 'app/entities/tournament/tournament.service';
-import { MapsAPILoader, LazyMapsAPILoader } from 'angular2-google-maps/core';
+// import { MapsAPILoader, LazyMapsAPILoader } from 'angular2-google-maps/core';
 
 const ENTITY_STATES = [...tournamentRoute, ...tournamentPopupRoute];
 
@@ -75,7 +75,7 @@ const ENTITY_STATES = [...tournamentRoute, ...tournamentPopupRoute];
         PunctuationTournamentComponent
     ],
 
-    providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }, TournamentComponent, TournamentService, LazyMapsAPILoader],
+    providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }, TournamentComponent, TournamentService],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ThorneoTournamentModule {
