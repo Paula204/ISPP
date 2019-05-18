@@ -79,7 +79,7 @@ public class Tournament implements Serializable {
 
     @Lob
     @Column(name = "imagen")
-    private byte[] imagen;
+    private String imagen;
 
     @Column(name = "imagen_content_type")
     private String imagenContentType;
@@ -267,16 +267,16 @@ public class Tournament implements Serializable {
         this.type = type;
     }
 
-    public byte[] getImagen() {
+    public String getImagen() {
         return imagen;
     }
 
-    public Tournament imagen(byte[] imagen) {
+    public Tournament imagen(String imagen) {
         this.imagen = imagen;
         return this;
     }
 
-    public void setImagen(byte[] imagen) {
+    public void setImagen(String imagen) {
         this.imagen = imagen;
     }
 
