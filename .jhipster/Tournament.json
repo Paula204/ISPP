@@ -105,7 +105,7 @@
         },
         {
             "fieldName": "imagen",
-            "fieldType": "String",
+            "fieldType": "byte[]",
             "fieldTypeBlobContent": "image",
             "fieldValidateRules": []
         },

@@ -28,7 +28,7 @@ public class TournamentForm {
     private User user;
     private Game game;
     private String winner;
-    private String imagen;
+    private byte[] imagen;
     private String imagenContentType;
     private String state;
 
@@ -191,11 +191,11 @@ public class TournamentForm {
         this.winner = winner;
     }
 
-    public String getImagen() {
+    public byte[] getImagen() {
         return imagen;
     }
 
-    public void setImagen(String imagen) {
+    public void setImagen(byte[] imagen) {
         this.imagen = imagen;
     }
 
