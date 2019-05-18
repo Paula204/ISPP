@@ -29,6 +29,8 @@ import { MapsAPILoader, GoogleMapsAPIWrapper } from '@agm/core';
     templateUrl: './tournament.component.html',
     styleUrls: ['tournament-maps.component.css']
 })
+
+// extends GoogleMapsAPIWrapper
 export class TournamentComponent implements OnInit, OnDestroy, AfterViewInit {
     currentAccount: Account;
     tournaments: ITournament[];
@@ -69,9 +71,11 @@ export class TournamentComponent implements OnInit, OnDestroy, AfterViewInit {
         protected activatedRoute: ActivatedRoute,
         protected router: Router,
         protected mapLoader: MapsAPILoader,
-        protected apiWrapper: GoogleMapsAPIWrapper,
+        // private __loader = MapsAPILoader,
+        // private __zone = NgZone,
         protected eventManager: JhiEventManager
     ) {
+        // super(__loader,__zone)
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe(data => {
             this.page = data.pagingParams.page;
@@ -180,6 +184,7 @@ export class TournamentComponent implements OnInit, OnDestroy, AfterViewInit {
             )
             .subscribe(value => (this.sponsorship = value));
         this.currentDate = new Date();
+        this.mapLoader.load;
     }
 
     ngOnDestroy() {
@@ -269,12 +274,12 @@ export class TournamentComponent implements OnInit, OnDestroy, AfterViewInit {
         );
     }
 
-    ngAfterViewInit(): void {
+    /**ngAfterViewInit(): void {
         this.apiWrapper.getNativeMap().then(mapitaBonito => {
             console.log(mapitaBonito);
             console.log(mapitaBonito.getZoom());
         });
-    }
+    }*/
 }
 
 export interface Marker {
