@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, AfterViewInit, Output, NgZone } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, Output, NgZone, Injectable } from '@angular/core';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { from as fromPromise, Observable, of, Subscription } from 'rxjs';
@@ -29,8 +29,8 @@ import { MapsAPILoader } from '@agm/core';
     templateUrl: './tournament.component.html',
     styleUrls: ['tournament-maps.component.css']
 })
-
 // extends GoogleMapsAPIWrapper
+@Injectable({ providedIn: 'root' })
 export class TournamentComponent implements OnInit, OnDestroy, AfterViewInit {
     currentAccount: Account;
     tournaments: ITournament[];

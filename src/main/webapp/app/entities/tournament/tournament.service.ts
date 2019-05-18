@@ -127,7 +127,7 @@ export class TournamentService {
     }
 }
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class GMapsService extends GoogleMapsAPIWrapper {
     constructor(private __loader: MapsAPILoader, private __zone: NgZone) {
         super(__loader, __zone);
