@@ -22,7 +22,7 @@ declare var google: any;
 import { Type } from 'app/shared/model/tournament.model';
 // import { GoogleMapsAPIWrapper } from 'angular2-google-maps/core/services/google-maps-api-wrapper';
 // import { MapsAPILoader,  } from 'angular2-google-maps/core';
-import { MapsAPILoader, GoogleMapsAPIWrapper } from '@agm/core';
+import { MapsAPILoader } from '@agm/core';
 
 @Component({
     selector: 'jhi-tournament',
@@ -31,7 +31,7 @@ import { MapsAPILoader, GoogleMapsAPIWrapper } from '@agm/core';
 })
 
 // extends GoogleMapsAPIWrapper
-export class TournamentComponent implements OnInit, OnDestroy {
+export class TournamentComponent implements OnInit, OnDestroy, AfterViewInit {
     currentAccount: Account;
     tournaments: ITournament[];
     error: any;
@@ -61,6 +61,7 @@ export class TournamentComponent implements OnInit, OnDestroy {
     geocoder: any;
     entry: any;
     title: string;
+    mapita: any;
 
     constructor(
         protected tournamentService: TournamentService,
@@ -265,7 +266,7 @@ export class TournamentComponent implements OnInit, OnDestroy {
                             });
                         } else {
                             console.log('Error - ', results, ' & Status - ', status);
-                            observer.next({ lat: 0, lng: 0 });
+                            observer.next({ lat: 37.38283, lng: -5.97317 });
                         }
                         observer.complete();
                     });
@@ -274,12 +275,9 @@ export class TournamentComponent implements OnInit, OnDestroy {
         );
     }
 
-    /**ngAfterViewInit(): void {
-        this.apiWrapper.getNativeMap().then(mapitaBonito => {
-            console.log(mapitaBonito);
-            console.log(mapitaBonito.getZoom());
-        });
-    }*/
+    ngAfterViewInit(): void {
+        this.mapita = google.maps.Map(document.getElementById('map'));
+    }
 }
 
 export interface Marker {

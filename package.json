@@ -22,6 +22,7 @@
         "@ng-bootstrap/ng-bootstrap": "4.0.1",
         "@ngx-translate/core": "11.0.1",
         "@ngx-translate/http-loader": "4.0.0",
+        "@types/googlemaps": "^3.30.20",
         "@types/jquery": "^3.3.29",
         "angular2-google-maps": "^0.17.0",
         "angularx-qrcode": "^1.5.3",
