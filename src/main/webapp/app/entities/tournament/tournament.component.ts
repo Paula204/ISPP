@@ -270,9 +270,9 @@ export class TournamentComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     ngAfterViewInit(): void {
-        this.apiWrapper.getNativeMap().then(map => {
-            console.log(map);
-            console.log(map.getZoom());
+        this.apiWrapper.getNativeMap().then(mapitaBonito => {
+            console.log(mapitaBonito);
+            console.log(mapitaBonito.getZoom());
         });
     }
 }
