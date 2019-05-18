@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, Output, NgZone } from '@angular/core';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { from as fromPromise, Observable, of, Subscription } from 'rxjs';
@@ -29,7 +29,7 @@ import { MapsAPILoader, GoogleMapsAPIWrapper } from '@agm/core';
     templateUrl: './tournament.component.html',
     styleUrls: ['tournament-maps.component.css']
 })
-export class TournamentComponent implements OnInit, OnDestroy {
+export class TournamentComponent implements OnInit, OnDestroy, AfterViewInit {
     currentAccount: Account;
     tournaments: ITournament[];
     error: any;
@@ -267,6 +267,13 @@ export class TournamentComponent implements OnInit, OnDestroy {
                 });
             })
         );
+    }
+
+    ngAfterViewInit(): void {
+        this.apiWrapper.getNativeMap().then(map => {
+            console.log(map);
+            console.log(map.getZoom());
+        });
     }
 }
 
