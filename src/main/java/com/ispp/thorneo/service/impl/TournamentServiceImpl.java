@@ -185,7 +185,7 @@ public class TournamentServiceImpl implements TournamentService {
         tournament.setUser(user);
 
         if (tournament.getImagen() != null){
-            tournament.setImagen(new String(tournament.getImagen()));
+            tournament.setImagenContentType(new String(tournament.getImagen()));
         }
 
         result = save(tournament);
