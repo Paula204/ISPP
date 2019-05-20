@@ -15,6 +15,8 @@ import { TournamentService } from './tournament.service';
 import { SponsorshipService } from 'app/entities/sponsorship';
 
 import { Type } from 'app/shared/model/tournament.model';
+import { Moment } from 'moment';
+import moment = require('moment');
 
 @Component({
     selector: 'jhi-tournament',
@@ -36,7 +38,7 @@ export class TournamentMyComponent implements OnInit, OnDestroy {
     previousPage: any;
     reverse: any;
     type: Type;
-    currentDate: Date;
+    currentDate: Moment;
     sponsorship: ISponsorship;
 
     constructor(
@@ -144,7 +146,7 @@ export class TournamentMyComponent implements OnInit, OnDestroy {
             this.currentAccount = account;
         });
         this.registerChangeInTournaments();
-        this.currentDate = new Date();
+        this.currentDate = moment();
         this.sponsorshipService
             .findRandom()
             .pipe(
