@@ -142,6 +142,7 @@ export class TournamentComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        this.currentDate = new Date();
         this.loadAll();
         this.accountService.identity().then(account => {
             this.currentAccount = account;
