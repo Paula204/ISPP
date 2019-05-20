@@ -101,19 +101,6 @@ public class GameResource {
     }
 
     /**
-     * DELETE  /games/:id : delete the "id" game.
-     *
-     * @param id the id of the game to delete
-     * @return the ResponseEntity with status 200 (OK)
-     */
-    @DeleteMapping("/games/{id}")
-    public ResponseEntity<Void> deleteGame(@PathVariable Long id) {
-        log.debug("REST request to delete Game : {}", id);
-        gameService.delete(id);
-        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
-    }
-
-    /**
      * SEARCH  /_search/games?query=:query : search for the game corresponding
      * to the query.
      *

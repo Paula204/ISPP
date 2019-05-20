@@ -9,7 +9,6 @@ import { GameService } from './game.service';
 import { GameComponent } from './game.component';
 import { GameDetailComponent } from './game-detail.component';
 import { GameUpdateComponent } from './game-update.component';
-import { GameDeletePopupComponent } from './game-delete-dialog.component';
 import { IGame } from 'app/shared/model/game.model';
 
 @Injectable({ providedIn: 'root' })
@@ -73,21 +72,5 @@ export const gameRoute: Routes = [
             pageTitle: 'thorneoApp.game.home.title'
         },
         canActivate: [UserRouteAccessService]
-    }
-];
-
-export const gamePopupRoute: Routes = [
-    {
-        path: ':id/delete',
-        component: GameDeletePopupComponent,
-        resolve: {
-            game: GameResolve
-        },
-        data: {
-            authorities: ['ROLE_USER', 'ROLE_ADMIN'],
-            pageTitle: 'thorneoApp.game.home.title'
-        },
-        canActivate: [UserRouteAccessService],
-        outlet: 'popup'
     }
 ];
