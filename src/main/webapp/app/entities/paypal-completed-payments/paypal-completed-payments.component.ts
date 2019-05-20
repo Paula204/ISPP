@@ -18,6 +18,7 @@ export class PaypalCompletedPaymentsComponent implements OnInit, OnDestroy {
     currentAccount: any;
     eventSubscriber: Subscription;
     currentSearch: string;
+    route: string;
 
     constructor(
         protected paypalCompletedPaymentsService: PaypalCompletedPaymentsService,
@@ -30,6 +31,8 @@ export class PaypalCompletedPaymentsComponent implements OnInit, OnDestroy {
             this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['search']
                 ? this.activatedRoute.snapshot.params['search']
                 : '';
+        const res = activatedRoute.snapshot.url.length;
+        this.route = activatedRoute.snapshot.url[res - 1].toString();
     }
 
     loadAll() {
@@ -77,10 +80,17 @@ export class PaypalCompletedPaymentsComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.loadAll();
         this.accountService.identity().then(account => {
             this.currentAccount = account;
         });
+        if (this.route === 'mine') {
+            this.paypalCompletedPaymentsService.getMine().subscribe(paypalPayments => {
+                this.paypalCompletedPayments = paypalPayments.body;
+            });
+        } else {
+            this.loadAll();
+        }
+
         this.registerChangeInPaypalCompletedPayments();
     }
 

@@ -30,7 +30,7 @@ export class PaypalCompletedPaymentsResolve implements Resolve<IPaypalCompletedP
 
 export const paypalCompletedPaymentsRoute: Routes = [
     {
-        path: '',
+        path: 'all',
         component: PaypalCompletedPaymentsComponent,
         data: {
             authorities: ['ROLE_ADMIN'],
@@ -56,6 +56,15 @@ export const paypalCompletedPaymentsRoute: Routes = [
         resolve: {
             paypalCompletedPayments: PaypalCompletedPaymentsResolve
         },
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'thorneoApp.paypalCompletedPayments.home.title'
+        },
+        canActivate: [UserRouteAccessService]
+    },
+    {
+        path: 'mine',
+        component: PaypalCompletedPaymentsComponent,
         data: {
             authorities: ['ROLE_USER'],
             pageTitle: 'thorneoApp.paypalCompletedPayments.home.title'
