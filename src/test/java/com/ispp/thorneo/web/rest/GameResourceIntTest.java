@@ -61,8 +61,8 @@ public class GameResourceIntTest {
     private static final Category DEFAULT_CATEGORY = Category.CARD;
     private static final Category UPDATED_CATEGORY = Category.MINIATURES;
 
-    private static final Integer DEFAULT_MIN_AGE = 1;
-    private static final Integer UPDATED_MIN_AGE = 2;
+    private static final Integer DEFAULT_MIN_AGE = 5;
+    private static final Integer UPDATED_MIN_AGE = 10;
 
     @Autowired
     private GameRepository gameRepository;
@@ -295,29 +295,6 @@ public class GameResourceIntTest {
 
         // Validate the Game in Elasticsearch
         verify(mockGameSearchRepository, times(0)).save(game);
-    }
-
-    @Test
-    @Transactional
-    public void deleteGame() throws Exception {
-        // Initialize the database
-        gameService.save(game);
-
-        int databaseSizeBeforeDelete = gameRepository.findAll().size();
-
-        User admin = this.userService.getUserWithAuthoritiesByLogin("admin").get();
-        SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
-        securityContext.setAuthentication(new UsernamePasswordAuthenticationToken(admin.getLogin(), admin.getPassword()));
-        SecurityContextHolder.setContext(securityContext);
-        // Delete the game
-        this.gameService.delete(game.getId());
-
-        // Validate the database is empty
-        List<Game> gameList = gameRepository.findAll();
-        assertThat(gameList).hasSize(databaseSizeBeforeDelete - 1);
-
-        // Validate the Game in Elasticsearch
-        verify(mockGameSearchRepository, times(1)).deleteById(game.getId());
     }
 
     @Test
