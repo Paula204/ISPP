@@ -31,8 +31,6 @@ export class PaypalCompletedPaymentsComponent implements OnInit, OnDestroy {
             this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['search']
                 ? this.activatedRoute.snapshot.params['search']
                 : '';
-        const res = this.activatedRoute.snapshot.url.length;
-        this.route = this.activatedRoute.snapshot.url[res - 1].toString();
     }
 
     loadAll() {
@@ -80,6 +78,8 @@ export class PaypalCompletedPaymentsComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        const res = this.activatedRoute.snapshot.url.length;
+        this.route = this.activatedRoute.snapshot.url[res - 1].toString();
         this.accountService.identity().then(account => {
             this.currentAccount = account;
         });
