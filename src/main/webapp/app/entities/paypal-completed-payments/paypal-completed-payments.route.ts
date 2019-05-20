@@ -11,6 +11,7 @@ import { PaypalCompletedPaymentsDetailComponent } from './paypal-completed-payme
 import { PaypalCompletedPaymentsUpdateComponent } from './paypal-completed-payments-update.component';
 import { PaypalCompletedPaymentsDeletePopupComponent } from './paypal-completed-payments-delete-dialog.component';
 import { IPaypalCompletedPayments } from 'app/shared/model/paypal-completed-payments.model';
+import { PaypalCompletedPaymentsMineComponent } from './paypal-completed-payments-mine.component';
 
 @Injectable({ providedIn: 'root' })
 export class PaypalCompletedPaymentsResolve implements Resolve<IPaypalCompletedPayments> {
@@ -30,7 +31,7 @@ export class PaypalCompletedPaymentsResolve implements Resolve<IPaypalCompletedP
 
 export const paypalCompletedPaymentsRoute: Routes = [
     {
-        path: 'all',
+        path: '',
         component: PaypalCompletedPaymentsComponent,
         data: {
             authorities: ['ROLE_ADMIN'],
@@ -64,7 +65,7 @@ export const paypalCompletedPaymentsRoute: Routes = [
     },
     {
         path: 'mine',
-        component: PaypalCompletedPaymentsComponent,
+        component: PaypalCompletedPaymentsMineComponent,
         data: {
             authorities: ['ROLE_USER'],
             pageTitle: 'thorneoApp.paypalCompletedPayments.home.title'

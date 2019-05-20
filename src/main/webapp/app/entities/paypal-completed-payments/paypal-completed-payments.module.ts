@@ -11,7 +11,8 @@ import {
     PaypalCompletedPaymentsDeletePopupComponent,
     PaypalCompletedPaymentsDeleteDialogComponent,
     paypalCompletedPaymentsRoute,
-    paypalCompletedPaymentsPopupRoute
+    paypalCompletedPaymentsPopupRoute,
+    PaypalCompletedPaymentsMineComponent
 } from './';
 
 const ENTITY_STATES = [...paypalCompletedPaymentsRoute, ...paypalCompletedPaymentsPopupRoute];
@@ -20,6 +21,7 @@ const ENTITY_STATES = [...paypalCompletedPaymentsRoute, ...paypalCompletedPaymen
     imports: [ThorneoSharedModule, RouterModule.forChild(ENTITY_STATES)],
     declarations: [
         PaypalCompletedPaymentsComponent,
+        PaypalCompletedPaymentsMineComponent,
         PaypalCompletedPaymentsDetailComponent,
         PaypalCompletedPaymentsUpdateComponent,
         PaypalCompletedPaymentsDeleteDialogComponent,
@@ -27,6 +29,7 @@ const ENTITY_STATES = [...paypalCompletedPaymentsRoute, ...paypalCompletedPaymen
     ],
     entryComponents: [
         PaypalCompletedPaymentsComponent,
+        PaypalCompletedPaymentsMineComponent,
         PaypalCompletedPaymentsUpdateComponent,
         PaypalCompletedPaymentsDeleteDialogComponent,
         PaypalCompletedPaymentsDeletePopupComponent
