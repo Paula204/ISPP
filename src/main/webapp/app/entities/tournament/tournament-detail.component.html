@@ -112,7 +112,7 @@
 
             <jhi-alert-error></jhi-alert-error>
             <button type="submit"
-                    (click)="previousState()"
+                [routerLink]="['/tournament']"
                     class="btn btn-info">
                 <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span class="d-none d-md-inline" jhiTranslate="entity.action.back"> Back</span>
             </button>
