@@ -19,6 +19,8 @@ import { filter, map } from 'rxjs/operators';
 declare let $: any;
 
 import { Type } from 'app/shared/model/tournament.model';
+import moment = require('moment');
+import { Moment } from 'moment';
 
 @Component({
     selector: 'jhi-tournament',
@@ -41,7 +43,7 @@ export class TournamentComponent implements OnInit, OnDestroy {
     reverse: any;
     sponsorship: ISponsorship;
     type: Type;
-    currentDate: Date;
+    currentDate: Moment;
     constructor(
         protected tournamentService: TournamentService,
         protected sponsorshipService: SponsorshipService,
@@ -142,6 +144,7 @@ export class TournamentComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        this.currentDate = moment();
         this.loadAll();
         this.accountService.identity().then(account => {
             this.currentAccount = account;
@@ -154,7 +157,6 @@ export class TournamentComponent implements OnInit, OnDestroy {
                 map((sponsorship: HttpResponse<Sponsorship>) => sponsorship.body)
             )
             .subscribe(value => (this.sponsorship = value));
-        this.currentDate = new Date();
     }
 
     ngOnDestroy() {

@@ -1,7 +1,10 @@
 package com.ispp.thorneo.web.rest;
+import com.ispp.thorneo.domain.Authority;
 import com.ispp.thorneo.domain.PaypalCompletedPayments;
+import com.ispp.thorneo.domain.User;
 import com.ispp.thorneo.repository.PaypalCompletedPaymentsRepository;
 import com.ispp.thorneo.repository.search.PaypalCompletedPaymentsSearchRepository;
+import com.ispp.thorneo.service.UserService;
 import com.ispp.thorneo.web.rest.errors.BadRequestAlertException;
 import com.ispp.thorneo.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -36,9 +39,12 @@ public class PaypalCompletedPaymentsResource {
 
     private final PaypalCompletedPaymentsSearchRepository paypalCompletedPaymentsSearchRepository;
 
-    public PaypalCompletedPaymentsResource(PaypalCompletedPaymentsRepository paypalCompletedPaymentsRepository, PaypalCompletedPaymentsSearchRepository paypalCompletedPaymentsSearchRepository) {
+    private final UserService userService;
+
+    public PaypalCompletedPaymentsResource(PaypalCompletedPaymentsRepository paypalCompletedPaymentsRepository, PaypalCompletedPaymentsSearchRepository paypalCompletedPaymentsSearchRepository, UserService userService) {
         this.paypalCompletedPaymentsRepository = paypalCompletedPaymentsRepository;
         this.paypalCompletedPaymentsSearchRepository = paypalCompletedPaymentsSearchRepository;
+        this.userService = userService;
     }
 
     /**
@@ -68,6 +74,15 @@ public class PaypalCompletedPaymentsResource {
      */
     @GetMapping("/paypal-completed-payments")
     public List<PaypalCompletedPayments> getAllPaypalCompletedPayments() {
+        User currentUser = this.userService.getUserWithAuthorities().get();
+
+        Authority admin = new Authority();
+        admin.setName("ROLE_ADMIN");
+
+        if (!currentUser.getAuthorities().contains(admin)) {
+            throw new BadRequestAlertException("Invalid user", "tournament", "notCreator");
+        }
+
         log.debug("REST request to get all PaypalCompletedPayments");
         return paypalCompletedPaymentsRepository.findAll();
     }
@@ -80,23 +95,19 @@ public class PaypalCompletedPaymentsResource {
      */
     @GetMapping("/paypal-completed-payments/{id}")
     public ResponseEntity<PaypalCompletedPayments> getPaypalCompletedPayments(@PathVariable Long id) {
+        User currentUser = this.userService.getUserWithAuthorities().get();
+
+        Authority admin = new Authority();
+        admin.setName("ROLE_ADMIN");
+
         log.debug("REST request to get PaypalCompletedPayments : {}", id);
         Optional<PaypalCompletedPayments> paypalCompletedPayments = paypalCompletedPaymentsRepository.findById(id);
-        return ResponseUtil.wrapOrNotFound(paypalCompletedPayments);
-    }
 
-    /**
-     * DELETE  /paypal-completed-payments/:id : delete the "id" paypalCompletedPayments.
-     *
-     * @param id the id of the paypalCompletedPayments to delete
-     * @return the ResponseEntity with status 200 (OK)
-     */
-    @DeleteMapping("/paypal-completed-payments/{id}")
-    public ResponseEntity<Void> deletePaypalCompletedPayments(@PathVariable Long id) {
-        log.debug("REST request to delete PaypalCompletedPayments : {}", id);
-        paypalCompletedPaymentsRepository.deleteById(id);
-        paypalCompletedPaymentsSearchRepository.deleteById(id);
-        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+        if (paypalCompletedPayments.get().getUser().getId() != currentUser.getId() && !currentUser.getAuthorities().contains(admin)){
+            throw new BadRequestAlertException("Invalid user", "tournament", "notCreator");
+        }
+
+        return ResponseUtil.wrapOrNotFound(paypalCompletedPayments);
     }
 
     /**
@@ -114,4 +125,9 @@ public class PaypalCompletedPaymentsResource {
             .collect(Collectors.toList());
     }
 
+    @GetMapping("/paypal-completed-payments/mine")
+    public List<PaypalCompletedPayments> getMyPayments(){
+        log.debug("Get my payments");
+        return this.paypalCompletedPaymentsRepository.findByUserIsCurrentUser();
+    }
 }

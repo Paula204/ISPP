@@ -13,7 +13,7 @@ import { PaypalCompletedPaymentsService } from './paypal-completed-payments.serv
     selector: 'jhi-paypal-completed-payments',
     templateUrl: './paypal-completed-payments.component.html'
 })
-export class PaypalCompletedPaymentsComponent implements OnInit, OnDestroy {
+export class PaypalCompletedPaymentsMineComponent implements OnInit, OnDestroy {
     paypalCompletedPayments: IPaypalCompletedPayments[];
     currentAccount: any;
     eventSubscriber: Subscription;
@@ -31,6 +31,8 @@ export class PaypalCompletedPaymentsComponent implements OnInit, OnDestroy {
             this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['search']
                 ? this.activatedRoute.snapshot.params['search']
                 : '';
+        const res = activatedRoute.snapshot.url.length;
+        this.route = activatedRoute.snapshot.url[res - 1].toString();
     }
 
     loadAll() {
@@ -81,7 +83,9 @@ export class PaypalCompletedPaymentsComponent implements OnInit, OnDestroy {
         this.accountService.identity().then(account => {
             this.currentAccount = account;
         });
-        this.loadAll();
+        this.paypalCompletedPaymentsService.getMine().subscribe(paypalPayments => {
+            this.paypalCompletedPayments = paypalPayments.body;
+        });
         this.registerChangeInPaypalCompletedPayments();
     }
 

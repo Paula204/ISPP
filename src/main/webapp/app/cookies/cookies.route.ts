@@ -8,7 +8,7 @@ export const COOKIES_ROUTE: Routes = [
         path: 'cookies',
         component: CookiesComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: [],
             pageTitle: 'cookies.title'
         },
         canActivate: [UserRouteAccessService]

@@ -55,6 +55,11 @@ export class NavbarComponent implements OnInit {
         this.isNavbarCollapsed = true;
     }
 
+    recargar() {
+        window.location.href = '#';
+        window.location.reload();
+    }
+
     isAuthenticated() {
         return this.accountService.isAuthenticated();
     }

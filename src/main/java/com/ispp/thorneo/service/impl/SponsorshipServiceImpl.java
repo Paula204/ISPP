@@ -35,9 +35,10 @@ public class SponsorshipServiceImpl implements SponsorshipService {
 
     private UserService userService;
 
-    public SponsorshipServiceImpl(SponsorshipRepository sponsorshipRepository, SponsorshipSearchRepository sponsorshipSearchRepository) {
+    public SponsorshipServiceImpl(SponsorshipRepository sponsorshipRepository, SponsorshipSearchRepository sponsorshipSearchRepository,UserService userService) {
         this.sponsorshipRepository = sponsorshipRepository;
         this.sponsorshipSearchRepository = sponsorshipSearchRepository;
+        this.userService = userService;
     }
 
     /**
@@ -49,13 +50,12 @@ public class SponsorshipServiceImpl implements SponsorshipService {
     @Override
     public Sponsorship save(Sponsorship sponsorship) {
         log.debug("Request to save Sponsorship : {}", sponsorship);
-        try{
-            if(sponsorship.getUser() != null) {
-                sponsorship.setUser(sponsorship.getUser());
-            }
-        }catch(NullPointerException e){
+        try {
+            if (sponsorship.getId() == null){
                 sponsorship.setUser(userService.getUserWithAuthorities().get());
-                System.err.println("Usuario null");
+            }
+        }catch (NullPointerException e){
+            sponsorship.setUser(userService.getUserWithAuthorities().get());
         }
         Sponsorship result = sponsorshipRepository.save(sponsorship);
         sponsorshipSearchRepository.save(result);

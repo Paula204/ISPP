@@ -57,6 +57,10 @@ export class PaypalCompletedPaymentsService {
             .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
     }
 
+    getMine(): Observable<EntityArrayResponseType> {
+        return this.http.get<IPaypalCompletedPayments[]>(`${this.resourceUrl}/mine`, { observe: 'response' });
+    }
+
     protected convertDateFromClient(paypalCompletedPayments: IPaypalCompletedPayments): IPaypalCompletedPayments {
         const copy: IPaypalCompletedPayments = Object.assign({}, paypalCompletedPayments, {
             date:
