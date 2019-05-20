@@ -31,8 +31,8 @@ export class PaypalCompletedPaymentsComponent implements OnInit, OnDestroy {
             this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['search']
                 ? this.activatedRoute.snapshot.params['search']
                 : '';
-        const res = activatedRoute.snapshot.url.length;
-        this.route = activatedRoute.snapshot.url[res - 1].toString();
+        const res = this.activatedRoute.snapshot.url.length;
+        this.route = this.activatedRoute.snapshot.url[res - 1].toString();
     }
 
     loadAll() {
