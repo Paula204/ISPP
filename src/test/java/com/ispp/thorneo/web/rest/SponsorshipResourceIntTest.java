@@ -54,11 +54,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = ThorneoApp.class)
 public class SponsorshipResourceIntTest {
 
-    private static final String DEFAULT_BANNER = "AAAAAAAAAA";
-    private static final String UPDATED_BANNER = "BBBBBBBBBB";
+    private static final String DEFAULT_BANNER = "http://AAAAAAAAAA";
+    private static final String UPDATED_BANNER = "http://BBBBBBBBBB";
 
-    private static final String DEFAULT_TARGET_URL = "AAAAAAAAAA";
-    private static final String UPDATED_TARGET_URL = "BBBBBBBBBB";
+    private static final String DEFAULT_TARGET_URL = "http://AAAAAAAAAA";
+    private static final String UPDATED_TARGET_URL = "http://BBBBBBBBBB";
 
     @Autowired
     private SponsorshipRepository sponsorshipRepository;
@@ -91,6 +91,9 @@ public class SponsorshipResourceIntTest {
 
     @Autowired
     private Validator validator;
+
+    @Autowired
+    private SponsorshipResource sponsorshipResource;
 
     private MockMvc restSponsorshipMockMvc;
 
@@ -139,10 +142,11 @@ public class SponsorshipResourceIntTest {
         int databaseSizeBeforeCreate = sponsorshipRepository.findAll().size();
 
         // Create the Sponsorship
-        restSponsorshipMockMvc.perform(post("/api/sponsorships")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(sponsorship)))
-            .andExpect(status().isCreated());
+        SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
+        securityContext.setAuthentication(new UsernamePasswordAuthenticationToken(sponsorship.getUser().getLogin(),
+            sponsorship.getUser().getPassword()));
+        SecurityContextHolder.setContext(securityContext);
+        this.sponsorshipResource.createSponsorship(sponsorship);
 
         // Validate the Sponsorship in the database
         List<Sponsorship> sponsorshipList = sponsorshipRepository.findAll();
@@ -276,11 +280,11 @@ public class SponsorshipResourceIntTest {
     @Transactional
     public void deleteSponsorship() throws Exception {
         // Initialize the database
-        sponsorshipService.save(sponsorship);
-
         SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
         securityContext.setAuthentication(new UsernamePasswordAuthenticationToken(sponsorship.getUser().getLogin(),
             sponsorship.getUser().getPassword()));
+        SecurityContextHolder.setContext(securityContext);
+        sponsorshipService.save(sponsorship);
 
         int databaseSizeBeforeDelete = sponsorshipRepository.findAll().size();
 
@@ -303,6 +307,10 @@ public class SponsorshipResourceIntTest {
     @Transactional
     public void searchSponsorship() throws Exception {
         // Initialize the database
+        SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
+        securityContext.setAuthentication(new UsernamePasswordAuthenticationToken(sponsorship.getUser().getLogin(),
+            sponsorship.getUser().getPassword()));
+        SecurityContextHolder.setContext(securityContext);
         sponsorshipService.save(sponsorship);
         when(mockSponsorshipSearchRepository.search(queryStringQuery("id:" + sponsorship.getId()), PageRequest.of(0, 20)))
             .thenReturn(new PageImpl<>(Collections.singletonList(sponsorship), PageRequest.of(0, 1), 1));

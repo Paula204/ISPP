@@ -42,11 +42,6 @@ entity Sponsorship{
     targetUrl String required
 }
 
-entity Promotion{
-	title String required,
-    qr String required
-}
-
 
 
 relationship OneToMany {
@@ -59,13 +54,12 @@ relationship ManyToOne {
     Sponsorship{tournament} to Tournament,
     Tournament{user} to User, 
     Tournament{game} to Game,
-    Promotion{user required} to User,
     Participation{user required} to User
 }
 
 
 // Set pagination options
-paginate Sponsorship, Promotion with infinite-scroll
+paginate Sponsorship
 paginate Tournament with pagination
 
 // Use Data Transfert Objects (DTO)

@@ -79,7 +79,7 @@
         "enableTranslation": true,
         "nativeLanguage": "es",
         "languages": ["es", "en"],
-        "herokuAppName": "thorneo-sprint-3",
-        "herokuDeployType": "git"
+        "herokuAppName": "thorneo-final-version",
+        "herokuDeployType": "jar"
     }
 }

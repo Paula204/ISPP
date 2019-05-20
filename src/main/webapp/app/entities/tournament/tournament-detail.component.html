@@ -22,7 +22,9 @@
         <div *ngIf="tournament">
             <jhi-alert-error></jhi-alert-error>
             <img class="img-fluid mx-auto d-block" width="200" height="auto" src="{{tournament.imageUrl}}"/>
-
+            <div *ngIf="tournament.imagen">
+            <img class="img-fluid mx-auto d-block" width="200" height="auto" src="{{'data:image/jpg;base64,' + tournament.imagen}}"/>
+            </div>
             <div class="row-md jh-entity-details">
                 <table class="table detailTable" style="border: 2px solid #2792f2; margin: 25px auto; border-radius: 0.25rem;
                 border-collapse: separate;
@@ -41,7 +43,7 @@
                     </tr>
                     <tr>
                         <td><p class="bold" jhiTranslate="thorneoApp.tournament.meetingDate">Meeting Date</p></td>
-                        <td><p> {{tournament.meetingDate}}</p></td>
+                        <td><p> {{tournament.meetingDate | date:'dd-MM-yyyy HH:hh'}}</p></td>
                     </tr>
                     <tr>
                         <td><p class="bold" jhiTranslate="thorneoApp.tournament.meetingPoint">Meeting Point</p></td>
@@ -115,7 +117,7 @@
                 <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span class="d-none d-md-inline" jhiTranslate="entity.action.back"> Back</span>
             </button>
 
-            <button *ngIf="tournament.user.login==currentAccount.login && tournament.winner == null" type="button"
+            <button *ngIf="tournament.user.login==currentAccount.login && tournament.winner == null && tournament.meetingDate > currentDate" type="button"
                     [routerLink]="['/tournament', tournament.id, 'edit']"
                     class="btn btn-primary">
                 <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span class="d-none d-md-inline" jhiTranslate="entity.action.edit"> Edit</span>
@@ -124,12 +126,12 @@
             <div class="d-inline"  *ngIf="tournament.participations.length > 1 && tournament.meetingDate.isBefore(currentDate)">
                         <ng-template></ng-template><button type="button "
                                                         [routerLink]="['/tournament', tournament.id, 'manager' ]"
-                                                        class="btn btn-primary btn-sm">
+                                                        class="btn btn-primary">
                             <fa-icon [icon]="'wrench'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.manage">Manage</span>
                         </button></ng-template>
             </div>
-            <button *ngIf="tournament.winner == null && tournament.user.login != currentAccount.login && tournament.participations.length < tournament.playerSize && estaEn!=false" type="submit"
+            <button *ngIf="tournament.winner == null && tournament.user.login != currentAccount.login && tournament.participations.length < tournament.playerSize && estaEn!=false && moment().diff(tournament.meetingDate, 'minutes') > 0" type="submit"
                     [disabled]="!soyMayor && mayor"  (click)="signOn()"
                     class="btn btn-primary green-background">
                 <fa-icon [icon]="'book'"></fa-icon>&nbsp;<span class="d-none d-md-inline" jhiTranslate="entity.action.signOn"> Sign On</span>

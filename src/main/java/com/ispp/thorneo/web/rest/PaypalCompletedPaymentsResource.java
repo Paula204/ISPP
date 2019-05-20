@@ -125,4 +125,9 @@ public class PaypalCompletedPaymentsResource {
             .collect(Collectors.toList());
     }
 
+    @GetMapping("/paypal-completed-payments/mine")
+    public List<PaypalCompletedPayments> getMyPayments(){
+        log.debug("Get my payments");
+        return this.paypalCompletedPaymentsRepository.findByUserIsCurrentUser();
+    }
 }
