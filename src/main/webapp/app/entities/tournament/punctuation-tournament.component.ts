@@ -88,9 +88,9 @@ export class PunctuationTournamentComponent implements OnInit, OnDestroy {
                     break;
                 }
 
-                if (this.indice % 2 == 0 && this.indice < this.punctuations.length) {
+                if (this.indice % 2 === 0 && this.indice < this.punctuations.length) {
                     const t = this.punctuations[this.indice + 1];
-                    if (p.points == t.points) {
+                    if (p.points === t.points) {
                         this.hayEmpate = true;
                     }
                 }
@@ -103,8 +103,6 @@ export class PunctuationTournamentComponent implements OnInit, OnDestroy {
         this.tournamentService.find(+this.route).subscribe(tournamet => {
             this.tournament = tournamet.body;
         });
-
-        //si ganador redirige a crono
     }
 
     ngOnDestroy() {
