@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -65,6 +66,7 @@ public class Tournament implements Serializable {
     private String rewards;
 
     @Column(name = "image_url")
+    @Length(max = 255)
     private String imageUrl;
 
     @Column(name = "latitude")

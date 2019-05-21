@@ -16,7 +16,7 @@ import { SponsorshipService } from 'app/entities/sponsorship';
 
 import { Type } from 'app/shared/model/tournament.model';
 import { Moment } from 'moment';
-import * as moment from 'moment';
+import * as ns from 'moment';
 
 @Component({
     selector: 'jhi-tournament',
@@ -74,7 +74,8 @@ export class TournamentMyComponent implements OnInit, OnDestroy {
                     sort: this.sort()
                 })
                 .subscribe(
-                    (res: HttpResponse<ITournament[]>) => this.paginateTournaments(res.body, res.headers),
+                    (res: HttpRespo
+                     e<ITournament[]>) => this.paginateTournaments(res.body, res.headers),
                     (res: HttpErrorResponse) => this.onError(res.message)
                 );
             return;
@@ -146,7 +147,7 @@ export class TournamentMyComponent implements OnInit, OnDestroy {
             this.currentAccount = account;
         });
         this.registerChangeInTournaments();
-        this.currentDate = moment();
+        this.currentDate = ns();
         this.sponsorshipService
             .findRandom()
             .pipe(

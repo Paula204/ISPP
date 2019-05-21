@@ -57,14 +57,14 @@
                         </button>
 
 
-                        <button *ngIf="(tournament.user.login==currentAccount.login || currentAccount.authorities.includes('ROLE_ADMIN')) && tournament.meetingDate > currentDate" type="submit"
+                        <button *ngIf="(tournament.user.login==currentAccount.login || currentAccount.authorities.includes('ROLE_ADMIN')) && tournament.meetingDate.isAfter(currentDate)" type="submit"
                                 [routerLink]="['/tournament', tournament.id, 'edit']"
                                 class="btn btn-primary btn-sm">
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                         </button>
 
-                        <button  *ngIf="(tournament.user.login==currentAccount.login || currentAccount.authorities.includes('ROLE_ADMIN')) && tournament.meetingDate > currentDate" type="submit"
+                        <button  *ngIf="(tournament.user.login==currentAccount.login || currentAccount.authorities.includes('ROLE_ADMIN')) && tournament.meetingDate.isAfter(currentDate)" type="submit"
                                  [routerLink]="['/', 'tournament', { outlets: { popup: tournament.id + '/delete'} }]"
                                  replaceUrl="true"
                                  queryParamsHandling="merge"
