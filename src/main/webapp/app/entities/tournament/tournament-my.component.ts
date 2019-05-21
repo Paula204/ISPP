@@ -16,7 +16,7 @@ import { SponsorshipService } from 'app/entities/sponsorship';
 
 import { Type } from 'app/shared/model/tournament.model';
 import { Moment } from 'moment';
-import moment = require('moment');
+import * as moment from 'moment';
 
 @Component({
     selector: 'jhi-tournament',
