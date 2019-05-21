@@ -19,7 +19,7 @@ import { filter, map } from 'rxjs/operators';
 declare let $: any;
 
 import { Type } from 'app/shared/model/tournament.model';
-import moment = require('moment');
+import * as moment from 'moment';
 import { Moment } from 'moment';
 
 @Component({
