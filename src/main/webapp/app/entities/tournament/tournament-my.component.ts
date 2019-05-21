@@ -74,7 +74,7 @@ export class TournamentMyComponent implements OnInit, OnDestroy {
                     sort: this.sort()
                 })
                 .subscribe(
-                    (res: HttpRespoe<ITournament[]>) => this.paginateTournaments(res.body, res.headers),
+                    (res: HttpResponse<ITournament[]>) => this.paginateTournaments(res.body, res.headers),
                     (res: HttpErrorResponse) => this.onError(res.message)
                 );
             return;
