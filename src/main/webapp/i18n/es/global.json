@@ -122,7 +122,9 @@
             "signOn": "Registrar",
             "close": "Cerrar",
             "manage": "Gestionar",
-            "round": "Avanzar ronda"
+            "round": "Avanzar ronda",
+            "draw": "Resuelve cualquier empate antes de avanzar de ronda",
+            "select": "Seleccionar ganador"
         },
         "detail": {
             "field": "Campo",

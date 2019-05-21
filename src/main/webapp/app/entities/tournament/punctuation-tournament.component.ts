@@ -26,7 +26,8 @@ export class PunctuationTournamentComponent implements OnInit, OnDestroy {
     idTorneo: number;
     temp: IPunctuation[];
     hayGanador: boolean;
-    nopuedes: boolean;
+    hayEmpate: boolean;
+    indice: number;
 
     constructor(
         protected punctuationService: PunctuationService,
@@ -77,12 +78,23 @@ export class PunctuationTournamentComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.hayGanador = false;
+        this.hayEmpate = false;
+        this.indice = 0;
         this.tournamentService.getPunctuations(+this.route).subscribe(punctuations => {
             this.punctuations = punctuations.body;
             for (const p of this.punctuations) {
                 if (p.participation.punctuation === 10000) {
                     this.hayGanador = true;
+                    break;
                 }
+
+                if (this.indice % 2 == 0 && this.indice < this.punctuations.length) {
+                    const t = this.punctuations[this.indice + 1];
+                    if (p.points == t.points) {
+                        this.hayEmpate = true;
+                    }
+                }
+                this.indice++;
             }
         });
         this.accountService.identity().then(account => {
@@ -91,6 +103,8 @@ export class PunctuationTournamentComponent implements OnInit, OnDestroy {
         this.tournamentService.find(+this.route).subscribe(tournamet => {
             this.tournament = tournamet.body;
         });
+
+        //si ganador redirige a crono
     }
 
     ngOnDestroy() {
@@ -136,7 +150,6 @@ export class PunctuationTournamentComponent implements OnInit, OnDestroy {
 
     protected onSaveSuccess() {
         this.ngOnInit();
-        this.nopuedes = true;
     }
 
     protected onSaveError() {}

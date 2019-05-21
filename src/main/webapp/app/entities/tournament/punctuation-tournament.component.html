@@ -30,7 +30,7 @@
                             <button type="submit" [routerLink]="['/punctuation', punctuation.id, 'edit']"
                                 class="btn btn-primary btn-sm">
                                 <fa-icon [icon]="'pencil-alt'"></fa-icon>
-                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span> <!--aqui poner el boton no accesible con ngif-->
                             </button>
 
                         </div>
@@ -40,15 +40,29 @@
         </table>
     </div>
 
+    <div class="d-inline" *ngIf="!hayGanador && hayEmpate">
+        
+        <p jhiTranslate="entity.action.draw">Resuelve</p>
+
+    </div>
+
     <div class="d-inline">
         <button type="submit" [routerLink]="['/tournament', route, 'manager']" class="btn btn-primary ">
             <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span class="d-none d-md-inline" jhiTranslate="entity.action.back"> Back</span>
         </button>
     </div>
-    <div class="d-inline" *ngIf="!hayGanador">
+    <div class="d-inline" *ngIf="!hayGanador && !hayEmpate">
         <button type="submit" class="btn btn-primary" (click)="avanzarRonda()">
             <fa-icon [icon]="'clock'"></fa-icon>&nbsp;
             <span class="d-none d-md-inline" jhiTranslate="entity.action.round">roundAdvance</span>
         </button>
     </div>
+    <!--hacer boton que sustituya al de avanza ronda que redirija a la vista anterior y ponga "seleccionar ganador"-->
+    <div class="d-inline" *ngIf="hayGanador"> 
+        <button type="submit" class="btn btn-primary" [routerLink]="['/tournament', route, 'manager']">
+            <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span class="d-none d-md-inline" jhiTranslate="entity.action.select"> Back</span>
+        </button>
+
+    </div>
+
 </div>
