@@ -16,7 +16,7 @@ import { SponsorshipService } from 'app/entities/sponsorship';
 
 import { Type } from 'app/shared/model/tournament.model';
 import { Moment } from 'moment';
-import moment = require('moment');
+import * as ns from 'moment';
 
 @Component({
     selector: 'jhi-tournament',
@@ -146,7 +146,7 @@ export class TournamentMyComponent implements OnInit, OnDestroy {
             this.currentAccount = account;
         });
         this.registerChangeInTournaments();
-        this.currentDate = moment();
+        this.currentDate = ns();
         this.sponsorshipService
             .findRandom()
             .pipe(

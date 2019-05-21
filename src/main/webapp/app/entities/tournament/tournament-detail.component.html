@@ -112,12 +112,12 @@
 
             <jhi-alert-error></jhi-alert-error>
             <button type="submit"
-                    (click)="previousState()"
+                [routerLink]="['/tournament']"
                     class="btn btn-info">
                 <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span class="d-none d-md-inline" jhiTranslate="entity.action.back"> Back</span>
             </button>
 
-            <button *ngIf="tournament.user.login==currentAccount.login && tournament.winner == null && tournament.meetingDate > currentDate" type="button"
+            <button *ngIf="tournament.user.login==currentAccount.login && tournament.winner == null && tournament.meetingDate.isAfter(currentDate)" type="button"
                     [routerLink]="['/tournament', tournament.id, 'edit']"
                     class="btn btn-primary">
                 <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span class="d-none d-md-inline" jhiTranslate="entity.action.edit"> Edit</span>
@@ -131,7 +131,7 @@
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.manage">Manage</span>
                         </button></ng-template>
             </div>
-            <button *ngIf="tournament.winner == null && tournament.user.login != currentAccount.login && tournament.participations.length < tournament.playerSize && estaEn!=false && moment().diff(tournament.meetingDate, 'minutes') > 0" type="submit"
+            <button *ngIf="tournament.winner == null && tournament.user.login != currentAccount.login && tournament.participations.length < tournament.playerSize && estaEn!=false && tournament.meetingDate.isAfter(currentDate)" type="submit"
                     [disabled]="!soyMayor && mayor"  (click)="signOn()"
                     class="btn btn-primary green-background">
                 <fa-icon [icon]="'book'"></fa-icon>&nbsp;<span class="d-none d-md-inline" jhiTranslate="entity.action.signOn"> Sign On</span>
