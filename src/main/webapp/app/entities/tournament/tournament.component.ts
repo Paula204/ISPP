@@ -19,7 +19,7 @@ import { filter, map } from 'rxjs/operators';
 declare let $: any;
 
 import { Type } from 'app/shared/model/tournament.model';
-import moment = require('moment');
+import * as ns from 'moment';
 import { Moment } from 'moment';
 
 @Component({
@@ -144,7 +144,7 @@ export class TournamentComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.currentDate = moment();
+        this.currentDate = ns();
         this.loadAll();
         this.accountService.identity().then(account => {
             this.currentAccount = account;
