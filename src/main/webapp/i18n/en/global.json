@@ -122,7 +122,9 @@
             "signOn": "Sign On",
             "close": "Close",
             "manage": "Manage",
-            "round": "Advance round"
+            "round": "Advance round",
+            "draw": "Resolve any draw before advancing round",
+            "select": "Select the winner"
         },
         "detail": {
             "field": "Field",
