@@ -4,22 +4,14 @@ import { JhiLanguageService } from 'ng-jhipster';
 import { JhiLanguageHelper } from 'app/core';
 
 import { ThorneoSharedModule } from 'app/shared';
-import {
-    GameComponent,
-    GameDetailComponent,
-    GameUpdateComponent,
-    GameDeletePopupComponent,
-    GameDeleteDialogComponent,
-    gameRoute,
-    gamePopupRoute
-} from './';
+import { GameComponent, GameDetailComponent, GameUpdateComponent, gameRoute } from './';
 
-const ENTITY_STATES = [...gameRoute, ...gamePopupRoute];
+const ENTITY_STATES = [...gameRoute];
 
 @NgModule({
     imports: [ThorneoSharedModule, RouterModule.forChild(ENTITY_STATES)],
-    declarations: [GameComponent, GameDetailComponent, GameUpdateComponent, GameDeleteDialogComponent, GameDeletePopupComponent],
-    entryComponents: [GameComponent, GameUpdateComponent, GameDeleteDialogComponent, GameDeletePopupComponent],
+    declarations: [GameComponent, GameDetailComponent, GameUpdateComponent],
+    entryComponents: [GameComponent, GameUpdateComponent],
     providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

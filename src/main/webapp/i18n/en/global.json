@@ -13,7 +13,7 @@
             "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
             "entities": {
                 "main": "Entities",
-                "tournament": "Tournament",
+                "tournament": "Tournaments",
                 "tournamentmy": "My Tournaments",
                 "game": "Game",
                 "participation": "My Participations",
@@ -122,7 +122,9 @@
             "signOn": "Sign On",
             "close": "Close",
             "manage": "Manage",
-            "round": "Advance round"
+            "round": "Advance round",
+            "draw": "Resolve any draw before advancing round",
+            "select": "Select the winner"
         },
         "detail": {
             "field": "Field",
