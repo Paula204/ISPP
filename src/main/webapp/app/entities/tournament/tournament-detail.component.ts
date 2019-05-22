@@ -50,16 +50,17 @@ export class TournamentDetailComponent implements OnInit {
         protected tournamentService: TournamentService,
         protected participationService: ParticipationService,
         private router: Router
-    ) {}
+    ) {
+        this.sponsorship = {};
+        this.accountService.identity().then(account => {
+            this.currentAccount = account;
+        });
+    }
 
     ngOnInit() {
         this.activatedRoute.data.subscribe(({ tournament }) => {
             this.tournament = tournament;
         });
-        this.accountService.identity().then(account => {
-            this.currentAccount = account;
-        });
-
         this.currentDate = new Date();
         this.sponsorshipService
             .findRandom()
