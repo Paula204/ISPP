@@ -44,7 +44,7 @@
 
                 <td>
                     <div *ngIf="tournament.game">
-                        <a [routerLink]="['../game', tournament.game?.id, 'view' ]" >{{tournament.game?.title}}</a>
+                        <a [routerLink]="['/game', tournament.game?.id, 'view' ]" >{{tournament.game?.title}}</a>
                     </div>
                 </td>
                 <td class="text-right">
