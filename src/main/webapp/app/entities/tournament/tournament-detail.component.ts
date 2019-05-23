@@ -69,19 +69,13 @@ export class TournamentDetailComponent implements OnInit {
                 map((sponsorship: HttpResponse<Sponsorship>) => sponsorship.body)
             )
             .subscribe(value => (this.sponsorship = value));
-        for (this.i = 0; this.i < this.tournament.participations.length - 1; this.i++) {
-            this.p = this.tournament.participations[this.i];
+        for (let i = 0; i < this.tournament.participations.length - 1; i++) {
+            this.p = this.tournament.participations[i];
             if (this.p.punctuation === 10000) {
                 this.winner = this.p;
                 break;
             }
         }
-        this.winner = null;
-        this.tournament.participations.forEach(function(participation: IParticipation) {
-            if (participation.punctuation === 10000) {
-                this.winner = participation;
-            }
-        });
 
         if (this.tournament.participations !== undefined) {
             this.x = this.tournament.participations;
