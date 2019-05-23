@@ -51,6 +51,9 @@ export class TournamentDetailComponent implements OnInit {
         protected participationService: ParticipationService,
         private router: Router
     ) {
+        this.activatedRoute.data.subscribe(({ tournament }) => {
+            this.tournament = tournament;
+        });
         this.sponsorship = {};
         this.accountService.identity().then(account => {
             this.currentAccount = account;
@@ -58,9 +61,6 @@ export class TournamentDetailComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.activatedRoute.data.subscribe(({ tournament }) => {
-            this.tournament = tournament;
-        });
         this.currentDate = new Date();
         this.sponsorshipService
             .findRandom()
@@ -76,14 +76,12 @@ export class TournamentDetailComponent implements OnInit {
                 break;
             }
         }
-        for (let i = 0; this.tournament.participations.length; i++) {
-            if (this.tournament.participations[i].punctuation === 10000) {
-                this.winner = this.tournament.participations[i];
-                break;
-            } else {
-                this.winner = null;
+        this.winner = null;
+        this.tournament.participations.forEach(function(participation: IParticipation) {
+            if (participation.punctuation === 10000) {
+                this.winner = participation;
             }
-        }
+        });
 
         if (this.tournament.participations !== undefined) {
             this.x = this.tournament.participations;

@@ -22,6 +22,7 @@ export class ParticipationDetailComponent implements OnInit {
     ) {}
 
     ngOnInit() {
+        this.sponsorship = {};
         this.activatedRoute.data.subscribe(({ participation }) => {
             this.participation = participation;
         });
