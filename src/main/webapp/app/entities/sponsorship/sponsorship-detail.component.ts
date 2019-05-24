@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AccountService } from 'app/core';
+import { Account, AccountService } from 'app/core';
 
 import { ISponsorship } from 'app/shared/model/sponsorship.model';
 

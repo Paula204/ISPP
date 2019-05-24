@@ -4,7 +4,7 @@
 
     <groupId>com.ispp.thorneo</groupId>
     <artifactId>thorneo</artifactId>
-    <version>1.0</version>
+    <version>1.5</version>
     <packaging>war</packaging>
     <name>Thorneo</name>
 

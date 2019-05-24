@@ -56,7 +56,7 @@ public class Tournament implements Serializable {
 
     @Min(value = 0)
     @Column(name = "price")
-    private Integer price;
+    private Double price;
 
     @Min(value = 1)
     @Column(name = "player_size")
@@ -178,16 +178,16 @@ public class Tournament implements Serializable {
         this.city = city;
     }
 
-    public Integer getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public Tournament price(Integer price) {
+    public Tournament price(Double price) {
         this.price = price;
         return this;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 

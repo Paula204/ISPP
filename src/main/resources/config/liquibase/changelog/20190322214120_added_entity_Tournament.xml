@@ -42,7 +42,7 @@
                 <constraints nullable="false" />
             </column>
 
-            <column name="price" type="integer">
+            <column name="price" type="double">
                 <constraints nullable="true" />
             </column>
 
