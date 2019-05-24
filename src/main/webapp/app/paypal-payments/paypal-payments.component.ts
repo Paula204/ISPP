@@ -90,7 +90,7 @@ export class PaypalPaymentsComponent implements OnInit, AfterViewChecked {
                     if (this.isSponsor === false && this.isUser === true) {
                         _this.amount = _this.torneo.price + _this.torneo.price * 0.09;
                     } else {
-                        _this.amount = _this.torneo.price;
+                        _this.amount = +_this.torneo.price.toFixed(2);
                     }
                     _this.cycles = 1;
                     _this.frequency = 'Year';
@@ -104,7 +104,7 @@ export class PaypalPaymentsComponent implements OnInit, AfterViewChecked {
                                         type: 'REGULAR',
                                         frequency: _this.frequency,
                                         amount: {
-                                            value: _this.amount
+                                            value: +_this.amount.toFixed(2)
                                         },
                                         cycles: _this.cycles
                                     }
