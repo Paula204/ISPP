@@ -33,6 +33,9 @@ export class PaypalCompletedPaymentsMineComponent implements OnInit, OnDestroy {
                 : '';
         const res = activatedRoute.snapshot.url.length;
         this.route = activatedRoute.snapshot.url[res - 1].toString();
+        this.accountService.identity().then(account => {
+            this.currentAccount = account;
+        });
     }
 
     loadAll() {
@@ -80,9 +83,6 @@ export class PaypalCompletedPaymentsMineComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.accountService.identity().then(account => {
-            this.currentAccount = account;
-        });
         this.paypalCompletedPaymentsService.getMine().subscribe(paypalPayments => {
             this.paypalCompletedPayments = paypalPayments.body;
         });

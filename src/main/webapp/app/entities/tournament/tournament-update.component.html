@@ -96,10 +96,10 @@
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="thorneoApp.tournament.playerSize" for="field_playerSize">Player Size</label>
                     <input type="number" class="form-control" name="playerSize" id="field_playerSize"
-                        [(ngModel)]="tournament.playerSize" min="2" jhiMin="2"/>
+                        [(ngModel)]="tournament.playerSize" min="2" jhiMin="2" required/>
                     <div [hidden]="!(editForm.controls.playerSize?.dirty && editForm.controls.playerSize?.invalid)">
                         <small class="form-text text-danger"
-                               [hidden]="!editForm.controls.playerSize?.errors?.min" jhiTranslate="entity.validation.min" [translateValues]="{ min: 1 }">
+                               [hidden]="!editForm.controls.playerSize?.errors?.min" jhiTranslate="entity.validation.min" [translateValues]="{ min: 2 }">
                             This field should be at least 0.
                         </small>
                         <small class="form-text text-danger"

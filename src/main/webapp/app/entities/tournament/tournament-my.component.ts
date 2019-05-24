@@ -51,7 +51,11 @@ export class TournamentMyComponent implements OnInit, OnDestroy {
         protected eventManager: JhiEventManager,
         protected sponsorshipService: SponsorshipService
     ) {
+        this.sponsorship = {};
         this.itemsPerPage = ITEMS_PER_PAGE;
+        this.accountService.identity().then(account => {
+            this.currentAccount = account;
+        });
         this.routeData = this.activatedRoute.data.subscribe(data => {
             this.page = data.pagingParams.page;
             this.previousPage = data.pagingParams.page;
@@ -142,9 +146,6 @@ export class TournamentMyComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.loadAll();
-        this.accountService.identity().then(account => {
-            this.currentAccount = account;
-        });
         this.registerChangeInTournaments();
         this.currentDate = ns();
         this.sponsorshipService
