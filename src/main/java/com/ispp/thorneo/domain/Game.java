@@ -40,6 +40,7 @@ public class Game implements Serializable {
     private Category category;
 
     @Min(3)
+    @Max(18)
     @Column(name = "min_age")
     private Integer minAge;
 

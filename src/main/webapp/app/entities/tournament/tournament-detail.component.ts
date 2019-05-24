@@ -95,6 +95,14 @@ export class TournamentDetailComponent implements OnInit {
         if (this.tournament.game.minAge >= 18) {
             this.mayor = true;
         }
+        this.participa = false;
+        let participacion;
+        for (participacion of this.tournament.participations) {
+            if (participacion.user.login === this.currentAccount.login) {
+                this.participa = true;
+                break;
+            }
+        }
     }
 
     nonbottonn() {
@@ -114,13 +122,6 @@ export class TournamentDetailComponent implements OnInit {
 
     signOn() {
         this.isSaving = true;
-        let participacion;
-        for (participacion of this.tournament.participations) {
-            if (participacion.user.login === this.currentAccount.login) {
-                this.participa = true;
-                this.estaEn = false;
-            }
-        }
         if (this.tournament.participations === null) {
             this.tournament.participations = [];
         }

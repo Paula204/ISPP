@@ -76,7 +76,7 @@
                 <div class="form-group" > 
                     <label class="form-control-label" jhiTranslate="thorneoApp.tournament.price" for="field_price">Price</label>
                     <input type="number" class="form-control" name="price" id="field_price"
-                        [(ngModel)]="tournament.price" min="0" jhiMin="0"/>
+                        [(ngModel)]="tournament.price" min="0" jhiMin="0" step=".01" pattern="^\d*(\.\d{0,2})?$"/>
                     <div [hidden]="!(editForm.controls.price?.dirty && editForm.controls.price?.invalid)">
                         <small class="form-text text-danger"
                                [hidden]="!editForm.controls.price?.errors?.min" jhiTranslate="entity.validation.min" [translateValues]="{ min: -1 }">

@@ -40,7 +40,7 @@
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="thorneoApp.game.minAge" for="field_minAge">Min Age</label>
-                    <input type="number" min="3" class="form-control" name="minAge" id="field_minAge"
+                    <input type="number" min="3" max="18" class="form-control" name="minAge" id="field_minAge"
                         [(ngModel)]="game.minAge" required/>
                     <div [hidden]="!(editForm.controls.minAge?.dirty && editForm.controls.minAge?.invalid)">
                         <small class="form-text text-danger"
