@@ -33,7 +33,6 @@ export class PaypalPaymentsComponent implements OnInit, AfterViewChecked {
     amount: number;
     cycles: number;
     frequency: string;
-    pagoTorneo: boolean;
     isUser: any;
     isSponsor: any;
 
@@ -53,7 +52,6 @@ export class PaypalPaymentsComponent implements OnInit, AfterViewChecked {
         console.log('==================================');
         const res = activatedRoute.snapshot.url.length;
         this.route = activatedRoute.snapshot.url[res - 1].toString();
-        this.pagoTorneo = false;
     }
     ngOnInit() {
         this.accountService.identity().then(account => {
@@ -159,7 +157,6 @@ export class PaypalPaymentsComponent implements OnInit, AfterViewChecked {
                                     _this.upgradeSponsor();
                                 } else {
                                     _this.upgradeThorneo();
-                                    this.pagoTorneo = true;
                                 }
                             });
                         }
