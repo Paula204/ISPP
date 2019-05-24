@@ -17,7 +17,7 @@ public class TournamentForm {
     private Instant meetingDate;
     private String meetingPoint;
     private String city;
-    private Integer price;
+    private Double price;
     private Integer playerSize;
     private String rewards;
     private String imageUrl;
@@ -103,11 +103,11 @@ public class TournamentForm {
         this.city = city;
     }
 
-    public Integer getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 

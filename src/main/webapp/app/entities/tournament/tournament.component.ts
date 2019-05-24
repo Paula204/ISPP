@@ -54,6 +54,7 @@ export class TournamentComponent implements OnInit, OnDestroy {
         protected router: Router,
         protected eventManager: JhiEventManager
     ) {
+        this.sponsorship = {};
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe(data => {
             this.page = data.pagingParams.page;
@@ -65,6 +66,9 @@ export class TournamentComponent implements OnInit, OnDestroy {
             this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['search']
                 ? this.activatedRoute.snapshot.params['search']
                 : '';
+        this.accountService.identity().then(account => {
+            this.currentAccount = account;
+        });
     }
 
     loadAll() {
@@ -146,9 +150,6 @@ export class TournamentComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.currentDate = ns();
         this.loadAll();
-        this.accountService.identity().then(account => {
-            this.currentAccount = account;
-        });
         this.registerChangeInTournaments();
         this.sponsorshipService
             .findRandom()
@@ -156,11 +157,15 @@ export class TournamentComponent implements OnInit, OnDestroy {
                 filter((response: HttpResponse<Sponsorship>) => response.ok),
                 map((sponsorship: HttpResponse<Sponsorship>) => sponsorship.body)
             )
-            .subscribe(value => (this.sponsorship = value));
+            .subscribe(value => this.loadSponsorship(value));
     }
 
     ngOnDestroy() {
         this.eventManager.destroy(this.eventSubscriber);
+    }
+
+    protected loadSponsorship(sponsorship: ISponsorship) {
+        this.sponsorship = sponsorship;
     }
 
     trackId(index: number, item: ITournament) {

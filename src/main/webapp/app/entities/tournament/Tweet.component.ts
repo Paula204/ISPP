@@ -18,6 +18,8 @@ export class TweetComponent implements AfterViewInit {
 
     constructor() {
         // load twitter sdk if required
+        window['twttr'] = {};
+        window['twttr'].widgets = {};
         const url = 'https://platform.twitter.com/widgets.js';
         if (!document.querySelector(`script[src='${url}']`)) {
             const script = document.createElement('script');
@@ -28,6 +30,6 @@ export class TweetComponent implements AfterViewInit {
 
     ngAfterViewInit(): void {
         // render tweet button
-        const b = !(!window['twttr'].widgets.load() || !window['twttr']);
+        const b = !(!window['twttr'].widgets || !window['twttr']);
     }
 }

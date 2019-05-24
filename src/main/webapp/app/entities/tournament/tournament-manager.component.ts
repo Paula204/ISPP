@@ -59,6 +59,9 @@ export class TournamentManagerComponent implements OnInit, OnDestroy {
         this.tournamentService.find(+this.route).subscribe(tournament => {
             this.tournament = tournament.body;
         });
+        this.accountService.identity().then(account => {
+            this.currentAccount = account;
+        });
     }
     ngOnDestroy() {
         window.location.reload();
@@ -75,9 +78,6 @@ export class TournamentManagerComponent implements OnInit, OnDestroy {
                     this.hayGanador = true;
                 }
             }
-        });
-        this.accountService.identity().then(account => {
-            this.currentAccount = account;
         });
         this.currentDate = new Date();
         // ....
@@ -165,7 +165,6 @@ export class TournamentManagerComponent implements OnInit, OnDestroy {
              *
              * data:     changed bracket object in format given to init
              * userData: optional data given when bracket is created.
-             */
             function saveFn(data, userData) {
                 const json = $.toJSON(data);
                 $('#saveOutput').text('POST ' + userData + ' ' + json);
@@ -174,8 +173,7 @@ export class TournamentManagerComponent implements OnInit, OnDestroy {
                                                   dataType: 'json',
                                                   type: 'post',
                                                   data: json})
-                    */
-            }
+            }*/
 
             $(function() {
                 const container = $('.gestionador');
@@ -186,7 +184,7 @@ export class TournamentManagerComponent implements OnInit, OnDestroy {
                 /* You can also inquiry the current data */
                 const data = container.bracket('data');
 
-                $('#dataOutput').text($.toJSON(data));
+                /* $('#dataOutput').text($.toJSON(data));*/
             });
         });
         // ANTIGUO METODO

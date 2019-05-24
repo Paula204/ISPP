@@ -50,16 +50,17 @@ export class TournamentDetailComponent implements OnInit {
         protected tournamentService: TournamentService,
         protected participationService: ParticipationService,
         private router: Router
-    ) {}
-
-    ngOnInit() {
+    ) {
         this.activatedRoute.data.subscribe(({ tournament }) => {
             this.tournament = tournament;
         });
+        this.sponsorship = {};
         this.accountService.identity().then(account => {
             this.currentAccount = account;
         });
+    }
 
+    ngOnInit() {
         this.currentDate = new Date();
         this.sponsorshipService
             .findRandom()
@@ -68,19 +69,11 @@ export class TournamentDetailComponent implements OnInit {
                 map((sponsorship: HttpResponse<Sponsorship>) => sponsorship.body)
             )
             .subscribe(value => (this.sponsorship = value));
-        for (this.i = 0; this.i < this.tournament.participations.length - 1; this.i++) {
-            this.p = this.tournament.participations[this.i];
+        for (let i = 0; i < this.tournament.participations.length - 1; i++) {
+            this.p = this.tournament.participations[i];
             if (this.p.punctuation === 10000) {
                 this.winner = this.p;
                 break;
-            }
-        }
-        for (let i = 0; this.tournament.participations.length; i++) {
-            if (this.tournament.participations[i].punctuation === 10000) {
-                this.winner = this.tournament.participations[i];
-                break;
-            } else {
-                this.winner = null;
             }
         }
 
@@ -102,6 +95,14 @@ export class TournamentDetailComponent implements OnInit {
         if (this.tournament.game.minAge >= 18) {
             this.mayor = true;
         }
+        this.participa = false;
+        let participacion;
+        for (participacion of this.tournament.participations) {
+            if (participacion.user.login === this.currentAccount.login) {
+                this.participa = true;
+                break;
+            }
+        }
     }
 
     nonbottonn() {
@@ -121,13 +122,6 @@ export class TournamentDetailComponent implements OnInit {
 
     signOn() {
         this.isSaving = true;
-        let participacion;
-        for (participacion of this.tournament.participations) {
-            if (participacion.user.login === this.currentAccount.login) {
-                this.participa = true;
-                this.estaEn = false;
-            }
-        }
         if (this.tournament.participations === null) {
             this.tournament.participations = [];
         }

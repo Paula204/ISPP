@@ -44,7 +44,12 @@ export class GameDetailComponent implements OnInit {
         protected tournamentService: TournamentService,
         protected participationService: ParticipationService,
         private router: Router
-    ) {}
+    ) {
+        this.sponsorship = {};
+        this.accountService.identity().then(account => {
+            this.currentAccount = account;
+        });
+    }
 
     ngOnInit() {
         this.activatedRoute.data.subscribe(({ game }) => {
@@ -57,9 +62,6 @@ export class GameDetailComponent implements OnInit {
                 map((sponsorship: HttpResponse<Sponsorship>) => sponsorship.body)
             )
             .subscribe(value => (this.sponsorship = value));
-        this.accountService.identity().then(account => {
-            this.currentAccount = account;
-        });
         /*
         let participacion;
         for (participacion of this.tournament.participations) {

@@ -83,8 +83,8 @@ public class TournamentResourceIntTest {
     private static final String DEFAULT_CITY = "AAAAAAAAAA";
     private static final String UPDATED_CITY = "BBBBBBBBBB";
 
-    private static final Integer DEFAULT_PRICE = 0;
-    private static final Integer UPDATED_PRICE = 1;
+    private static final Double DEFAULT_PRICE = 0.0;
+    private static final Double UPDATED_PRICE = 1.0;
 
     private static final Integer DEFAULT_PLAYER_SIZE = 1;
     private static final Integer UPDATED_PLAYER_SIZE = 2;
