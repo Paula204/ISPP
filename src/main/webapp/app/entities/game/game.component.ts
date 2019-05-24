@@ -30,10 +30,14 @@ export class GameComponent implements OnInit, OnDestroy {
         protected accountService: AccountService,
         protected sponsorshipService: SponsorshipService
     ) {
+        this.sponsorship = {};
         this.currentSearch =
             this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['search']
                 ? this.activatedRoute.snapshot.params['search']
                 : '';
+        this.accountService.identity().then(account => {
+            this.currentAccount = account;
+        });
     }
 
     loadAll() {
@@ -79,9 +83,6 @@ export class GameComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.loadAll();
-        this.accountService.identity().then(account => {
-            this.currentAccount = account;
-        });
         this.registerChangeInGames();
         this.sponsorshipService
             .findRandom()
